@@ -1,0 +1,79 @@
+{
+  "roles": [
+    {
+      "name": "Admin",
+      "permissions": {
+        "createWorkflow": true,
+        "editWorkflow": true,
+        "deleteWorkflow": true,
+        "addStep": true,
+        "deleteStep": true,
+        "moveStep": true,
+        "uploadAssets": true,
+        "assignWorkflow": true,
+        "manageUsers": true,
+        "viewReports": true
+      }
+    },
+    {
+      "name": "Manager",
+      "permissions": {
+        "createWorkflow": false,
+        "editWorkflow": true,
+        "deleteWorkflow": false,
+        "addStep": true,
+        "deleteStep": false,
+        "moveStep": true,
+        "uploadAssets": true,
+        "assignWorkflow": true,
+        "manageUsers": false,
+        "viewReports": true
+      }
+    },
+    {
+      "name": "QA",
+      "permissions": {
+        "createWorkflow": false,
+        "editWorkflow": false,
+        "deleteWorkflow": false,
+        "addStep": false,
+        "deleteStep": false,
+        "moveStep": false,
+        "uploadAssets": false,
+        "assignWorkflow": false,
+        "manageUsers": false,
+        "viewReports": true
+      }
+    },
+    {
+      "name": "Employee",
+      "permissions": {
+        "createWorkflow": false,
+        "editWorkflow": false,
+        "deleteWorkflow": false,
+        "addStep": false,
+        "deleteStep": false,
+        "moveStep": false,
+        "uploadAssets": false,
+        "assignWorkflow": false,
+        "manageUsers": false,
+        "viewReports": false
+      }
+    },
+    {
+      "name": "Trainer",
+      "permissions": {
+        "createWorkflow": false,
+        "editWorkflow": true,
+        "deleteWorkflow": false,
+        "addStep": true,
+        "deleteStep": false,
+        "moveStep": true,
+        "uploadAssets": true,
+        "assignWorkflow": false,
+        "manageUsers": false,
+        "viewReports": true
+      }
+    }
+  ]
+}

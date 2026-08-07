@@ -1,0 +1,42 @@
+{
+  "cards": [
+    {
+      "label": "Total Users",
+      "value": "128"
+    },
+    {
+      "label": "Completed Workflows",
+      "value": "842"
+    },
+    {
+      "label": "Pending Workflows",
+      "value": "76"
+    },
+    {
+      "label": "Avg Completion Time",
+      "value": "18m"
+    },
+    {
+      "label": "Frequently Used SOPs",
+      "value": "24"
+    }
+  ],
+  "paths": [
+    {
+      "name": "Payment > Retail > F4 Quality",
+      "percent": 82
+    },
+    {
+      "name": "Claims > Retail",
+      "percent": 64
+    },
+    {
+      "name": "NSA IDR",
+      "percent": 46
+    },
+    {
+      "name": "Membership",
+      "percent": 38
+    }
+  ]
+}
