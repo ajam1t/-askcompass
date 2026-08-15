@@ -1,1 +1,0 @@
-No inline style tags, inline script tags, style attributes, or inline event handlers found in index.html.
