@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import { createAdminClient } from '@/lib/supabase/server'
 import { getSessionAccount } from '@/lib/auth'
+import { isFreeAccessMode } from '@/lib/membership'
 
 const ProfileSchema = z.object({
   profile_for: z.enum(['self', 'son', 'daughter', 'sibling', 'other']).default('self'),
@@ -118,14 +119,27 @@ export async function PUT(request: NextRequest) {
 
   const profileCompletion = computeCompletion(data)
 
+  // Free-access/testing mode: profiles are self-serve — they go live immediately
+  // and are discoverable by default. When FREE_ACCESS_MODE=false, the normal
+  // draft → admin-moderation model applies (profile_status stays 'draft' on
+  // create and is promoted to 'active' only by an admin).
+  const freeMode = isFreeAccessMode()
+  const discoverableDefault = data.discoverable ?? freeMode
+
   const { data: existing } = await admin
     .from('profiles')
-    .select('id')
+    .select('id, profile_status')
     .eq('account_id', account.id)
     .is('deleted_at', null)
     .maybeSingle()
 
   if (existing) {
+    // In free mode, promote a draft to active on save; never override a
+    // deactivated/banned/active status here.
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const currentStatus = (existing as any).profile_status as string
+    const promotedStatus = freeMode && currentStatus === 'draft' ? 'active' : currentStatus
+
     const { error } = await admin
       .from('profiles')
       .update({
@@ -149,7 +163,8 @@ export async function PUT(request: NextRequest) {
         drinking: data.drinking || null,
         about_me: data.about_me ?? null,
         family_about: data.family_about ?? null,
-        discoverable: data.discoverable ?? false,
+        discoverable: discoverableDefault,
+        profile_status: promotedStatus,
         profile_complete: profileCompletion,
         search_needs_rebuild: true,
       })
@@ -187,9 +202,9 @@ export async function PUT(request: NextRequest) {
       drinking: data.drinking || null,
       about_me: data.about_me ?? null,
       family_about: data.family_about ?? null,
-      discoverable: data.discoverable ?? false,
+      discoverable: discoverableDefault,
       profile_complete: profileCompletion,
-      profile_status: 'draft',
+      profile_status: freeMode ? 'active' : 'draft',
     })
     .select('id')
     .single()

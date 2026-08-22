@@ -22,6 +22,7 @@ const LABELS: Record<string, Record<string, string>> = {
     profession: 'Profession', employer: 'Employer',
     current_location: 'Currently in', native_place: 'Native place',
     mobile: 'Mobile', email: 'Email',
+    age: 'Age', gender: 'Gender', religion: 'Religion', caste: 'Caste', years: 'years',
   },
   mai: {
     title: 'विवाह बायोडाटा',
@@ -34,6 +35,7 @@ const LABELS: Record<string, Record<string, string>> = {
     profession: 'पेशा', employer: 'नियोक्ता',
     current_location: 'वर्तमान स्थान', native_place: 'मूल स्थान',
     mobile: 'मोबाइल', email: 'ईमेल',
+    age: 'आयु', gender: 'लिंग', religion: 'धर्म', caste: 'जाति', years: 'वर्ष',
   },
   hi: {
     title: 'विवाह बायोडाटा',
@@ -46,6 +48,20 @@ const LABELS: Record<string, Record<string, string>> = {
     profession: 'पेशा', employer: 'नियोक्ता',
     current_location: 'वर्तमान शहर', native_place: 'मूल स्थान',
     mobile: 'मोबाइल', email: 'ईमेल',
+    age: 'आयु', gender: 'लिंग', religion: 'धर्म', caste: 'जाति', years: 'वर्ष',
+  },
+  sa: {
+    title: 'विवाहार्थं परिचयपत्रम्',
+    community: 'समाजविवरणम्', personal: 'वैयक्तिकविवरणम्',
+    career: 'शिक्षा वृत्तिश्च', location: 'स्थानम्',
+    about: 'आत्मपरिचयः', family: 'कुटुम्बपरिचयः', contact: 'सम्पर्कः',
+    sub_caste: 'उपजातिः', self_gotra: 'गोत्रम्', maternal_gotra: 'मातृगोत्रम्',
+    mool: 'मूलम्', gram: 'ग्रामः', height: 'औन्नत्यम्', diet: 'आहारः',
+    smoking: 'धूम्रपानम्', drinking: 'मद्यपानम्', education: 'शिक्षा',
+    profession: 'वृत्तिः', employer: 'नियोक्ता',
+    current_location: 'वर्तमानस्थानम्', native_place: 'मूलस्थानम्',
+    mobile: 'चलभाषः', email: 'विपत्रम्',
+    age: 'वयः', gender: 'लिङ्गम्', religion: 'धर्मः', caste: 'जातिः', years: 'वर्षाणि',
   },
 }
 
@@ -277,10 +293,10 @@ export default async function BiodataPreviewPage({
             )}
             <table style={{ fontSize: '13px', borderCollapse: 'collapse' }}>
               <tbody>
-                {has('age') && <Row label="Age" value={`${age} years`} />}
-                {has('gender') && <Row label="Gender" value={p.gender} />}
-                {has('religion') && <Row label="Religion" value={p.religion} />}
-                {has('caste') && <Row label="Caste" value={p.caste} />}
+                {has('age') && <Row label={L.age} value={`${age} ${L.years}`} />}
+                {has('gender') && <Row label={L.gender} value={p.gender} />}
+                {has('religion') && <Row label={L.religion} value={p.religion} />}
+                {has('caste') && <Row label={L.caste} value={p.caste} />}
               </tbody>
             </table>
           </div>

@@ -57,3 +57,23 @@ export async function getActivePlan(): Promise<PlanConfig | null> {
 export function isMembershipLive(status: MembershipStatus): boolean {
   return ['active', 'expiring_soon', 'grace'].includes(status)
 }
+
+/**
+ * Free-access testing mode. When FREE_ACCESS_MODE=true, membership/payment gates
+ * are bypassed so every feature is free (registration, interests, messaging,
+ * biodata, etc.). Set FREE_ACCESS_MODE=false (or remove it) to re-enable the
+ * Razorpay membership gates without any code changes.
+ */
+export function isFreeAccessMode(): boolean {
+  return process.env.FREE_ACCESS_MODE === 'true'
+}
+
+/**
+ * Returns true if the account may use paid features right now — either because
+ * free-access mode is on, or they hold a live membership.
+ */
+export async function hasFeatureAccess(accountId: string): Promise<boolean> {
+  if (isFreeAccessMode()) return true
+  const membership = await getActiveMembership(accountId)
+  return !!membership && isMembershipLive(membership.status)
+}

@@ -2,11 +2,21 @@ import 'server-only'
 import { NextRequest, NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase/server'
 import { getSessionAccount } from '@/lib/auth'
-import { getActiveMembership, isMembershipLive } from '@/lib/membership'
+import { hasFeatureAccess } from '@/lib/membership'
 
 function toDisplayName(firstName: string, lastName: string | null): string {
   if (lastName) return `${firstName} ${lastName[0]}.`
   return firstName
+}
+
+/** Age in whole years from a YYYY-MM-DD dob string (dob itself is never returned). */
+function computeAge(dob: string): number {
+  const birth = new Date(dob)
+  const now = new Date()
+  let age = now.getFullYear() - birth.getFullYear()
+  const m = now.getMonth() - birth.getMonth()
+  if (m < 0 || (m === 0 && now.getDate() < birth.getDate())) age--
+  return age
 }
 
 export async function GET() {
@@ -60,30 +70,92 @@ export async function GET() {
     otherIds.add(m.from_profile === myId ? m.to_profile : m.from_profile)
   }
 
-  const profileMap = new Map<string, { first_name: string; last_name: string | null }>()
+  // ── Batch-fetch display data for the other profiles ──
+  type OtherProfile = {
+    id: string
+    display_name: string
+    age: number | null
+    gender: string
+    caste: string | null
+    current_loc_name: string | null
+    photo_url: string | null
+  }
+  const profileMap = new Map<string, OtherProfile>()
+
   if (otherIds.size > 0) {
-    const { data: nameRows } = await admin
+    const idList = [...otherIds]
+    const { data: rows } = await admin
       .from('profiles')
-      .select('id, first_name, last_name')
-      .in('id', [...otherIds])
-    for (const row of (nameRows ?? [])) {
+      .select('id, first_name, last_name, dob, gender, caste, current_loc_id')
+      .in('id', idList)
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const profileRows: any[] = rows ?? []
+
+    // Resolve location names
+    const locIds = new Set<number>()
+    for (const r of profileRows) if (r.current_loc_id != null) locIds.add(r.current_loc_id as number)
+    const locMap = new Map<number, string>()
+    if (locIds.size > 0) {
+      const { data: locRows } = await admin
+        .from('india_locations')
+        .select('id, name_en')
+        .in('id', [...locIds])
+      for (const l of (locRows ?? [])) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const loc = l as any
+        locMap.set(loc.id as number, loc.name_en as string)
+      }
+    }
+
+    // Primary approved photos → signed URLs
+    const { data: photoRows } = await admin
+      .from('profile_photos')
+      .select('profile_id, storage_path')
+      .in('profile_id', idList)
+      .eq('is_primary', true)
+      .eq('status', 'approved')
+    const pathByProfile = new Map<string, string>()
+    for (const ph of (photoRows ?? [])) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const r = row as any
-      profileMap.set(r.id, { first_name: r.first_name, last_name: r.last_name ?? null })
+      const p = ph as any
+      if (!pathByProfile.has(p.profile_id as string)) pathByProfile.set(p.profile_id as string, p.storage_path as string)
+    }
+    const signedByProfile = new Map<string, string | null>()
+    for (const [pid, path] of pathByProfile.entries()) {
+      try {
+        const { data: signed } = await admin.storage.from('profile-photos').createSignedUrl(path, 3600)
+        signedByProfile.set(pid, signed?.signedUrl ?? null)
+      } catch {
+        signedByProfile.set(pid, null)
+      }
+    }
+
+    for (const r of profileRows) {
+      profileMap.set(r.id as string, {
+        id: r.id as string,
+        display_name: toDisplayName(r.first_name as string, (r.last_name as string | null) ?? null),
+        age: r.dob ? computeAge(r.dob as string) : null,
+        gender: r.gender as string,
+        caste: (r.caste as string | null) ?? null,
+        current_loc_name: r.current_loc_id != null ? (locMap.get(r.current_loc_id as number) ?? null) : null,
+        photo_url: signedByProfile.get(r.id as string) ?? null,
+      })
     }
   }
 
+  const fallback = (id: string): OtherProfile => ({
+    id, display_name: 'Member', age: null, gender: '', caste: null, current_loc_name: null, photo_url: null,
+  })
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function toCard(interest: any, otherProfileId: string) {
-    const p = profileMap.get(otherProfileId)
     return {
-      interest_id: interest.id,
-      profile_id: otherProfileId,
-      display_name: p ? toDisplayName(p.first_name, p.last_name) : null,
-      status: interest.status,
-      sent_at: interest.sent_at,
-      responded_at: interest.responded_at ?? null,
-      message: interest.message ?? null,
+      interest_id: interest.id as string,
+      status: interest.status as string,
+      created_at: (interest.sent_at ?? interest.responded_at) as string,
+      message: (interest.message ?? null) as string | null,
+      profile: profileMap.get(otherProfileId) ?? fallback(otherProfileId),
     }
   }
 
@@ -111,8 +183,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: false, message: 'to_profile_id is required' }, { status: 400 })
   }
 
-  const membership = await getActiveMembership(session.id)
-  if (!membership || !isMembershipLive(membership.status)) {
+  // feature access gate (bypassed when FREE_ACCESS_MODE=true)
+  if (!(await hasFeatureAccess(session.id))) {
     return NextResponse.json(
       { ok: false, message: 'An active membership is required to send interests' },
       { status: 403 },

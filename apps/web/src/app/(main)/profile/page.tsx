@@ -19,7 +19,7 @@ type Profile = {
   gram: string | null
   about_me: string | null
   discoverable: boolean
-  completion_pct: number | null
+  profile_complete: number | null
   profile_status: string | null
 }
 
@@ -173,7 +173,7 @@ export default function ProfilePage() {
                   </div>
 
                   <div className="mt-3">
-                    <CompletionBar pct={profile.completion_pct ?? 0} />
+                    <CompletionBar pct={profile.profile_complete ?? 0} />
                   </div>
                 </div>
               </div>

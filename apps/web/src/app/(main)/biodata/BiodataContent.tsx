@@ -84,8 +84,9 @@ const DEFAULT_FIELDS = [
 
 const LANG_OPTIONS = [
   { value: 'en',  label: 'English' },
-  { value: 'mai', label: 'Maithili' },
   { value: 'hi',  label: 'Hindi' },
+  { value: 'mai', label: 'Maithili' },
+  { value: 'sa',  label: 'Sanskrit' },
 ]
 
 function formatDate(iso: string) {

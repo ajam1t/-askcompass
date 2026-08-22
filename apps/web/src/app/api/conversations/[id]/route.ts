@@ -40,9 +40,45 @@ export async function GET(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const conv = convRow as any
 
-  // Step 5: verify membership
+  // Step 5: verify participant
   if ((conv.profile_a as string) !== myProfileId && (conv.profile_b as string) !== myProfileId) {
     return NextResponse.json({ ok: false, message: 'Forbidden' }, { status: 403 })
+  }
+
+  // Step 5b: resolve the conversation partner (name + signed primary photo)
+  const partnerId = (conv.profile_a as string) === myProfileId
+    ? (conv.profile_b as string)
+    : (conv.profile_a as string)
+
+  const { data: partnerRow } = await admin
+    .from('profiles')
+    .select('id, first_name, last_name')
+    .eq('id', partnerId)
+    .maybeSingle()
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const pr = partnerRow as any
+  const partnerName = pr
+    ? (pr.last_name ? `${pr.first_name} ${(pr.last_name as string)[0]}.` : (pr.first_name as string))
+    : 'Member'
+
+  let partnerPhotoUrl: string | null = null
+  const { data: partnerPhoto } = await admin
+    .from('profile_photos')
+    .select('storage_path')
+    .eq('profile_id', partnerId)
+    .eq('is_primary', true)
+    .eq('status', 'approved')
+    .maybeSingle()
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const pp = partnerPhoto as any
+  if (pp?.storage_path) {
+    try {
+      const { data: signed } = await admin.storage.from('profile-photos').createSignedUrl(pp.storage_path as string, 3600)
+      partnerPhotoUrl = signed?.signedUrl ?? null
+    } catch {
+      partnerPhotoUrl = null
+    }
   }
 
   // Step 6: read optional cursor param
@@ -92,6 +128,7 @@ export async function GET(
   return NextResponse.json({
     ok: true,
     conversation_id: id,
+    partner: { id: partnerId, display_name: partnerName, photo_url: partnerPhotoUrl },
     messages: ascending.map((m) => ({
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       id: (m as any).id as string,

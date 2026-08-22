@@ -85,6 +85,33 @@ export async function PATCH(
     return NextResponse.json({ ok: false, message: 'Failed to update interest' }, { status: 500 })
   }
 
+  // On acceptance, open a conversation between the two profiles so messaging
+  // becomes available immediately. Canonical ordering (profile_a < profile_b)
+  // matches the table CHECK; upsert with ignoreDuplicates = ON CONFLICT DO NOTHING.
+  let conversationId: string | null = null
+  if (typedAction === 'accept') {
+    const a = (iv.from_profile as string) < (iv.to_profile as string) ? iv.from_profile : iv.to_profile
+    const b = (iv.from_profile as string) < (iv.to_profile as string) ? iv.to_profile : iv.from_profile
+
+    const { error: convError } = await admin
+      .from('conversations')
+      .upsert({ profile_a: a, profile_b: b }, { onConflict: 'profile_a,profile_b', ignoreDuplicates: true })
+
+    if (convError) {
+      console.error('[interests PATCH] conversation upsert error:', convError.message)
+    }
+
+    // Fetch the conversation id (whether just created or pre-existing)
+    const { data: conv } = await admin
+      .from('conversations')
+      .select('id')
+      .eq('profile_a', a)
+      .eq('profile_b', b)
+      .maybeSingle()
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    conversationId = (conv as any)?.id ?? null
+  }
+
   if (typedAction === 'accept' || typedAction === 'decline') {
     const notifType = typedAction === 'accept' ? 'interest_accepted' : 'interest_declined'
 
@@ -101,10 +128,10 @@ export async function PATCH(
       await admin.from('notifications').insert({
         account_id: sp.account_id,
         type: notifType,
-        payload: { interest_id: id },
+        payload: { interest_id: id, conversation_id: conversationId },
       })
     }
   }
 
-  return NextResponse.json({ ok: true })
+  return NextResponse.json({ ok: true, conversation_id: conversationId })
 }

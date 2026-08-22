@@ -2,7 +2,7 @@ import 'server-only'
 import { NextRequest, NextResponse } from 'next/server'
 import { createAdminClient } from '@/lib/supabase/server'
 import { getSessionAccount } from '@/lib/auth'
-import { getActiveMembership, isMembershipLive } from '@/lib/membership'
+import { hasFeatureAccess } from '@/lib/membership'
 
 export async function POST(
   request: NextRequest,
@@ -12,9 +12,8 @@ export async function POST(
   const session = await getSessionAccount()
   if (!session) return NextResponse.json({ ok: false, message: 'Unauthorized' }, { status: 401 })
 
-  // Step 2: membership gate
-  const membership = await getActiveMembership(session.id)
-  if (!membership || !isMembershipLive(membership.status)) {
+  // Step 2: feature access gate (bypassed when FREE_ACCESS_MODE=true)
+  if (!(await hasFeatureAccess(session.id))) {
     return NextResponse.json(
       { ok: false, message: 'An active membership is required to send messages' },
       { status: 403 },
