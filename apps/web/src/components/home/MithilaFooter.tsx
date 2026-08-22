@@ -2,16 +2,15 @@ import Link from 'next/link'
 
 const LINKS = {
   Platform: [
-    { href: '/register', label: 'Create Biodata' },
-    { href: '/login', label: 'Sign In' },
-    { href: '#how', label: 'How It Works' },
-    { href: '#stories', label: 'Success Stories' },
+    { href: '/register', label: 'Create Free Account' },
+    { href: '/login', label: 'Login' },
+    { href: '/#how', label: 'About' },
+    { href: '/#stories', label: 'Family & Values' },
   ],
-  Culture: [
-    { href: '#biodata', label: 'Maithili Biodata' },
-    { href: '#how', label: 'Madhubani Tradition' },
-    { href: '#how', label: 'Pag Phere Ceremony' },
-    { href: '#how', label: 'Kothghar Heritage' },
+  Explore: [
+    { href: '/#biodata', label: 'Marriage Biodata' },
+    { href: '/blogs', label: 'Blogs' },
+    { href: '/help', label: 'Help & Support' },
   ],
   Legal: [
     { href: '/legal/terms', label: 'Terms of Service' },

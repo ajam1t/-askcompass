@@ -3,6 +3,15 @@
 import Link from 'next/link'
 import { useState } from 'react'
 
+const NAV_LINKS = [
+  { href: '/', label: 'Home' },
+  { href: '/#how', label: 'About' },
+  { href: '/#stories', label: 'Success Stories' },
+  { href: '/#biodata', label: 'Marriage Biodata' },
+  { href: '/blogs', label: 'Blogs' },
+  { href: '/help', label: 'Help' },
+]
+
 export function MithilaHeader() {
   const [open, setOpen] = useState(false)
 
@@ -30,35 +39,35 @@ export function MithilaHeader() {
         </Link>
 
         {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-8" aria-label="Main navigation">
-          <Link href="#how" className="text-[13px] text-paper-2 hover:text-gold-lt transition-colors tracking-wide">
-            How it Works
-          </Link>
-          <Link href="#stories" className="text-[13px] text-paper-2 hover:text-gold-lt transition-colors tracking-wide">
-            Success Stories
-          </Link>
-          <Link href="#biodata" className="text-[13px] text-paper-2 hover:text-gold-lt transition-colors tracking-wide">
-            Biodata
-          </Link>
+        <nav className="hidden lg:flex items-center gap-6" aria-label="Main navigation">
+          {NAV_LINKS.map(({ href, label }) => (
+            <Link key={label} href={href} className="text-[13px] text-paper-2 hover:text-gold-lt transition-colors tracking-wide whitespace-nowrap">
+              {label}
+            </Link>
+          ))}
           <div className="h-4 w-px bg-gold opacity-40" />
+          <Link href="/#biodata" className="flex items-center gap-1 text-[13px] text-paper-2 hover:text-gold-lt transition-colors" aria-label="Choose biodata language">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3a15 15 0 0 1 0 18M12 3a15 15 0 0 0 0 18" /></svg>
+            EN
+          </Link>
           <Link
             href="/login"
-            className="text-[13px] text-gold-lt hover:text-paper transition-colors tracking-wide font-medium"
+            className="text-[13px] text-gold-lt hover:text-paper transition-colors tracking-wide font-medium whitespace-nowrap"
           >
-            Sign In
+            Login
           </Link>
           <Link
             href="/register"
-            className="btn bg-gold-lt text-maroon-deep text-[13px] py-2 px-5 font-semibold hover:-translate-y-px hover:shadow-mj transition-all"
+            className="btn bg-gold-lt text-maroon-deep text-[13px] py-2 px-5 font-semibold hover:-translate-y-px hover:shadow-mj transition-all whitespace-nowrap"
           >
-            Create Profile
+            Create Free Account
           </Link>
         </nav>
 
         {/* Mobile hamburger */}
         <button
           onClick={() => setOpen(v => !v)}
-          className="md:hidden text-gold-lt p-2 rounded"
+          className="lg:hidden text-gold-lt p-2 rounded"
           aria-expanded={open}
           aria-label="Toggle menu"
         >
@@ -79,19 +88,19 @@ export function MithilaHeader() {
 
       {/* Mobile menu */}
       {open && (
-        <div className="md:hidden bg-maroon-deep border-t border-gold border-opacity-20">
+        <div className="lg:hidden bg-maroon-deep border-t border-gold border-opacity-20">
           <div className="wrap py-4 flex flex-col gap-4">
-            <Link href="#how" onClick={() => setOpen(false)} className="text-paper-2 text-sm py-1">How it Works</Link>
-            <Link href="#stories" onClick={() => setOpen(false)} className="text-paper-2 text-sm py-1">Success Stories</Link>
-            <Link href="#biodata" onClick={() => setOpen(false)} className="text-paper-2 text-sm py-1">Biodata</Link>
+            {NAV_LINKS.map(({ href, label }) => (
+              <Link key={label} href={href} onClick={() => setOpen(false)} className="text-paper-2 text-sm py-1">{label}</Link>
+            ))}
             <div className="h-px bg-gold opacity-20" />
-            <Link href="/login" onClick={() => setOpen(false)} className="text-gold-lt text-sm py-1">Sign In</Link>
+            <Link href="/login" onClick={() => setOpen(false)} className="text-gold-lt text-sm py-1">Login</Link>
             <Link
               href="/register"
               onClick={() => setOpen(false)}
               className="btn-gold w-full text-center text-sm"
             >
-              Create Profile
+              Create Free Account
             </Link>
           </div>
         </div>

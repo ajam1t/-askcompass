@@ -13,24 +13,23 @@ export function HeroSection() {
           {/* Eyebrow */}
           <div className="flex items-center gap-3">
             <div className="h-px w-10 bg-gold" />
-            <span className="eyebrow">Mithila Vivah Sewa</span>
-            <div className="h-px w-10 bg-gold" />
+            <span className="eyebrow">People • Families • Culture • Together</span>
           </div>
 
           {/* Main heading */}
           <h1 className="font-serif text-display-lg text-maroon leading-[1.05]">
-            जहाँ परंपरा मिलती है
+            Rishton ka Sundar Kal,
             <br />
-            <span className="text-terra">प्रेम से</span>
+            <span className="text-terra">Mithila ke Saath</span>
           </h1>
           <p className="font-sans text-lg text-maroon leading-relaxed opacity-90 italic">
-            Where tradition meets love
+            Find your match. Keep your roots.
           </p>
 
           {/* Sub heading */}
           <p className="font-sans text-[17px] text-ink-soft leading-relaxed max-w-[460px]">
-            A matrimonial platform rooted in Mithila&apos;s cultural heritage — connecting Maithili families
-            across Bihar and Jharkhand with authenticity, trust, and reverence for tradition.
+            A trusted matrimonial platform for the Mithila community — create a marriage
+            biodata in your language and connect Maithili families across India.
           </p>
 
           {/* Culture chips */}
@@ -48,23 +47,23 @@ export function HeroSection() {
           {/* CTAs */}
           <div className="flex flex-wrap gap-4 pt-2">
             <Link href="/register" className="btn-primary text-base px-8 py-4">
-              Create Your Biodata
+              Create Your Profile Free →
             </Link>
-            <Link href="/login" className="btn-ghost text-base px-8 py-4">
-              Sign In
+            <Link href="#biodata" className="btn-ghost text-base px-8 py-4">
+              Explore Marriage Biodata
             </Link>
           </div>
 
-          {/* Trust metrics */}
-          <div className="flex gap-8 pt-2 border-t border-paper-3">
+          {/* Honest value pillars (no fabricated stats) */}
+          <div className="flex flex-wrap gap-x-8 gap-y-3 pt-4 border-t border-paper-3">
             {[
-              { n: '12,000+', l: 'Profiles' },
-              { n: '2,400+', l: 'Matches' },
-              { n: '4 States', l: 'Across India' },
-            ].map(({ n, l }) => (
-              <div key={l} className="text-center">
-                <p className="font-serif text-2xl text-maroon font-semibold">{n}</p>
-                <p className="text-[12px] text-ink-soft uppercase tracking-widest">{l}</p>
+              { t: 'India Focused', d: 'Built for Mithila' },
+              { t: 'Family First', d: 'Milap, not just matches' },
+              { t: 'Your Language', d: 'मैथिली · हिन्दी · English' },
+            ].map(({ t, d }) => (
+              <div key={t}>
+                <p className="font-serif text-lg text-maroon leading-tight">{t}</p>
+                <p className="text-[12px] text-ink-soft">{d}</p>
               </div>
             ))}
           </div>
