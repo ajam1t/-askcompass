@@ -1,8 +1,8 @@
 'use client'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 
-type Step = 'mobile' | 'otp'
+type Step = 'mobile' | 'sent' | 'otp'
 
 export default function LoginPage() {
   const [step, setStep] = useState<Step>('mobile')
@@ -35,8 +35,9 @@ export default function LoginPage() {
         setError(data.message ?? 'Could not send OTP. Please try again.')
         return
       }
-      setStep('otp')
+      setStep('sent')
       setOtp('')
+      setTimeout(() => setStep('otp'), 1800)
     } catch {
       setError('Network error. Please check your connection and try again.')
     } finally {
@@ -64,8 +65,8 @@ export default function LoginPage() {
 
   async function handleVerify(e: React.FormEvent) {
     e.preventDefault()
-    if (otp.length !== 6) {
-      setError('Enter the 6-digit OTP')
+    if (otp.length < 6) {
+      setError('Enter the OTP')
       return
     }
     setError('')
@@ -102,7 +103,9 @@ export default function LoginPage() {
       </div>
 
       <div className="card p-6 sm:p-8">
-        {step === 'mobile' ? (
+        {step === 'sent' ? (
+          <OtpSentAnimation mobile={maskedMobile} />
+        ) : step === 'mobile' ? (
           <>
             <p className="eyebrow mb-2">Log In</p>
             <h2 className="text-xl font-display text-ink mb-6">Welcome back</h2>
@@ -148,7 +151,7 @@ export default function LoginPage() {
               </Link>
             </p>
           </>
-        ) : (
+        ) : step === 'otp' ? (
           <>
             <p className="eyebrow mb-2">Verify OTP</p>
             <h2 className="text-xl font-display text-ink mb-1">Enter the code</h2>
@@ -158,16 +161,16 @@ export default function LoginPage() {
 
             <form onSubmit={handleVerify} noValidate>
               <label className="block mb-1.5">
-                <span className="text-sm font-medium text-ink">6-digit OTP</span>
+                <span className="text-sm font-medium text-ink">OTP</span>
                 <input
                   type="text"
                   inputMode="numeric"
-                  maxLength={6}
+                  maxLength={8}
                   placeholder="— — — — — —"
                   value={otp}
                   onChange={e => {
                     setError('')
-                    setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))
+                    setOtp(e.target.value.replace(/\D/g, '').slice(0, 8))
                   }}
                   autoComplete="one-time-code"
                   autoFocus
@@ -179,7 +182,7 @@ export default function LoginPage() {
 
               <button
                 type="submit"
-                disabled={loading || otp.length !== 6}
+                disabled={loading || otp.length < 6}
                 className="btn btn-primary w-full mt-5"
               >
                 {loading ? 'Verifying…' : 'Log In'}
@@ -204,8 +207,50 @@ export default function LoginPage() {
               </button>
             </div>
           </>
-        )}
+        ) : null}
       </div>
+    </div>
+  )
+}
+
+/* ── OTP Sent Animation ── */
+function OtpSentAnimation({ mobile }: { mobile: string }) {
+  const [show, setShow] = useState(false)
+  useEffect(() => { const t = setTimeout(() => setShow(true), 60); return () => clearTimeout(t) }, [])
+  return (
+    <div className="flex flex-col items-center gap-5 py-6 text-center">
+      <div
+        className="relative w-20 h-20"
+        style={{ transform: show ? 'scale(1)' : 'scale(0.5)', opacity: show ? 1 : 0, transition: 'transform 0.4s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s ease' }}
+      >
+        <div className="absolute inset-0 rounded-full border-4 border-gold animate-ping opacity-30" />
+        <div className="absolute inset-0 rounded-full border-4 border-gold" />
+        <div className="absolute inset-2 rounded-full bg-maroon flex items-center justify-center shadow-mj-xs">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path
+              d="M 7 16 L 13 22 L 25 10"
+              stroke="#E4C572"
+              strokeWidth="2.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              style={{ strokeDasharray: 24, strokeDashoffset: show ? 0 : 24, transition: 'stroke-dashoffset 0.45s ease 0.25s' }}
+            />
+          </svg>
+        </div>
+      </div>
+      <div style={{ opacity: show ? 1 : 0, transform: show ? 'translateY(0)' : 'translateY(8px)', transition: 'opacity 0.35s ease 0.3s, transform 0.35s ease 0.3s' }}>
+        <p className="font-serif text-xl text-maroon">OTP Sent!</p>
+        <p className="text-sm text-ink-soft mt-1">
+          Code sent to <span className="font-mono text-ink">{mobile}</span>
+        </p>
+        <p className="text-xs text-ink-soft mt-3 opacity-60">Taking you to verification…</p>
+      </div>
+      <div className="flex gap-2" aria-hidden="true">
+        {[0, 1, 2].map(i => (
+          <div key={i} className="w-2 h-2 rounded-full bg-marigold" style={{ animation: `bounce 0.8s ease-in-out ${i * 0.15}s infinite alternate` }} />
+        ))}
+      </div>
+      <style>{`@keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-6px); } }`}</style>
     </div>
   )
 }

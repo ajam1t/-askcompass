@@ -9,8 +9,27 @@ import { ProductionOtpProvider } from './ProductionOtpProvider'
 const OTP_TTL_MINUTES = 10
 const MAX_ATTEMPTS = 5
 
-// Server-only constant — never sent to clients, never logged in production
-const DEV_FIXED_CODE = '01071994'
+// Fallback dev code if DEV_OTP env var is not set. Server-only — never sent to clients.
+const DEFAULT_DEV_OTP = '01071994'
+
+/**
+ * Resolves the fixed development OTP from configuration.
+ * Only used when DEV_OTP_ENABLED === 'true'.
+ */
+function resolveDevOtp(): string {
+  const configured = process.env.DEV_OTP?.trim()
+  if (configured && /^\d{4,8}$/.test(configured)) return configured
+  return DEFAULT_DEV_OTP
+}
+
+/**
+ * Whether the fixed development/testing OTP is explicitly enabled.
+ * Controlled ONLY by DEV_OTP_ENABLED (legacy alias: DEV_AUTH_MODE).
+ * When false, the fixed code MUST NOT authenticate anyone.
+ */
+function isDevOtpEnabled(): boolean {
+  return process.env.DEV_OTP_ENABLED === 'true' || process.env.DEV_AUTH_MODE === 'true'
+}
 
 function generateOtp(): string {
   return String(randomInt(100000, 999999))
@@ -116,25 +135,24 @@ export class OtpService {
 /**
  * Factory — selects OTP provider and mode from environment variables.
  *
- * DEV_AUTH_MODE=true  →  fixed 6-digit dev code (no SMS), blocked in production.
+ * DEV_OTP_ENABLED=true  →  fixed dev/testing code from DEV_OTP (no SMS sent).
+ *                          Explicitly opt-in; set DEV_OTP_ENABLED=false to disable.
  * OTP_PROVIDER=production  →  real SMS provider (ProductionOtpProvider stub).
  * Default  →  DevConsoleOtpProvider (random OTP printed to server console).
+ *
+ * SECURITY: The fixed code only works while DEV_OTP_ENABLED is 'true'. To go to
+ * real SMS, set DEV_OTP_ENABLED=false and OTP_PROVIDER=production. No auth
+ * redesign is required — only these env vars change.
  */
 export function createOtpService(): OtpService {
-  const isProduction = process.env.NODE_ENV === 'production'
-  const devAuthRequested = process.env.DEV_AUTH_MODE === 'true'
-
-  // Hard block: DEV_AUTH_MODE must never run in production
-  if (devAuthRequested && isProduction) {
-    throw new Error(
-      '[SECURITY] DEV_AUTH_MODE=true is not permitted when NODE_ENV=production. ' +
-      'Remove DEV_AUTH_MODE from your production environment.'
+  if (isDevOtpEnabled()) {
+    // DEV/TESTING: fixed configurable code, no SMS.
+    // Loud warning so this is never silently left on in a real launch.
+    console.warn(
+      '[SECURITY][OTP] DEV_OTP_ENABLED is TRUE — a fixed testing OTP will authenticate ' +
+      'any registration/login. Set DEV_OTP_ENABLED=false before real production launch.'
     )
-  }
-
-  if (devAuthRequested) {
-    // DEV/STAGING: fixed code, no SMS
-    return new OtpService(new DevFixedOtpProvider(), DEV_FIXED_CODE)
+    return new OtpService(new DevFixedOtpProvider(), resolveDevOtp())
   }
 
   const provider =
