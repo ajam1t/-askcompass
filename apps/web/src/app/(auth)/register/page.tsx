@@ -204,7 +204,7 @@ export default function RegisterPage() {
                   />
                   <span className="text-sm text-ink-soft leading-relaxed">
                     I have read and agree to the{' '}
-                    <Link href="/terms" target="_blank" className="text-maroon hover:underline">
+                    <Link href="/legal/terms" target="_blank" className="text-maroon hover:underline">
                       Terms of Service
                     </Link>
                   </span>
@@ -219,7 +219,7 @@ export default function RegisterPage() {
                   />
                   <span className="text-sm text-ink-soft leading-relaxed">
                     I have read and agree to the{' '}
-                    <Link href="/privacy" target="_blank" className="text-maroon hover:underline">
+                    <Link href="/legal/privacy" target="_blank" className="text-maroon hover:underline">
                       Privacy Policy
                     </Link>
                     {' '}and consent to processing of my personal data

@@ -46,6 +46,12 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
               Membership
             </Link>
             <Link
+              href="/settings"
+              className="px-3 py-1.5 text-sm font-medium text-ink hover:text-maroon hover:bg-paper rounded-mj-sm transition-colors"
+            >
+              Settings
+            </Link>
+            <Link
               href="/profile"
               className="px-3 py-1.5 text-sm font-medium text-ink hover:text-maroon hover:bg-paper rounded-mj-sm transition-colors"
             >

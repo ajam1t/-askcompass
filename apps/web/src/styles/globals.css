@@ -73,6 +73,12 @@
     @apply max-w-[1180px] mx-auto px-6;
   }
 
+  /* ── Legal prose container ───────────────────────────────── */
+  .prose-legal {
+    @apply text-ink;
+    line-height: 1.7;
+  }
+
   /* ── Eyebrow text ────────────────────────────────────────── */
   .eyebrow {
     @apply text-[11px] tracking-[0.34em] uppercase text-terra font-semibold;
