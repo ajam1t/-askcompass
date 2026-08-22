@@ -3,10 +3,14 @@ import bcrypt from 'bcryptjs'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import type { OtpProvider, OtpVerifyResult } from './types'
 import { DevConsoleOtpProvider } from './DevConsoleOtpProvider'
+import { DevFixedOtpProvider } from './DevFixedOtpProvider'
 import { ProductionOtpProvider } from './ProductionOtpProvider'
 
 const OTP_TTL_MINUTES = 10
 const MAX_ATTEMPTS = 5
+
+// Server-only constant — never sent to clients, never logged in production
+const DEV_FIXED_CODE = '010700'
 
 function generateOtp(): string {
   return String(randomInt(100000, 999999))
@@ -18,16 +22,18 @@ function generateOtp(): string {
  * Raw OTP is passed to the provider and never stored or returned in API responses.
  */
 export class OtpService {
-  constructor(private provider: OtpProvider) {}
+  constructor(
+    private provider: OtpProvider,
+    // When set, challenge() uses this code instead of a random one (DEV_AUTH_MODE only)
+    private devFixedCode?: string
+  ) {}
 
   async challenge(
     mobile: string,
-    // Using SupabaseClient directly avoids the typed-table inference issue
-    // since otp_challenges is only accessed server-side via service role
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     supabaseAdmin: SupabaseClient<any>
   ): Promise<{ sent: boolean; error?: string }> {
-    const otp = generateOtp()
+    const otp = this.devFixedCode ?? generateOtp()
     const hash = await bcrypt.hash(otp, 10)
     const expiresAt = new Date(Date.now() + OTP_TTL_MINUTES * 60 * 1000)
 
@@ -107,8 +113,30 @@ export class OtpService {
   }
 }
 
-/** Factory — selects provider from OTP_PROVIDER env variable */
+/**
+ * Factory — selects OTP provider and mode from environment variables.
+ *
+ * DEV_AUTH_MODE=true  →  fixed 6-digit dev code (no SMS), blocked in production.
+ * OTP_PROVIDER=production  →  real SMS provider (ProductionOtpProvider stub).
+ * Default  →  DevConsoleOtpProvider (random OTP printed to server console).
+ */
 export function createOtpService(): OtpService {
+  const isProduction = process.env.NODE_ENV === 'production'
+  const devAuthRequested = process.env.DEV_AUTH_MODE === 'true'
+
+  // Hard block: DEV_AUTH_MODE must never run in production
+  if (devAuthRequested && isProduction) {
+    throw new Error(
+      '[SECURITY] DEV_AUTH_MODE=true is not permitted when NODE_ENV=production. ' +
+      'Remove DEV_AUTH_MODE from your production environment.'
+    )
+  }
+
+  if (devAuthRequested) {
+    // DEV/STAGING: fixed code, no SMS
+    return new OtpService(new DevFixedOtpProvider(), DEV_FIXED_CODE)
+  }
+
   const provider =
     process.env.OTP_PROVIDER === 'production'
       ? new ProductionOtpProvider()
