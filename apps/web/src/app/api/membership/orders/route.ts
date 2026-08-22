@@ -1,0 +1,90 @@
+import 'server-only'
+import { NextResponse } from 'next/server'
+import crypto from 'crypto'
+import { getSessionAccount } from '@/lib/auth'
+import { getActiveMembership, getActivePlan } from '@/lib/membership'
+import { getPaymentGateway } from '@/lib/services/payment/gateway'
+import { createAdminClient } from '@/lib/supabase/server'
+
+export async function POST() {
+  const session = await getSessionAccount()
+  if (!session) return NextResponse.json({ ok: false, message: 'Unauthorized' }, { status: 401 })
+
+  // Block duplicate purchase while an active membership exists
+  const existing = await getActiveMembership(session.id)
+  if (existing && ['active', 'expiring_soon', 'grace'].includes(existing.status)) {
+    return NextResponse.json(
+      { ok: false, message: 'You already have an active membership' },
+      { status: 409 }
+    )
+  }
+
+  // Price comes from DB — never hardcoded
+  const plan = await getActivePlan()
+  if (!plan) {
+    return NextResponse.json({ ok: false, message: 'No plan available' }, { status: 503 })
+  }
+
+  const idempotencyKey = crypto.randomUUID()
+  const gateway = getPaymentGateway()
+
+  let gatewayOrder
+  try {
+    gatewayOrder = await gateway.createOrder(
+      plan.price_paise,
+      'INR',
+      idempotencyKey,
+      { account_id: session.id, plan: plan.plan }
+    )
+  } catch (err) {
+    console.error('[orders POST] gateway.createOrder failed:', err)
+    return NextResponse.json({ ok: false, message: 'Payment gateway error. Try again.' }, { status: 502 })
+  }
+
+  const admin = await createAdminClient()
+
+  // Create payment record
+  const { data: payment, error: paymentError } = await admin
+    .from('payments')
+    .insert({
+      account_id: session.id,
+      gateway: 'razorpay',
+      gateway_order_id: gatewayOrder.orderId,
+      amount_paise: plan.price_paise,
+      currency: 'INR',
+      plan: plan.plan,
+      status: 'created',
+      idempotency_key: idempotencyKey,
+    })
+    .select('id')
+    .single()
+
+  if (paymentError || !payment) {
+    console.error('[orders POST] payment insert:', paymentError)
+    return NextResponse.json({ ok: false, message: 'Failed to create payment record' }, { status: 500 })
+  }
+
+  // Create pending membership record
+  const { error: membershipError } = await admin
+    .from('memberships')
+    .insert({
+      account_id: session.id,
+      payment_id: payment.id,
+      plan: plan.plan,
+      status: 'pending',
+    })
+
+  if (membershipError) {
+    console.error('[orders POST] membership insert:', membershipError)
+    return NextResponse.json({ ok: false, message: 'Failed to create membership record' }, { status: 500 })
+  }
+
+  return NextResponse.json({
+    ok: true,
+    orderId: gatewayOrder.orderId,
+    amount: plan.price_paise,
+    currency: 'INR',
+    key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID ?? '',
+    plan: { label: plan.label_en, duration_days: plan.duration_days },
+  })
+}
