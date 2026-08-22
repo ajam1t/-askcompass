@@ -10,7 +10,7 @@ const OTP_TTL_MINUTES = 10
 const MAX_ATTEMPTS = 5
 
 // Server-only constant — never sent to clients, never logged in production
-const DEV_FIXED_CODE = '010700'
+const DEV_FIXED_CODE = '01071994'
 
 function generateOtp(): string {
   return String(randomInt(100000, 999999))

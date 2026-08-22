@@ -8,7 +8,7 @@ import type { ConsentType } from '@/types/database'
 
 const VerifySchema = z.object({
   mobile: z.string(),
-  code: z.string().regex(/^\d{6}$/, 'OTP must be exactly 6 digits'),
+  code: z.string().regex(/^\d{6,8}$/, 'OTP must be 6 digits'),
   intent: z.enum(['login', 'register']),
   consent_terms: z.boolean().optional(),
   consent_privacy: z.boolean().optional(),
