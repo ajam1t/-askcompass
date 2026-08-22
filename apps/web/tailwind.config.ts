@@ -94,6 +94,12 @@ const config: Config = {
       animation: {
         'fade-in': 'fadeIn 0.6s ease forwards',
         'slide-up': 'slideUp 0.5s ease forwards',
+        'float': 'mithilaFloat 4s ease-in-out infinite',
+        'garland': 'garlandSway 3s ease-in-out infinite',
+        'flame': 'flameDance 0.7s ease-in-out infinite',
+        'gold-shimmer': 'shimmerGold 2s ease-in-out infinite',
+        'petal-fall': 'petalFall 5s linear infinite',
+        'fade-up': 'fadeUp 0.7s ease forwards',
       },
       keyframes: {
         fadeIn: {
@@ -103,6 +109,32 @@ const config: Config = {
         slideUp: {
           from: { opacity: '0', transform: 'translateY(16px)' },
           to: { opacity: '1', transform: 'none' },
+        },
+        mithilaFloat: {
+          '0%, 100%': { transform: 'translateY(0)' },
+          '50%': { transform: 'translateY(-8px)' },
+        },
+        garlandSway: {
+          '0%, 100%': { transform: 'rotate(-1.5deg) translateY(0)' },
+          '50%': { transform: 'rotate(1.5deg) translateY(3px)' },
+        },
+        flameDance: {
+          '0%': { transform: 'scaleY(1) scaleX(1)' },
+          '25%': { transform: 'scaleY(1.15) scaleX(0.88)' },
+          '50%': { transform: 'scaleY(0.9) scaleX(1.1)' },
+          '100%': { transform: 'scaleY(1) scaleX(1)' },
+        },
+        shimmerGold: {
+          '0%, 100%': { opacity: '0.5' },
+          '50%': { opacity: '1' },
+        },
+        petalFall: {
+          '0%': { transform: 'translateY(-30px) translateX(0) rotate(0deg)', opacity: '0.9' },
+          '100%': { transform: 'translateY(600px) translateX(-20px) rotate(360deg)', opacity: '0' },
+        },
+        fadeUp: {
+          from: { opacity: '0', transform: 'translateY(24px)' },
+          to: { opacity: '1', transform: 'translateY(0)' },
         },
       },
     },

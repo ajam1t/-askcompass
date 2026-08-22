@@ -6,7 +6,6 @@
 
 @layer base {
   :root {
-    /* Design tokens — always available via CSS var() in non-Tailwind contexts */
     --paper: #FBF1DD;
     --paper-2: #F6E7C9;
     --paper-3: #EFD9B4;
@@ -28,15 +27,12 @@
     --shadow-s: 0 14px 30px -18px rgba(58, 20, 12, 0.4);
   }
 
-  html {
-    scroll-behavior: smooth;
-  }
+  html { scroll-behavior: smooth; }
 
   body {
     background-color: var(--paper);
     color: var(--ink);
     @apply font-sans antialiased overflow-x-hidden;
-    background-image: var(--bg-texture);
   }
 
   h1, h2, h3, h4 {
@@ -88,26 +84,97 @@
   .ornament-line {
     @apply h-[2px] bg-gradient-to-r from-maroon-deep via-gold to-maroon-deep opacity-60;
   }
+
+  /* ── Section heading ─────────────────────────────────────── */
+  .section-heading {
+    @apply font-serif text-display-md text-maroon leading-tight;
+  }
 }
 
 @layer utilities {
   /* ── Reduce motion ───────────────────────────────────────── */
   @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
+    *, *::before, *::after {
       animation-duration: 0.01ms !important;
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
     }
   }
 
-  /* ── Devanagari / Maithili font utility ──────────────────── */
-  .font-deva {
-    font-family: 'Rozha One', 'Tiro Devanagari Hindi', serif;
-  }
-
-  .font-hand {
-    font-family: 'Kalam', cursive;
-  }
+  .font-deva { font-family: 'Rozha One', 'Tiro Devanagari Hindi', serif; }
+  .font-hand { font-family: 'Kalam', cursive; }
 }
+
+/* ── Homepage animation keyframes ────────────────────────── */
+
+@keyframes petalFall {
+  0%   { transform: translateY(-30px) translateX(0) rotate(0deg); opacity: 0.9; }
+  50%  { transform: translateY(280px) translateX(30px) rotate(180deg); opacity: 0.7; }
+  100% { transform: translateY(600px) translateX(-20px) rotate(360deg); opacity: 0; }
+}
+
+@keyframes flameDance {
+  0%   { transform: scaleY(1) scaleX(1); }
+  25%  { transform: scaleY(1.15) scaleX(0.88); }
+  50%  { transform: scaleY(0.9) scaleX(1.1); }
+  75%  { transform: scaleY(1.08) scaleX(0.92); }
+  100% { transform: scaleY(1) scaleX(1); }
+}
+
+@keyframes mithilaFloat {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+
+@keyframes garlandSway {
+  0%, 100% { transform: rotate(-1.5deg) translateY(0); }
+  50%       { transform: rotate(1.5deg) translateY(3px); }
+}
+
+@keyframes shimmerGold {
+  0%   { opacity: 0.5; }
+  50%  { opacity: 1; }
+  100% { opacity: 0.5; }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-32px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(32px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Petal elements ────────────────────────────────────── */
+.petal {
+  position: absolute;
+  top: -20px;
+  width: 10px;
+  height: 14px;
+  background: #FF91A4;
+  border-radius: 50% 0 50% 0;
+  opacity: 0;
+  animation: petalFall linear infinite;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+.petal:nth-child(2n)  { background: #FFD700; width: 8px; height: 11px; }
+.petal:nth-child(3n)  { background: #FF8C00; width: 9px; height: 12px; }
+.petal:nth-child(4n)  { background: #FF91A4; border-radius: 0 50% 0 50%; }
+.petal:nth-child(5n)  { background: #FFFF99; }
+
+/* ── Hero animation classes ────────────────────────────── */
+.hero-text-enter { animation: slideInLeft 0.8s ease forwards; }
+.hero-art-enter  { animation: slideInRight 0.9s ease forwards; }
+.fade-up         { animation: fadeUp 0.7s ease forwards; }
+.float-anim      { animation: mithilaFloat 4s ease-in-out infinite; }
+.garland-anim    { animation: garlandSway 3s ease-in-out infinite; transform-origin: center top; }
+.flame-anim      { animation: flameDance 0.7s ease-in-out infinite; transform-origin: bottom center; }
+.gold-shimmer    { animation: shimmerGold 2s ease-in-out infinite; }

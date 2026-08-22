@@ -1,23 +1,38 @@
-import Link from 'next/link'
+import { MithilaHeader } from '@/components/home/MithilaHeader'
+import { MithilaBorder } from '@/components/home/MithilaBorder'
+import { HeroSection } from '@/components/home/HeroSection'
+import { FeatureStrip } from '@/components/home/FeatureStrip'
+import { PlatformSection } from '@/components/home/PlatformSection'
+import { BiodataSection } from '@/components/home/BiodataSection'
+import { SuccessStories } from '@/components/home/SuccessStories'
+import { FinalCTA } from '@/components/home/FinalCTA'
+import { MithilaFooter } from '@/components/home/MithilaFooter'
+
+export const metadata = {
+  title: 'Mithila Jodi — Maithili Matrimonial',
+  description:
+    'A matrimonial platform rooted in Mithila culture — connecting Maithili families across India with authenticity and reverence for tradition.',
+}
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-paper flex items-center justify-center">
-      <div className="text-center px-4">
-        <p className="eyebrow mb-4">Mithila Jodi</p>
-        <h1 className="text-display-lg text-maroon mb-4">Find your match.<br />Keep your roots.</h1>
-        <p className="text-ink-soft font-serif italic text-lg mb-10">
-          A premium matrimonial platform for the Mithila community.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          <Link href="/register" className="btn btn-primary">
-            Create Account
-          </Link>
-          <Link href="/login" className="btn btn-ghost">
-            Log In
-          </Link>
-        </div>
-      </div>
-    </main>
+    <div className="min-h-screen flex flex-col bg-paper overflow-x-hidden">
+      <MithilaHeader />
+      <MithilaBorder variant="bottom" />
+      <main className="flex-1">
+        <HeroSection />
+        <MithilaBorder variant="top" />
+        <FeatureStrip />
+        <MithilaBorder variant="bottom" />
+        <PlatformSection />
+        <MithilaBorder variant="top" />
+        <BiodataSection />
+        <MithilaBorder variant="bottom" />
+        <SuccessStories />
+        <MithilaBorder variant="top" />
+        <FinalCTA />
+      </main>
+      <MithilaFooter />
+    </div>
   )
 }
