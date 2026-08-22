@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Search Matches — Mithila Jodi</title>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Rozha+One&family=Mukta:wght@300;400;500;600;700&family=Kalam:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --paper:#FBF1DD;--paper-2:#F6E7C9;--paper-3:#EFD9B4;--cream:#FFF8EA;
+  --maroon:#7A1220;--maroon-2:#9B2233;--maroon-deep:#5A0E19;
+  --terra:#C4562F;--marigold:#E8912A;--turmeric:#D6A83C;--gold:#B98A2E;--gold-lt:#E4C572;
+  --green:#1F5133;--green-2:#2E7048;--leaf:#3E7C4A;
+  --indigo:#2E3A6E;--ink:#2B211C;--ink-soft:#6A5A4E;
+  --line:rgba(122,18,32,.18);--shadow:0 26px 55px -26px rgba(58,20,12,.5);--shadow-s:0 14px 30px -18px rgba(58,20,12,.4);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:"Mukta",sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:"Marcellus",serif;font-weight:400}
+a{color:inherit;text-decoration:none}
+/* Header */
+header{position:sticky;top:0;z-index:50;background:rgba(251,241,221,.95);backdrop-filter:blur(10px);border-bottom:2px solid var(--gold)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:68px;max-width:1200px;margin:0 auto;padding:0 24px;gap:16px}
+.logo{display:flex;align-items:center;gap:10px;font-family:"Marcellus";font-size:21px;color:var(--maroon)}
+.logo-mark{width:36px;height:36px}
+.logo small{display:block;font-family:"Mukta";font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft)}
+nav{display:flex;gap:20px;font-size:14px}
+nav a{color:var(--ink-soft)}
+nav a.active{color:var(--maroon);font-weight:600}
+.nav-r{display:flex;align-items:center;gap:10px}
+.btn{display:inline-flex;align-items:center;gap:.5em;border-radius:999px;padding:10px 20px;font-weight:600;font-size:14px;cursor:pointer;border:1px solid transparent;font-family:"Mukta",sans-serif}
+.btn-primary{background:linear-gradient(180deg,var(--maroon-2),var(--maroon));color:var(--cream)}
+.btn-ghost{background:var(--cream);color:var(--maroon);border-color:var(--gold)}
+/* Layout */
+.page{display:grid;grid-template-columns:288px 1fr;min-height:calc(100vh - 68px);max-width:1200px;margin:0 auto;padding:0 24px;gap:28px;align-items:start}
+/* Sidebar filters */
+.sidebar{padding:20px 0;position:sticky;top:80px;max-height:calc(100vh - 90px);overflow-y:auto}
+.sidebar::-webkit-scrollbar{width:4px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--paper-3);border-radius:4px}
+.filter-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.filter-head h2{font-size:18px;color:var(--maroon)}
+.filter-clear{font-size:12px;color:var(--terra);cursor:pointer;letter-spacing:.05em}
+/* Bride/Groom toggle */
+.toggle-wrap{background:var(--paper-2);border-radius:999px;padding:4px;display:flex;gap:4px;margin-bottom:20px;border:1px solid var(--line)}
+.tog{flex:1;text-align:center;padding:8px 0;border-radius:999px;font-size:14px;font-weight:600;cursor:pointer;transition:.2s}
+.tog.on{background:var(--maroon);color:var(--cream)}
+.tog.off{color:var(--ink-soft)}
+/* Filter group */
+.fg{border-bottom:1px solid var(--line);padding:14px 0}
+.fg-label{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--terra);font-weight:600;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;cursor:pointer}
+.fg-label svg{width:14px;height:14px;opacity:.5;transition:.2s}
+.fg-label.open svg{transform:rotate(180deg)}
+.range-row{display:flex;gap:8px;align-items:center}
+.range-row input[type=number]{width:70px;border:1px solid var(--paper-3);border-radius:8px;padding:8px 10px;background:var(--cream);font-family:"Mukta";font-size:14px;color:var(--ink)}
+.range-sep{color:var(--ink-soft);font-size:13px}
+select.fsel{width:100%;border:1px solid var(--paper-3);border-radius:8px;padding:9px 12px;background:var(--cream);font-family:"Mukta";font-size:14px;color:var(--ink);appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236A5A4E' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;cursor:pointer}
+.chip-row{display:flex;flex-wrap:wrap;gap:6px}
+.chip{padding:5px 11px;border-radius:999px;border:1px solid var(--line);font-size:13px;cursor:pointer;background:var(--cream);transition:.15s}
+.chip.on{background:var(--maroon);color:var(--cream);border-color:var(--maroon)}
+.chip:hover:not(.on){border-color:var(--gold)}
+.apply-btn{width:100%;margin-top:20px;background:linear-gradient(180deg,var(--maroon-2),var(--maroon));color:var(--cream);border-radius:999px;padding:13px;font-family:"Marcellus";font-size:16px;border:none;cursor:pointer;box-shadow:var(--shadow-s)}
+/* Results */
+.results{padding:20px 0}
+.results-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:10px}
+.results-bar h2{font-size:20px;color:var(--maroon)}
+.results-bar .count{font-size:13px;color:var(--ink-soft)}
+.sort-row{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--ink-soft)}
+.sort-row select{border:1px solid var(--line);border-radius:8px;padding:6px 10px;background:var(--cream);font-family:"Mukta";font-size:13px;color:var(--ink)}
+/* Active filter chips */
+.active-chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.achip{display:flex;align-items:center;gap:5px;background:rgba(122,18,32,.08);border:1px solid rgba(122,18,32,.2);border-radius:999px;padding:4px 10px;font-size:12px;color:var(--maroon)}
+.achip button{background:none;border:none;cursor:pointer;color:var(--terra);font-size:14px;line-height:1;padding:0}
+/* Profile card grid */
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:18px}
+.pcard{background:var(--cream);border:1px solid var(--paper-3);border-radius:18px;overflow:hidden;box-shadow:var(--shadow-s);transition:.2s;cursor:pointer;position:relative}
+.pcard:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.pcard-photo{aspect-ratio:3/4;background:var(--paper-2);position:relative;overflow:hidden}
+.pcard-photo img{width:100%;height:100%;object-fit:cover}
+.pcard-photo .no-photo{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;color:var(--ink-soft);gap:6px;font-size:13px}
+.verified-badge{position:absolute;top:8px;right:8px;background:var(--green);color:#fff;border-radius:999px;padding:3px 8px;font-size:10px;font-weight:600;letter-spacing:.05em}
+.new-badge{position:absolute;top:8px;left:8px;background:var(--turmeric);color:var(--ink);border-radius:999px;padding:3px 8px;font-size:10px;font-weight:600}
+.pcard-body{padding:13px}
+.pcard-name{font-family:"Marcellus";font-size:16px;color:var(--maroon);margin-bottom:2px}
+.pcard-meta{font-size:12px;color:var(--ink-soft);margin-bottom:8px;line-height:1.5}
+.pcard-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px}
+.ptag{font-size:10px;padding:3px 7px;border-radius:999px;background:rgba(31,81,51,.08);color:var(--green);border:1px solid rgba(31,81,51,.15)}
+.pcard-actions{display:flex;gap:6px}
+.pact{flex:1;text-align:center;padding:7px 0;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid transparent;font-family:"Mukta"}
+.pact-interest{background:linear-gradient(180deg,var(--maroon-2),var(--maroon));color:var(--cream)}
+.pact-short{background:var(--cream);color:var(--terra);border-color:var(--gold)}
+/* Ornamental divider in sidebar */
+.orn{text-align:center;color:var(--gold);font-size:18px;margin:12px 0 0;letter-spacing:.3em}
+/* Load more */
+.load-more{text-align:center;margin-top:28px}
+/* Footer mini */
+footer{border-top:2px solid var(--gold);background:var(--maroon-deep);color:var(--paper-2);text-align:center;padding:18px;font-size:13px;margin-top:40px}
+@media(max-width:900px){
+  .page{grid-template-columns:1fr;padding:0 16px}
+  .sidebar{position:static;max-height:none}
+  .cards-grid{grid-template-columns:repeat(auto-fill,minmax(170px,1fr))}
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="nav">
+    <a class="logo" href="homepage.html">
+      <svg class="logo-mark" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="20" cy="20" r="19" stroke="#7A1220" stroke-width="1.5"/>
+        <path d="M20 8 C20 8 28 14 28 20 C28 26 20 32 20 32 C20 32 12 26 12 20 C12 14 20 8 20 8Z" fill="#7A1220" opacity=".15"/>
+        <path d="M20 11 C24 14 26 17 26 20 C26 23 24 26 20 29 C16 26 14 23 14 20 C14 17 16 14 20 11Z" fill="none" stroke="#7A1220" stroke-width="1.2"/>
+        <circle cx="20" cy="20" r="4" fill="#E8912A"/>
+        <path d="M20 8 V32 M8 20 H32" stroke="#7A1220" stroke-width=".7" opacity=".4"/>
+      </svg>
+      <div><span>Mithila Jodi</span><small>Find your match. Keep your roots.</small></div>
+    </a>
+    <nav>
+      <a href="homepage.html">Home</a>
+      <a href="#" class="active">Search</a>
+      <a href="review-biodata.html">Biodata</a>
+      <a href="review-profile.html">My Profile</a>
+    </nav>
+    <div class="nav-r">
+      <a class="btn btn-ghost" style="padding:8px 16px;font-size:13px" href="#">My Matches</a>
+    </div>
+  </div>
+</header>
+
+<div class="page">
+  <!-- Sidebar Filters -->
+  <aside class="sidebar">
+    <div class="filter-head">
+      <h2>Find Matches</h2>
+      <span class="filter-clear">Clear All</span>
+    </div>
+
+    <!-- Bride / Groom -->
+    <div class="toggle-wrap">
+      <div class="tog on">Bride</div>
+      <div class="tog off">Groom</div>
+    </div>
+
+    <!-- Age Range -->
+    <div class="fg">
+      <div class="fg-label open">Age Range <svg viewBox="0 0 14 8"><path d="M1 1l6 6 6-6" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></div>
+      <div class="range-row">
+        <input type="number" value="22" min="18" max="50"/>
+        <span class="range-sep">to</span>
+        <input type="number" value="30" min="18" max="50"/>
+        <span class="range-sep" style="font-size:11px">yrs</span>
+      </div>
+    </div>
+
+    <!-- Mother Tongue -->
+    <div class="fg">
+      <div class="fg-label open">Mother Tongue <svg viewBox="0 0 14 8"><path d="M1 1l6 6 6-6" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></div>
+      <div class="chip-row">
+        <span class="chip on">Maithili</span>
+        <span class="chip">Hindi</span>
+        <span class="chip">Sanskrit</span>
+        <span class="chip">Bhojpuri</span>
+      </div>
+    </div>
+
+    <!-- Caste -->
+    <div class="fg">
+      <div class="fg-label open">Caste <svg viewBox="0 0 14 8"><path d="M1 1l6 6 6-6" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></div>
+      <select class="fsel">
+        <option>Any Caste</option>
+        <option>Brahmin</option>
+        <option>Kayastha</option>
+        <option>Yadav</option>
+        <option>Rajput</option>
+        <option>Bhumihar</option>
+        <option>Other</option>
+      </select>
+    </div>
+
+    <!-- Sub Caste -->
+    <div class="fg">
+      <div class="fg-label">Sub Caste <svg viewBox="0 0 14 8"><path d="M1 1l6 6 6-6" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></div>
+    </div>
+
+    <!-- Self Gotra -->
+    <div class="fg">
+      <div class="fg-label open">Self Gotra <svg viewBox="0 0 14 8"><path d="M1 1l6 6 6-6" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></div>
+      <select class="fsel">
+        <option>Any Gotra</option>
+        <option>Kashyap</option>
+        <option>Bharadwaj</option>
+        <option>Vatsa</option>
+        <option>Shandilya</option>
+        <option>Parashara</option>
+        <option>Kaushika</option>
+        <option>Atri</option>
+      </select>
+    </div>
+
+    <!-- Maternal Gotra -->
+    <div class="fg">
+      <div class="fg-label">Maternal Gotra <svg viewBox="0 0 14 8"><path d="M1 1l6 6 6-6" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></div>
+    </div>
+
+    <!-- Mool -->
+    <div class="fg">
+      <div class="fg-label">Mool <svg viewBox="0 0 14 8"><path d="M1 1l6 6 6-6" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></div>
+    </div>
+
+    <!-- Education -->
+    <div class="fg">
+      <div class="fg-label open">Education <svg viewBox="0 0 14 8"><path d="M1 1l6 6 6-6" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></div>
+      <div class="chip-row">
+        <span class="chip">Any</span>
+        <span class="chip on">Graduate</span>
+        <span class="chip on">Post Graduate</span>
+        <span class="chip">Doctorate</span>
+        <span class="chip">Professional</span>
+      </div>
+    </div>
+
+    <!-- Profession -->
+    <div class="fg">
+      <div class="fg-label open">Profession <svg viewBox="0 0 14 8"><path d="M1 1l6 6 6-6" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></div>
+      <select class="fsel">
+        <option>Any Profession</option>
+        <option>Doctor</option>
+        <option>Engineer</option>
+        <option>Teacher / Professor</option>
+        <option>Government Service</option>
+        <option>Business / Self-employed</option>
+        <option>Software / IT</option>
+        <option>Banking / Finance</option>
+        <option>Lawyer</option>
+      </select>
+    </div>
+
+    <!-- Current Location (India only) -->
+    <div class="fg">
+      <div class="fg-label open">Current Location <svg viewBox="0 0 14 8"><path d="M1 1l6 6 6-6" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></div>
+      <select class="fsel" style="margin-bottom:8px">
+        <option>Any State</option>
+        <option selected>Bihar</option>
+        <option>Jharkhand</option>
+        <option>Delhi NCR</option>
+        <option>Maharashtra</option>
+        <option>West Bengal</option>
+        <option>Uttar Pradesh</option>
+        <option>Other India</option>
+      </select>
+      <select class="fsel">
+        <option>Any District</option>
+        <option>Darbhanga</option>
+        <option>Madhubani</option>
+        <option>Sitamarhi</option>
+        <option>Samastipur</option>
+        <option>Muzaffarpur</option>
+        <option>Begusarai</option>
+      </select>
+    </div>
+
+    <!-- Job Location -->
+    <div class="fg">
+      <div class="fg-label">Job Location <svg viewBox="0 0 14 8"><path d="M1 1l6 6 6-6" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></div>
+    </div>
+
+    <!-- Native Place -->
+    <div class="fg">
+      <div class="fg-label open">Native Place <svg viewBox="0 0 14 8"><path d="M1 1l6 6 6-6" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></div>
+      <select class="fsel">
+        <option>Any District</option>
+        <option>Darbhanga</option>
+        <option>Madhubani</option>
+        <option>Sitamarhi</option>
+        <option>Samastipur</option>
+        <option>Muzaffarpur</option>
+        <option>Supaul</option>
+        <option>Saharsa</option>
+      </select>
+    </div>
+
+    <!-- Marital Status -->
+    <div class="fg">
+      <div class="fg-label open">Marital Status <svg viewBox="0 0 14 8"><path d="M1 1l6 6 6-6" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></div>
+      <div class="chip-row">
+        <span class="chip on">Never Married</span>
+        <span class="chip">Divorced</span>
+        <span class="chip">Widowed</span>
+      </div>
+    </div>
+
+    <!-- Lifestyle -->
+    <div class="fg">
+      <div class="fg-label open">Lifestyle <svg viewBox="0 0 14 8"><path d="M1 1l6 6 6-6" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></div>
+      <div class="chip-row">
+        <span class="chip on">Vegetarian</span>
+        <span class="chip">Non-Veg</span>
+        <span class="chip">Eggetarian</span>
+      </div>
+    </div>
+
+    <!-- Family Type -->
+    <div class="fg">
+      <div class="fg-label open">Family Type <svg viewBox="0 0 14 8"><path d="M1 1l6 6 6-6" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></div>
+      <div class="chip-row">
+        <span class="chip on">Joint</span>
+        <span class="chip on">Nuclear</span>
+      </div>
+    </div>
+
+    <!-- Verification -->
+    <div class="fg">
+      <div class="fg-label open">Verification <svg viewBox="0 0 14 8"><path d="M1 1l6 6 6-6" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></div>
+      <div class="chip-row">
+        <span class="chip on">Verified Profiles</span>
+        <span class="chip">All</span>
+      </div>
+    </div>
+
+    <!-- Marriage Timeline -->
+    <div class="fg">
+      <div class="fg-label open">Marriage Timeline <svg viewBox="0 0 14 8"><path d="M1 1l6 6 6-6" stroke="currentColor" stroke-width="1.5" fill="none"/></svg></div>
+      <div class="chip-row">
+        <span class="chip on">Within 6 months</span>
+        <span class="chip">6–12 months</span>
+        <span class="chip">After 1 year</span>
+      </div>
+    </div>
+
+    <div class="orn">✦ ❁ ✦</div>
+    <button class="apply-btn">Apply Filters</button>
+  </aside>
+
+  <!-- Results -->
+  <main class="results">
+    <div class="results-bar">
+      <div>
+        <h2>Matching Profiles</h2>
+        <div class="count">312 profiles found · Bihar · Age 22–30 · Maithili · Brahmin</div>
+      </div>
+      <div class="sort-row">
+        Sort by
+        <select>
+          <option>Most Relevant</option>
+          <option>Newest First</option>
+          <option>Age: Low to High</option>
+          <option>Location</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Active filter chips -->
+    <div class="active-chips">
+      <span class="achip">Bride <button>×</button></span>
+      <span class="achip">Bihar <button>×</button></span>
+      <span class="achip">Age 22–30 <button>×</button></span>
+      <span class="achip">Maithili <button>×</button></span>
+      <span class="achip">Graduate+ <button>×</button></span>
+      <span class="achip">Verified <button>×</button></span>
+      <span class="achip">Vegetarian <button>×</button></span>
+    </div>
+
+    <div class="cards-grid">
+      <!-- Profile card 1 -->
+      <div class="pcard">
+        <div class="pcard-photo" style="background:linear-gradient(160deg,#f3d2b0,#e8a87c)">
+          <div class="no-photo">
+            <svg viewBox="0 0 40 40" width="48" height="48" fill="none"><circle cx="20" cy="15" r="8" stroke="#B98A2E" stroke-width="1.5"/><path d="M6 36 C6 26 34 26 34 36" stroke="#B98A2E" stroke-width="1.5" fill="none"/></svg>
+            <span>Photo visible to connected members</span>
+          </div>
+          <span class="verified-badge">✓ Verified</span>
+          <span class="new-badge">New</span>
+        </div>
+        <div class="pcard-body">
+          <div class="pcard-name">Priya Jha</div>
+          <div class="pcard-meta">25 yrs · 5'4" · Darbhanga, Bihar<br/>M.Tech · Software Engineer</div>
+          <div class="pcard-tags">
+            <span class="ptag">Kashyap</span>
+            <span class="ptag">Vegetarian</span>
+            <span class="ptag">Maithili</span>
+          </div>
+          <div class="pcard-actions">
+            <button class="pact pact-interest">Interest</button>
+            <button class="pact pact-short">Shortlist</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Profile card 2 -->
+      <div class="pcard">
+        <div class="pcard-photo" style="background:linear-gradient(160deg,#d8ecd6,#a9d3ab)">
+          <div class="no-photo">
+            <svg viewBox="0 0 40 40" width="48" height="48" fill="none"><circle cx="20" cy="15" r="8" stroke="#1F5133" stroke-width="1.5"/><path d="M6 36 C6 26 34 26 34 36" stroke="#1F5133" stroke-width="1.5" fill="none"/></svg>
+            <span>Photo visible to connected members</span>
+          </div>
+          <span class="verified-badge">✓ Verified</span>
+        </div>
+        <div class="pcard-body">
+          <div class="pcard-name">Ananya Mishra</div>
+          <div class="pcard-meta">27 yrs · 5'2" · Madhubani, Bihar<br/>MBBS · Doctor</div>
+          <div class="pcard-tags">
+            <span class="ptag">Bharadwaj</span>
+            <span class="ptag">Vegetarian</span>
+            <span class="ptag">Maithili</span>
+          </div>
+          <div class="pcard-actions">
+            <button class="pact pact-interest">Interest</button>
+            <button class="pact pact-short">Shortlist</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Profile card 3 -->
+      <div class="pcard">
+        <div class="pcard-photo" style="background:linear-gradient(160deg,#dfe0f0,#b6b9e0)">
+          <div class="no-photo">
+            <svg viewBox="0 0 40 40" width="48" height="48" fill="none"><circle cx="20" cy="15" r="8" stroke="#2E3A6E" stroke-width="1.5"/><path d="M6 36 C6 26 34 26 34 36" stroke="#2E3A6E" stroke-width="1.5" fill="none"/></svg>
+            <span>Photo visible to connected members</span>
+          </div>
+          <span class="verified-badge">✓ Verified</span>
+        </div>
+        <div class="pcard-body">
+          <div class="pcard-name">Sunita Thakur</div>
+          <div class="pcard-meta">24 yrs · 5'5" · Patna, Bihar<br/>MBA · Banking Sector</div>
+          <div class="pcard-tags">
+            <span class="ptag">Vatsa</span>
+            <span class="ptag">Vegetarian</span>
+            <span class="ptag">Maithili</span>
+          </div>
+          <div class="pcard-actions">
+            <button class="pact pact-interest">Interest</button>
+            <button class="pact pact-short">Shortlist</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Profile card 4 -->
+      <div class="pcard">
+        <div class="pcard-photo" style="background:linear-gradient(160deg,#f2cdb6,#e0a583)">
+          <div class="no-photo">
+            <svg viewBox="0 0 40 40" width="48" height="48" fill="none"><circle cx="20" cy="15" r="8" stroke="#C4562F" stroke-width="1.5"/><path d="M6 36 C6 26 34 26 34 36" stroke="#C4562F" stroke-width="1.5" fill="none"/></svg>
+            <span>Photo visible to connected members</span>
+          </div>
+        </div>
+        <div class="pcard-body">
+          <div class="pcard-name">Rekha Pandey</div>
+          <div class="pcard-meta">29 yrs · 5'3" · Muzaffarpur, Bihar<br/>B.Ed · Government Teacher</div>
+          <div class="pcard-tags">
+            <span class="ptag">Shandilya</span>
+            <span class="ptag">Vegetarian</span>
+            <span class="ptag">Maithili</span>
+          </div>
+          <div class="pcard-actions">
+            <button class="pact pact-interest">Interest</button>
+            <button class="pact pact-short">Shortlist</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Profile card 5 -->
+      <div class="pcard">
+        <div class="pcard-photo" style="background:linear-gradient(160deg,#fde8c0,#f0c878)">
+          <div class="no-photo">
+            <svg viewBox="0 0 40 40" width="48" height="48" fill="none"><circle cx="20" cy="15" r="8" stroke="#D6A83C" stroke-width="1.5"/><path d="M6 36 C6 26 34 26 34 36" stroke="#D6A83C" stroke-width="1.5" fill="none"/></svg>
+            <span>Photo visible to connected members</span>
+          </div>
+          <span class="verified-badge">✓ Verified</span>
+        </div>
+        <div class="pcard-body">
+          <div class="pcard-name">Kavya Singh</div>
+          <div class="pcard-meta">26 yrs · 5'1" · Delhi NCR<br/>CA · Finance Professional</div>
+          <div class="pcard-tags">
+            <span class="ptag">Kashyap</span>
+            <span class="ptag">Vegetarian</span>
+            <span class="ptag">Maithili</span>
+          </div>
+          <div class="pcard-actions">
+            <button class="pact pact-interest">Interest</button>
+            <button class="pact pact-short">Shortlist</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Profile card 6 -->
+      <div class="pcard">
+        <div class="pcard-photo" style="background:linear-gradient(160deg,#e8d5f0,#c8a8e0)">
+          <div class="no-photo">
+            <svg viewBox="0 0 40 40" width="48" height="48" fill="none"><circle cx="20" cy="15" r="8" stroke="#7A1220" stroke-width="1.5"/><path d="M6 36 C6 26 34 26 34 36" stroke="#7A1220" stroke-width="1.5" fill="none"/></svg>
+            <span>Photo visible to connected members</span>
+          </div>
+        </div>
+        <div class="pcard-body">
+          <div class="pcard-name">Meenakshi Rao</div>
+          <div class="pcard-meta">22 yrs · 5'6" · Bengaluru, Karnataka<br/>B.Tech · Student</div>
+          <div class="pcard-tags">
+            <span class="ptag">Parashara</span>
+            <span class="ptag">Vegetarian</span>
+            <span class="ptag">Maithili</span>
+          </div>
+          <div class="pcard-actions">
+            <button class="pact pact-interest">Interest</button>
+            <button class="pact pact-short">Shortlist</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="load-more">
+      <button class="btn btn-ghost" style="margin-top:10px">Load More Profiles</button>
+    </div>
+  </main>
+</div>
+
+<!-- Ornamental footer bar -->
+<div style="background:var(--maroon-deep);padding:6px 0;overflow:hidden;white-space:nowrap">
+  <svg viewBox="0 0 1200 12" preserveAspectRatio="none" style="width:100%;height:12px;display:block">
+    <defs><pattern id="fp" width="40" height="12" patternUnits="userSpaceOnUse">
+      <circle cx="8" cy="6" r="3" fill="#E8912A"/><circle cx="20" cy="6" r="4.5" fill="#D6A83C"/><circle cx="32" cy="6" r="3" fill="#E8912A"/>
+      <path d="M0 6 L5 3 L8 6 L11 9 L14 6 L20 2 L26 6 L29 9 L32 6 L35 3 L40 6" stroke="#B98A2E" stroke-width=".8" fill="none" opacity=".6"/>
+    </pattern></defs>
+    <rect width="1200" height="12" fill="url(#fp)"/>
+  </svg>
+</div>
+<footer>
+  <strong style="font-family:'Marcellus';color:var(--gold-lt)">Mithila Jodi</strong> &nbsp;·&nbsp; Find your match. Keep your roots. &nbsp;·&nbsp; Made with love for Mithila &nbsp;·&nbsp;
+  <span style="color:var(--paper-3)">Privacy · Terms · Contact · Careers</span>
+</footer>
+</body>
+</html>

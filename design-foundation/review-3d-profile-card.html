@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>3D Profile Card — Mithila Jodi Design Review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Rozha+One&family=Mukta:wght@300;400;500;600;700&family=Kalam:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --paper:#FBF1DD;--paper-2:#F6E7C9;--paper-3:#EFD9B4;--cream:#FFF8EA;
+  --maroon:#7A1220;--maroon-2:#9B2233;--maroon-deep:#5A0E19;
+  --terra:#C4562F;--marigold:#E8912A;--turmeric:#D6A83C;--gold:#B98A2E;--gold-lt:#E4C572;
+  --green:#1F5133;--green-2:#2E7048;
+  --indigo:#2E3A6E;--ink:#2B211C;--ink-soft:#6A5A4E;
+  --line:rgba(122,18,32,.14);--shadow:0 26px 55px -26px rgba(58,20,12,.5);--shadow-s:0 14px 30px -18px rgba(58,20,12,.4);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:"Mukta",system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3{font-family:"Marcellus",serif;font-weight:400;line-height:1.1}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 26px}
+.eyebrow{font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:var(--terra);font-weight:600}
+
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+  background:radial-gradient(circle at 10% 12%,rgba(232,145,42,.12),transparent 40%),
+             radial-gradient(circle at 92% 6%,rgba(122,18,32,.09),transparent 42%),
+             radial-gradient(circle at 78% 96%,rgba(31,81,51,.08),transparent 44%)}
+
+/* ── HEADER ── */
+header{position:sticky;top:0;z-index:50;background:rgba(251,241,221,.92);backdrop-filter:blur(10px);border-bottom:2px solid var(--gold)}
+.nav-bar{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+.logo{display:flex;align-items:center;gap:10px;font-family:"Marcellus";font-size:20px;color:var(--maroon)}
+.logo svg{width:34px;height:34px;flex:none}
+.logo small{display:block;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);margin-top:1px;font-family:"Mukta"}
+.back-link{display:flex;align-items:center;gap:6px;color:var(--maroon);font-size:14px;font-weight:600;padding:8px 14px;border:1px solid var(--gold);border-radius:999px;background:var(--cream);transition:.2s}
+.back-link:hover{background:#fff}
+.nav-pills{display:flex;gap:8px;flex-wrap:wrap}
+.pill{padding:5px 12px;border-radius:999px;font-size:12px;font-weight:600;font-family:"Mukta";cursor:pointer;border:1px solid var(--paper-3);background:var(--cream);color:var(--ink-soft);transition:.2s}
+.pill.active{background:var(--maroon);color:var(--cream);border-color:var(--maroon)}
+.pill:hover:not(.active){border-color:var(--gold);color:var(--maroon)}
+
+/* ── PAGE INTRO ── */
+.page-intro{padding:44px 0 10px;text-align:center}
+.page-intro h1{font-size:clamp(28px,4vw,42px);color:var(--maroon);margin:10px 0 12px}
+.page-intro p{color:var(--ink-soft);max-width:560px;margin:0 auto;font-size:16px}
+.divider-ornament{display:flex;align-items:center;justify-content:center;gap:12px;color:var(--gold);margin:28px auto 0;max-width:360px}
+.divider-ornament::before,.divider-ornament::after{content:"";height:2px;flex:1;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+
+/* ── 3D CARD SYSTEM ── */
+.card-scene{width:300px;height:456px;perspective:1500px;margin:0 auto;user-select:none}
+.card-scene.lg{width:340px;height:510px}
+
+.card-3d{width:100%;height:100%;position:relative;transform-style:preserve-3d;transition:transform .78s cubic-bezier(.4,0,.2,1);cursor:pointer}
+.card-3d.flipped{transform:rotateY(180deg)}
+.card-3d:not(.flipped):hover{transform:rotateY(8deg) rotateX(-3deg)}
+.card-3d.flipped:hover{transform:rotateY(172deg) rotateX(-3deg)}
+
+.card-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:22px;overflow:hidden;background:var(--cream);box-shadow:0 24px 52px -16px rgba(58,20,12,.38),0 2px 6px rgba(58,20,12,.08)}
+.card-back-face{transform:rotateY(180deg)}
+
+/* Gold gradient border */
+.card-face::before{content:"";position:absolute;inset:0;border-radius:22px;border:2px solid transparent;background:linear-gradient(var(--cream),var(--cream)) padding-box,linear-gradient(145deg,var(--gold),var(--marigold) 35%,var(--gold) 65%,var(--turmeric)) border-box;pointer-events:none;z-index:10}
+
+/* Corner SVG accents */
+.card-corner{position:absolute;z-index:11;pointer-events:none;color:var(--maroon);opacity:.7}
+.card-corner.tl{top:8px;left:8px}
+.card-corner.tr{top:8px;right:8px;transform:scaleX(-1)}
+.card-corner.bl{bottom:8px;left:8px;transform:scaleY(-1)}
+.card-corner.br{bottom:8px;right:8px;transform:scale(-1,-1)}
+
+/* ── FRONT FACE ── */
+.card-photo-area{height:210px;position:relative;overflow:hidden}
+.card-photo-area.female{background:linear-gradient(155deg,#f3d9c6 0%,#e8b888 40%,#c47050 100%)}
+.card-photo-area.male{background:linear-gradient(155deg,#c6d9e8 0%,#8ea8c4 40%,#4a6e90 100%)}
+.card-photo-area.female2{background:linear-gradient(155deg,#d6e8c6 0%,#a8c88e 40%,#507050 100%)}
+
+/* Photo SVG figure */
+.card-figure{position:absolute;bottom:0;left:50%;transform:translateX(-50%)}
+
+/* Status badge */
+.card-badge{position:absolute;top:12px;right:12px;background:linear-gradient(135deg,var(--maroon-2),var(--maroon));color:var(--gold-lt);font-size:10.5px;font-weight:700;letter-spacing:.06em;padding:3px 9px;border-radius:999px;font-family:"Mukta";z-index:5}
+.card-badge.verified{background:linear-gradient(135deg,#1F5133,#2E7048);color:#b8dfc6}
+
+/* Match score ring */
+.match-ring{position:absolute;bottom:10px;left:12px;z-index:5}
+.match-ring svg{width:48px;height:48px;filter:drop-shadow(0 2px 6px rgba(0,0,0,.3))}
+.match-ring text{font-family:"Marcellus",serif}
+
+/* Card body (front) */
+.card-body-front{padding:14px 16px 12px;position:relative}
+.card-name{font-family:"Marcellus",serif;font-size:18.5px;color:var(--maroon);margin-bottom:2px;line-height:1.15}
+.card-age-loc{font-size:12.5px;color:var(--ink-soft);margin-bottom:10px}
+.card-chips{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
+.chip{padding:3px 9px;border-radius:6px;font-size:11px;font-family:"Mukta";font-weight:500}
+.chip.edu{background:rgba(46,58,110,.08);color:var(--indigo);border:1px solid rgba(46,58,110,.16)}
+.chip.roots{background:rgba(31,81,51,.08);color:var(--green);border:1px solid rgba(31,81,51,.16)}
+.chip.prof{background:rgba(196,86,47,.08);color:var(--terra);border:1px solid rgba(196,86,47,.16)}
+
+.card-front-actions{display:flex;gap:7px;margin-top:4px}
+.cfbtn{flex:1;padding:9px 6px;border-radius:10px;font-size:12px;font-weight:600;font-family:"Mukta";text-align:center;cursor:pointer;border:1px solid transparent;transition:.18s;line-height:1}
+.cfbtn.interest{background:linear-gradient(180deg,var(--maroon-2),var(--maroon));color:var(--cream)}
+.cfbtn.interest:hover{transform:translateY(-1px);box-shadow:var(--shadow-s)}
+.cfbtn.shortlist{background:var(--paper-2);border-color:var(--gold);color:var(--maroon)}
+.cfbtn.shortlist:hover{background:#fff}
+
+.card-flip-hint{text-align:center;font-size:10px;color:var(--ink-soft);margin-top:8px;letter-spacing:.04em;opacity:.65}
+
+/* ── BACK FACE ── */
+.card-back-top{background:linear-gradient(135deg,var(--maroon-2),var(--maroon));padding:16px;display:flex;align-items:center;gap:12px}
+.card-back-gold-stripe{height:3px;background:linear-gradient(90deg,var(--maroon-deep),var(--gold),var(--marigold),var(--gold),var(--maroon-deep))}
+.back-avatar{width:50px;height:50px;border-radius:50%;border:2px solid var(--gold-lt);display:grid;place-items:center;font-family:"Rozha One",serif;font-size:22px;color:var(--gold-lt);background:rgba(255,255,255,.12);flex:none}
+.back-name{font-family:"Marcellus",serif;font-size:16.5px;color:#fff;line-height:1.2}
+.back-sub{font-size:11.5px;color:rgba(255,255,255,.72);margin-top:1px}
+
+.card-back-scroll{padding:10px 14px;overflow-y:auto;height:calc(100% - 82px - 60px - 3px)}
+.back-row{display:flex;gap:8px;padding:7px 0;border-bottom:1px solid var(--line)}
+.back-row:last-child{border-bottom:none}
+.back-label{font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);min-width:70px;flex:none;padding-top:2px;font-family:"Mukta"}
+.back-val{font-size:13px;color:var(--ink);font-weight:500;font-family:"Mukta";line-height:1.35}
+.back-val .hl{color:var(--maroon);font-weight:600}
+.back-val .root{color:var(--green);font-weight:600}
+
+.card-back-actions{display:flex;gap:6px;padding:10px 14px 14px;background:var(--paper);border-top:1px solid var(--line)}
+.cbbtn{flex:1;padding:9px 4px;border-radius:9px;font-size:11.5px;font-weight:600;font-family:"Mukta";text-align:center;cursor:pointer;border:1px solid transparent;transition:.18s;line-height:1.2}
+.cbbtn.primary{background:linear-gradient(180deg,var(--maroon-2),var(--maroon));color:var(--cream)}
+.cbbtn.secondary{background:var(--cream);border-color:var(--gold);color:var(--maroon)}
+.cbbtn.tertiary{background:var(--paper-2);border-color:var(--paper-3);color:var(--ink-soft)}
+.cbbtn:hover{transform:translateY(-1px)}
+
+/* ── SHOWCASE SECTION ── */
+.showcase-section{padding:36px 0 20px;text-align:center}
+.showcase-label{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px}
+.showcase-caption{font-size:14px;color:var(--ink-soft);margin-top:12px;font-style:italic}
+
+/* ── GRID SECTION ── */
+.grid-section{padding:16px 0 60px}
+.grid-section h2{font-size:clamp(22px,3vw,32px);color:var(--maroon);text-align:center;margin-bottom:8px}
+.grid-section .sub{text-align:center;color:var(--ink-soft);font-size:15px;margin-bottom:36px}
+.cards-grid{display:grid;grid-template-columns:repeat(3,300px);gap:32px;justify-content:center}
+
+/* ── INTERACTION GUIDE ── */
+.guide{background:var(--cream);border:1px solid var(--paper-3);border-radius:16px;padding:22px 28px;max-width:720px;margin:0 auto 50px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.guide-item{text-align:center}
+.guide-icon{font-size:24px;margin-bottom:6px}
+.guide-label{font-family:"Marcellus",serif;font-size:14px;color:var(--maroon);margin-bottom:4px}
+.guide-desc{font-size:12.5px;color:var(--ink-soft)}
+
+/* ── SPEC PANEL ── */
+.spec-panel{background:linear-gradient(180deg,var(--maroon),var(--maroon-deep));color:var(--cream);border-radius:16px;padding:28px;max-width:760px;margin:0 auto 60px}
+.spec-panel h3{font-family:"Marcellus",serif;color:var(--gold-lt);font-size:18px;margin-bottom:16px}
+.spec-list{display:grid;grid-template-columns:1fr 1fr;gap:6px 20px}
+.spec-item{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.85);padding:4px 0}
+.spec-item::before{content:"✦";color:var(--gold-lt);font-size:10px;flex:none}
+
+/* ── FOOTER MINI ── */
+.mini-footer{background:var(--maroon-deep);color:rgba(255,255,255,.6);text-align:center;padding:18px;font-size:13px;border-top:2px solid var(--gold)}
+.mini-footer span{color:var(--gold-lt)}
+
+@media(prefers-reduced-motion:reduce){.card-3d{transition:none}.card-3d:hover{transform:none}}
+@media(max-width:1020px){.cards-grid{grid-template-columns:repeat(2,300px)}}
+@media(max-width:680px){.cards-grid{grid-template-columns:300px}.guide{grid-template-columns:1fr}.spec-list{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header>
+  <div class="wrap nav-bar">
+    <a class="logo" href="homepage.html">
+      <svg viewBox="0 0 34 34" fill="none" aria-hidden="true"><circle cx="17" cy="17" r="15" stroke="#7A1220" stroke-width="1.4"/><path d="M17 9C13.5 13 13.5 17.5 17 21C20.5 17.5 20.5 13 17 9Z" fill="#C4562F"/><path d="M10 24C13.5 27 20.5 27 24 24" stroke="#D6A83C" stroke-width="1.5" fill="none"/></svg>
+      <span>Mithila Jodi<small>Design Review · V9</small></span>
+    </a>
+    <nav class="nav-pills" aria-label="Review pages">
+      <a class="pill" href="review-index.html">Index</a>
+      <a class="pill" href="homepage.html">Home</a>
+      <a class="pill" href="review-search.html">Search</a>
+      <a class="pill" href="review-profile.html">Profile</a>
+      <a class="pill active" href="#">3D Card</a>
+      <a class="pill" href="review-biodata.html">Biodata</a>
+    </nav>
+    <a class="back-link" href="review-index.html">← Design Review</a>
+  </div>
+</header>
+
+<!-- ── PAGE INTRO ── -->
+<div class="page-intro">
+  <div class="wrap">
+    <span class="eyebrow">Design Gate · Item 9</span>
+    <h1>3D Profile Card</h1>
+    <p>Interactive rotating profile cards rooted in the Mithila visual language. Click or tap a card to reveal detailed profile information on the back.</p>
+    <div class="divider-ornament">✦ ❁ ✦</div>
+  </div>
+</div>
+
+<!-- ── INTERACTION GUIDE ── -->
+<div class="wrap" style="margin-top:28px">
+  <div class="guide">
+    <div class="guide-item">
+      <div class="guide-icon">🖱️</div>
+      <div class="guide-label">Click to Flip</div>
+      <div class="guide-desc">Rotate the card 180° to reveal detailed profile information</div>
+    </div>
+    <div class="guide-item">
+      <div class="guide-icon">✋</div>
+      <div class="guide-label">Hover Tilt</div>
+      <div class="guide-desc">Subtle 3D tilt on hover gives cards natural depth and weight</div>
+    </div>
+    <div class="guide-item">
+      <div class="guide-icon">🔄</div>
+      <div class="guide-label">Auto Demo</div>
+      <div class="guide-desc">Showcase card below demonstrates the flip automatically</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── SHOWCASE CARD (large, auto-demo) ── -->
+<section class="showcase-section">
+  <div class="wrap">
+    <div class="showcase-label">Showcase — Click to flip</div>
+    <div class="card-scene lg" id="showcase" onclick="toggleCard(this.querySelector('.card-3d'))">
+
+      <div class="card-3d" id="showcaseCard">
+
+        <!-- FRONT FACE -->
+        <div class="card-face">
+          <!-- Corner ornaments -->
+          <svg class="card-corner tl" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 10 Q4 4 10 4"/><path d="M7 10 Q7 7 10 7"/><circle cx="10" cy="10" r="1.8" fill="currentColor"/></svg>
+          <svg class="card-corner tr" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 10 Q4 4 10 4"/><path d="M7 10 Q7 7 10 7"/><circle cx="10" cy="10" r="1.8" fill="currentColor"/></svg>
+          <svg class="card-corner bl" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 10 Q4 4 10 4"/><path d="M7 10 Q7 7 10 7"/><circle cx="10" cy="10" r="1.8" fill="currentColor"/></svg>
+          <svg class="card-corner br" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 10 Q4 4 10 4"/><path d="M7 10 Q7 7 10 7"/><circle cx="10" cy="10" r="1.8" fill="currentColor"/></svg>
+
+          <!-- Photo area -->
+          <div class="card-photo-area female" style="height:240px">
+            <span class="card-badge verified">✓ Verified</span>
+            <!-- Madhubani-style figure SVG -->
+            <svg class="card-figure" width="180" height="220" viewBox="0 0 180 220" aria-hidden="true">
+              <defs>
+                <linearGradient id="sareeS" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#9B2233"/><stop offset="100%" stop-color="#5A0E19"/></linearGradient>
+                <linearGradient id="skinS" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#D4836B"/><stop offset="100%" stop-color="#C06848"/></linearGradient>
+                <pattern id="sarP" width="8" height="8" patternUnits="userSpaceOnUse"><rect width="8" height="8" fill="#7A1220"/><path d="M4 0.5L7.5 4L4 7.5L0.5 4Z" fill="none" stroke="#D6A83C" stroke-width="0.6"/></pattern>
+              </defs>
+              <!-- Saree skirt -->
+              <path d="M52 220 Q36 170 44 130 L60 112 L120 112 L136 130 Q144 170 128 220 Z" fill="url(#sarP)" stroke="#B98A2E" stroke-width="1.2"/>
+              <!-- Gold border lines -->
+              <path d="M52 220 Q36 170 44 130" fill="none" stroke="#D6A83C" stroke-width="2"/>
+              <path d="M128 220 Q144 170 136 130" fill="none" stroke="#D6A83C" stroke-width="2"/>
+              <!-- Blouse -->
+              <path d="M60 112 L60 86 Q90 78 120 86 L120 112 Z" fill="#9B2233" stroke="#B98A2E" stroke-width="1"/>
+              <!-- Blouse dots -->
+              <g fill="#D6A83C"><circle cx="72" cy="98" r="2"/><circle cx="90" cy="98" r="2"/><circle cx="108" cy="98" r="2"/></g>
+              <!-- Dupatta -->
+              <path d="M60 86 Q30 72 26 130 Q22 170 44 220" fill="#C4562F" opacity="0.5" stroke="#9B2233" stroke-width="0.8"/>
+              <!-- Arms -->
+              <path d="M120 94 Q138 82 150 68" fill="none" stroke="#C47050" stroke-width="9" stroke-linecap="round"/>
+              <circle cx="150" cy="68" r="7" fill="url(#skinS)"/>
+              <path d="M60 92 Q44 104 42 122" fill="none" stroke="#C47050" stroke-width="8" stroke-linecap="round"/>
+              <!-- Neck -->
+              <rect x="82" y="72" width="16" height="16" rx="6" fill="url(#skinS)"/>
+              <!-- FACE -->
+              <ellipse cx="90" cy="54" rx="24" ry="28" fill="url(#skinS)" stroke="#2B211C" stroke-width="1.5"/>
+              <!-- Madhubani eyes -->
+              <path d="M76 52 Q83 46 90 52 Q83 58 76 52Z" fill="#1A1209"/>
+              <path d="M92 52 Q99 46 106 52 Q99 58 92 52Z" fill="#1A1209"/>
+              <circle cx="83" cy="52" r="2.2" fill="#fff" opacity="0.4"/>
+              <circle cx="99" cy="52" r="2.2" fill="#fff" opacity="0.4"/>
+              <!-- Brow -->
+              <path d="M72 46 Q83 41 90 46" fill="none" stroke="#1A1209" stroke-width="1.5" stroke-linecap="round"/>
+              <path d="M92 46 Q99 41 108 46" fill="none" stroke="#1A1209" stroke-width="1.5" stroke-linecap="round"/>
+              <!-- Nose -->
+              <path d="M87 60 Q90 63 93 60" fill="none" stroke="#2B211C" stroke-width="1" stroke-linecap="round"/>
+              <!-- Lips -->
+              <path d="M82 68 Q90 64 98 68 Q94 74 90 75 Q86 74 82 68Z" fill="#C4562F"/>
+              <!-- Bindi -->
+              <circle cx="90" cy="32" r="4" fill="#7A1220"/>
+              <line x1="90" y1="26" x2="90" y2="32" stroke="#D6A83C" stroke-width="1.4"/>
+              <circle cx="90" cy="24" r="3" fill="#D6A83C"/>
+              <!-- Hair bun -->
+              <path d="M66 42 Q72 18 90 14 Q108 18 114 42" fill="#1A1209"/>
+              <circle cx="90" cy="12" r="12" fill="#1A1209"/>
+              <g transform="translate(102,6)"><circle r="5.5" fill="#E8912A"/><circle r="2.2" fill="#D6A83C"/></g>
+              <!-- Necklace -->
+              <path d="M74 74 Q90 80 106 74" fill="none" stroke="#D6A83C" stroke-width="1.8"/>
+              <g fill="#D6A83C"><circle cx="74" cy="74" r="2.5"/><circle cx="82" cy="78" r="3"/><circle cx="90" cy="80" r="3.5"/><circle cx="98" cy="78" r="3"/><circle cx="106" cy="74" r="2.5"/></g>
+              <path d="M90 80 Q87 88 90 92 Q93 88 90 80Z" fill="#D6A83C"/>
+              <!-- Earrings -->
+              <path d="M66 52 Q62 60 66 64 Q70 60 66 52Z" fill="#D6A83C"/>
+              <path d="M114 52 Q118 60 114 64 Q110 60 114 52Z" fill="#D6A83C"/>
+              <!-- Bangles -->
+              <g stroke="#D6A83C" fill="none" stroke-width="2"><circle cx="146" cy="66" r="5"/><circle cx="152" cy="66" r="5"/></g>
+            </svg>
+            <!-- Match score ring -->
+            <div class="match-ring">
+              <svg viewBox="0 0 48 48" aria-label="84% match score">
+                <circle cx="24" cy="24" r="20" fill="rgba(0,0,0,.25)" stroke="none"/>
+                <circle cx="24" cy="24" r="20" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="4"/>
+                <circle cx="24" cy="24" r="20" fill="none" stroke="#D6A83C" stroke-width="4" stroke-linecap="round"
+                  stroke-dasharray="105.6 125.6" stroke-dashoffset="31.4" transform="rotate(-90 24 24)"/>
+                <text x="24" y="28" text-anchor="middle" fill="#fff" font-size="10" font-family="Marcellus,serif">84%</text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Body front -->
+          <div class="card-body-front">
+            <div class="card-name">Priya Jha</div>
+            <div class="card-age-loc">26 yrs · 5'4" · Madhubani, Bihar</div>
+            <div class="card-chips">
+              <span class="chip edu">M.Tech · NIT Patna</span>
+              <span class="chip prof">Software Engineer</span>
+              <span class="chip roots">Madhubani Roots</span>
+            </div>
+            <div class="card-front-actions">
+              <button class="cfbtn interest" aria-label="Send interest to Priya">♥ Interest</button>
+              <button class="cfbtn shortlist" aria-label="Shortlist Priya">☆ Shortlist</button>
+            </div>
+            <div class="card-flip-hint">Click card to see full profile →</div>
+          </div>
+        </div><!-- /front -->
+
+        <!-- BACK FACE -->
+        <div class="card-face card-back-face">
+          <svg class="card-corner tl" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 10 Q4 4 10 4"/><circle cx="10" cy="10" r="1.8" fill="currentColor"/></svg>
+          <svg class="card-corner tr" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 10 Q4 4 10 4"/><circle cx="10" cy="10" r="1.8" fill="currentColor"/></svg>
+          <svg class="card-corner bl" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 10 Q4 4 10 4"/><circle cx="10" cy="10" r="1.8" fill="currentColor"/></svg>
+          <svg class="card-corner br" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 10 Q4 4 10 4"/><circle cx="10" cy="10" r="1.8" fill="currentColor"/></svg>
+
+          <div class="card-back-gold-stripe"></div>
+          <div class="card-back-top">
+            <div class="back-avatar">प्र</div>
+            <div>
+              <div class="back-name">Priya Jha</div>
+              <div class="back-sub">26 · Female · Never Married</div>
+            </div>
+          </div>
+          <div class="card-back-scroll">
+            <div class="back-row"><span class="back-label">Education</span><span class="back-val"><span class="hl">M.Tech CSE</span> · NIT Patna</span></div>
+            <div class="back-row"><span class="back-label">Career</span><span class="back-val">Software Engineer · TCS Pune</span></div>
+            <div class="back-row"><span class="back-label">Height</span><span class="back-val">5 ft 4 in</span></div>
+            <div class="back-row"><span class="back-label">Complexion</span><span class="back-val">Fair</span></div>
+            <div class="back-row"><span class="back-label">Mother Tongue</span><span class="back-val"><span class="hl">Maithili</span></span></div>
+            <div class="back-row"><span class="back-label">Caste</span><span class="back-val">Maithil Brahmin</span></div>
+            <div class="back-row"><span class="back-label">Gotra</span><span class="back-val">Shhandilya</span></div>
+            <div class="back-row"><span class="back-label">Mool</span><span class="back-val">Madhubani</span></div>
+            <div class="back-row"><span class="back-label">Native</span><span class="back-val"><span class="root">Rajnagar, Madhubani</span> · Bihar</span></div>
+            <div class="back-row"><span class="back-label">Current</span><span class="back-val">Pune, Maharashtra</span></div>
+            <div class="back-row"><span class="back-label">Family</span><span class="back-val">Joint family · 4 members</span></div>
+            <div class="back-row"><span class="back-label">Diet</span><span class="back-val">Vegetarian</span></div>
+            <div class="back-row"><span class="back-label">Lifestyle</span><span class="back-val">Traditional values, modern outlook</span></div>
+            <div class="back-row"><span class="back-label">Partner Pref.</span><span class="back-val">Maithili · 27–32 yrs · Graduate+</span></div>
+          </div>
+          <div class="card-back-actions">
+            <button class="cbbtn primary">♥ Interest</button>
+            <button class="cbbtn secondary">View Profile</button>
+            <button class="cbbtn tertiary">☆ Save</button>
+          </div>
+        </div><!-- /back -->
+
+      </div><!-- /.card-3d -->
+    </div><!-- /.card-scene.lg -->
+    <p class="showcase-caption">Mithila Jodi 3D Profile Card · Warm ivory background · Gold Mithila border · Maroon typography</p>
+  </div>
+</section>
+
+<!-- ── CARDS GRID ── -->
+<section class="grid-section">
+  <div class="wrap">
+    <span class="eyebrow" style="display:block;text-align:center;margin-bottom:8px">Profile Discovery</span>
+    <h2>Browse Profiles</h2>
+    <p class="sub">Click any card to flip and explore the full profile</p>
+
+    <div class="cards-grid">
+
+      <!-- Card 1: Male -->
+      <div class="card-scene" onclick="toggleCard(this.querySelector('.card-3d'))">
+        <div class="card-3d">
+          <!-- FRONT -->
+          <div class="card-face">
+            <svg class="card-corner tl" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 10 Q4 4 10 4"/><circle cx="10" cy="10" r="1.8" fill="currentColor"/></svg>
+            <svg class="card-corner tr" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 10 Q4 4 10 4"/><circle cx="10" cy="10" r="1.8" fill="currentColor"/></svg>
+            <svg class="card-corner bl" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 10 Q4 4 10 4"/><circle cx="10" cy="10" r="1.8" fill="currentColor"/></svg>
+            <svg class="card-corner br" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 10 Q4 4 10 4"/><circle cx="10" cy="10" r="1.8" fill="currentColor"/></svg>
+
+            <div class="card-photo-area male">
+              <span class="card-badge">Premium</span>
+              <!-- Groom figure SVG -->
+              <svg class="card-figure" width="160" height="200" viewBox="0 0 160 200" aria-hidden="true">
+                <defs>
+                  <linearGradient id="sherG2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#2E3A6E"/><stop offset="100%" stop-color="#1E2854"/></linearGradient>
+                  <linearGradient id="skinG2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#C47050"/><stop offset="100%" stop-color="#A85A30"/></linearGradient>
+                  <pattern id="sherPG2" width="8" height="8" patternUnits="userSpaceOnUse"><rect width="8" height="8" fill="#2E3A6E"/><circle cx="4" cy="4" r="1.5" fill="none" stroke="#B98A2E" stroke-width="0.5"/></pattern>
+                </defs>
+                <!-- Sherwani -->
+                <path d="M40 200 Q30 160 36 120 L52 104 L108 104 L124 120 Q130 160 120 200 Z" fill="url(#sherPG2)" stroke="#B98A2E" stroke-width="1.2"/>
+                <g fill="#D6A83C"><circle cx="80" cy="118" r="2.5"/><circle cx="80" cy="132" r="2.5"/><circle cx="80" cy="146" r="2.5"/></g>
+                <path d="M66 104 L0 104 L80 112 L94 104 Z" fill="none"/>
+                <path d="M64 104 L80 112 L96 104" fill="#1E2854" stroke="#D6A83C" stroke-width="1"/>
+                <path d="M52 104 L52 80 Q80 72 108 80 L108 104 Z" fill="#2E3A6E" stroke="#B98A2E" stroke-width="1"/>
+                <!-- Dhoti lower -->
+                <path d="M40 200 Q30 218 52 226 L108 226 Q130 218 120 200 Z" fill="#FBF1DD" stroke="#D6A83C" stroke-width="1.2"/>
+                <!-- Arms -->
+                <path d="M52 88 Q34 74 22 60" fill="none" stroke="#A85A30" stroke-width="9" stroke-linecap="round"/>
+                <circle cx="22" cy="60" r="7" fill="url(#skinG2)"/>
+                <path d="M108 88 Q120 98 122 118" fill="none" stroke="#A85A30" stroke-width="8" stroke-linecap="round"/>
+                <!-- Neck -->
+                <rect x="72" y="66" width="16" height="16" rx="5" fill="url(#skinG2)"/>
+                <!-- FACE -->
+                <ellipse cx="80" cy="48" rx="22" ry="26" fill="url(#skinG2)" stroke="#2B211C" stroke-width="1.5"/>
+                <path d="M66 46 Q73 40 80 46 Q73 52 66 46Z" fill="#1A1209"/>
+                <path d="M82 46 Q89 40 96 46 Q89 52 82 46Z" fill="#1A1209"/>
+                <circle cx="73" cy="46" r="2" fill="#fff" opacity="0.4"/>
+                <circle cx="89" cy="46" r="2" fill="#fff" opacity="0.4"/>
+                <path d="M77 54 Q80 57 83 54" fill="none" stroke="#2B211C" stroke-width="0.9" stroke-linecap="round"/>
+                <path d="M74 62 Q80 58 86 62 Q83 68 80 69 Q77 68 74 62Z" fill="#8B4028"/>
+                <path d="M62 40 Q73 35 80 40" fill="none" stroke="#1A1209" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M82 40 Q89 35 98 40" fill="none" stroke="#1A1209" stroke-width="1.5" stroke-linecap="round"/>
+                <!-- PAGRI -->
+                <path d="M58 28 Q64 6 80 2 Q96 6 102 28" fill="#7A1220"/>
+                <path d="M58 28 Q80 -6 102 28" fill="none" stroke="#D6A83C" stroke-width="1.8"/>
+                <circle cx="80" cy="14" r="4.5" fill="#D6A83C"/>
+                <circle cx="80" cy="14" r="1.8" fill="#7A1220"/>
+                <path d="M77 8 Q68 -14 70 -24 Q78 -8 84 -4 Q90 -16 92 -4 Q84 2 77 8Z" fill="#E4C572" stroke="#B98A2E" stroke-width="0.7"/>
+                <!-- Sehra flowers -->
+                <g opacity="0.82"><circle cx="62" cy="26" r="3.5" fill="#E8912A"/><circle cx="70" cy="24" r="3.5" fill="#D6A83C"/><circle cx="80" cy="23" r="3.5" fill="#E8912A"/><circle cx="90" cy="24" r="3.5" fill="#D6A83C"/><circle cx="98" cy="26" r="3.5" fill="#E8912A"/></g>
+                <!-- Necklace -->
+                <path d="M64 70 Q80 76 96 70" fill="none" stroke="#D6A83C" stroke-width="1.6"/>
+                <g fill="#D6A83C"><circle cx="64" cy="70" r="2"/><circle cx="72" cy="74" r="2.5"/><circle cx="80" cy="76" r="3"/><circle cx="88" cy="74" r="2.5"/><circle cx="96" cy="70" r="2"/></g>
+              </svg>
+              <div class="match-ring">
+                <svg viewBox="0 0 48 48" aria-label="78% match">
+                  <circle cx="24" cy="24" r="20" fill="rgba(0,0,0,.25)"/>
+                  <circle cx="24" cy="24" r="20" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="4"/>
+                  <circle cx="24" cy="24" r="20" fill="none" stroke="#D6A83C" stroke-width="4" stroke-linecap="round"
+                    stroke-dasharray="97.7 125.6" stroke-dashoffset="31.4" transform="rotate(-90 24 24)"/>
+                  <text x="24" y="28" text-anchor="middle" fill="#fff" font-size="10" font-family="Marcellus,serif">78%</text>
+                </svg>
+              </div>
+            </div>
+            <div class="card-body-front">
+              <div class="card-name">Aryan Mishra</div>
+              <div class="card-age-loc">28 yrs · 5'10" · Darbhanga, Bihar</div>
+              <div class="card-chips">
+                <span class="chip edu">B.Tech · IIT Delhi</span>
+                <span class="chip prof">Product Manager</span>
+                <span class="chip roots">Darbhanga Roots</span>
+              </div>
+              <div class="card-front-actions">
+                <button class="cfbtn interest">♥ Interest</button>
+                <button class="cfbtn shortlist">☆ Shortlist</button>
+              </div>
+              <div class="card-flip-hint">Click card to see full profile →</div>
+            </div>
+          </div><!-- /front -->
+
+          <!-- BACK -->
+          <div class="card-face card-back-face">
+            <svg class="card-corner tl" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 10 Q4 4 10 4"/><circle cx="10" cy="10" r="1.8" fill="currentColor"/></svg>
+            <svg class="card-corner br" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 10 Q4 4 10 4"/><circle cx="10" cy="10" r="1.8" fill="currentColor"/></svg>
+            <div class="card-back-gold-stripe"></div>
+            <div class="card-back-top">
+              <div class="back-avatar">अ</div>
+              <div><div class="back-name">Aryan Mishra</div><div class="back-sub">28 · Male · Never Married</div></div>
+            </div>
+            <div class="card-back-scroll">
+              <div class="back-row"><span class="back-label">Education</span><span class="back-val"><span class="hl">B.Tech CSE</span> · IIT Delhi</span></div>
+              <div class="back-row"><span class="back-label">Career</span><span class="back-val">Product Manager · Google India</span></div>
+              <div class="back-row"><span class="back-label">Height</span><span class="back-val">5 ft 10 in</span></div>
+              <div class="back-row"><span class="back-label">Mother Tongue</span><span class="back-val"><span class="hl">Maithili</span></span></div>
+              <div class="back-row"><span class="back-label">Caste</span><span class="back-val">Maithil Brahmin</span></div>
+              <div class="back-row"><span class="back-label">Gotra</span><span class="back-val">Kashyap</span></div>
+              <div class="back-row"><span class="back-label">Mool</span><span class="back-val">Darbhanga</span></div>
+              <div class="back-row"><span class="back-label">Native</span><span class="back-val"><span class="root">Benipur, Darbhanga</span> · Bihar</span></div>
+              <div class="back-row"><span class="back-label">Current</span><span class="back-val">Bengaluru, Karnataka</span></div>
+              <div class="back-row"><span class="back-label">Family</span><span class="back-val">Nuclear · Parents in Darbhanga</span></div>
+              <div class="back-row"><span class="back-label">Diet</span><span class="back-val">Vegetarian</span></div>
+              <div class="back-row"><span class="back-label">Partner Pref.</span><span class="back-val">Maithili · 24–30 yrs · Graduate+</span></div>
+            </div>
+            <div class="card-back-actions">
+              <button class="cbbtn primary">♥ Interest</button>
+              <button class="cbbtn secondary">View Profile</button>
+              <button class="cbbtn tertiary">☆ Save</button>
+            </div>
+          </div>
+        </div>
+      </div><!-- /card1 -->
+
+      <!-- Card 2: Female (green saree) -->
+      <div class="card-scene" onclick="toggleCard(this.querySelector('.card-3d'))">
+        <div class="card-3d">
+          <div class="card-face">
+            <svg class="card-corner tl" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 10 Q4 4 10 4"/><circle cx="10" cy="10" r="1.8" fill="currentColor"/></svg>
+            <svg class="card-corner br" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 10 Q4 4 10 4"/><circle cx="10" cy="10" r="1.8" fill="currentColor"/></svg>
+            <div class="card-photo-area female2">
+              <span class="card-badge verified">✓ Verified</span>
+              <svg class="card-figure" width="160" height="200" viewBox="0 0 160 200" aria-hidden="true">
+                <defs>
+                  <linearGradient id="skinF3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#D4836B"/><stop offset="100%" stop-color="#C47050"/></linearGradient>
+                  <pattern id="sarPG" width="8" height="8" patternUnits="userSpaceOnUse"><rect width="8" height="8" fill="#1F5133"/><path d="M4 0.5L7.5 4L4 7.5L0.5 4Z" fill="none" stroke="#D6A83C" stroke-width="0.6"/></pattern>
+                </defs>
+                <path d="M40 200 Q26 154 34 118 L52 100 L108 100 L126 118 Q134 154 120 200 Z" fill="url(#sarPG)" stroke="#B98A2E" stroke-width="1.2"/>
+                <path d="M40 200 Q26 154 34 118" fill="none" stroke="#D6A83C" stroke-width="2"/>
+                <path d="M120 200 Q134 154 126 118" fill="none" stroke="#D6A83C" stroke-width="2"/>
+                <!-- diamond motifs -->
+                <g fill="none" stroke="#D6A83C" stroke-width="0.8"><path d="M50 128 L54 122 L58 128 L54 134 Z"/><path d="M100 124 L104 118 L108 124 L104 130 Z"/></g>
+                <path d="M52 100 L52 76 Q80 68 108 76 L108 100 Z" fill="#C4562F" stroke="#B98A2E" stroke-width="1"/>
+                <g fill="#E4C572"><circle cx="66" cy="88" r="2"/><circle cx="80" cy="88" r="2"/><circle cx="94" cy="88" r="2"/></g>
+                <path d="M52 76 Q28 62 24 118 Q20 158 36 200" fill="#D6A83C" opacity="0.38" stroke="#B98A2E" stroke-width="0.7"/>
+                <path d="M108 82 Q124 68 136 54" fill="none" stroke="#C47050" stroke-width="9" stroke-linecap="round"/>
+                <circle cx="136" cy="54" r="7" fill="url(#skinF3)"/>
+                <g stroke="#D6A83C" fill="none" stroke-width="1.8"><circle cx="132" cy="52" r="4.5"/><circle cx="138" cy="52" r="4.5"/></g>
+                <path d="M52 82 Q38 94 36 112" fill="none" stroke="#C47050" stroke-width="8" stroke-linecap="round"/>
+                <rect x="72" y="62" width="16" height="16" rx="5" fill="url(#skinF3)"/>
+                <ellipse cx="80" cy="44" rx="22" ry="26" fill="url(#skinF3)" stroke="#2B211C" stroke-width="1.5"/>
+                <path d="M66 42 Q73 36 80 42 Q73 48 66 42Z" fill="#1A1209"/>
+                <path d="M82 42 Q89 36 96 42 Q89 48 82 42Z" fill="#1A1209"/>
+                <circle cx="73" cy="42" r="2" fill="#fff" opacity="0.4"/>
+                <circle cx="89" cy="42" r="2" fill="#fff" opacity="0.4"/>
+                <path d="M77 50 Q80 53 83 50" fill="none" stroke="#2B211C" stroke-width="1" stroke-linecap="round"/>
+                <path d="M74 58 Q80 54 86 58 Q83 64 80 65 Q77 64 74 58Z" fill="#C4562F"/>
+                <path d="M62 36 Q73 31 80 36" fill="none" stroke="#1A1209" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M82 36 Q89 31 98 36" fill="none" stroke="#1A1209" stroke-width="1.5" stroke-linecap="round"/>
+                <circle cx="80" cy="22" r="4" fill="#7A1220"/>
+                <line x1="80" y1="16" x2="80" y2="22" stroke="#D6A83C" stroke-width="1.4"/>
+                <circle cx="80" cy="14" r="3" fill="#D6A83C"/>
+                <path d="M58 32 Q64 10 80 6 Q96 10 102 32" fill="#1A1209"/>
+                <circle cx="80" cy="4" r="11" fill="#1A1209"/>
+                <g transform="translate(68,-2)"><circle r="5.5" fill="#C4562F"/><circle r="2" fill="#E4C572"/></g>
+                <g transform="translate(90,-2)"><circle r="5.5" fill="#E8912A"/><circle r="2.2" fill="#D6A83C"/></g>
+                <path d="M64 66 Q80 72 96 66" fill="none" stroke="#D6A83C" stroke-width="1.8"/>
+                <g fill="#D6A83C"><circle cx="64" cy="66" r="2.5"/><circle cx="72" cy="70" r="3"/><circle cx="80" cy="72" r="3.5"/><circle cx="88" cy="70" r="3"/><circle cx="96" cy="66" r="2.5"/></g>
+                <path d="M80 72 Q77 80 80 84 Q83 80 80 72Z" fill="#D6A83C"/>
+                <path d="M58 42 Q54 50 58 54 Q62 50 58 42Z" fill="#D6A83C"/>
+                <path d="M102 42 Q106 50 102 54 Q98 50 102 42Z" fill="#D6A83C"/>
+                <circle cx="84" cy="49" r="2.5" fill="none" stroke="#D6A83C" stroke-width="1.2"/>
+              </svg>
+              <div class="match-ring">
+                <svg viewBox="0 0 48 48" aria-label="91% match">
+                  <circle cx="24" cy="24" r="20" fill="rgba(0,0,0,.25)"/>
+                  <circle cx="24" cy="24" r="20" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="4"/>
+                  <circle cx="24" cy="24" r="20" fill="none" stroke="#D6A83C" stroke-width="4" stroke-linecap="round"
+                    stroke-dasharray="114.2 125.6" stroke-dashoffset="31.4" transform="rotate(-90 24 24)"/>
+                  <text x="24" y="28" text-anchor="middle" fill="#fff" font-size="10" font-family="Marcellus,serif">91%</text>
+                </svg>
+              </div>
+            </div>
+            <div class="card-body-front">
+              <div class="card-name">Kavya Thakur</div>
+              <div class="card-age-loc">25 yrs · 5'3" · Sitamarhi, Bihar</div>
+              <div class="card-chips">
+                <span class="chip edu">MBA · IIM Lucknow</span>
+                <span class="chip prof">Marketing Manager</span>
+                <span class="chip roots">Sitamarhi Roots</span>
+              </div>
+              <div class="card-front-actions">
+                <button class="cfbtn interest">♥ Interest</button>
+                <button class="cfbtn shortlist">☆ Shortlist</button>
+              </div>
+              <div class="card-flip-hint">Click card to see full profile →</div>
+            </div>
+          </div>
+          <div class="card-face card-back-face">
+            <svg class="card-corner tl" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 10 Q4 4 10 4"/><circle cx="10" cy="10" r="1.8" fill="currentColor"/></svg>
+            <svg class="card-corner br" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 10 Q4 4 10 4"/><circle cx="10" cy="10" r="1.8" fill="currentColor"/></svg>
+            <div class="card-back-gold-stripe"></div>
+            <div class="card-back-top">
+              <div class="back-avatar">क</div>
+              <div><div class="back-name">Kavya Thakur</div><div class="back-sub">25 · Female · Never Married</div></div>
+            </div>
+            <div class="card-back-scroll">
+              <div class="back-row"><span class="back-label">Education</span><span class="back-val"><span class="hl">MBA Marketing</span> · IIM Lucknow</span></div>
+              <div class="back-row"><span class="back-label">Career</span><span class="back-val">Marketing Manager · Tata Digital</span></div>
+              <div class="back-row"><span class="back-label">Height</span><span class="back-val">5 ft 3 in</span></div>
+              <div class="back-row"><span class="back-label">Mother Tongue</span><span class="back-val"><span class="hl">Maithili</span></span></div>
+              <div class="back-row"><span class="back-label">Caste</span><span class="back-val">Maithil Brahmin</span></div>
+              <div class="back-row"><span class="back-label">Gotra</span><span class="back-val">Bharadwaj</span></div>
+              <div class="back-row"><span class="back-label">Mool</span><span class="back-val">Sitamarhi</span></div>
+              <div class="back-row"><span class="back-label">Native</span><span class="back-val"><span class="root">Sursand, Sitamarhi</span> · Bihar</span></div>
+              <div class="back-row"><span class="back-label">Current</span><span class="back-val">Mumbai, Maharashtra</span></div>
+              <div class="back-row"><span class="back-label">Family</span><span class="back-val">Joint family · 5 members</span></div>
+              <div class="back-row"><span class="back-label">Diet</span><span class="back-val">Vegetarian</span></div>
+              <div class="back-row"><span class="back-label">Partner Pref.</span><span class="back-val">Maithili · 27–33 yrs · Graduate+</span></div>
+            </div>
+            <div class="card-back-actions">
+              <button class="cbbtn primary">♥ Interest</button>
+              <button class="cbbtn secondary">View Profile</button>
+              <button class="cbbtn tertiary">☆ Save</button>
+            </div>
+          </div>
+        </div>
+      </div><!-- /card3 -->
+
+      <!-- Card 3: Male (maroon sherwani) -->
+      <div class="card-scene" onclick="toggleCard(this.querySelector('.card-3d'))">
+        <div class="card-3d">
+          <div class="card-face">
+            <svg class="card-corner tl" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 10 Q4 4 10 4"/><circle cx="10" cy="10" r="1.8" fill="currentColor"/></svg>
+            <svg class="card-corner br" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 10 Q4 4 10 4"/><circle cx="10" cy="10" r="1.8" fill="currentColor"/></svg>
+            <div class="card-photo-area" style="background:linear-gradient(155deg,#e8c6c6 0%,#c48888 40%,#7A1220 100%)">
+              <span class="card-badge">New</span>
+              <svg class="card-figure" width="160" height="200" viewBox="0 0 160 200" aria-hidden="true">
+                <defs>
+                  <linearGradient id="skinG4" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#C47050"/><stop offset="100%" stop-color="#A85A30"/></linearGradient>
+                  <pattern id="sherPG4" width="8" height="8" patternUnits="userSpaceOnUse"><rect width="8" height="8" fill="#7A1220"/><circle cx="4" cy="4" r="1.5" fill="none" stroke="#D6A83C" stroke-width="0.5"/></pattern>
+                </defs>
+                <path d="M40 200 Q30 158 36 122 L52 106 L108 106 L124 122 Q130 158 120 200 Z" fill="url(#sherPG4)" stroke="#B98A2E" stroke-width="1.2"/>
+                <g fill="#D6A83C"><circle cx="80" cy="120" r="2.5"/><circle cx="80" cy="134" r="2.5"/><circle cx="80" cy="148" r="2.5"/></g>
+                <path d="M64 106 L80 114 L96 106" fill="#5A0E19" stroke="#D6A83C" stroke-width="1"/>
+                <path d="M52 106 L52 80 Q80 72 108 80 L108 106 Z" fill="#9B2233" stroke="#B98A2E" stroke-width="1"/>
+                <path d="M108 80 Q134 64 146 48" fill="none" stroke="#A85A30" stroke-width="9" stroke-linecap="round"/>
+                <circle cx="146" cy="48" r="7" fill="url(#skinG4)"/>
+                <path d="M52 86 Q36 100 34 120" fill="none" stroke="#A85A30" stroke-width="8" stroke-linecap="round"/>
+                <path d="M40 200 Q28 218 52 226 L108 226 Q132 218 120 200 Z" fill="#FBF1DD" stroke="#D6A83C" stroke-width="1.2"/>
+                <rect x="72" y="66" width="16" height="16" rx="5" fill="url(#skinG4)"/>
+                <ellipse cx="80" cy="48" rx="22" ry="26" fill="url(#skinG4)" stroke="#2B211C" stroke-width="1.5"/>
+                <path d="M66 46 Q73 40 80 46 Q73 52 66 46Z" fill="#1A1209"/>
+                <path d="M82 46 Q89 40 96 46 Q89 52 82 46Z" fill="#1A1209"/>
+                <circle cx="73" cy="46" r="2" fill="#fff" opacity="0.4"/>
+                <circle cx="89" cy="46" r="2" fill="#fff" opacity="0.4"/>
+                <path d="M77 54 Q80 57 83 54" fill="none" stroke="#2B211C" stroke-width="0.9" stroke-linecap="round"/>
+                <path d="M74 62 Q80 58 86 62 Q83 68 80 69 Q77 68 74 62Z" fill="#8B4028"/>
+                <path d="M62 40 Q73 35 80 40" fill="none" stroke="#1A1209" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M82 40 Q89 35 98 40" fill="none" stroke="#1A1209" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M58 28 Q64 6 80 2 Q96 6 102 28" fill="#5A0E19"/>
+                <path d="M58 28 Q80 -6 102 28" fill="none" stroke="#D6A83C" stroke-width="1.8"/>
+                <circle cx="80" cy="14" r="4.5" fill="#D6A83C"/>
+                <circle cx="80" cy="14" r="1.8" fill="#7A1220"/>
+                <path d="M77 8 Q68 -14 70 -24 Q78 -8 84 -4 Q90 -16 92 -4 Q84 2 77 8Z" fill="#E4C572" stroke="#B98A2E" stroke-width="0.7"/>
+                <g opacity="0.8"><circle cx="62" cy="26" r="3.5" fill="#D6A83C"/><circle cx="70" cy="24" r="3.5" fill="#E8912A"/><circle cx="80" cy="23" r="3.5" fill="#D6A83C"/><circle cx="90" cy="24" r="3.5" fill="#E8912A"/><circle cx="98" cy="26" r="3.5" fill="#D6A83C"/></g>
+                <path d="M64 70 Q80 76 96 70" fill="none" stroke="#D6A83C" stroke-width="1.6"/>
+                <g fill="#D6A83C"><circle cx="64" cy="70" r="2"/><circle cx="72" cy="74" r="2.5"/><circle cx="80" cy="76" r="3"/><circle cx="88" cy="74" r="2.5"/><circle cx="96" cy="70" r="2"/></g>
+                <circle cx="62" cy="46" r="2.8" fill="#D6A83C" stroke="#B98A2E" stroke-width="0.7"/>
+                <circle cx="98" cy="46" r="2.8" fill="#D6A83C" stroke="#B98A2E" stroke-width="0.7"/>
+              </svg>
+              <div class="match-ring">
+                <svg viewBox="0 0 48 48" aria-label="73% match">
+                  <circle cx="24" cy="24" r="20" fill="rgba(0,0,0,.25)"/>
+                  <circle cx="24" cy="24" r="20" fill="none" stroke="rgba(255,255,255,.2)" stroke-width="4"/>
+                  <circle cx="24" cy="24" r="20" fill="none" stroke="#D6A83C" stroke-width="4" stroke-linecap="round"
+                    stroke-dasharray="91.5 125.6" stroke-dashoffset="31.4" transform="rotate(-90 24 24)"/>
+                  <text x="24" y="28" text-anchor="middle" fill="#fff" font-size="10" font-family="Marcellus,serif">73%</text>
+                </svg>
+              </div>
+            </div>
+            <div class="card-body-front">
+              <div class="card-name">Rahul Jha</div>
+              <div class="card-age-loc">30 yrs · 5'9" · Muzaffarpur, Bihar</div>
+              <div class="card-chips">
+                <span class="chip edu">MBBS · AIIMS Patna</span>
+                <span class="chip prof">Doctor</span>
+                <span class="chip roots">Madhubani Roots</span>
+              </div>
+              <div class="card-front-actions">
+                <button class="cfbtn interest">♥ Interest</button>
+                <button class="cfbtn shortlist">☆ Shortlist</button>
+              </div>
+              <div class="card-flip-hint">Click card to see full profile →</div>
+            </div>
+          </div>
+          <div class="card-face card-back-face">
+            <svg class="card-corner tl" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 10 Q4 4 10 4"/><circle cx="10" cy="10" r="1.8" fill="currentColor"/></svg>
+            <svg class="card-corner br" width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 10 Q4 4 10 4"/><circle cx="10" cy="10" r="1.8" fill="currentColor"/></svg>
+            <div class="card-back-gold-stripe"></div>
+            <div class="card-back-top">
+              <div class="back-avatar">र</div>
+              <div><div class="back-name">Rahul Jha</div><div class="back-sub">30 · Male · Never Married</div></div>
+            </div>
+            <div class="card-back-scroll">
+              <div class="back-row"><span class="back-label">Education</span><span class="back-val"><span class="hl">MBBS</span> · AIIMS Patna</span></div>
+              <div class="back-row"><span class="back-label">Career</span><span class="back-val">Resident Doctor · AIIMS Delhi</span></div>
+              <div class="back-row"><span class="back-label">Height</span><span class="back-val">5 ft 9 in</span></div>
+              <div class="back-row"><span class="back-label">Mother Tongue</span><span class="back-val"><span class="hl">Maithili</span></span></div>
+              <div class="back-row"><span class="back-label">Caste</span><span class="back-val">Maithil Brahmin</span></div>
+              <div class="back-row"><span class="back-label">Gotra</span><span class="back-val">Vatsya</span></div>
+              <div class="back-row"><span class="back-label">Mool</span><span class="back-val">Madhubani</span></div>
+              <div class="back-row"><span class="back-label">Native</span><span class="back-val"><span class="root">Jhanjharpur, Madhubani</span> · Bihar</span></div>
+              <div class="back-row"><span class="back-label">Current</span><span class="back-val">New Delhi</span></div>
+              <div class="back-row"><span class="back-label">Family</span><span class="back-val">Joint family · 6 members</span></div>
+              <div class="back-row"><span class="back-label">Diet</span><span class="back-val">Vegetarian</span></div>
+              <div class="back-row"><span class="back-label">Partner Pref.</span><span class="back-val">Maithili · 24–28 yrs · Graduate+</span></div>
+            </div>
+            <div class="card-back-actions">
+              <button class="cbbtn primary">♥ Interest</button>
+              <button class="cbbtn secondary">View Profile</button>
+              <button class="cbbtn tertiary">☆ Save</button>
+            </div>
+          </div>
+        </div>
+      </div><!-- /card4 -->
+
+    </div><!-- /.cards-grid -->
+  </div>
+</section>
+
+<!-- ── SPEC PANEL ── -->
+<div class="wrap">
+  <div class="spec-panel">
+    <h3>3D Profile Card — V9 Specification</h3>
+    <div class="spec-list">
+      <div class="spec-item">CSS preserve-3d · backface-visibility</div>
+      <div class="spec-item">Mithila border · gold gradient</div>
+      <div class="spec-item">Corner ornament accents (SVG)</div>
+      <div class="spec-item">Warm ivory background (--cream)</div>
+      <div class="spec-item">Maroon typography (--maroon)</div>
+      <div class="spec-item">Match score ring (SVG conic path)</div>
+      <div class="spec-item">Hover 3D tilt effect</div>
+      <div class="spec-item">NOT Tinder-style swipe</div>
+      <div class="spec-item">Front: photo · name · chips · actions</div>
+      <div class="spec-item">Back: detailed profile · all sections</div>
+      <div class="spec-item">Mithila Roots (India only · Bihar districts)</div>
+      <div class="spec-item">Gotra + Mool fields (Maithil structure)</div>
+      <div class="spec-item">Reduced-motion safe (no transition)</div>
+      <div class="spec-item">Actions: Interest · Shortlist · View Profile</div>
+      <div class="spec-item">Madhubani-style figure SVGs</div>
+      <div class="spec-item">Zero Nepal references</div>
+    </div>
+  </div>
+</div>
+
+<footer class="mini-footer">
+  <span>Mithila Jodi</span> · Design Review · 3D Profile Card · V9 · India Only
+</footer>
+
+<script>
+function toggleCard(card){if(!card)return;card.classList.toggle('flipped')}
+
+/* Auto-demo: flip showcase card at 1.8s, flip back at 4.5s */
+(function(){
+  if(matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  var c=document.getElementById('showcaseCard');if(!c)return;
+  setTimeout(function(){c.classList.add('flipped')},1800);
+  setTimeout(function(){c.classList.remove('flipped')},4600);
+})();
+</script>
+</body>
+</html>

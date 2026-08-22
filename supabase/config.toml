@@ -1,0 +1,42 @@
+# Supabase local development configuration
+# Production project: create separately at app.supabase.com in ap-south-1 (Mumbai)
+# NEVER mix dev and production credentials
+
+[api]
+port = 54321
+schemas = ["public", "graphql_public"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+shadow_port = 54320
+major_version = 15
+
+[studio]
+port = 54323
+
+[inbucket]
+port = 54324
+smtp_port = 54325
+pop3_port = 54326
+
+[storage]
+file_size_limit = "10MiB"
+
+[auth]
+site_url = "http://localhost:3000"
+additional_redirect_urls = ["https://localhost:3000"]
+jwt_expiry = 3600
+enable_signup = true
+# Mobile number is the primary identifier — email login not required
+# OTP via SMS is deferred; custom OTP flow via Edge Function
+[auth.sms]
+enable_phone_signup = false  # Using custom OTP Edge Function instead
+enable_phone_autoconfirm = false
+
+[auth.external.google]
+enabled = false  # not needed for this product
+
+[edge_runtime]
+policy = "oneshot"

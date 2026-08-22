@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Membership — Mithila Jodi</title>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Rozha+One&family=Mukta:wght@300;400;500;600;700&family=Kalam:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --paper:#FBF1DD;--paper-2:#F6E7C9;--paper-3:#EFD9B4;--cream:#FFF8EA;
+  --maroon:#7A1220;--maroon-2:#9B2233;--maroon-deep:#5A0E19;
+  --terra:#C4562F;--marigold:#E8912A;--turmeric:#D6A83C;--gold:#B98A2E;--gold-lt:#E4C572;
+  --green:#1F5133;--leaf:#3E7C4A;--indigo:#2E3A6E;
+  --ink:#2B211C;--ink-soft:#6A5A4E;
+  --line:rgba(122,18,32,.18);--shadow:0 26px 55px -26px rgba(58,20,12,.5);--shadow-s:0 14px 30px -18px rgba(58,20,12,.4);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:"Mukta",sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:"Marcellus",serif;font-weight:400}
+a{color:inherit;text-decoration:none}
+.btn{display:inline-flex;align-items:center;gap:.5em;border-radius:999px;padding:14px 26px;font-weight:600;font-size:15px;cursor:pointer;border:1px solid transparent;font-family:"Mukta",sans-serif;transition:.2s}
+.btn-primary{background:linear-gradient(180deg,var(--maroon-2),var(--maroon));color:var(--cream);box-shadow:var(--shadow-s)}
+.btn-gold{background:linear-gradient(180deg,var(--gold-lt),var(--turmeric));color:#4a3208;box-shadow:var(--shadow-s)}
+.btn-ghost{background:var(--cream);color:var(--maroon);border-color:var(--gold)}
+/* Header */
+header{position:sticky;top:0;z-index:50;background:rgba(251,241,221,.95);backdrop-filter:blur(10px);border-bottom:2px solid var(--gold)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:68px;max-width:1200px;margin:0 auto;padding:0 24px;gap:16px}
+.logo{display:flex;align-items:center;gap:10px;font-family:"Marcellus";font-size:21px;color:var(--maroon)}
+.logo small{display:block;font-family:"Mukta";font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft)}
+nav{display:flex;gap:20px;font-size:14px}
+nav a{color:var(--ink-soft)}
+nav a.active{color:var(--maroon);font-weight:600}
+/* Hero */
+.hero{text-align:center;padding:56px 24px 36px;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(122,18,32,.06),transparent 60%)}
+.hero .eyebrow{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--terra);font-weight:600;margin-bottom:14px}
+.hero h1{font-size:clamp(34px,5vw,52px);color:var(--maroon);margin-bottom:12px;line-height:1.1}
+.hero p{color:var(--ink-soft);font-size:17px;max-width:520px;margin:0 auto 28px}
+.trust-row{display:flex;justify-content:center;gap:24px;flex-wrap:wrap;font-size:13px;color:var(--ink-soft)}
+.trust-item{display:flex;align-items:center;gap:6px}
+/* Billing toggle */
+.billing-toggle{display:flex;justify-content:center;align-items:center;gap:14px;margin:32px 0 0;font-size:14px;color:var(--ink-soft)}
+.toggle-pill{background:var(--paper-2);border:1px solid var(--line);border-radius:999px;padding:4px;display:flex}
+.t-opt{padding:7px 18px;border-radius:999px;cursor:pointer;font-size:13px;font-weight:600;transition:.2s}
+.t-opt.on{background:var(--maroon);color:var(--cream)}
+.save-badge{background:var(--green);color:#fff;font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px;letter-spacing:.05em}
+/* Plans grid */
+.plans{max-width:1100px;margin:40px auto 0;padding:0 24px;display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:start}
+.plan{background:var(--cream);border:1px solid var(--paper-3);border-radius:22px;overflow:hidden;box-shadow:var(--shadow-s);position:relative;transition:.2s}
+.plan:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.plan.popular{border:2px solid var(--gold);transform:scale(1.03)}
+.plan.popular:hover{transform:scale(1.03) translateY(-4px)}
+.popular-badge{position:absolute;top:0;left:50%;transform:translateX(-50%);background:linear-gradient(90deg,var(--gold),var(--marigold));color:var(--maroon-deep);font-size:10px;font-weight:800;padding:4px 16px;border-radius:0 0 10px 10px;letter-spacing:.12em;text-transform:uppercase}
+.plan-top{padding:28px 24px 20px;text-align:center;border-bottom:1px solid var(--line)}
+.plan-icon{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px}
+.plan-name{font-family:"Marcellus";font-size:20px;color:var(--maroon);margin-bottom:6px}
+.plan-tagline{font-size:13px;color:var(--ink-soft);margin-bottom:14px}
+.plan-price{font-family:"Marcellus";font-size:40px;color:var(--maroon);line-height:1}
+.plan-price sup{font-size:20px;vertical-align:super;font-family:"Mukta"}
+.plan-period{font-size:13px;color:var(--ink-soft);margin-top:4px}
+.plan-orig{font-size:13px;color:var(--ink-soft);text-decoration:line-through;margin-top:2px}
+.plan-body{padding:22px 24px}
+.feat-list{list-style:none;margin-bottom:20px}
+.feat-list li{display:flex;align-items:flex-start;gap:9px;padding:7px 0;border-bottom:1px solid var(--paper-2);font-size:14px}
+.feat-list li:last-child{border-bottom:none}
+.feat-list li .ic{width:18px;height:18px;flex:none;margin-top:2px}
+.feat-list li .ic.yes{color:var(--green)}
+.feat-list li .ic.no{color:var(--paper-3)}
+.plan-btn{width:100%}
+/* Comparison */
+.comparison{max-width:900px;margin:56px auto 0;padding:0 24px}
+.comparison h2{font-size:26px;color:var(--maroon);text-align:center;margin-bottom:28px}
+.comp-table{width:100%;border-collapse:collapse}
+.comp-table th{padding:12px 16px;text-align:left;font-family:"Marcellus";font-size:15px;color:var(--maroon);border-bottom:2px solid var(--gold);background:var(--paper-2)}
+.comp-table td{padding:11px 16px;font-size:14px;border-bottom:1px solid var(--line)}
+.comp-table tr:hover td{background:rgba(122,18,32,.03)}
+.comp-table td:first-child{font-weight:500;color:var(--ink)}
+.comp-table td:not(:first-child){text-align:center}
+.check{color:var(--green);font-size:16px}
+.cross{color:var(--paper-3);font-size:16px}
+/* FAQ */
+.faq{max-width:720px;margin:56px auto;padding:0 24px 40px}
+.faq h2{font-size:26px;color:var(--maroon);text-align:center;margin-bottom:28px}
+.faq-item{border:1px solid var(--line);border-radius:12px;margin-bottom:10px;overflow:hidden;background:var(--cream)}
+.faq-q{padding:16px 20px;font-weight:600;font-size:15px;cursor:pointer;display:flex;justify-content:space-between;align-items:center}
+.faq-q span{color:var(--terra);font-size:18px;line-height:1}
+.faq-a{padding:0 20px 16px;font-size:14px;color:var(--ink-soft);line-height:1.7}
+/* Footer */
+footer{border-top:2px solid var(--gold);background:var(--maroon-deep);color:var(--paper-2);text-align:center;padding:18px;font-size:13px}
+@media(max-width:860px){
+  .plans{grid-template-columns:1fr;max-width:420px}
+  .plan.popular{transform:scale(1)}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="nav">
+    <a class="logo" href="homepage.html">
+      <svg width="36" height="36" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="19" stroke="#7A1220" stroke-width="1.5"/><path d="M20 8C24 14 26 17 26 20C26 23 24 26 20 29C16 26 14 23 14 20C14 17 16 14 20 8Z" fill="none" stroke="#7A1220" stroke-width="1.2"/><circle cx="20" cy="20" r="4" fill="#E8912A"/></svg>
+      <div><span>Mithila Jodi</span><small>Find your match. Keep your roots.</small></div>
+    </a>
+    <nav>
+      <a href="homepage.html">Home</a>
+      <a href="review-search.html">Search</a>
+      <a href="review-biodata.html">Biodata</a>
+      <a href="#" class="active">Membership</a>
+    </nav>
+    <a class="btn btn-ghost" style="padding:9px 18px;font-size:13px" href="review-search.html">Browse Profiles</a>
+  </div>
+</header>
+
+<!-- Hero -->
+<div class="hero">
+  <!-- Ornamental motif top -->
+  <svg viewBox="0 0 800 22" style="width:min(800px,90vw);margin:0 auto 20px;display:block" fill="none">
+    <path d="M0 11 Q100 2 200 11 Q300 20 400 11 Q500 2 600 11 Q700 20 800 11" stroke="#B98A2E" stroke-width="1" opacity=".5"/>
+    <circle cx="200" cy="11" r="4" fill="#E8912A"/><circle cx="400" cy="11" r="5" fill="#D6A83C"/><circle cx="600" cy="11" r="4" fill="#E8912A"/>
+  </svg>
+  <div class="eyebrow">Membership Plans</div>
+  <h1>Invest in Your<br/>Forever Story</h1>
+  <p>Connect with verified families, unlock unlimited biodata downloads, and find your match rooted in Mithila.</p>
+  <div class="trust-row">
+    <span class="trust-item"><span style="color:var(--green)">✓</span> 10,000+ Verified Members</span>
+    <span class="trust-item"><span style="color:var(--green)">✓</span> India-wide Mithila Community</span>
+    <span class="trust-item"><span style="color:var(--green)">✓</span> Cancel Anytime</span>
+    <span class="trust-item"><span style="color:var(--green)">✓</span> Secure Payment (India)</span>
+  </div>
+  <div class="billing-toggle">
+    Monthly
+    <div class="toggle-pill">
+      <div class="t-opt">Monthly</div>
+      <div class="t-opt on">Annual</div>
+    </div>
+    Annual &nbsp;<span class="save-badge">Save 40%</span>
+  </div>
+</div>
+
+<!-- Plans -->
+<div class="plans">
+  <!-- Basic -->
+  <div class="plan">
+    <div class="plan-top">
+      <div class="plan-icon" style="background:rgba(196,86,47,.1)">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#C4562F" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      </div>
+      <div class="plan-name">Parichay</div>
+      <div class="plan-tagline">Start your search</div>
+      <div style="margin:12px 0 4px">
+        <div class="plan-price"><sup>₹</sup>0</div>
+        <div class="plan-period">Free forever</div>
+      </div>
+    </div>
+    <div class="plan-body">
+      <ul class="feat-list">
+        <li><svg class="ic yes" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 0 1 0 1.414l-8 8a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 1.414-1.414L8 12.586l7.293-7.293a1 1 0 0 1 1.414 0z"/></svg>Create full profile</li>
+        <li><svg class="ic yes" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 0 1 0 1.414l-8 8a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 1.414-1.414L8 12.586l7.293-7.293a1 1 0 0 1 1.414 0z"/></svg>View 20 profiles / month</li>
+        <li><svg class="ic yes" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 0 1 0 1.414l-8 8a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 1.414-1.414L8 12.586l7.293-7.293a1 1 0 0 1 1.414 0z"/></svg>Send 5 interests / month</li>
+        <li><svg class="ic yes" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 0 1 0 1.414l-8 8a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 1.414-1.414L8 12.586l7.293-7.293a1 1 0 0 1 1.414 0z"/></svg>1 Biodata template</li>
+        <li><svg class="ic no" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 0 1 1.414 0L10 8.586l4.293-4.293a1 1 0 1 1 1.414 1.414L11.414 10l4.293 4.293a1 1 0 0 1-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L8.586 10 4.293 5.707a1 1 0 0 1 0-1.414z"/></svg><span style="color:var(--paper-3)">Contact details hidden</span></li>
+        <li><svg class="ic no" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 0 1 1.414 0L10 8.586l4.293-4.293a1 1 0 1 1 1.414 1.414L11.414 10l4.293 4.293a1 1 0 0 1-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L8.586 10 4.293 5.707a1 1 0 0 1 0-1.414z"/></svg><span style="color:var(--paper-3)">No Family Connect</span></li>
+        <li><svg class="ic no" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 0 1 1.414 0L10 8.586l4.293-4.293a1 1 0 1 1 1.414 1.414L11.414 10l4.293 4.293a1 1 0 0 1-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L8.586 10 4.293 5.707a1 1 0 0 1 0-1.414z"/></svg><span style="color:var(--paper-3)">No photo access</span></li>
+      </ul>
+      <button class="btn btn-ghost plan-btn">Get Started Free</button>
+    </div>
+  </div>
+
+  <!-- Vivah (Popular) -->
+  <div class="plan popular">
+    <div class="popular-badge">Most Popular</div>
+    <div class="plan-top" style="padding-top:36px">
+      <div class="plan-icon" style="background:rgba(122,18,32,.1)">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#7A1220" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      </div>
+      <div class="plan-name">Vivah</div>
+      <div class="plan-tagline">Most families choose this</div>
+      <div style="margin:12px 0 4px">
+        <div class="plan-price"><sup>₹</sup>999</div>
+        <div class="plan-period">per year · billed annually</div>
+        <div class="plan-orig">₹1,699/year</div>
+      </div>
+    </div>
+    <div class="plan-body">
+      <ul class="feat-list">
+        <li><svg class="ic yes" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 0 1 0 1.414l-8 8a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 1.414-1.414L8 12.586l7.293-7.293a1 1 0 0 1 1.414 0z"/></svg><strong>Unlimited</strong> profile views</li>
+        <li><svg class="ic yes" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 0 1 0 1.414l-8 8a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 1.414-1.414L8 12.586l7.293-7.293a1 1 0 0 1 1.414 0z"/></svg>30 interests / month</li>
+        <li><svg class="ic yes" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 0 1 0 1.414l-8 8a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 1.414-1.414L8 12.586l7.293-7.293a1 1 0 0 1 1.414 0z"/></svg>View contact details</li>
+        <li><svg class="ic yes" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 0 1 0 1.414l-8 8a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 1.414-1.414L8 12.586l7.293-7.293a1 1 0 0 1 1.414 0z"/></svg>View photos after interest</li>
+        <li><svg class="ic yes" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 0 1 0 1.414l-8 8a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 1.414-1.414L8 12.586l7.293-7.293a1 1 0 0 1 1.414 0z"/></svg>All 5 Biodata templates</li>
+        <li><svg class="ic yes" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 0 1 0 1.414l-8 8a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 1.414-1.414L8 12.586l7.293-7.293a1 1 0 0 1 1.414 0z"/></svg>Family Connect (3 members)</li>
+        <li><svg class="ic no" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 0 1 1.414 0L10 8.586l4.293-4.293a1 1 0 1 1 1.414 1.414L11.414 10l4.293 4.293a1 1 0 0 1-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 0 1-1.414-1.414L8.586 10 4.293 5.707a1 1 0 0 1 0-1.414z"/></svg><span style="color:var(--paper-3)">No featured listing</span></li>
+      </ul>
+      <button class="btn btn-primary plan-btn">Choose Vivah Plan</button>
+    </div>
+  </div>
+
+  <!-- Samridh -->
+  <div class="plan">
+    <div class="plan-top">
+      <div class="plan-icon" style="background:rgba(185,138,46,.12)">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#B98A2E" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+      </div>
+      <div class="plan-name">Samridh</div>
+      <div class="plan-tagline">Maximum priority &amp; reach</div>
+      <div style="margin:12px 0 4px">
+        <div class="plan-price"><sup>₹</sup>2,499</div>
+        <div class="plan-period">per year · billed annually</div>
+        <div class="plan-orig">₹3,999/year</div>
+      </div>
+    </div>
+    <div class="plan-body">
+      <ul class="feat-list">
+        <li><svg class="ic yes" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 0 1 0 1.414l-8 8a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 1.414-1.414L8 12.586l7.293-7.293a1 1 0 0 1 1.414 0z"/></svg>Everything in Vivah</li>
+        <li><svg class="ic yes" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 0 1 0 1.414l-8 8a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 1.414-1.414L8 12.586l7.293-7.293a1 1 0 0 1 1.414 0z"/></svg><strong>Featured</strong> profile listing</li>
+        <li><svg class="ic yes" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 0 1 0 1.414l-8 8a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 1.414-1.414L8 12.586l7.293-7.293a1 1 0 0 1 1.414 0z"/></svg>Unlimited interests</li>
+        <li><svg class="ic yes" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 0 1 0 1.414l-8 8a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 1.414-1.414L8 12.586l7.293-7.293a1 1 0 0 1 1.414 0z"/></svg>Family Connect (10 members)</li>
+        <li><svg class="ic yes" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 0 1 0 1.414l-8 8a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 1.414-1.414L8 12.586l7.293-7.293a1 1 0 0 1 1.414 0z"/></svg>Priority in search results</li>
+        <li><svg class="ic yes" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 0 1 0 1.414l-8 8a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 1.414-1.414L8 12.586l7.293-7.293a1 1 0 0 1 1.414 0z"/></svg>Dedicated matchmaker support</li>
+        <li><svg class="ic yes" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 0 1 0 1.414l-8 8a1 1 0 0 1-1.414 0l-4-4a1 1 0 0 1 1.414-1.414L8 12.586l7.293-7.293a1 1 0 0 1 1.414 0z"/></svg>Verified gold badge</li>
+      </ul>
+      <button class="btn btn-gold plan-btn">Choose Samridh Plan</button>
+    </div>
+  </div>
+</div>
+
+<!-- Comparison Table -->
+<div class="comparison">
+  <h2>Feature Comparison</h2>
+  <table class="comp-table">
+    <thead>
+      <tr>
+        <th>Feature</th>
+        <th>Parichay (Free)</th>
+        <th style="color:var(--maroon)">Vivah</th>
+        <th style="color:var(--gold)">Samridh</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Profile Views / Month</td><td>20</td><td>Unlimited</td><td>Unlimited</td></tr>
+      <tr><td>Send Interests</td><td>5 / month</td><td>30 / month</td><td>Unlimited</td></tr>
+      <tr><td>View Contact Details</td><td class="cross">✗</td><td class="check">✓</td><td class="check">✓</td></tr>
+      <tr><td>View Photos</td><td class="cross">✗</td><td class="check">After interest</td><td class="check">After interest</td></tr>
+      <tr><td>Biodata Templates</td><td>1 (Basic)</td><td>All 5</td><td>All 5</td></tr>
+      <tr><td>Biodata Downloads (PDF)</td><td class="cross">✗</td><td class="check">Unlimited</td><td class="check">Unlimited</td></tr>
+      <tr><td>Family Connect</td><td class="cross">✗</td><td>3 members</td><td>10 members</td></tr>
+      <tr><td>Featured in Search</td><td class="cross">✗</td><td class="cross">✗</td><td class="check">✓</td></tr>
+      <tr><td>Matchmaker Support</td><td class="cross">✗</td><td class="cross">✗</td><td class="check">✓</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- FAQ -->
+<div class="faq">
+  <h2>Frequently Asked Questions</h2>
+  <div class="faq-item"><div class="faq-q">How does payment work? <span>+</span></div><div class="faq-a">We accept UPI, Debit/Credit Cards, Net Banking, and all major Indian payment methods via Razorpay. Your payment data is fully secure and never stored on our servers.</div></div>
+  <div class="faq-item"><div class="faq-q">Can I cancel my membership? <span>+</span></div><div class="faq-a">Yes, you can cancel anytime. If you cancel within 7 days of purchase, we'll refund the full amount — no questions asked.</div></div>
+  <div class="faq-item"><div class="faq-q">Is my personal data safe? <span>+</span></div><div class="faq-a">Absolutely. Contact details are only shared with profiles you've mutually connected with. Photos are locked behind the interest system. We follow all applicable Indian data protection guidelines.</div></div>
+  <div class="faq-item"><div class="faq-q">What is Family Connect? <span>+</span></div><div class="faq-a">Family Connect lets you invite family members — parents, siblings — to view and participate in the match-finding process with their own controlled access. They can view selected profiles and send notes.</div></div>
+</div>
+
+<div style="background:var(--maroon-deep);padding:6px 0;overflow:hidden">
+  <svg viewBox="0 0 1200 12" preserveAspectRatio="none" style="width:100%;height:12px;display:block">
+    <defs><pattern id="fp4" width="40" height="12" patternUnits="userSpaceOnUse"><circle cx="8" cy="6" r="3" fill="#E8912A"/><circle cx="20" cy="6" r="4.5" fill="#D6A83C"/><circle cx="32" cy="6" r="3" fill="#E8912A"/></pattern></defs>
+    <rect width="1200" height="12" fill="url(#fp4)"/>
+  </svg>
+</div>
+<footer>
+  <strong style="font-family:'Marcellus';color:var(--gold-lt)">Mithila Jodi</strong> &nbsp;·&nbsp; Find your match. Keep your roots. &nbsp;·&nbsp; Made with love for Mithila
+</footer>
+</body>
+</html>

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Mithila Jodi — Design Foundation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Rozha+One&family=Mukta:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --paper:#FBF3E4;--paper-2:#F6EAD5;--paper-3:#EFDFC4;
+  --maroon:#7A1220;--maroon-2:#9B2233;--maroon-deep:#5A0E19;
+  --terracotta:#C4562F;--turmeric:#D6A83C;--gold-line:#B98A2E;
+  --green:#1F5133;--indigo:#2E3A6E;--ink:#2B211C;--ink-soft:#6A5A4E;
+  --line:rgba(122,18,32,.16);--shadow-soft:0 14px 30px -18px rgba(58,20,12,.35);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:"Mukta",sans-serif;line-height:1.6}
+h1,h2,h3,h4,.disp{font-family:"Marcellus",serif;font-weight:400;line-height:1.12}
+.deva{font-family:"Rozha One",serif}
+.wrap{max-width:1040px;margin:0 auto;padding:0 28px}
+header.top{background:linear-gradient(180deg,var(--maroon),var(--maroon-deep));color:var(--paper);padding:52px 0 44px;text-align:center}
+header.top h1{font-size:clamp(34px,6vw,60px);margin:0;letter-spacing:.12em;color:#fff}
+header.top p{color:rgba(255,255,255,.82);margin:12px 0 0}
+.badge{display:inline-block;margin-top:18px;font-size:12px;letter-spacing:.2em;text-transform:uppercase;border:1px solid rgba(255,255,255,.35);border-radius:999px;padding:7px 16px}
+.toc{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:22px}
+.toc a{font-size:12.5px;color:var(--turmeric);border:1px solid rgba(255,255,255,.25);padding:5px 11px;border-radius:999px;text-decoration:none}
+section{padding:54px 0;border-bottom:1px solid var(--line)}
+.kick{font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--terracotta);font-weight:600}
+h2.sec{font-size:clamp(24px,4vw,38px);margin:8px 0 6px}
+.sub{color:var(--ink-soft);max-width:680px}
+.grid{display:grid;gap:18px}
+.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+.card{background:linear-gradient(180deg,#fff9ee,var(--paper-2));border:1px solid var(--paper-3);border-radius:16px;padding:22px;box-shadow:var(--shadow-soft)}
+.card h3{margin:0 0 6px;color:var(--maroon);font-size:20px}
+.card p{margin:0;color:var(--ink-soft);font-size:14.5px}
+ul.clean{margin:12px 0 0;padding-left:18px;color:var(--ink-soft)}ul.clean li{margin:6px 0}
+/* swatches */
+.sw{border-radius:14px;overflow:hidden;border:1px solid var(--paper-3)}
+.sw .chip{height:76px}.sw .meta{padding:10px 12px;background:#fff9ee;font-size:12.5px}
+.sw .meta b{display:block;font-family:"Marcellus";color:var(--ink);font-size:14px}
+.sw .meta code{color:var(--ink-soft)}
+/* type specimen */
+.spec{background:#fff9ee;border:1px solid var(--paper-3);border-radius:16px;padding:24px}
+.spec .row{display:flex;align-items:baseline;gap:16px;border-bottom:1px dashed var(--line);padding:14px 0;flex-wrap:wrap}
+.spec .row:last-child{border:0}
+.spec .tag{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--terracotta);width:120px;flex:none}
+/* buttons demo */
+.btn{display:inline-flex;align-items:center;gap:.5em;border-radius:999px;padding:12px 22px;font-weight:600;font-size:14px;border:1px solid transparent;font-family:"Mukta";cursor:pointer}
+.btn-primary{background:var(--maroon);color:var(--paper)}
+.btn-ghost{background:transparent;color:var(--maroon);border-color:var(--line)}
+.btn-gold{background:linear-gradient(180deg,var(--turmeric),var(--gold-line));color:#3a2708}
+.btn-green{background:var(--green);color:#fff}
+/* states */
+.state{border-radius:14px;padding:16px;font-size:14px;display:flex;gap:10px;align-items:center}
+.state.ok{background:rgba(31,81,51,.1);color:var(--green);border:1px solid rgba(31,81,51,.3)}
+.state.err{background:rgba(122,18,32,.08);color:var(--maroon);border:1px solid var(--line)}
+.state.empty{background:#fff9ee;color:var(--ink-soft);border:1px dashed var(--line);justify-content:center;flex-direction:column;text-align:center;padding:26px}
+.skeleton{height:14px;border-radius:6px;background:linear-gradient(90deg,var(--paper-3),#fff6e6,var(--paper-3));background-size:200% 100%;animation:sh 1.4s linear infinite;margin:8px 0}
+@keyframes sh{to{background-position:-200% 0}}
+/* storyboard */
+.board{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.frame{background:#120d0a;border-radius:12px;aspect-ratio:4/5;position:relative;overflow:hidden;display:grid;place-items:center;color:#f3e4c8;text-align:center;padding:8px}
+.frame.paper{background:radial-gradient(ellipse at center,#FCF5E8,#F3E4C8)}
+.frame .t{position:absolute;top:6px;left:8px;font-size:10px;letter-spacing:.1em;color:#D6A83C}
+.frame .c{font-size:12px;font-family:"Marcellus"}
+.frame.brand .big{font-family:"Marcellus";color:#7A1220;font-size:15px;letter-spacing:.1em}
+/* form demo */
+.field label{display:block;font-size:13px;font-weight:600;margin-bottom:6px}
+.field input,.field select{width:100%;padding:11px 14px;border-radius:12px;border:1px solid var(--line);background:#fff9ee;font-family:"Mukta";font-size:14px}
+.field input:focus{outline:2px solid var(--maroon);outline-offset:2px}
+/* profile card concept */
+.pc{background:#fffdf6;border:1px solid var(--paper-3);border-radius:18px;box-shadow:var(--shadow-soft);overflow:hidden;transform:perspective(1000px) rotateY(-10deg) rotateX(4deg)}
+.pc .top{height:120px;background:linear-gradient(150deg,var(--maroon),var(--maroon-2));position:relative}
+.pc .faces{display:flex;gap:6px;padding:12px;flex-wrap:wrap}
+.pc .faces span{font-size:11px;border:1px solid var(--line);border-radius:999px;padding:4px 9px;color:var(--ink-soft)}
+.pc .faces span.on{background:var(--maroon);color:#fff;border-color:var(--maroon)}
+.note{font-size:12.5px;color:var(--ink-soft);background:#fff9ee;border-left:3px solid var(--turmeric);padding:10px 14px;border-radius:0 10px 10px 0;margin-top:14px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:26px;align-items:center}
+code.k{background:rgba(122,18,32,.07);padding:1px 6px;border-radius:6px;font-size:12.5px}
+@media(max-width:820px){.g2,.g3,.g4,.two{grid-template-columns:1fr}.board{grid-template-columns:repeat(3,1fr)}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="kick" style="color:var(--turmeric)">Visual & UX Foundation · for approval</div>
+    <h1 class="deva" style="font-family:'Marcellus'">Mithila Jodi</h1>
+    <p>Ancient culture. Modern experience. — <em>Find your match. Keep your roots.</em></p>
+    <div class="badge">Design system v0.1 · not production code</div>
+    <div class="toc">
+      <a href="#a">A · Rationale</a><a href="#b">B · Structure</a><a href="#h">H · Colour</a>
+      <a href="#i">I · Type</a><a href="#g">G · Components</a><a href="#cards">Feature cards</a>
+      <a href="#bio">Biodata</a><a href="#pc">3D card</a><a href="#e">E · Intro board</a>
+      <a href="#f">F · Hero board</a><a href="#k">K · Responsive</a><a href="#j">J · Motion</a>
+      <a href="#l">L · A11y</a><a href="#m">M · Performance</a><a href="#seo">SEO</a>
+    </div>
+  </div>
+</header>
+
+<!-- A RATIONALE -->
+<section id="a"><div class="wrap">
+  <div class="kick">A · Design rationale</div>
+  <h2 class="sec">Mithila, made premium — never a SaaS template</h2>
+  <p class="sub">Every decision starts from the culture and adds technology on top — not the other way around. The test: if the logo were removed, it should still unmistakably read as <em>Mithila</em>, then <em>premium</em>, then <em>modern</em>.</p>
+  <div class="grid g3" style="margin-top:22px">
+    <div class="card"><h3>Culture-first</h3><p>Madhubani line-art, handcrafted borders, warm paper. Motifs (lotus, fish, peacock, sun, diya, mandap) are structural, not stickers on a SaaS layout.</p></div>
+    <div class="card"><h3>Family & trust</h3><p>Warm, editorial, calm. Family Connect and verification are first-class. It should feel like a premium digital wedding invitation that happens to be software.</p></div>
+    <div class="card"><h3>Deliberately not</h3><p>No blue/purple SaaS gradients, no glassmorphism, no generic rounded dashboard cards, no dating-app swipe UI, no neon, no heavy dark mode.</p></div>
+  </div>
+</div></section>
+
+<!-- B STRUCTURE -->
+<section id="b"><div class="wrap">
+  <div class="kick">B · Homepage structure</div>
+  <h2 class="sec">The story, in order</h2>
+  <p class="sub">The homepage narrates: <em>we understand Mithila families</em> → <em>we're premium</em> → <em>we're capable</em> → <em>explore</em>.</p>
+  <div class="grid g2" style="margin-top:20px">
+    <ol class="clean">
+      <li><b>Cinematic intro</b> — 9–10s wedding-story opening</li>
+      <li><b>Hero</b> — message + living wedding artwork + stats</li>
+      <li><b>Feature strip</b> — six pillars (maroon band)</li>
+      <li><b>Feature story</b> — “More than a matrimonial platform” (4 cards)</li>
+      <li><b>Marriage Biodata</b> — multi-language generator + templates</li>
+    </ol>
+    <ol class="clean" start="6">
+      <li><b>Family Connect</b> — two families, secure permissions</li>
+      <li><b>Mithila Roots</b> — roots-first map (India & Nepal)</li>
+      <li><b>Language</b> — EN / हिन्दी / मैथिली / संस्कृत</li>
+      <li><b>Success stories</b> — wedding-album cards (placeholder)</li>
+      <li><b>Final CTA + cultural footer</b> — deep maroon, Mithila border</li>
+    </ol>
+  </div>
+  <div class="note">The living, high-fidelity version of all of this is in <code class="k">homepage.html</code> — open it to see the intro, hero parallax and animations in motion.</div>
+</div></section>
+
+<!-- H COLOUR -->
+<section id="h"><div class="wrap">
+  <div class="kick">H · Colour system</div>
+  <h2 class="sec">Warm paper, heritage pigments</h2>
+  <p class="sub">Backgrounds are warm ivory/paper. Maroon leads; terracotta, muted turmeric/gold, deep green and indigo are the supporting pigments; charcoal for type.</p>
+  <div class="grid g4" style="margin-top:22px">
+    <div class="sw"><div class="chip" style="background:#FBF3E4"></div><div class="meta"><b>Ivory / Paper</b><code>#FBF3E4</code></div></div>
+    <div class="sw"><div class="chip" style="background:#7A1220"></div><div class="meta"><b>Maroon (primary)</b><code>#7A1220</code></div></div>
+    <div class="sw"><div class="chip" style="background:#C4562F"></div><div class="meta"><b>Terracotta</b><code>#C4562F</code></div></div>
+    <div class="sw"><div class="chip" style="background:#D6A83C"></div><div class="meta"><b>Muted turmeric</b><code>#D6A83C</code></div></div>
+    <div class="sw"><div class="chip" style="background:#1F5133"></div><div class="meta"><b>Deep green</b><code>#1F5133</code></div></div>
+    <div class="sw"><div class="chip" style="background:#2E3A6E"></div><div class="meta"><b>Indigo accent</b><code>#2E3A6E</code></div></div>
+    <div class="sw"><div class="chip" style="background:#5A0E19"></div><div class="meta"><b>Maroon deep (footer)</b><code>#5A0E19</code></div></div>
+    <div class="sw"><div class="chip" style="background:#2B211C"></div><div class="meta"><b>Charcoal (type)</b><code>#2B211C</code></div></div>
+  </div>
+  <div class="note">Usage ratio ≈ 70% paper · 15% maroon · 15% split across terracotta/gold/green/indigo. Gold is a <em>line/accent</em> colour — never large fills, to avoid “excessive gold”.</div>
+</div></section>
+
+<!-- I TYPE -->
+<section id="i"><div class="wrap">
+  <div class="kick">I · Typography</div>
+  <h2 class="sec">Heritage headings, effortless body</h2>
+  <p class="sub"><b>Marcellus</b> for editorial/heritage headings · <b>Rozha One</b> for Devanagari display accents · <b>Mukta</b> for body & UI (covers Latin + Devanagari for a consistent multi-script system).</p>
+  <div class="spec" style="margin-top:20px">
+    <div class="row"><span class="tag">Display / H1</span><span class="disp" style="font-size:40px">Rishton ka Sundar Kal</span></div>
+    <div class="row"><span class="tag">Deva display</span><span class="deva" style="font-size:36px;color:var(--maroon)">मिथिला के रंग</span></div>
+    <div class="row"><span class="tag">H2 section</span><span class="disp" style="font-size:30px">More Than A Matrimonial Platform</span></div>
+    <div class="row"><span class="tag">Body</span><span style="font-size:16px">Create your matrimonial profile once and generate a beautifully designed marriage biodata.</span></div>
+    <div class="row"><span class="tag">Eyebrow / UI</span><span style="font-size:12px;letter-spacing:.3em;text-transform:uppercase;color:var(--terracotta)">People • Families • Culture</span></div>
+  </div>
+  <div class="note">Decorative type only for major headings & cultural statements. Functional UI (forms, tables, labels) stays highly readable in Mukta.</div>
+</div></section>
+
+<!-- G COMPONENTS -->
+<section id="g"><div class="wrap">
+  <div class="kick">G · Component system</div>
+  <h2 class="sec">One world, many parts</h2>
+
+  <h3 style="margin-top:22px">Buttons</h3>
+  <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:10px">
+    <button class="btn btn-primary">Create Profile</button>
+    <button class="btn btn-ghost">Explore Biodata</button>
+    <button class="btn btn-gold">Share</button>
+    <button class="btn btn-green">Verify</button>
+  </div>
+
+  <h3 style="margin-top:26px">Forms</h3>
+  <div class="grid g2" style="margin-top:10px">
+    <div class="field"><label>Full name</label><input placeholder="Aarohi Jha"/></div>
+    <div class="field"><label>Native place</label><input placeholder="Madhubani, Bihar"/></div>
+  </div>
+
+  <h3 style="margin-top:26px">States</h3>
+  <div class="grid g4" style="margin-top:10px">
+    <div class="state ok">✓ Profile verified</div>
+    <div class="state err">! Please add your gotra</div>
+    <div class="card" style="padding:14px"><div class="skeleton" style="width:60%"></div><div class="skeleton"></div><div class="skeleton" style="width:80%"></div><div style="font-size:11px;color:var(--ink-soft)">Loading state</div></div>
+    <div class="state empty"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3v8"/><circle cx="12" cy="11" r="2"/><path d="M12 11c0 4-3 6-6 8M12 11c0 4 3 6 6 8"/></svg><span>No matches yet — complete your roots to begin.</span></div>
+  </div>
+
+  <h3 style="margin-top:26px">Section dividers & borders</h3>
+  <div style="height:22px;margin-top:10px;background:repeating-linear-gradient(90deg,var(--maroon) 0 14px,transparent 14px 28px) 0 0/28px 6px no-repeat,repeating-linear-gradient(90deg,var(--turmeric) 0 14px,transparent 14px 28px) 14px 8px/28px 6px no-repeat"></div>
+  <div style="text-align:center;color:var(--gold-line);margin-top:14px">✦ ❁ ✦</div>
+
+  <h3 style="margin-top:26px">Cultural icon set (custom, not a SaaS pack)</h3>
+  <div style="display:flex;gap:22px;flex-wrap:wrap;margin-top:10px;color:var(--maroon)">
+    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3l7 3v5c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6l7-3Z"/><path d="M9 12l2 2 4-4"/></svg>
+    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 3v8"/><path d="M12 11c0 4-3 6-6 8M12 11c0 4 3 6 6 8"/><circle cx="12" cy="11" r="2"/></svg>
+    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 12q8 -8 16 0 q-8 8 -16 0z"/><circle cx="9" cy="12" r="1" fill="currentColor"/></svg>
+    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="4"/><g><path d="M12 4v-2M12 22v-2M4 12H2M22 12h-2M6 6L4.5 4.5M18 18l1.5 1.5M18 6l1.5-1.5M6 18l-1.5 1.5"/></g></svg>
+    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 4c3 3 3 6 0 8-3-2-3-5 0-8z"/><path d="M6 20q6 -6 12 0"/></svg>
+  </div>
+  <div class="note">Icons share stroke weight (1.5–1.6), rounded joins and the same motif family (shield, roots, fish, sun, lotus/diya) so they read as one system.</div>
+</div></section>
+
+<!-- FEATURE CARDS -->
+<section id="cards"><div class="wrap">
+  <div class="kick">Feature card system</div>
+  <h2 class="sec">Paper surfaces with a drawn gold inner border</h2>
+  <div class="grid g2" style="margin-top:20px">
+    <div class="card" style="position:relative"><div style="position:absolute;inset:10px;border:1px solid var(--gold-line);opacity:.35;border-radius:12px;pointer-events:none"></div><h3>Marriage Biodata Generator</h3><p>Enter once, generate elegant multi-language biodata. Warm paper, decorative border, editorial type, soft depth.</p></div>
+    <div class="card" style="position:relative"><div style="position:absolute;inset:10px;border:1px solid var(--gold-line);opacity:.35;border-radius:12px;pointer-events:none"></div><h3>Family Connect</h3><p>Secure, permissioned family participation — communicated visually, never as password sharing.</p></div>
+  </div>
+</div></section>
+
+<!-- BIODATA -->
+<section id="bio"><div class="wrap">
+  <div class="kick">Biodata preview cards</div>
+  <h2 class="sec">Five templates, four languages, one brand mark</h2>
+  <p class="sub">Templates: <b>Classic · Elegant · Mithila · Modern · Premium Wedding</b>. Every export carries a subtle “Created with Mithila Jodi” mark and is sized for WhatsApp sharing.</p>
+  <div class="grid g3" style="margin-top:22px">
+    <div class="card" style="padding:0;overflow:hidden">
+      <div style="background:var(--maroon);color:var(--paper);padding:12px 16px;display:flex;justify-content:space-between"><span class="deva">॥ शुभ विवाह ॥</span><span class="disp">Classic</span></div>
+      <div style="padding:16px;font-size:13px;color:var(--ink-soft)"><div style="display:flex;justify-content:space-between;border-bottom:1px dashed var(--line);padding:5px 0"><span>Name</span><b style="color:var(--ink)">Aarohi Jha</b></div><div style="display:flex;justify-content:space-between;border-bottom:1px dashed var(--line);padding:5px 0"><span>Native</span><b style="color:var(--ink)">Madhubani</b></div><div style="display:flex;justify-content:space-between;padding:5px 0"><span>Gotra</span><b style="color:var(--ink)">Sample / Demo</b></div></div>
+      <div style="text-align:center;font-size:11px;color:var(--maroon);border-top:1px solid var(--line);padding:8px">✿ Created with Mithila Jodi</div>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden">
+      <div style="background:var(--green);color:#fff;padding:12px 16px;text-align:center" class="deva">विवाह परिचय</div>
+      <div style="padding:16px;font-size:13px;color:var(--ink-soft)">Mithila template — Madhubani border, warm ivory, marigold accents.</div>
+      <div style="text-align:center;font-size:11px;color:var(--green);border-top:1px solid var(--line);padding:8px">✿ Created with Mithila Jodi</div>
+    </div>
+    <div class="card" style="padding:0;overflow:hidden">
+      <div style="background:var(--indigo);color:#fff;padding:12px 16px;text-align:center" class="disp">Premium Wedding</div>
+      <div style="padding:16px;font-size:13px;color:var(--ink-soft)">Gold foil feel, portrait-forward, generous spacing.</div>
+      <div style="text-align:center;font-size:11px;color:var(--indigo);border-top:1px solid var(--line);padding:8px">✿ Created with Mithila Jodi</div>
+    </div>
+  </div>
+</div></section>
+
+<!-- 3D PROFILE CARD -->
+<section id="pc"><div class="wrap">
+  <div class="kick">3D profile-card concept · logged-in experience</div>
+  <h2 class="sec">Explore a person — never swipe them</h2>
+  <div class="two" style="margin-top:20px">
+    <div style="padding:30px 10px"><div class="pc"><div class="top"></div><div class="faces"><span class="on">Intro</span><span>Education</span><span>Career</span><span>Mithila Roots</span><span>Family</span><span>Lifestyle</span><span>Preferences</span><span>Verification</span></div><div style="padding:0 12px 16px;display:flex;gap:8px"><button class="btn btn-primary" style="padding:8px 14px">Interest</button><button class="btn btn-ghost" style="padding:8px 14px">Shortlist</button></div></div></div>
+    <div>
+      <p class="sub">A single elegant card the user rotates/turns to reveal faces in sequence. Deliberate <code class="k">Interest</code> and <code class="k">Shortlist</code> actions replace reject/accept swiping.</p>
+      <ul class="clean">
+        <li>Faces: Intro → Education → Career → Roots → Family → Lifestyle → Preferences → Verification → Full profile</li>
+        <li>Depth via perspective + tilt; progressive information reveal</li>
+        <li>Full keyboard + dot navigation; a Classic View for family members</li>
+      </ul>
+      <div class="note">Homepage uses <b>subtle</b> depth/parallax only. The richer 3D belongs to the logged-in discovery experience.</div>
+    </div>
+  </div>
+</div></section>
+
+<!-- E INTRO STORYBOARD -->
+<section id="e"><div class="wrap">
+  <div class="kick">E · Intro animation storyboard</div>
+  <h2 class="sec">A wedding story in ~10 seconds</h2>
+  <div class="board" style="margin-top:20px">
+    <div class="frame paper"><span class="t">0–2s</span><span class="c" style="color:#7A1220">Paper + border draws in</span></div>
+    <div class="frame paper"><span class="t">2–4s</span><span class="c" style="color:#7A1220">Lotus · fish · peacock · sun</span></div>
+    <div class="frame paper"><span class="t">4–6s</span><span class="c" style="color:#7A1220">Two couples · varmala · diyas · petals</span></div>
+    <div class="frame brand paper"><span class="t">6–8s</span><span class="big">MITHILA JODI</span></div>
+    <div class="frame paper"><span class="t">8–10s</span><span class="c" style="color:#6A5A4E;font-style:italic">Find your match. Keep your roots.</span></div>
+    <div class="frame"><span class="t">10–12s</span><span class="c">Dissolve → hero</span></div>
+  </div>
+  <div class="note">Skip Intro always visible · <code class="k">prefers-reduced-motion</code> → ~2.5s static reveal · replays only per session · skipped for logged-in users · never blocks page interactivity.</div>
+</div></section>
+
+<!-- F HERO STORYBOARD -->
+<section id="f"><div class="wrap">
+  <div class="kick">F · Hero animation storyboard</div>
+  <h2 class="sec">A living scene, not a photo</h2>
+  <div class="board" style="grid-template-columns:repeat(4,1fr);margin-top:20px">
+    <div class="frame paper"><span class="t">Layer 1</span><span class="c" style="color:#7A1220">Madhubani frame (static)</span></div>
+    <div class="frame paper"><span class="t">Layer 2</span><span class="c" style="color:#7A1220">Mandap · sun · garlands (slow parallax)</span></div>
+    <div class="frame paper"><span class="t">Layer 3</span><span class="c" style="color:#7A1220">Couples · varmala · diyas (flame flicker)</span></div>
+    <div class="frame paper"><span class="t">Layer 4</span><span class="c" style="color:#7A1220">Falling petals (loop)</span></div>
+  </div>
+  <div class="note">Pointer movement offsets layers by increasing depth (6→14→26→34px) for gentle depth. Touch: reduced parallax. Reduced-motion / low-power: static composition, petals off.</div>
+</div></section>
+
+<!-- K RESPONSIVE -->
+<section id="k"><div class="wrap">
+  <div class="kick">K · Responsive rules</div>
+  <h2 class="sec">Mobile is designed, not shrunk</h2>
+  <div class="grid g2" style="margin-top:20px">
+    <div class="card"><h3>Desktop</h3><p>Two-column hero (copy left, art right), 6-up feature strip, 2-up story cards, side-by-side biodata & roots.</p></div>
+    <div class="card"><h3>Mobile</h3><p>Vertical hero — art moves <em>above</em> copy and stays prominent (not shrunk to meaninglessness). Strip 3→2 up, cards stack, flow arrows rotate, slide-in menu, tap-friendly ≥44px targets.</p></div>
+  </div>
+  <div class="note">Breakpoints in the mockup: <code class="k">900px</code> (tablet/mobile layout) and <code class="k">520px</code> (compact). Resize <code class="k">homepage.html</code> to see both compositions.</div>
+</div></section>
+
+<!-- J MOTION -->
+<section id="j"><div class="wrap">
+  <div class="kick">J · Animation principles</div>
+  <h2 class="sec">Graceful, purposeful, degradable</h2>
+  <ul class="clean" style="max-width:760px">
+    <li><b>Easing:</b> soft cultural ease <code class="k">cubic-bezier(.2,1,.3,1)</code>; nothing bouncy or “gamey”.</li>
+    <li><b>Draw-in</b> for line-art (stroke-dashoffset), <b>pop</b> for motifs, <b>flicker</b> for diyas, <b>drift</b> for petals.</li>
+    <li><b>Parallax</b> is subtle and pointer-driven; never moves the whole hero aggressively.</li>
+    <li><b>GPU-friendly</b> transforms/opacity only; no layout thrash.</li>
+    <li><b>Always degradable:</b> honours <code class="k">prefers-reduced-motion</code> and low-power devices.</li>
+  </ul>
+</div></section>
+
+<!-- L A11Y -->
+<section id="l"><div class="wrap">
+  <div class="kick">L · Accessibility</div>
+  <h2 class="sec">Decoration never blocks readability</h2>
+  <div class="grid g2" style="margin-top:20px">
+    <ul class="clean"><li>Semantic landmarks, keyboard-navigable, visible focus rings</li><li>Decorative SVG marked <code class="k">aria-hidden</code>; meaningful art has labels</li><li>Contrast: charcoal on paper, paper on maroon all pass AA</li></ul>
+    <ul class="clean"><li>Touch targets ≥ 44px; controls have text alternatives to gestures</li><li>Reduced-motion variant of intro & hero</li><li>Screen-reader labels on the wedding artwork & icons</li></ul>
+  </div>
+</div></section>
+
+<!-- M PERFORMANCE -->
+<section id="m"><div class="wrap">
+  <div class="kick">M · Performance</div>
+  <h2 class="sec">Cultural richness, still fast</h2>
+  <ul class="clean" style="max-width:760px">
+    <li>Artwork is <b>inline SVG</b> (crisp, tiny, no image requests) rather than heavy photos or video.</li>
+    <li>Lazy-load non-critical imagery; responsive sizes; WebP/AVIF; BlurHash placeholders.</li>
+    <li>No Three.js on the homepage; depth is pure CSS transforms. Heavier 3D only in logged-in discovery, code-split.</li>
+    <li>Intro never blocks first meaningful content; reduce animation on low-power devices.</li>
+  </ul>
+</div></section>
+
+<!-- SEO -->
+<section id="seo"><div class="wrap">
+  <div class="kick">SEO</div>
+  <h2 class="sec">Crawlable, semantic, private-by-default</h2>
+  <ul class="clean" style="max-width:820px">
+    <li>Semantic HTML, descriptive <code class="k">&lt;title&gt;</code> + meta description, Open Graph, canonical URL, Organization JSON-LD.</li>
+    <li>Target public terms: <em>marriage biodata, biodata format/PDF, Hindi/Maithili/Sanskrit marriage biodata, Mithila matrimonial</em> — via a handful of quality pages, <b>not</b> hundreds of thin ones.</li>
+    <li><b>Never</b> expose private matrimonial profile data to crawlers.</li>
+  </ul>
+</div></section>
+
+<footer style="background:var(--maroon-deep);color:#e9d8c2;text-align:center;padding:34px 0">
+  <div class="wrap">
+    <div class="deva" style="color:var(--turmeric);font-size:22px">मिथिला के रंग, हर रिश्ते के संग</div>
+    <p style="opacity:.7;margin:10px 0 0;font-size:13px">Mithila Jodi · Design foundation for approval — after sign-off we move to development.</p>
+  </div>
+</footer>
+</body>
+</html>

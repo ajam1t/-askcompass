@@ -1,0 +1,338 @@
+/* ================================================================
+   MITHILA JODI — Shared Visual Foundation
+   V9 Design Token System + Decorative Component Library
+   India Only. No Nepal. Ancient culture. Modern experience.
+================================================================ */
+
+/* ---- DESIGN TOKENS ---- */
+:root {
+  /* Colors */
+  --paper:      #FBF1DD;
+  --paper-2:    #F6E7C9;
+  --paper-3:    #EFD9B4;
+  --cream:      #FFF8EA;
+  --maroon:     #7A1220;
+  --maroon-2:   #9B2233;
+  --maroon-deep:#5A0E19;
+  --terra:      #C4562F;
+  --marigold:   #E8912A;
+  --turmeric:   #D6A83C;
+  --gold:       #B98A2E;
+  --gold-lt:    #E4C572;
+  --green:      #1F5133;
+  --green-2:    #2E7048;
+  --leaf:       #3E7C4A;
+  --indigo:     #2E3A6E;
+  --ink:        #2B211C;
+  --ink-soft:   #6A5A4E;
+  --line:       rgba(122,18,32,.18);
+
+  /* Shadows */
+  --shadow:    0 26px 55px -26px rgba(58,20,12,.5);
+  --shadow-s:  0 14px 30px -18px rgba(58,20,12,.4);
+  --shadow-xs: 0 4px 14px -6px  rgba(58,20,12,.25);
+
+  /* Radius */
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 22px;
+  --r-pill: 999px;
+
+  /* Animation */
+  --ease-out:   cubic-bezier(.2,.8,.3,1);
+  --ease-in:    cubic-bezier(.4,0,1,1);
+  --ease-bounce:cubic-bezier(.2,1.3,.4,1);
+  --dur-fast:   .18s;
+  --dur-mid:    .28s;
+  --dur-slow:   .55s;
+
+  /* Typography scale */
+  --t-xs:   11px;
+  --t-sm:   13px;
+  --t-base: 15px;
+  --t-md:   17px;
+  --t-lg:   20px;
+  --t-xl:   26px;
+  --t-2xl:  34px;
+  --t-3xl:  clamp(30px,4vw,48px);
+
+  /* Spacing */
+  --sp-xs:  6px;
+  --sp-sm:  12px;
+  --sp-md:  20px;
+  --sp-lg:  32px;
+  --sp-xl:  56px;
+}
+
+/* ---- RESET & BASE ---- */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:"Mukta",system-ui,sans-serif;
+  font-size:var(--t-base);
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+h1,h2,h3,h4,.serif{font-family:"Marcellus",serif;font-weight:400;line-height:1.1}
+.deva{font-family:"Rozha One","Tiro Devanagari Hindi",serif}
+.hand{font-family:"Kalam",cursive}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+
+/* ---- WARM PAPER BODY TEXTURE ---- */
+body::before{
+  content:"";
+  position:fixed;inset:0;
+  pointer-events:none;z-index:0;opacity:.5;
+  background:
+    radial-gradient(circle at 10% 12%,rgba(232,145,42,.12),transparent 40%),
+    radial-gradient(circle at 92% 6%, rgba(122,18,32,.09),transparent 42%),
+    radial-gradient(circle at 78% 96%,rgba(31,81,51,.08), transparent 44%),
+    radial-gradient(circle at 30% 80%,rgba(214,168,60,.08),transparent 40%);
+}
+
+/* ---- FIXED SIDE VINE BORDERS ---- */
+.edge{position:fixed;top:0;bottom:0;width:52px;z-index:5;pointer-events:none;opacity:.88}
+.edge.l{left:0}
+.edge.r{right:0;transform:scaleX(-1)}
+@media(max-width:1100px){.edge{display:none}}
+
+/* ---- STICKY HEADER ---- */
+header.mj-header{
+  position:sticky;top:0;z-index:50;
+  background:rgba(251,241,221,.93);
+  backdrop-filter:blur(12px);
+  border-bottom:2px solid var(--gold);
+}
+.mj-nav{
+  display:flex;align-items:center;justify-content:space-between;
+  height:70px;max-width:1220px;margin:0 auto;padding:0 26px;gap:18px;
+}
+.mj-logo{display:flex;align-items:center;gap:11px;font-family:"Marcellus";font-size:22px;color:var(--maroon)}
+.mj-logo small{display:block;font-family:"Mukta";font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft);margin-top:2px}
+.mj-logo .mark{width:40px;height:40px;flex:none}
+.mj-links{display:flex;gap:22px;font-size:15px}
+.mj-links a{padding:6px 0;color:var(--ink);transition:color var(--dur-fast)}
+.mj-links a.active{color:var(--maroon);border-bottom:2px solid var(--marigold)}
+.mj-links a:hover{color:var(--maroon)}
+.mj-nav-r{display:flex;align-items:center;gap:10px}
+.lang-pill{display:flex;align-items:center;gap:6px;border:1px solid var(--gold);border-radius:var(--r-pill);padding:6px 12px;font-size:13px;background:var(--cream);cursor:pointer}
+.hamburger{display:none;width:44px;height:44px;border:1px solid var(--gold);border-radius:12px;background:var(--cream);flex-direction:column;gap:5px;align-items:center;justify-content:center;cursor:pointer}
+.hamburger span{width:20px;height:2px;background:var(--maroon)}
+@media(max-width:900px){
+  .mj-links{display:none}
+  .hamburger{display:flex}
+}
+
+/* ---- BUTTONS ---- */
+.btn{display:inline-flex;align-items:center;gap:.55em;border-radius:var(--r-pill);padding:13px 26px;font-weight:600;font-size:15px;cursor:pointer;border:1px solid transparent;transition:var(--dur-mid) var(--ease-out);font-family:"Mukta",sans-serif;white-space:nowrap}
+.btn-sm{padding:9px 18px;font-size:13px}
+.btn-primary{background:linear-gradient(180deg,var(--maroon-2),var(--maroon));color:var(--cream);box-shadow:var(--shadow-s)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.btn-ghost{background:var(--cream);color:var(--maroon);border-color:var(--gold)}
+.btn-ghost:hover{background:#fff;box-shadow:var(--shadow-xs)}
+.btn-gold{background:linear-gradient(180deg,var(--gold-lt),var(--turmeric));color:#4a3208;box-shadow:var(--shadow-s)}
+.btn-gold:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+.btn-terra{background:var(--terra);color:var(--cream)}
+.btn-danger{background:transparent;color:var(--terra);border-color:var(--terra)}
+
+/* ---- CARDS ---- */
+.mj-card{
+  background:var(--cream);
+  border:1px solid var(--paper-3);
+  border-radius:var(--r-lg);
+  box-shadow:var(--shadow-s);
+  position:relative;overflow:hidden;
+  transition:transform var(--dur-mid) var(--ease-out),box-shadow var(--dur-mid);
+}
+.mj-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+/* Gold top bar on cards */
+.mj-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--maroon),var(--gold),var(--marigold))}
+/* Lotus corner (bottom-right) */
+.mj-card::after{
+  content:"";position:absolute;bottom:-10px;right:-10px;width:60px;height:60px;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60' fill='none'%3E%3Cpath d='M30 55 C30 55 8 42 8 25 C8 12 18 5 30 5 C42 5 52 12 52 25 C52 42 30 55 30 55Z' stroke='%23B98A2E' stroke-width='.8' opacity='.25'/%3E%3Ccircle cx='30' cy='28' r='6' stroke='%23E8912A' stroke-width='.8' opacity='.3'/%3E%3C/svg%3E") no-repeat center/contain;
+  pointer-events:none;opacity:.5;
+}
+
+/* ---- SECTION ANATOMY ---- */
+.mj-section{position:relative;z-index:1;padding:var(--sp-xl) 0;overflow:hidden}
+.mj-wrap{max-width:1220px;margin:0 auto;padding:0 26px}
+
+/* ---- EYEBROW ---- */
+.eyebrow{font-size:var(--t-xs);letter-spacing:.34em;text-transform:uppercase;color:var(--terra);font-weight:600}
+
+/* ---- ORNAMENTAL SECTION HEADER ---- */
+.sec-heading{text-align:center;margin-bottom:var(--sp-lg)}
+.sec-heading .lotus-row{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:10px}
+.sec-heading .lotus-row hr{flex:1;max-width:100px;border:none;border-top:1px solid var(--line)}
+.sec-heading h2{font-size:var(--t-2xl);color:var(--maroon);margin-top:6px}
+.sec-heading p{font-size:var(--t-md);color:var(--ink-soft);max-width:520px;margin:10px auto 0}
+
+/* ---- ORNAMENTAL TORAN STRIP ---- */
+.toran{display:block;height:46px;overflow:hidden;pointer-events:none}
+.toran svg{width:100%;height:46px;display:block}
+
+/* ---- DIVIDER ---- */
+.mj-divider{text-align:center;padding:var(--sp-md) 0;font-size:22px;color:var(--gold);letter-spacing:.35em;position:relative}
+.mj-divider::before,.mj-divider::after{content:"";position:absolute;top:50%;height:1px;background:linear-gradient(90deg,transparent,var(--line));width:25%}
+.mj-divider::before{left:5%}
+.mj-divider::after{right:5%;background:linear-gradient(270deg,transparent,var(--line))}
+
+/* ---- FORMS ---- */
+.mj-field{margin-bottom:14px}
+.mj-field label{display:block;font-size:var(--t-xs);letter-spacing:.2em;text-transform:uppercase;color:var(--terra);font-weight:600;margin-bottom:5px}
+.mj-input,.mj-select,.mj-textarea{
+  width:100%;
+  border:1px solid var(--paper-3);
+  border-radius:var(--r-sm);
+  padding:10px 14px;
+  background:var(--cream);
+  font-family:"Mukta",sans-serif;
+  font-size:var(--t-base);
+  color:var(--ink);
+  transition:border-color var(--dur-fast),box-shadow var(--dur-fast);
+}
+.mj-input:focus,.mj-select:focus,.mj-textarea:focus{
+  outline:none;
+  border-color:var(--gold);
+  box-shadow:0 0 0 3px rgba(185,138,46,.14);
+}
+.mj-select{
+  appearance:none;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236A5A4E' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 12px center;cursor:pointer;
+}
+.mj-textarea{min-height:90px;resize:vertical}
+.mj-chip{padding:5px 11px;border-radius:var(--r-pill);border:1px solid var(--line);font-size:var(--t-sm);cursor:pointer;background:var(--cream);transition:.15s}
+.mj-chip.on{background:var(--maroon);color:var(--cream);border-color:var(--maroon)}
+.mj-chip:hover:not(.on){border-color:var(--gold)}
+
+/* ---- BADGES ---- */
+.mj-badge{display:inline-flex;align-items:center;gap:4px;font-size:var(--t-xs);font-weight:700;padding:3px 9px;border-radius:var(--r-pill);letter-spacing:.05em}
+.badge-verified{background:var(--green);color:#fff}
+.badge-new{background:var(--turmeric);color:var(--ink)}
+.badge-gold{background:linear-gradient(90deg,var(--gold-lt),var(--turmeric));color:var(--maroon-deep)}
+.badge-premium{background:linear-gradient(90deg,var(--maroon),var(--maroon-2));color:var(--cream)}
+
+/* ---- ORNAMENTAL GOLD BORDER STRIP ---- */
+.gold-strip{height:4px;background:linear-gradient(90deg,var(--maroon-deep),var(--gold),var(--marigold),var(--turmeric),var(--gold),var(--maroon-deep))}
+
+/* ---- FOOTER ---- */
+.mj-footer{
+  background:var(--maroon-deep);
+  color:var(--paper-2);
+  padding:40px 26px 24px;
+  position:relative;
+  overflow:hidden;
+}
+.mj-footer::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:100%;pointer-events:none;
+  background:radial-gradient(ellipse at 30% 50%,rgba(232,145,42,.06),transparent 50%),
+             radial-gradient(ellipse at 80% 80%,rgba(31,81,51,.05),transparent 50%);
+}
+.mj-footer-inner{max-width:1220px;margin:0 auto;position:relative;display:grid;grid-template-columns:1fr 2fr 1fr;gap:40px;align-items:start}
+.mj-footer-logo{font-family:"Marcellus";font-size:20px;color:var(--gold-lt)}
+.mj-footer-logo small{display:block;font-size:11px;color:rgba(255,255,255,.55);margin-top:4px;font-style:italic}
+.mj-footer-links{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;font-size:13px}
+.mj-footer-links a{color:rgba(255,255,255,.6);transition:.15s}
+.mj-footer-links a:hover{color:var(--gold-lt)}
+.mj-footer-social{display:flex;gap:10px;justify-content:flex-end}
+.mj-footer-social a{width:34px;height:34px;border-radius:10px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;transition:.15s}
+.mj-footer-social a:hover{background:rgba(228,197,114,.2);border-color:var(--gold-lt)}
+.mj-footer-bottom{border-top:1px solid rgba(255,255,255,.1);margin-top:28px;padding-top:18px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;font-size:12px;color:rgba(255,255,255,.4)}
+.mj-footer-deva{font-family:"Rozha One",serif;font-size:13px;color:var(--gold-lt);opacity:.8}
+@media(max-width:800px){.mj-footer-inner{grid-template-columns:1fr}.mj-footer-social{justify-content:flex-start}.mj-footer-bottom{flex-direction:column;text-align:center}}
+
+/* ---- ORNAMENTAL MARIGOLD BORDER BOTTOM ---- */
+.marigold-border{height:12px;overflow:hidden;pointer-events:none}
+.marigold-border svg{width:100%;height:12px;display:block}
+
+/* ---- PROFILE CARD (Search Grid) ---- */
+.mj-profile-card{
+  background:var(--cream);
+  border:1px solid var(--paper-3);
+  border-radius:var(--r-lg);
+  overflow:hidden;
+  box-shadow:var(--shadow-s);
+  cursor:pointer;
+  transition:transform var(--dur-mid) var(--ease-out),box-shadow var(--dur-mid);
+  position:relative;
+}
+.mj-profile-card:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
+/* Decorative corner lotus */
+.mj-profile-card::after{
+  content:"✿";
+  position:absolute;top:6px;left:8px;
+  font-size:16px;color:var(--gold);opacity:.35;pointer-events:none;
+}
+.mj-profile-photo{aspect-ratio:3/4;position:relative;overflow:hidden;background:var(--paper-2)}
+.mj-profile-photo img{width:100%;height:100%;object-fit:cover}
+.photo-lock-msg{
+  position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(0deg,rgba(90,14,25,.8),transparent);
+  padding:18px 10px 10px;
+  color:var(--cream);font-size:10px;text-align:center;letter-spacing:.04em;
+}
+.mj-profile-body{padding:14px 14px 12px}
+.mj-profile-name{font-family:"Marcellus";font-size:16px;color:var(--maroon);margin-bottom:3px}
+.mj-profile-meta{font-size:12px;color:var(--ink-soft);margin-bottom:8px;line-height:1.55}
+.mj-profile-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:10px}
+.mj-ptag{font-size:10px;padding:3px 8px;border-radius:var(--r-pill);background:rgba(31,81,51,.08);color:var(--green);border:1px solid rgba(31,81,51,.15)}
+.mj-profile-actions{display:flex;gap:6px}
+.mj-pact{flex:1;text-align:center;padding:8px 0;border-radius:10px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid transparent;font-family:"Mukta";transition:.15s}
+.mj-pact-interest{background:linear-gradient(180deg,var(--maroon-2),var(--maroon));color:var(--cream)}
+.mj-pact-short{background:var(--cream);color:var(--terra);border-color:var(--gold)}
+.mj-pact-short:hover{background:var(--paper)}
+
+/* ---- EMPTY STATE ---- */
+.mj-empty{text-align:center;padding:var(--sp-xl) var(--sp-lg);color:var(--ink-soft)}
+.mj-empty svg{margin:0 auto var(--sp-md);opacity:.5}
+.mj-empty h3{font-size:var(--t-lg);color:var(--maroon);margin-bottom:8px}
+
+/* ---- LOADING STATE ---- */
+.mj-loading{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:var(--sp-xl);gap:16px;color:var(--ink-soft)}
+.lotus-spin{animation:spin 2s linear infinite;transform-origin:center}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ---- TOAST ---- */
+.mj-toast{
+  position:fixed;bottom:24px;right:24px;z-index:200;
+  background:var(--maroon);color:var(--cream);
+  padding:12px 20px;border-radius:var(--r-md);
+  border-left:4px solid var(--gold);
+  box-shadow:var(--shadow);
+  font-size:var(--t-sm);
+  transform:translateY(120%);opacity:0;
+  transition:var(--dur-mid) var(--ease-out);
+}
+.mj-toast.show{transform:none;opacity:1}
+.mj-toast.success{border-left-color:var(--leaf)}
+.mj-toast.error{border-left-color:var(--terra)}
+
+/* ---- MODAL ---- */
+.mj-modal-bg{position:fixed;inset:0;z-index:150;background:rgba(42,18,10,.55);backdrop-filter:blur(4px);display:grid;place-items:center;opacity:0;pointer-events:none;transition:opacity var(--dur-mid)}
+.mj-modal-bg.open{opacity:1;pointer-events:all}
+.mj-modal{background:var(--cream);border:1px solid var(--paper-3);border-radius:var(--r-lg);box-shadow:var(--shadow);max-width:520px;width:92%;padding:28px;position:relative;overflow:hidden}
+.mj-modal::before{content:"";position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--maroon),var(--gold),var(--marigold))}
+.mj-modal-close{position:absolute;top:12px;right:14px;font-size:20px;cursor:pointer;color:var(--ink-soft);background:none;border:none;line-height:1}
+
+/* ---- UTILITY ---- */
+.center{text-align:center}
+.relative{position:relative}
+.hidden{display:none!important}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+.flex{display:flex}.items-center{align-items:center}.gap-sm{gap:var(--sp-sm)}.gap-md{gap:var(--sp-md)}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-sm)}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--sp-sm)}
+@media(max-width:700px){.grid-2,.grid-3{grid-template-columns:1fr}}
+
+/* ---- RESPONSIVE TWEAKS ---- */
+@media(max-width:600px){
+  .btn{padding:11px 20px;font-size:14px}
+  .mj-section{padding:var(--sp-lg) 0}
+  .mj-wrap{padding:0 16px}
+}

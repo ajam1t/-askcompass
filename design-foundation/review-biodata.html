@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Marriage Biodata — Mithila Jodi</title>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Rozha+One&family=Mukta:wght@300;400;500;600;700&family=Kalam:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --paper:#FBF1DD;--paper-2:#F6E7C9;--paper-3:#EFD9B4;--cream:#FFF8EA;
+  --maroon:#7A1220;--maroon-2:#9B2233;--maroon-deep:#5A0E19;
+  --terra:#C4562F;--marigold:#E8912A;--turmeric:#D6A83C;--gold:#B98A2E;--gold-lt:#E4C572;
+  --green:#1F5133;--green-2:#2E7048;--leaf:#3E7C4A;
+  --indigo:#2E3A6E;--ink:#2B211C;--ink-soft:#6A5A4E;
+  --line:rgba(122,18,32,.18);--shadow:0 26px 55px -26px rgba(58,20,12,.5);--shadow-s:0 14px 30px -18px rgba(58,20,12,.4);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:"Mukta",sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:"Marcellus",serif;font-weight:400}
+a{color:inherit;text-decoration:none}
+.btn{display:inline-flex;align-items:center;gap:.5em;border-radius:999px;padding:11px 22px;font-weight:600;font-size:14px;cursor:pointer;border:1px solid transparent;font-family:"Mukta",sans-serif;transition:.2s}
+.btn-primary{background:linear-gradient(180deg,var(--maroon-2),var(--maroon));color:var(--cream);box-shadow:var(--shadow-s)}
+.btn-gold{background:linear-gradient(180deg,var(--gold-lt),var(--turmeric));color:#4a3208}
+.btn-ghost{background:var(--cream);color:var(--maroon);border-color:var(--gold)}
+/* Header */
+header{position:sticky;top:0;z-index:50;background:rgba(251,241,221,.95);backdrop-filter:blur(10px);border-bottom:2px solid var(--gold)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:68px;max-width:1200px;margin:0 auto;padding:0 24px;gap:16px}
+.logo{display:flex;align-items:center;gap:10px;font-family:"Marcellus";font-size:21px;color:var(--maroon)}
+.logo small{display:block;font-family:"Mukta";font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-soft)}
+nav{display:flex;gap:20px;font-size:14px}
+nav a{color:var(--ink-soft)}
+nav a.active{color:var(--maroon);font-weight:600}
+/* Page Layout */
+.page{max-width:1200px;margin:0 auto;padding:32px 24px;display:grid;grid-template-columns:1fr 360px;gap:32px;align-items:start}
+/* Section header */
+.sec-head{margin-bottom:28px}
+.sec-head .eyebrow{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--terra);font-weight:600;margin-bottom:8px}
+.sec-head h1{font-size:34px;color:var(--maroon);margin-bottom:6px}
+.sec-head p{color:var(--ink-soft);font-size:16px;max-width:520px}
+/* Template grid */
+.templates{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:28px}
+.tpl{border-radius:16px;overflow:hidden;cursor:pointer;transition:.2s;border:2px solid transparent;position:relative}
+.tpl:hover{transform:translateY(-3px)}
+.tpl.active{border-color:var(--maroon)}
+.tpl.active::after{content:"✓ Selected";position:absolute;top:10px;right:10px;background:var(--maroon);color:var(--cream);font-size:10px;font-weight:700;padding:3px 8px;border-radius:999px;letter-spacing:.05em}
+.tpl-preview{height:160px;display:flex;align-items:center;justify-content:center;font-family:"Marcellus";font-size:15px;position:relative;overflow:hidden}
+.tpl-label{background:var(--cream);padding:10px 14px;border-top:1px solid var(--paper-3)}
+.tpl-label h3{font-size:15px;color:var(--maroon);margin-bottom:2px}
+.tpl-label p{font-size:12px;color:var(--ink-soft)}
+/* Language selector */
+.lang-sec{margin-bottom:28px}
+.lang-sec h2{font-size:18px;color:var(--maroon);margin-bottom:12px}
+.lang-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.lang-btn{padding:12px 8px;border-radius:12px;border:2px solid var(--line);background:var(--cream);cursor:pointer;text-align:center;transition:.2s;font-family:"Mukta"}
+.lang-btn.on{border-color:var(--maroon);background:rgba(122,18,32,.06)}
+.lang-btn .script{font-size:18px;margin-bottom:4px}
+.lang-btn.on .script{color:var(--maroon)}
+.lang-btn .lname{font-size:12px;font-weight:600;color:var(--ink)}
+/* Form builder */
+.form-sec{margin-bottom:28px}
+.form-sec h2{font-size:18px;color:var(--maroon);margin-bottom:12px}
+.field{margin-bottom:12px}
+.field label{display:block;font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--terra);font-weight:600;margin-bottom:5px}
+.field input,.field select,.field textarea{width:100%;border:1px solid var(--paper-3);border-radius:10px;padding:10px 14px;background:var(--cream);font-family:"Mukta";font-size:14px;color:var(--ink);outline:none;transition:.2s}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(185,138,46,.15)}
+.field textarea{min-height:90px;resize:vertical}
+.field select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%236A5A4E' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;cursor:pointer}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.divider-sec{border:none;border-top:1px solid var(--line);margin:20px 0}
+/* Sidebar: Preview + Actions */
+.sidebar{position:sticky;top:80px}
+.preview-card{background:var(--cream);border:2px solid var(--gold);border-radius:20px;overflow:hidden;box-shadow:var(--shadow);margin-bottom:20px}
+/* Biodata preview — Mithila template */
+.bio-header{background:var(--maroon);padding:20px;text-align:center;position:relative}
+.bio-header::after{content:"";position:absolute;bottom:0;left:0;right:0;height:6px;background:linear-gradient(90deg,var(--gold),var(--marigold),var(--gold))}
+.bio-name{font-family:"Marcellus";font-size:22px;color:var(--gold-lt);margin-bottom:2px}
+.bio-sub{font-size:12px;color:rgba(255,255,255,.7);letter-spacing:.1em}
+.bio-body{padding:18px}
+.bio-section{margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid var(--line)}
+.bio-section:last-child{border-bottom:none;margin-bottom:0}
+.bio-sec-title{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--terra);font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:6px}
+.bio-sec-title::after{content:"";flex:1;height:1px;background:var(--line)}
+.bio-row{display:flex;font-size:12px;margin-bottom:4px}
+.bio-row .k{color:var(--ink-soft);width:110px;flex:none}
+.bio-row .v{color:var(--ink);font-weight:500}
+/* Madhubani border art on preview */
+.bio-border{height:8px;background:repeating-linear-gradient(90deg,var(--marigold) 0,var(--marigold) 8px,var(--turmeric) 8px,var(--turmeric) 16px,var(--leaf) 16px,var(--leaf) 24px,var(--maroon) 24px,var(--maroon) 32px)}
+/* Mandala motif header decoration */
+.bio-mandala{width:56px;height:56px;margin:0 auto 10px;border-radius:50%;border:2px solid var(--gold-lt);display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.1)}
+/* Action buttons */
+.act-card{background:var(--cream);border:1px solid var(--paper-3);border-radius:16px;padding:18px;box-shadow:var(--shadow-s)}
+.act-card h3{font-family:"Marcellus";font-size:16px;color:var(--maroon);margin-bottom:12px}
+.act-btns{display:flex;flex-direction:column;gap:8px}
+.act-btns .btn{width:100%;justify-content:center}
+/* Footer */
+footer{border-top:2px solid var(--gold);background:var(--maroon-deep);color:var(--paper-2);text-align:center;padding:18px;font-size:13px;margin-top:40px}
+@media(max-width:900px){
+  .page{grid-template-columns:1fr}
+  .sidebar{position:static}
+  .templates{grid-template-columns:1fr 1fr}
+  .lang-grid{grid-template-columns:repeat(2,1fr)}
+  .field-row{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="nav">
+    <a class="logo" href="homepage.html">
+      <svg width="36" height="36" viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="19" stroke="#7A1220" stroke-width="1.5"/><path d="M20 8C24 14 26 17 26 20C26 23 24 26 20 29C16 26 14 23 14 20C14 17 16 14 20 8Z" fill="none" stroke="#7A1220" stroke-width="1.2"/><circle cx="20" cy="20" r="4" fill="#E8912A"/></svg>
+      <div><span>Mithila Jodi</span><small>Find your match. Keep your roots.</small></div>
+    </a>
+    <nav>
+      <a href="homepage.html">Home</a>
+      <a href="review-search.html">Search</a>
+      <a href="#" class="active">Biodata</a>
+      <a href="review-profile.html">Profile</a>
+    </nav>
+    <div style="display:flex;gap:8px">
+      <a class="btn btn-primary" style="padding:9px 18px;font-size:13px">My Account</a>
+    </div>
+  </div>
+</header>
+
+<div class="page">
+  <div>
+    <div class="sec-head">
+      <div class="eyebrow">Marriage Biodata Generator</div>
+      <h1>Create Your Biodata</h1>
+      <p>Beautiful, shareable biodata in English, Hindi, Maithili &amp; Sanskrit — five template designs, instant PDF download.</p>
+    </div>
+
+    <!-- Templates -->
+    <h2 style="font-size:18px;color:var(--maroon);margin-bottom:14px">Choose a Template</h2>
+    <div class="templates">
+      <!-- Mithila Template (selected) -->
+      <div class="tpl active">
+        <div class="tpl-preview" style="background:linear-gradient(160deg,#7A1220,#9B2233)">
+          <div style="text-align:center;color:var(--gold-lt)">
+            <div class="bio-border" style="margin-bottom:8px"></div>
+            <svg viewBox="0 0 40 40" width="36" height="36" fill="none" style="margin:0 auto 4px">
+              <circle cx="20" cy="20" r="18" stroke="#E4C572" stroke-width="1"/><circle cx="20" cy="20" r="12" stroke="#E4C572" stroke-width=".7"/><circle cx="20" cy="20" r="6" stroke="#E4C572" stroke-width=".5"/>
+              <path d="M20 2 V38 M2 20 H38 M5.86 5.86 L34.14 34.14 M34.14 5.86 L5.86 34.14" stroke="#E4C572" stroke-width=".5" opacity=".5"/>
+            </svg>
+            <div style="font-family:'Marcellus';font-size:13px">Mithila</div>
+            <div class="bio-border" style="margin-top:8px"></div>
+          </div>
+        </div>
+        <div class="tpl-label">
+          <h3>Mithila</h3>
+          <p>Madhubani borders · Maroon &amp; gold · Traditional mandala header</p>
+        </div>
+      </div>
+
+      <!-- Classic Template -->
+      <div class="tpl">
+        <div class="tpl-preview" style="background:linear-gradient(160deg,#2E3A6E,#1a2448)">
+          <div style="text-align:center;color:#E4C572;font-family:'Marcellus'">
+            <div style="border:1px solid #B98A2E;width:80%;margin:0 auto;padding:12px;border-radius:4px">
+              <div style="font-size:20px;margin-bottom:4px">☸</div>
+              <div style="font-size:13px">Vivah Parichay</div>
+              <div style="height:1px;background:#B98A2E;margin:6px 0"></div>
+              <div style="font-size:11px;opacity:.7">Classic Layout</div>
+            </div>
+          </div>
+        </div>
+        <div class="tpl-label">
+          <h3>Classic</h3>
+          <p>Traditional framed · Deep navy &amp; gold · Formal presentation</p>
+        </div>
+      </div>
+
+      <!-- Elegant Template -->
+      <div class="tpl">
+        <div class="tpl-preview" style="background:linear-gradient(160deg,#f5ede0,#e8d5b8)">
+          <div style="text-align:center">
+            <div style="font-family:'Marcellus';font-size:13px;color:#7A1220;border-bottom:1px solid #B98A2E;padding-bottom:6px;margin-bottom:6px">✦ Elegant ✦</div>
+            <div style="font-size:11px;color:#6A5A4E">Minimal • Serif • Refined</div>
+            <div style="height:30px;display:flex;align-items:center;justify-content:center;gap:6px;margin-top:8px">
+              <div style="width:40px;height:1px;background:#B98A2E"></div>
+              <div style="width:6px;height:6px;border-radius:50%;background:#E8912A"></div>
+              <div style="width:40px;height:1px;background:#B98A2E"></div>
+            </div>
+          </div>
+        </div>
+        <div class="tpl-label">
+          <h3>Elegant</h3>
+          <p>Minimal serif · Ivory &amp; terracotta · Modern traditional</p>
+        </div>
+      </div>
+
+      <!-- Premium Wedding -->
+      <div class="tpl">
+        <div class="tpl-preview" style="background:linear-gradient(160deg,#1F5133,#0e3320)">
+          <div style="text-align:center;padding:10px">
+            <svg viewBox="0 0 60 60" width="50" height="50" fill="none" style="margin:0 auto 4px">
+              <path d="M30 8 C30 8 40 14 48 22 C48 22 44 34 30 40 C16 34 12 22 12 22 C20 14 30 8 30 8 Z" fill="none" stroke="#E4C572" stroke-width="1"/>
+              <circle cx="30" cy="28" r="5" fill="#E8912A" opacity=".8"/>
+            </svg>
+            <div style="font-family:'Marcellus';font-size:12px;color:#E4C572">Premium Wedding</div>
+          </div>
+        </div>
+        <div class="tpl-label">
+          <h3>Premium Wedding</h3>
+          <p>Rich forest green · Gold accents · Luxury feel</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Language -->
+    <div class="lang-sec">
+      <h2>Biodata Language</h2>
+      <div class="lang-grid">
+        <div class="lang-btn on">
+          <div class="script">A</div>
+          <div class="lname">English</div>
+        </div>
+        <div class="lang-btn">
+          <div class="script" style="font-family:'Rozha One'">अ</div>
+          <div class="lname">हिंदी</div>
+        </div>
+        <div class="lang-btn">
+          <div class="script" style="font-family:'Rozha One'">म</div>
+          <div class="lname">मैथिली</div>
+        </div>
+        <div class="lang-btn">
+          <div class="script" style="font-family:'Rozha One'">ॐ</div>
+          <div class="lname">संस्कृत</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Personal Details Form -->
+    <div class="form-sec">
+      <h2>Personal Details</h2>
+      <div class="field-row">
+        <div class="field"><label>Full Name</label><input type="text" value="Priya Jha" placeholder="Your full name"/></div>
+        <div class="field"><label>Date of Birth</label><input type="date" value="2001-03-12"/></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Height</label><select><option>5'4" (163 cm)</option><option>5'3"</option><option>5'5"</option></select></div>
+        <div class="field"><label>Complexion</label><select><option>Fair</option><option>Wheatish</option><option>Medium</option></select></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Blood Group</label><select><option>B+</option><option>A+</option><option>O+</option></select></div>
+        <div class="field"><label>Manglik</label><select><option>No</option><option>Yes</option><option>Partial</option></select></div>
+      </div>
+      <div class="field"><label>About Me (Biodata Introduction)</label><textarea placeholder="Write a brief introduction about yourself, your values, interests...">A passionate software engineer with deep roots in Mithila culture. I value family traditions, love classical music, and enjoy Madhubani art. Looking for a life partner who shares similar values and is ready to build a beautiful life together.</textarea></div>
+    </div>
+
+    <hr class="divider-sec"/>
+
+    <!-- Education & Career -->
+    <div class="form-sec">
+      <h2>Education &amp; Career</h2>
+      <div class="field-row">
+        <div class="field"><label>Highest Education</label><select><option>M.Tech</option><option>B.Tech</option><option>MBA</option><option>MBBS</option></select></div>
+        <div class="field"><label>College / University</label><input type="text" value="NIT Patna"/></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Profession</label><select><option>Software Engineer</option><option>Doctor</option><option>Teacher</option></select></div>
+        <div class="field"><label>Employer</label><input type="text" value="TCS, Pune"/></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Annual Income</label><select><option>₹8–12 Lakhs</option><option>₹5–8 Lakhs</option><option>₹12+ Lakhs</option></select></div>
+        <div class="field"><label>Job Location</label><select><option>Pune, Maharashtra</option><option>Patna, Bihar</option><option>Delhi NCR</option></select></div>
+      </div>
+    </div>
+
+    <hr class="divider-sec"/>
+
+    <!-- Family & Roots -->
+    <div class="form-sec">
+      <h2>Family &amp; Mithila Roots</h2>
+      <div class="field-row">
+        <div class="field"><label>Caste</label><select><option>Brahmin</option><option>Kayastha</option></select></div>
+        <div class="field"><label>Self Gotra</label><select><option>Kashyap</option><option>Bharadwaj</option></select></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Maternal Gotra</label><select><option>Bharadwaj</option><option>Kashyap</option></select></div>
+        <div class="field"><label>Mool</label><input type="text" value="Madhubani"/></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Native District</label><select><option>Madhubani</option><option>Darbhanga</option><option>Sitamarhi</option></select></div>
+        <div class="field"><label>Current Location</label><select><option>Darbhanga, Bihar</option><option>Patna, Bihar</option></select></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Father's Name</label><input type="text" value="Ramesh Jha"/></div>
+        <div class="field"><label>Father's Occupation</label><select><option>Government Service (Retired)</option><option>Business</option></select></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Mother's Name</label><input type="text" value="Sunita Jha"/></div>
+        <div class="field"><label>Mother's Occupation</label><select><option>Homemaker</option><option>Teacher</option></select></div>
+      </div>
+      <div class="field"><label>Siblings</label><input type="text" value="1 Brother (Married), Engineer in Patna"/></div>
+    </div>
+
+    <hr class="divider-sec"/>
+
+    <!-- Partner Preferences -->
+    <div class="form-sec">
+      <h2>Partner Preferences</h2>
+      <div class="field-row">
+        <div class="field"><label>Age Range</label>
+          <div style="display:flex;gap:8px;align-items:center">
+            <input type="number" value="26" style="width:70px"/>
+            <span style="color:var(--ink-soft);font-size:13px">to</span>
+            <input type="number" value="34" style="width:70px"/>
+            <span style="color:var(--ink-soft);font-size:12px">yrs</span>
+          </div>
+        </div>
+        <div class="field"><label>Height Preference</label><select><option>5'5" and above</option><option>Any height</option></select></div>
+      </div>
+      <div class="field-row">
+        <div class="field"><label>Education</label><select><option>Graduate &amp; above</option><option>Post Graduate</option></select></div>
+        <div class="field"><label>Location Preference</label><select><option>Bihar / Any India</option><option>Bihar only</option></select></div>
+      </div>
+      <div class="field"><label>Additional Preferences</label><textarea placeholder="Any specific preferences about partner's family, values, lifestyle...">Looking for an educated, family-oriented partner who respects Mithila traditions. Open to living in any city in India.</textarea></div>
+    </div>
+
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:40px">
+      <button class="btn btn-primary">Generate Biodata PDF ↓</button>
+      <button class="btn btn-gold">Preview Full Biodata</button>
+      <button class="btn btn-ghost">Save Draft</button>
+    </div>
+  </div>
+
+  <!-- Sidebar: Preview -->
+  <div class="sidebar">
+    <div style="font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--terra);font-weight:600;margin-bottom:10px">Live Preview</div>
+
+    <div class="preview-card">
+      <div class="bio-border"></div>
+      <div class="bio-header">
+        <div class="bio-mandala">
+          <svg viewBox="0 0 40 40" width="32" height="32" fill="none">
+            <circle cx="20" cy="20" r="18" stroke="#E4C572" stroke-width=".8"/>
+            <circle cx="20" cy="20" r="11" stroke="#E4C572" stroke-width=".6"/>
+            <path d="M20 2 V38 M2 20 H38 M5.86 5.86 L34.14 34.14 M34.14 5.86 L5.86 34.14" stroke="#E4C572" stroke-width=".4" opacity=".6"/>
+            <circle cx="20" cy="20" r="3" fill="#E8912A"/>
+          </svg>
+        </div>
+        <div class="bio-name">Priya Jha</div>
+        <div class="bio-sub">विवाह परिचय · Marriage Biodata</div>
+      </div>
+      <div class="bio-body">
+        <div class="bio-section">
+          <div class="bio-sec-title">Personal</div>
+          <div class="bio-row"><span class="k">Age</span><span class="v">25 years</span></div>
+          <div class="bio-row"><span class="k">DOB</span><span class="v">12 March 2001</span></div>
+          <div class="bio-row"><span class="k">Height</span><span class="v">5'4"</span></div>
+          <div class="bio-row"><span class="k">Complexion</span><span class="v">Fair</span></div>
+          <div class="bio-row"><span class="k">Blood Group</span><span class="v">B+</span></div>
+        </div>
+        <div class="bio-section">
+          <div class="bio-sec-title">Education &amp; Career</div>
+          <div class="bio-row"><span class="k">Education</span><span class="v">M.Tech (CS), NIT Patna</span></div>
+          <div class="bio-row"><span class="k">Profession</span><span class="v">Software Engineer</span></div>
+          <div class="bio-row"><span class="k">Company</span><span class="v">TCS, Pune</span></div>
+          <div class="bio-row"><span class="k">Income</span><span class="v">₹8–12 LPA</span></div>
+        </div>
+        <div class="bio-section">
+          <div class="bio-sec-title">Mithila Roots</div>
+          <div class="bio-row"><span class="k">Caste</span><span class="v">Brahmin</span></div>
+          <div class="bio-row"><span class="k">Gotra</span><span class="v">Kashyap</span></div>
+          <div class="bio-row"><span class="k">Mat. Gotra</span><span class="v">Bharadwaj</span></div>
+          <div class="bio-row"><span class="k">Native</span><span class="v">Madhubani, Bihar</span></div>
+        </div>
+        <div class="bio-section">
+          <div class="bio-sec-title">Family</div>
+          <div class="bio-row"><span class="k">Father</span><span class="v">Ramesh Jha (Retd.)</span></div>
+          <div class="bio-row"><span class="k">Mother</span><span class="v">Sunita Jha (Homemaker)</span></div>
+          <div class="bio-row"><span class="k">Sibling</span><span class="v">1 Brother (Married)</span></div>
+        </div>
+        <div class="bio-section" style="border:none">
+          <div class="bio-sec-title">Contact</div>
+          <div class="bio-row"><span class="k">Platform</span><span class="v">Mithila Jodi #MJ-00427</span></div>
+          <div class="bio-row"><span class="k">Location</span><span class="v">Darbhanga, Bihar</span></div>
+        </div>
+      </div>
+      <div class="bio-border"></div>
+      <div style="padding:8px;text-align:center;font-size:9px;color:var(--ink-soft);letter-spacing:.1em">GENERATED BY MITHILA JODI · FIND YOUR MATCH. KEEP YOUR ROOTS.</div>
+    </div>
+
+    <div class="act-card">
+      <h3>Download Options</h3>
+      <div class="act-btns">
+        <button class="btn btn-primary">Download PDF (A4)</button>
+        <button class="btn btn-gold">Share via WhatsApp</button>
+        <button class="btn btn-ghost">Copy Biodata Link</button>
+        <button class="btn btn-ghost" style="border-color:var(--terra);color:var(--terra)">Print Biodata</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div style="background:var(--maroon-deep);padding:6px 0;overflow:hidden">
+  <svg viewBox="0 0 1200 12" preserveAspectRatio="none" style="width:100%;height:12px;display:block">
+    <defs><pattern id="fp3" width="40" height="12" patternUnits="userSpaceOnUse">
+      <circle cx="8" cy="6" r="3" fill="#E8912A"/><circle cx="20" cy="6" r="4.5" fill="#D6A83C"/><circle cx="32" cy="6" r="3" fill="#E8912A"/>
+    </pattern></defs>
+    <rect width="1200" height="12" fill="url(#fp3)"/>
+  </svg>
+</div>
+<footer>
+  <strong style="font-family:'Marcellus';color:var(--gold-lt)">Mithila Jodi</strong> &nbsp;·&nbsp; Find your match. Keep your roots. &nbsp;·&nbsp; Made with love for Mithila
+</footer>
+</body>
+</html>

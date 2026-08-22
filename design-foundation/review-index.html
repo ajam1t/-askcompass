@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Design Review Gate — Mithila Jodi V9</title>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Mukta:wght@400;500;600;700&family=Kalam:wght@400&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --paper:#FBF1DD;--paper-2:#F6E7C9;--paper-3:#EFD9B4;--cream:#FFF8EA;
+  --maroon:#7A1220;--maroon-2:#9B2233;--maroon-deep:#5A0E19;
+  --terra:#C4562F;--marigold:#E8912A;--turmeric:#D6A83C;--gold:#B98A2E;--gold-lt:#E4C572;
+  --green:#1F5133;--indigo:#2E3A6E;--ink:#2B211C;--ink-soft:#6A5A4E;
+  --line:rgba(122,18,32,.18);--shadow:0 26px 55px -26px rgba(58,20,12,.5);--shadow-s:0 14px 30px -18px rgba(58,20,12,.4);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:"Mukta",sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:"Marcellus",serif;font-weight:400}
+a{text-decoration:none;color:inherit}
+/* Header */
+.doc-header{background:var(--maroon-deep);color:var(--cream);text-align:center;padding:40px 24px 36px;position:relative;overflow:hidden}
+.doc-header::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% -20%,rgba(228,197,114,.25),transparent 60%)}
+.doc-header .eyebrow{font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold-lt);margin-bottom:12px;position:relative}
+.doc-header h1{font-size:clamp(26px,4vw,42px);color:var(--gold-lt);margin-bottom:8px;position:relative}
+.doc-header .sub{font-size:15px;color:rgba(255,255,255,.7);max-width:500px;margin:0 auto;position:relative}
+/* Ornamental strip */
+.orn-strip{height:10px;background:linear-gradient(90deg,var(--maroon-deep),var(--gold),var(--marigold),var(--turmeric),var(--gold),var(--maroon-deep))}
+/* Main */
+main{max-width:1100px;margin:0 auto;padding:40px 24px}
+/* Status overview */
+.status-bar{background:var(--cream);border:1px solid var(--paper-3);border-radius:16px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:36px;box-shadow:var(--shadow-s)}
+.status-bar h2{font-size:18px;color:var(--maroon)}
+.status-stats{display:flex;gap:24px}
+.stat{text-align:center}
+.stat .num{font-family:"Marcellus";font-size:28px;color:var(--maroon)}
+.stat .lbl{font-size:11px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.1em}
+.progress-bar{flex:1;min-width:200px;height:8px;background:var(--paper-3);border-radius:999px;overflow:hidden}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--maroon),var(--marigold));border-radius:999px;width:100%}
+/* Grid of review pages */
+.review-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.review-card{background:var(--cream);border:1px solid var(--paper-3);border-radius:18px;overflow:hidden;box-shadow:var(--shadow-s);transition:.2s;cursor:pointer;position:relative}
+.review-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.review-card a{display:block;color:inherit;text-decoration:none}
+.card-thumb{height:140px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:28px}
+.card-badge{position:absolute;top:10px;right:10px;font-size:10px;font-weight:700;padding:3px 9px;border-radius:999px;letter-spacing:.07em;text-transform:uppercase}
+.badge-done{background:var(--green);color:#fff}
+.badge-new{background:var(--marigold);color:var(--maroon-deep)}
+.badge-pair{background:var(--indigo);color:#fff}
+.card-body{padding:16px 18px}
+.card-num{font-size:11px;color:var(--ink-soft);letter-spacing:.2em;margin-bottom:4px;text-transform:uppercase}
+.card-name{font-family:"Marcellus";font-size:18px;color:var(--maroon);margin-bottom:5px}
+.card-desc{font-size:13px;color:var(--ink-soft);margin-bottom:12px}
+.card-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:var(--terra);border:1px solid var(--gold);border-radius:999px;padding:6px 14px;transition:.15s}
+.card-link:hover{background:var(--maroon);color:var(--cream);border-color:var(--maroon)}
+/* Notes section */
+.notes{background:rgba(31,81,51,.05);border:1px solid rgba(31,81,51,.2);border-radius:14px;padding:20px 24px;margin-top:32px}
+.notes h2{font-size:18px;color:var(--green);margin-bottom:12px}
+.notes ul{list-style:none;display:flex;flex-direction:column;gap:8px}
+.notes li{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--ink-soft)}
+.notes li::before{content:"✓";color:var(--green);font-weight:700;flex:none;margin-top:1px}
+/* Implementation order -->
+.impl-order{margin-top:32px}
+.impl-order h2{font-size:20px;color:var(--maroon);margin-bottom:16px}
+.impl-steps{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.impl-step{background:var(--cream);border:1px solid var(--paper-3);border-radius:12px;padding:12px 14px;font-size:13px}
+.impl-step .snum{font-family:"Marcellus";font-size:18px;color:var(--gold);margin-bottom:4px}
+.impl-step .sname{font-weight:600;color:var(--maroon);margin-bottom:2px}
+.impl-step .sdesc{font-size:11px;color:var(--ink-soft)}
+.impl-step.done{border-color:var(--green);background:rgba(31,81,51,.04)}
+.impl-step.done .snum{color:var(--green)}
+/* Footer */
+footer{border-top:2px solid var(--gold);background:var(--maroon-deep);color:var(--paper-2);text-align:center;padding:18px;font-size:13px;margin-top:40px}
+@media(max-width:700px){.status-bar{flex-direction:column}.status-stats{flex-wrap:wrap}}
+</style>
+</head>
+<body>
+
+<div class="doc-header">
+  <div class="eyebrow">Mithila Jodi V9 · Design Review Gate · Section 43</div>
+  <h1>Design Review Package</h1>
+  <div class="sub">All 12 pages required for review before full implementation. India only. No Nepal anywhere.</div>
+</div>
+<div class="orn-strip"></div>
+
+<main>
+  <!-- Status -->
+  <div class="status-bar">
+    <div>
+      <h2>Review Status</h2>
+      <div style="font-size:13px;color:var(--green);font-weight:600;margin-top:4px">✓ All 12 pages delivered · V9 Compliant · Nepal-free</div>
+    </div>
+    <div class="status-stats">
+      <div class="stat"><div class="num">12</div><div class="lbl">Pages Built</div></div>
+      <div class="stat"><div class="num">0</div><div class="lbl">Nepal refs</div></div>
+      <div class="stat"><div class="num">V9</div><div class="lbl">Spec Version</div></div>
+    </div>
+    <div style="flex:1;min-width:200px">
+      <div style="font-size:12px;color:var(--ink-soft);margin-bottom:5px">Design Completion</div>
+      <div class="progress-bar"><div class="progress-fill"></div></div>
+      <div style="font-size:12px;color:var(--green);margin-top:4px">14/14 review pages complete · Design Gate 16/16 items</div>
+    </div>
+  </div>
+
+  <!-- Review Pages Grid -->
+  <div class="review-grid">
+
+    <!-- 1. Homepage Desktop -->
+    <div class="review-card">
+      <a href="homepage.html">
+        <div class="card-thumb" style="background:linear-gradient(160deg,var(--maroon-deep),var(--maroon))">
+          <span class="card-badge badge-done">V9 Compliant</span>
+          <svg viewBox="0 0 80 60" width="80" fill="none" style="opacity:.6">
+            <rect x="5" y="5" width="70" height="50" rx="4" stroke="#E4C572" stroke-width="1.5"/>
+            <rect x="5" y="5" width="70" height="14" rx="4" fill="#E4C572" opacity=".3"/>
+            <rect x="10" y="25" width="35" height="5" rx="2" fill="#E4C572" opacity=".5"/>
+            <rect x="10" y="33" width="50" height="3" rx="1.5" fill="#E4C572" opacity=".3"/>
+            <rect x="10" y="39" width="40" height="3" rx="1.5" fill="#E4C572" opacity=".3"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-num">Review Page 1 &amp; 2</div>
+          <div class="card-name">Homepage</div>
+          <div class="card-desc">Full cinematic intro, living hero with hybrid art slot, all sections. Responsive — use browser resize for mobile view.</div>
+          <span class="card-link">Open Page →</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- 3+4. Header + Footer -->
+    <div class="review-card">
+      <a href="homepage.html#header">
+        <div class="card-thumb" style="background:linear-gradient(160deg,#F6E7C9,#EFD9B4)">
+          <span class="card-badge badge-pair">Embedded</span>
+          <div style="text-align:center">
+            <div style="background:rgba(122,18,32,.9);border-radius:8px;padding:10px 20px;margin-bottom:10px;display:inline-flex;align-items:center;gap:8px">
+              <div style="width:22px;height:22px;background:#E8912A;border-radius:50%"></div>
+              <div style="color:#FBF1DD;font-family:serif;font-size:14px">Mithila Jodi</div>
+              <div style="flex:1;width:60px;height:1px;background:rgba(255,255,255,.3);margin:0 8px"></div>
+              <div style="background:#7A1220;border-radius:999px;padding:4px 10px;color:#FBF1DD;font-size:11px">Create Account</div>
+            </div>
+            <div style="background:var(--maroon-deep);border-radius:8px;padding:8px 20px;display:inline-flex;gap:8px;align-items:center">
+              <div style="width:20px;height:20px;background:#E8912A;border-radius:50%"></div>
+              <div style="color:#FBF1DD;font-size:11px;font-family:serif">Mithila Jodi</div>
+              <div style="color:rgba(255,255,255,.5);font-size:10px">· Privacy · Terms · Contact</div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-num">Review Pages 3 &amp; 4</div>
+          <div class="card-name">Header &amp; Footer</div>
+          <div class="card-desc">Sticky header with logo, nav, language selector, CTA. Ornamental footer with stat bar and marigold strip.</div>
+          <span class="card-link">View in Homepage →</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- 5. Profile Card -->
+    <div class="review-card">
+      <a href="review-search.html">
+        <div class="card-thumb" style="background:linear-gradient(160deg,#f3d2b0,#e8a87c)">
+          <span class="card-badge badge-done">Searchable</span>
+          <div style="background:var(--cream);border-radius:12px;padding:12px;width:120px;box-shadow:0 4px 12px rgba(0,0,0,.15)">
+            <div style="height:60px;background:linear-gradient(160deg,#d8ecd6,#a9d3ab);border-radius:8px;margin-bottom:6px;display:flex;align-items:center;justify-content:center">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#1F5133" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            </div>
+            <div style="font-size:11px;font-weight:700;color:#7A1220;margin-bottom:2px">Priya Jha</div>
+            <div style="font-size:9px;color:#6A5A4E">25 · Darbhanga</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-num">Review Page 5</div>
+          <div class="card-name">Profile Card</div>
+          <div class="card-desc">Grid card with photo slot, name, age, location, gotra tags, Interest + Shortlist actions.</div>
+          <span class="card-link">See in Search →</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- 6. 3D Profile Card (in design-system) -->
+    <div class="review-card">
+      <a href="design-system.html">
+        <div class="card-thumb" style="background:linear-gradient(135deg,var(--indigo),#1a2448)">
+          <span class="card-badge badge-new">Interactive</span>
+          <div style="perspective:400px">
+            <div style="width:100px;height:70px;background:linear-gradient(135deg,rgba(228,197,114,.2),rgba(228,197,114,.05));border:1px solid rgba(228,197,114,.4);border-radius:10px;transform:rotateY(-20deg) rotateX(8deg);display:flex;align-items:center;justify-content:center">
+              <div style="text-align:center;color:#E4C572">
+                <div style="font-size:20px">♠</div>
+                <div style="font-size:10px;font-family:serif">8 Faces</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-num">Review Page 6</div>
+          <div class="card-name">3D Profile Card</div>
+          <div class="card-desc">8-face rotating card: Photo→Education→Career→Roots→Family→Lifestyle→Preferences→Back. Concept in design system.</div>
+          <span class="card-link">View Concept →</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- 7. Search Page -->
+    <div class="review-card">
+      <a href="review-search.html">
+        <div class="card-thumb" style="background:linear-gradient(160deg,#f5ede0,#e8d5b8)">
+          <span class="card-badge badge-done">All Filters</span>
+          <div style="display:flex;gap:8px;align-items:flex-start">
+            <div style="background:var(--cream);border:1px solid var(--paper-3);border-radius:8px;padding:8px;width:70px">
+              <div style="font-size:8px;font-weight:700;color:var(--terra);margin-bottom:4px;letter-spacing:.1em">FILTERS</div>
+              <div style="background:var(--paper);border-radius:4px;padding:3px 6px;font-size:8px;margin-bottom:3px">Age: 22–30</div>
+              <div style="background:var(--maroon);border-radius:4px;padding:3px 6px;font-size:8px;color:#fff;margin-bottom:3px">Maithili</div>
+              <div style="background:var(--paper);border-radius:4px;padding:3px 6px;font-size:8px">Bihar</div>
+            </div>
+            <div style="flex:1">
+              <div style="font-size:9px;font-weight:700;color:var(--maroon);margin-bottom:5px">312 profiles</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:4px">
+                <div style="background:var(--cream);border-radius:6px;padding:5px;font-size:8px;color:var(--maroon)">Priya J.</div>
+                <div style="background:var(--cream);border-radius:6px;padding:5px;font-size:8px;color:var(--maroon)">Ananya M.</div>
+                <div style="background:var(--cream);border-radius:6px;padding:5px;font-size:8px;color:var(--maroon)">Sunita T.</div>
+                <div style="background:var(--cream);border-radius:6px;padding:5px;font-size:8px;color:var(--maroon)">Kavya S.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-num">Review Page 7</div>
+          <div class="card-name">Search Page</div>
+          <div class="card-desc">Full filter sidebar: Bride/Groom, Age, Mother Tongue, Caste, Gotra, Mool, Education, Profession, Location (India only), Marital Status, Lifestyle, Family Type, Verification, Timeline.</div>
+          <span class="card-link">Open Page →</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- 8. Profile Page -->
+    <div class="review-card">
+      <a href="review-profile.html">
+        <div class="card-thumb" style="background:linear-gradient(160deg,var(--maroon),var(--maroon-deep))">
+          <span class="card-badge badge-done">Full Profile</span>
+          <div style="text-align:center;color:var(--gold-lt)">
+            <div style="width:48px;height:60px;background:linear-gradient(160deg,rgba(228,197,114,.2),rgba(228,197,114,.05));border:1px solid rgba(228,197,114,.3);border-radius:8px;margin:0 auto 6px;display:flex;align-items:center;justify-content:center">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="#E4C572" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            </div>
+            <div style="font-size:12px;font-family:serif">Priya Jha</div>
+            <div style="font-size:9px;opacity:.7;margin-top:2px">78% Match · Verified</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-num">Review Page 8</div>
+          <div class="card-name">Full Profile Page</div>
+          <div class="card-desc">About, Basic Details, Education &amp; Career, Mithila Roots (India only), Family, Preferences, Photos. Match score, similar profiles sidebar.</div>
+          <span class="card-link">Open Page →</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- 9. Family Connect -->
+    <div class="review-card">
+      <a href="review-family-connect.html">
+        <div class="card-thumb" style="background:linear-gradient(160deg,#d8ecd6,#a9d3ab)">
+          <span class="card-badge badge-done">Multi-user</span>
+          <div style="display:flex;gap:-8px">
+            <div style="width:40px;height:40px;border-radius:50%;background:var(--maroon);border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-family:serif;color:#fff;font-size:14px">F</div>
+            <div style="width:40px;height:40px;border-radius:50%;background:var(--terra);border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-family:serif;color:#fff;font-size:14px;margin-left:-10px">M</div>
+            <div style="width:40px;height:40px;border-radius:50%;background:var(--indigo);border:2px solid #fff;display:flex;align-items:center;justify-content:center;font-family:serif;color:#fff;font-size:14px;margin-left:-10px">B</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-num">Review Page 9</div>
+          <div class="card-name">Family Connect</div>
+          <div class="card-desc">Invite family members, set granular access permissions, shared notes on profiles, activity dashboard. Privacy-first design.</div>
+          <span class="card-link">Open Page →</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- 10. Biodata -->
+    <div class="review-card">
+      <a href="review-biodata.html">
+        <div class="card-thumb" style="background:linear-gradient(160deg,var(--maroon-deep),#3a0a10)">
+          <span class="card-badge badge-done">5 Templates</span>
+          <div style="background:var(--cream);border-radius:8px;width:90px;padding:8px;box-shadow:0 4px 12px rgba(0,0,0,.3)">
+            <div style="height:4px;background:repeating-linear-gradient(90deg,#E8912A 0,#E8912A 8px,#D6A83C 8px,#D6A83C 16px,#3E7C4A 16px,#3E7C4A 24px,#7A1220 24px,#7A1220 32px);margin-bottom:6px"></div>
+            <div style="background:var(--maroon);padding:6px;text-align:center;margin:-8px -8px 6px">
+              <div style="font-size:9px;color:#E4C572;font-family:serif">Priya Jha</div>
+              <div style="font-size:7px;color:rgba(255,255,255,.6)">Marriage Biodata</div>
+            </div>
+            <div style="font-size:7px;color:var(--ink-soft);line-height:1.6">Age: 25 · NIT · TCS<br/>Kashyap · Madhubani</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-num">Review Page 10</div>
+          <div class="card-name">Marriage Biodata</div>
+          <div class="card-desc">5 templates (Mithila, Classic, Elegant, Modern, Premium Wedding). Languages: English, Hindi, Maithili, Sanskrit. Live preview, PDF download.</div>
+          <span class="card-link">Open Page →</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- 11. Settings -->
+    <div class="review-card">
+      <a href="review-settings.html">
+        <div class="card-thumb" style="background:linear-gradient(160deg,#f5ede0,#e8d5b8)">
+          <span class="card-badge badge-done">Full Settings</span>
+          <div style="display:flex;flex-direction:column;gap:4px;width:130px">
+            <div style="background:var(--cream);border-radius:6px;padding:5px 8px;font-size:9px;color:var(--maroon);font-weight:600">Profile Info</div>
+            <div style="background:var(--cream);border-radius:6px;padding:5px 8px;font-size:9px;color:var(--ink-soft)">Privacy</div>
+            <div style="background:var(--cream);border-radius:6px;padding:5px 8px;font-size:9px;color:var(--ink-soft)">Notifications</div>
+            <div style="background:var(--cream);border-radius:6px;padding:5px 8px;font-size:9px;color:var(--ink-soft)">Membership</div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-num">Review Page 11</div>
+          <div class="card-name">Settings</div>
+          <div class="card-desc">Profile info, privacy controls, notification toggles, Aadhaar verification, membership management, language preferences, danger zone.</div>
+          <span class="card-link">Open Page →</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- 11a. Dulhan ki Doli (Design Gate Item 6) -->
+    <div class="review-card">
+      <a href="review-doli-scene.html">
+        <div class="card-thumb" style="background:linear-gradient(160deg,#F7DCB0,#E8912A)">
+          <span class="card-badge badge-done">Animated Scene</span>
+          <div style="display:flex;align-items:center;gap:8px">
+            <!-- mini doli glyph -->
+            <svg width="120" height="80" viewBox="0 0 120 80" fill="none" aria-hidden="true">
+              <rect x="12" y="34" width="96" height="6" rx="3" fill="#B98A2E"/>
+              <path d="M34 34 Q60 12 86 34 Z" fill="#7A1220" stroke="#D6A83C" stroke-width="1"/>
+              <rect x="38" y="34" width="44" height="30" rx="4" fill="#C4562F" stroke="#D6A83C" stroke-width="1"/>
+              <path d="M48 64 V44 Q60 34 72 44 V64 Z" fill="#FCEBCB" stroke="#7A1220" stroke-width="1.5"/>
+              <circle cx="60" cy="50" r="6" fill="#D4836B" stroke="#2B211C" stroke-width="0.8"/>
+              <circle cx="60" cy="42" r="2" fill="#7A1220"/>
+              <!-- bearers -->
+              <rect x="20" y="40" width="8" height="26" rx="3" fill="#2E7048"/>
+              <rect x="92" y="40" width="8" height="26" rx="3" fill="#2E3A6E"/>
+              <!-- petals -->
+              <circle cx="30" cy="20" r="2" fill="#E8912A"/><circle cx="90" cy="24" r="2" fill="#C4562F"/><circle cx="60" cy="14" r="2" fill="#D6A83C"/>
+            </svg>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-num">Design Gate · Item 6</div>
+          <div class="card-name">Dulhan ki Doli</div>
+          <div class="card-desc">Cinematic storytelling scene — decorated palanquin, graceful bride, family blessing (aarti thali, waving child), doli bearers, petals & diyas. Complements Varmala. "A new beginning." Madhubani style, India only.</div>
+          <span class="card-link">Open Page →</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- 11b. 3D Profile Card (Design Gate Item 9) -->
+    <div class="review-card">
+      <a href="review-3d-profile-card.html">
+        <div class="card-thumb" style="background:linear-gradient(160deg,#3a1830,#7A1220)">
+          <span class="card-badge badge-done">3D CSS Flip</span>
+          <div style="display:flex;gap:10px;align-items:center;justify-content:center">
+            <!-- mini card front -->
+            <div style="width:52px;height:74px;border-radius:8px;background:var(--cream);border:1.5px solid var(--gold);box-shadow:4px 4px 0 rgba(0,0,0,.3);display:flex;flex-direction:column;overflow:hidden">
+              <div style="height:36px;background:linear-gradient(155deg,#f3d9c6,#c47050)"></div>
+              <div style="padding:4px;font-size:6px;color:var(--maroon);font-family:serif;line-height:1.3">Priya Jha<br><span style="color:var(--ink-soft)">26 · Bihar</span></div>
+            </div>
+            <!-- rotation arrow -->
+            <div style="color:#D6A83C;font-size:18px;opacity:.85">↻</div>
+            <!-- mini card back -->
+            <div style="width:52px;height:74px;border-radius:8px;background:var(--cream);border:1.5px solid var(--gold);box-shadow:-4px 4px 0 rgba(0,0,0,.3);display:flex;flex-direction:column;overflow:hidden;transform:rotateY(10deg)">
+              <div style="height:18px;background:var(--maroon);display:flex;align-items:center;padding:0 4px;gap:3px">
+                <div style="width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,.15);font-size:6px;color:#E4C572;display:grid;place-items:center;font-family:serif">प्र</div>
+                <div style="font-size:5.5px;color:#fff;font-family:serif;line-height:1.2">Priya<br><span style="color:rgba(255,255,255,.6)">Jha</span></div>
+              </div>
+              <div style="padding:3px 4px;font-size:5px;color:var(--ink-soft);line-height:1.6">M.Tech · NIT<br>Madhubani</div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-num">Design Gate · Item 9</div>
+          <div class="card-name">3D Profile Card</div>
+          <div class="card-desc">CSS 3D flip card. Front: photo, name, chips, match score ring. Back: full profile (gotra, mool, roots, preferences). Hover tilt. Auto-demo on load. Mithila gold border. NOT Tinder-style.</div>
+          <span class="card-link">Open Page →</span>
+        </div>
+      </a>
+    </div>
+
+    <!-- 12. Membership -->
+    <div class="review-card">
+      <a href="review-membership.html">
+        <div class="card-thumb" style="background:linear-gradient(160deg,#1F5133,#0e3320)">
+          <span class="card-badge badge-done">3 Plans</span>
+          <div style="display:flex;gap:6px;align-items:flex-end">
+            <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:8px 10px;text-align:center;width:55px">
+              <div style="font-size:8px;color:rgba(255,255,255,.6);margin-bottom:4px">Parichay</div>
+              <div style="font-size:14px;color:#E4C572;font-family:serif">₹0</div>
+            </div>
+            <div style="background:rgba(122,18,32,.6);border:1px solid #E4C572;border-radius:10px;padding:10px 12px;text-align:center;width:60px">
+              <div style="font-size:8px;color:#E4C572;margin-bottom:4px">Vivah ⭐</div>
+              <div style="font-size:16px;color:#E4C572;font-family:serif">₹999</div>
+              <div style="font-size:7px;color:rgba(255,255,255,.5)">/year</div>
+            </div>
+            <div style="background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:8px 10px;text-align:center;width:55px">
+              <div style="font-size:8px;color:rgba(255,255,255,.6);margin-bottom:4px">Samridh</div>
+              <div style="font-size:14px;color:#E4C572;font-family:serif">₹2499</div>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="card-num">Review Page 12</div>
+          <div class="card-name">Membership</div>
+          <div class="card-desc">3 plans: Parichay (free), Vivah (₹999/yr), Samridh (₹2499/yr). Feature comparison table, FAQ, India-only payment methods.</div>
+          <span class="card-link">Open Page →</span>
+        </div>
+      </a>
+    </div>
+
+  </div>
+
+  <!-- Compliance Notes -->
+  <div class="notes">
+    <h2>V9 Compliance Checklist</h2>
+    <ul>
+      <li>INDIA ONLY — zero Nepal references in any page, SVG, testimonial, or location hierarchy</li>
+      <li>Design tokens from V9 section 35 — CSS custom properties throughout all pages</li>
+      <li>Google Fonts: Marcellus (headings) + Mukta (body/UI) + Rozha One (Devanagari) + Kalam (handwritten)</li>
+      <li>Color palette: Maroon #7A1220, Terracotta #C4562F, Gold #B98A2E, Ivory #FBF1DD, Leaf Green #1F5133, Indigo #2E3A6E</li>
+      <li>Madhubani ornamental motifs — lotus, fish, peacock, marigold toran, mandala, geometric borders</li>
+      <li>Hybrid hero slot — illustration fallback to coded SVG Madhubani scene</li>
+      <li>Search filters match V9 spec exactly: Bride/Groom, Age, Mother Tongue, Caste, Sub Caste, Self Gotra, Maternal Gotra, Mool, Education, Profession, Current Location, Job Location, Native Place, Marital Status, Lifestyle, Family Type, Verification, Marriage Timeline</li>
+      <li>Biodata: 5 templates, 4 languages (English, Hindi, Maithili, Sanskrit), live preview, PDF download</li>
+      <li>3D Profile Card: CSS preserve-3d flip · front (photo, match ring, chips) + back (gotra, mool, Bihar roots, all fields) · hover tilt · auto-demo · NOT Tinder-style · review-3d-profile-card.html</li>
+      <li>Dulhan ki Doli: cinematic storytelling scene · decorated palanquin, graceful happy bride, family blessing (aarti thali + waving child), doli bearers with walking motion, falling petals, flickering diyas · complements Varmala · "new beginning" tone · review-doli-scene.html</li>
+      <li>Family Connect: invite system, granular permissions, notes on profiles, privacy controls</li>
+      <li>Mithila Roots: Current Location, Job Location, Native District — all India-only, no exact addresses</li>
+      <li>Membership plans aligned to Mithila context: Parichay, Vivah, Samridh — not SaaS tier names</li>
+      <li>No SaaS/startup/dating-app aesthetic — warm paper textures, maroon/gold/green palette throughout</li>
+    </ul>
+  </div>
+
+  <!-- Implementation Order (V9 Section 42) -->
+  <div class="impl-order">
+    <h2>Next: V9 Implementation Order (Section 42)</h2>
+    <p style="color:var(--ink-soft);font-size:14px;margin-bottom:16px">After design review approval, proceed in this exact order:</p>
+    <div class="impl-steps">
+      <div class="impl-step done"><div class="snum">✓</div><div class="sname">Design Tokens</div><div class="sdesc">CSS custom properties · All pages</div></div>
+      <div class="impl-step done"><div class="snum">✓</div><div class="sname">Typography</div><div class="sdesc">Marcellus + Mukta + Rozha One</div></div>
+      <div class="impl-step done"><div class="snum">✓</div><div class="sname">Color System</div><div class="sdesc">Maroon, Gold, Ivory, Green, Indigo</div></div>
+      <div class="impl-step done"><div class="snum">✓</div><div class="sname">Border System</div><div class="sdesc">Madhubani ornamental patterns</div></div>
+      <div class="impl-step done"><div class="snum">✓</div><div class="sname">Header</div><div class="sdesc">Sticky, gold border, nav, CTA</div></div>
+      <div class="impl-step done"><div class="snum">✓</div><div class="sname">Footer</div><div class="sdesc">Maroon-deep, marigold strip, stats</div></div>
+      <div class="impl-step done"><div class="snum">✓</div><div class="sname">Buttons</div><div class="sdesc">Primary, Ghost, Gold variants</div></div>
+      <div class="impl-step done"><div class="snum">✓</div><div class="sname">Forms</div><div class="sdesc">Fields, selects, toggles, chips</div></div>
+      <div class="impl-step done"><div class="snum">✓</div><div class="sname">Cards</div><div class="sdesc">Profile cards, section cards</div></div>
+      <div class="impl-step done"><div class="snum">✓</div><div class="sname">Profile Card</div><div class="sdesc">MithilaProfileCard component</div></div>
+      <div class="impl-step done"><div class="snum">✓</div><div class="sname">3D Profile Card</div><div class="sdesc">8-face concept shown</div></div>
+      <div class="impl-step done"><div class="snum">✓</div><div class="sname">Homepage</div><div class="sdesc">Full hi-fi with intro + hero</div></div>
+      <div class="impl-step"><div class="snum">→</div><div class="sname">Next.js Setup</div><div class="sdesc">App Router + shared tokens</div></div>
+      <div class="impl-step"><div class="snum">→</div><div class="sname">Internal Pages</div><div class="sdesc">Search, Profile, Biodata…</div></div>
+    </div>
+  </div>
+</main>
+
+<div style="background:var(--maroon-deep);padding:6px 0;overflow:hidden">
+  <svg viewBox="0 0 1200 12" preserveAspectRatio="none" style="width:100%;height:12px;display:block">
+    <defs><pattern id="fp7" width="40" height="12" patternUnits="userSpaceOnUse"><circle cx="8" cy="6" r="3" fill="#E8912A"/><circle cx="20" cy="6" r="4.5" fill="#D6A83C"/><circle cx="32" cy="6" r="3" fill="#E8912A"/></pattern></defs>
+    <rect width="1200" height="12" fill="url(#fp7)"/>
+  </svg>
+</div>
+<footer>
+  <strong style="font-family:'Marcellus';color:var(--gold-lt)">Mithila Jodi</strong> &nbsp;·&nbsp; V9 Design Review Gate · Section 43 &nbsp;·&nbsp; India Only · No Nepal &nbsp;·&nbsp; "Ancient culture. Modern experience."
+</footer>
+
+</body>
+</html>

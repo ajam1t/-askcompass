@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Dulhan ki Doli — Mithila Jodi Design Review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Marcellus&family=Rozha+One&family=Mukta:wght@300;400;500;600;700&family=Kalam:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --paper:#FBF1DD;--paper-2:#F6E7C9;--paper-3:#EFD9B4;--cream:#FFF8EA;
+  --maroon:#7A1220;--maroon-2:#9B2233;--maroon-deep:#5A0E19;
+  --terra:#C4562F;--marigold:#E8912A;--turmeric:#D6A83C;--gold:#B98A2E;--gold-lt:#E4C572;
+  --green:#1F5133;--green-2:#2E7048;--leaf:#3E7C4A;
+  --indigo:#2E3A6E;--ink:#2B211C;--ink-soft:#6A5A4E;
+  --line:rgba(122,18,32,.14);--shadow:0 26px 55px -26px rgba(58,20,12,.5);--shadow-s:0 14px 30px -18px rgba(58,20,12,.4);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:"Mukta",system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+h1,h2,h3{font-family:"Marcellus",serif;font-weight:400;line-height:1.1}
+.deva{font-family:"Rozha One",serif}
+.hand{font-family:"Kalam",cursive}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:1180px;margin:0 auto;padding:0 26px}
+.eyebrow{font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:var(--terra);font-weight:600}
+
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+  background:radial-gradient(circle at 10% 12%,rgba(232,145,42,.12),transparent 40%),
+             radial-gradient(circle at 92% 6%,rgba(122,18,32,.09),transparent 42%),
+             radial-gradient(circle at 78% 96%,rgba(31,81,51,.08),transparent 44%)}
+
+/* ── HEADER ── */
+header{position:sticky;top:0;z-index:50;background:rgba(251,241,221,.92);backdrop-filter:blur(10px);border-bottom:2px solid var(--gold)}
+.nav-bar{display:flex;align-items:center;justify-content:space-between;height:64px;gap:16px}
+.logo{display:flex;align-items:center;gap:10px;font-family:"Marcellus";font-size:20px;color:var(--maroon)}
+.logo svg{width:34px;height:34px;flex:none}
+.logo small{display:block;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);margin-top:1px;font-family:"Mukta"}
+.back-link{display:flex;align-items:center;gap:6px;color:var(--maroon);font-size:14px;font-weight:600;padding:8px 14px;border:1px solid var(--gold);border-radius:999px;background:var(--cream);transition:.2s}
+.back-link:hover{background:#fff}
+.nav-pills{display:flex;gap:8px;flex-wrap:wrap}
+.pill{padding:5px 12px;border-radius:999px;font-size:12px;font-weight:600;font-family:"Mukta";cursor:pointer;border:1px solid var(--paper-3);background:var(--cream);color:var(--ink-soft);transition:.2s}
+.pill.active{background:var(--maroon);color:var(--cream);border-color:var(--maroon)}
+.pill:hover:not(.active){border-color:var(--gold);color:var(--maroon)}
+
+/* ── PAGE INTRO ── */
+.page-intro{padding:44px 0 6px;text-align:center}
+.page-intro h1{font-size:clamp(30px,4.4vw,48px);color:var(--maroon);margin:10px 0 12px}
+.page-intro p{color:var(--ink-soft);max-width:600px;margin:0 auto;font-size:16px}
+.divider-ornament{display:flex;align-items:center;justify-content:center;gap:12px;color:var(--gold);margin:26px auto 0;max-width:380px}
+.divider-ornament::before,.divider-ornament::after{content:"";height:2px;flex:1;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+
+/* ── STAGE ── */
+.stage-wrap{padding:26px 0 20px}
+.stage{position:relative;max-width:920px;margin:0 auto;aspect-ratio:16/10;border-radius:20px;overflow:hidden;
+  border:3px solid transparent;
+  background:linear-gradient(#FBE7C2,#F6D9AE) padding-box,linear-gradient(145deg,var(--gold),var(--marigold) 40%,var(--gold) 70%,var(--turmeric)) border-box;
+  box-shadow:var(--shadow)}
+.stage svg{position:absolute;inset:0;width:100%;height:100%}
+
+/* animation layers */
+.doli-rise{transform-origin:center bottom;animation:doliBob 3.6s ease-in-out infinite alternate}
+@keyframes doliBob{from{transform:translateY(0) rotate(-.6deg)}to{transform:translateY(-7px) rotate(.6deg)}}
+.tassel{transform-origin:top center;animation:tasselSway 2.4s ease-in-out infinite alternate}
+@keyframes tasselSway{from{transform:rotate(-6deg)}to{transform:rotate(6deg)}}
+.flame{transform-origin:center bottom;animation:flick 1.5s ease-in-out infinite alternate}
+@keyframes flick{from{transform:scaleY(1) rotate(-3deg)}to{transform:scaleY(1.16) rotate(3deg)}}
+.petal-f{animation:petalFall linear infinite}
+@keyframes petalFall{0%{transform:translateY(-10px) rotate(0);opacity:0}12%{opacity:.9}100%{transform:translateY(360px) rotate(300deg);opacity:0}}
+.hand-wave{transform-origin:bottom center;animation:wave 2.2s ease-in-out infinite alternate}
+@keyframes wave{from{transform:rotate(-8deg)}to{transform:rotate(8deg)}}
+.step-l{animation:stepL 1.4s ease-in-out infinite alternate}
+.step-r{animation:stepR 1.4s ease-in-out infinite alternate}
+@keyframes stepL{from{transform:translateY(0)}to{transform:translateY(-3px)}}
+@keyframes stepR{from{transform:translateY(-3px)}to{transform:translateY(0)}}
+
+.stage-caption{text-align:center;margin-top:16px;font-style:italic;color:var(--ink-soft);font-size:15px}
+.stage-caption .deva{font-style:normal;color:var(--maroon);font-size:18px}
+
+/* ── MEANING BAND ── */
+.meaning{max-width:920px;margin:36px auto 0;display:grid;grid-template-columns:1fr auto 1fr;gap:24px;align-items:center}
+.meaning-card{background:var(--cream);border:1px solid var(--paper-3);border-radius:16px;padding:22px 24px;box-shadow:var(--shadow-s);position:relative;overflow:hidden}
+.meaning-card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--maroon),var(--gold),var(--marigold))}
+.meaning-card .k{font-family:"Marcellus";font-size:20px;color:var(--maroon);margin-bottom:6px}
+.meaning-card .deva-sm{font-family:"Rozha One";font-size:15px;color:var(--terra);margin-bottom:8px}
+.meaning-card p{font-size:14px;color:var(--ink-soft);margin:0}
+.meaning-arrow{font-size:26px;color:var(--gold);text-align:center}
+
+/* ── STORY STEPS ── */
+.story-steps{max-width:920px;margin:44px auto 0}
+.story-steps h2{text-align:center;color:var(--maroon);font-size:clamp(22px,3vw,30px);margin-bottom:6px}
+.story-steps .sub{text-align:center;color:var(--ink-soft);margin-bottom:30px}
+.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.step{background:var(--cream);border:1px solid var(--paper-3);border-radius:14px;padding:18px 16px;text-align:center;position:relative}
+.step::after{content:"";position:absolute;inset:6px;border:1px solid var(--gold);opacity:.3;border-radius:9px;pointer-events:none}
+.step .num{width:34px;height:34px;border-radius:50%;background:linear-gradient(180deg,var(--gold-lt),var(--turmeric));color:#4a3208;font-family:"Marcellus";font-size:16px;display:grid;place-items:center;margin:0 auto 12px}
+.step .icon{margin-bottom:8px;color:var(--maroon)}
+.step .t{font-family:"Marcellus";font-size:16px;color:var(--maroon);margin-bottom:4px}
+.step p{font-size:13px;color:var(--ink-soft);margin:0}
+
+/* ── SPEC PANEL ── */
+.spec-panel{background:linear-gradient(180deg,var(--maroon),var(--maroon-deep));color:var(--cream);border-radius:16px;padding:28px;max-width:920px;margin:44px auto 60px}
+.spec-panel h3{font-family:"Marcellus";color:var(--gold-lt);font-size:18px;margin-bottom:16px}
+.spec-list{display:grid;grid-template-columns:1fr 1fr;gap:6px 20px}
+.spec-item{display:flex;align-items:center;gap:8px;font-size:13px;color:rgba(255,255,255,.85);padding:4px 0}
+.spec-item::before{content:"✦";color:var(--gold-lt);font-size:10px;flex:none}
+
+/* ── MINI FOOTER ── */
+.mini-footer{background:var(--maroon-deep);color:rgba(255,255,255,.6);text-align:center;padding:18px;font-size:13px;border-top:2px solid var(--gold)}
+.mini-footer span{color:var(--gold-lt)}
+
+@media(prefers-reduced-motion:reduce){.doli-rise,.tassel,.flame,.petal-f,.hand-wave,.step-l,.step-r{animation:none}}
+@media(max-width:760px){
+  .meaning{grid-template-columns:1fr;gap:12px}.meaning-arrow{transform:rotate(90deg)}
+  .steps-grid{grid-template-columns:1fr 1fr}
+  .spec-list{grid-template-columns:1fr}
+}
+@media(max-width:460px){.steps-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header>
+  <div class="wrap nav-bar">
+    <a class="logo" href="homepage.html">
+      <svg viewBox="0 0 34 34" fill="none" aria-hidden="true"><circle cx="17" cy="17" r="15" stroke="#7A1220" stroke-width="1.4"/><path d="M17 9C13.5 13 13.5 17.5 17 21C20.5 17.5 20.5 13 17 9Z" fill="#C4562F"/><path d="M10 24C13.5 27 20.5 27 24 24" stroke="#D6A83C" stroke-width="1.5" fill="none"/></svg>
+      <span>Mithila Jodi<small>Design Review · V9</small></span>
+    </a>
+    <nav class="nav-pills" aria-label="Review pages">
+      <a class="pill" href="review-index.html">Index</a>
+      <a class="pill" href="homepage.html">Home</a>
+      <a class="pill active" href="#">Doli Scene</a>
+      <a class="pill" href="review-3d-profile-card.html">3D Card</a>
+      <a class="pill" href="review-biodata.html">Biodata</a>
+    </nav>
+    <a class="back-link" href="review-index.html">← Design Review</a>
+  </div>
+</header>
+
+<!-- ── PAGE INTRO ── -->
+<div class="page-intro">
+  <div class="wrap">
+    <span class="eyebrow">Design Gate · Item 6 · Visual Storytelling</span>
+    <h1>Dulhan ki Doli</h1>
+    <p>A joyful new beginning — the bride departs in a beautifully decorated palanquin, blessed by her family. Where <em>Varmala</em> celebrates finding the right jodi, the <em>Doli</em> celebrates the start of a shared journey.</p>
+    <div class="divider-ornament">✦ ❁ ✦</div>
+  </div>
+</div>
+
+<!-- ── STAGE ── -->
+<section class="stage-wrap">
+  <div class="wrap">
+    <div class="stage" role="img" aria-label="A decorated palanquin carrying a graceful bride, blessed by family members with falling flower petals and glowing diyas, in Madhubani style">
+      <svg viewBox="0 0 920 575" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <linearGradient id="skyD" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#FCEBCB"/><stop offset="60%" stop-color="#F7DCB0"/><stop offset="100%" stop-color="#F0CE97"/></linearGradient>
+          <linearGradient id="doliRoof" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#9B2233"/><stop offset="100%" stop-color="#5A0E19"/></linearGradient>
+          <linearGradient id="doliBody" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#C4562F"/><stop offset="100%" stop-color="#7A1220"/></linearGradient>
+          <linearGradient id="goldBar" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#B98A2E"/><stop offset="50%" stop-color="#E4C572"/><stop offset="100%" stop-color="#B98A2E"/></linearGradient>
+          <linearGradient id="skinLt" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#D4836B"/><stop offset="100%" stop-color="#C06848"/></linearGradient>
+          <linearGradient id="skinMd" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#C47050"/><stop offset="100%" stop-color="#A85A30"/></linearGradient>
+          <radialGradient id="mgD" cx="50%" cy="40%" r="55%"><stop offset="0%" stop-color="#F5C842"/><stop offset="100%" stop-color="#E8912A"/></radialGradient>
+          <radialGradient id="ttD" cx="50%" cy="40%" r="55%"><stop offset="0%" stop-color="#E07040"/><stop offset="100%" stop-color="#C4562F"/></radialGradient>
+          <pattern id="doliP" width="14" height="14" patternUnits="userSpaceOnUse"><rect width="14" height="14" fill="#7A1220"/><path d="M7 1.5L12.5 7L7 12.5L1.5 7Z" fill="none" stroke="#D6A83C" stroke-width="0.9"/><circle cx="7" cy="7" r="1.4" fill="#E4C572"/></pattern>
+          <pattern id="borderP" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="12" cy="12" r="5" fill="#E8912A"/><circle cx="12" cy="12" r="2" fill="#D6A83C"/><path d="M12 17 q4 6 0 12 q-4 -6 0 -12z" fill="#3E7C4A"/></pattern>
+        </defs>
+
+        <!-- Layer 0: sky -->
+        <rect width="920" height="575" fill="url(#skyD)"/>
+        <!-- sun -->
+        <g transform="translate(770,90)"><circle r="34" fill="#E8912A" opacity=".85"/><g stroke="#E8912A" stroke-width="3" opacity=".7"><line y1="-44" y2="-58"/><line x1="-44" x2="-58"/><line x1="44" x2="58"/><line x1="-31" y1="-31" x2="-42" y2="-42"/><line x1="31" y1="-31" x2="42" y2="-42"/></g></g>
+
+        <!-- Layer 1: village architecture / temple silhouettes -->
+        <g fill="#E0B77F" opacity=".7">
+          <path d="M60 360 h90 v-70 l-45 -46 l-45 46 z"/>
+          <rect x="88" y="330" width="34" height="30" fill="#D6A176"/>
+          <path d="M820 360 h80 v-60 l-40 -44 l-40 44 z"/>
+          <rect x="842" y="332" width="30" height="28" fill="#D6A176"/>
+        </g>
+        <!-- temple with dome (center-back) -->
+        <g opacity=".55" fill="#D8A870">
+          <rect x="410" y="250" width="100" height="120"/>
+          <path d="M410 250 l50 -54 l50 54 z"/>
+          <path d="M448 196 l12 -30 l12 30 z"/>
+          <circle cx="460" cy="164" r="5" fill="#B98A2E"/>
+        </g>
+        <!-- trees -->
+        <g fill="#3E7C4A" opacity=".72">
+          <path d="M180 370 q30 -70 8 -130 q34 46 12 130z"/>
+          <path d="M760 370 q-30 -70 -8 -130 q-34 46 -12 130z"/>
+        </g>
+        <g fill="#2E7048" opacity=".68"><path d="M150 380 q46 -40 36 -104 q28 54 -6 104z"/></g>
+
+        <!-- river / ground -->
+        <path d="M0 400 Q460 372 920 400 V575 H0 Z" fill="#EAD3A6"/>
+        <path d="M0 470 Q460 448 920 470" fill="none" stroke="#B7C7D8" stroke-width="10" opacity=".5"/>
+        <path d="M0 470 Q460 448 920 470" fill="none" stroke="#2E3A6E" stroke-width="1.5" opacity=".3" stroke-dasharray="6 12"/>
+
+        <!-- Layer 2: hanging marigold garlands (top) -->
+        <g>
+          <path d="M0 40 Q230 130 460 60 Q690 130 920 40" fill="none" stroke="#3E7C4A" stroke-width="3"/>
+          <g id="topGarland"></g>
+        </g>
+
+        <!-- ══ FAMILY BLESSING — LEFT (mother + father) ══ -->
+        <g transform="translate(148,300)">
+          <!-- mother in saree -->
+          <g transform="translate(-10,0)">
+            <path d="M-24 168 Q-38 120 -30 84 L-14 68 L18 68 L34 84 Q42 120 28 168 Z" fill="#1F5133" stroke="#B98A2E" stroke-width="1.2"/>
+            <path d="M-24 168 Q-38 120 -30 84" fill="none" stroke="#D6A83C" stroke-width="2"/>
+            <path d="M-14 68 L-14 46 Q4 40 22 46 L18 68 Z" fill="#C4562F"/>
+            <path d="M-14 46 Q-34 34 -38 92 Q-40 130 -28 168" fill="#D6A83C" opacity=".4"/>
+            <!-- raised blessing hand -->
+            <g class="hand-wave" style="transform-box:fill-box"><path d="M18 52 Q36 34 44 14" fill="none" stroke="#C47050" stroke-width="7" stroke-linecap="round"/><circle cx="44" cy="14" r="6" fill="url(#skinLt)"/></g>
+            <path d="M-14 52 Q-26 62 -28 80" fill="none" stroke="#C47050" stroke-width="7" stroke-linecap="round"/>
+            <rect x="-4" y="34" width="12" height="14" rx="4" fill="url(#skinLt)"/>
+            <ellipse cx="2" cy="14" rx="16" ry="20" fill="url(#skinLt)" stroke="#2B211C" stroke-width="1.4"/>
+            <path d="M-8 12 Q-3 7 2 12 Q-3 17 -8 12Z" fill="#1A1209"/><path d="M4 12 Q9 7 14 12 Q9 17 4 12Z" fill="#1A1209"/>
+            <path d="M-4 22 Q2 18 8 22 Q5 27 2 28 Q-1 27 -4 22Z" fill="#C4562F"/>
+            <circle cx="2" cy="1" r="2.4" fill="#7A1220"/>
+            <path d="M-14 8 Q-8 -14 2 -18 Q12 -14 18 8" fill="#1A1209"/>
+            <circle cx="2" cy="-20" r="8" fill="#1A1209"/>
+            <g fill="#D6A83C"><circle cx="-9" cy="30" r="1.6"/><circle cx="-4" cy="33" r="2"/><circle cx="2" cy="34" r="2.4"/><circle cx="8" cy="33" r="2"/><circle cx="13" cy="30" r="1.6"/></g>
+          </g>
+          <!-- father -->
+          <g transform="translate(40,10)">
+            <path d="M-22 158 Q-30 118 -24 84 L-10 70 L18 70 L28 84 Q34 118 24 158 Z" fill="#FBF1DD" stroke="#B98A2E" stroke-width="1.2"/>
+            <path d="M-10 70 L-10 48 Q4 42 18 48 L18 70 Z" fill="#9B2233"/>
+            <g class="hand-wave" style="transform-box:fill-box;animation-delay:.4s"><path d="M18 54 Q34 40 42 22" fill="none" stroke="#A85A30" stroke-width="7" stroke-linecap="round"/><circle cx="42" cy="22" r="6" fill="url(#skinMd)"/></g>
+            <path d="M-10 54 Q-22 64 -24 82" fill="none" stroke="#A85A30" stroke-width="7" stroke-linecap="round"/>
+            <rect x="0" y="36" width="12" height="14" rx="4" fill="url(#skinMd)"/>
+            <ellipse cx="6" cy="16" rx="16" ry="20" fill="url(#skinMd)" stroke="#2B211C" stroke-width="1.4"/>
+            <path d="M-3 14 Q2 9 7 14 Q2 19 -3 14Z" fill="#1A1209"/><path d="M9 14 Q14 9 19 14 Q14 19 9 14Z" fill="#1A1209"/>
+            <path d="M0 24 Q6 21 12 24 Q9 28 6 29 Q3 28 0 24Z" fill="#8B4028"/>
+            <path d="M-4 30 Q6 34 16 30" fill="none" stroke="#4a3020" stroke-width="2"/> <!-- moustache -->
+            <path d="M-10 6 Q-4 -12 6 -14 Q16 -12 22 6" fill="#7A1220"/><!-- pagri -->
+            <path d="M-10 6 Q6 -16 22 6" fill="none" stroke="#D6A83C" stroke-width="1.5"/>
+            <circle cx="6" cy="-4" r="3" fill="#D6A83C"/>
+          </g>
+        </g>
+
+        <!-- ══ DOLI (palanquin) — CENTER ══ -->
+        <g class="doli-rise">
+          <!-- carrying pole -->
+          <rect x="250" y="300" width="420" height="12" rx="6" fill="url(#goldBar)"/>
+          <rect x="250" y="300" width="420" height="12" rx="6" fill="#7A1220" opacity=".15"/>
+          <!-- pole end wraps -->
+          <rect x="246" y="296" width="16" height="20" rx="4" fill="#9B2233"/>
+          <rect x="658" y="296" width="16" height="20" rx="4" fill="#9B2233"/>
+
+          <!-- roof (curved canopy) -->
+          <path d="M338 312 Q460 236 582 312 Z" fill="url(#doliRoof)" stroke="#B98A2E" stroke-width="2"/>
+          <path d="M352 306 Q460 250 568 306" fill="none" stroke="#D6A83C" stroke-width="2.5"/>
+          <path d="M352 306 Q460 250 568 306" fill="none" stroke="#E4C572" stroke-width="1" stroke-dasharray="3 5"/>
+          <!-- finial -->
+          <circle cx="460" cy="242" r="6" fill="#E4C572"/><path d="M460 236 l0 -14" stroke="#B98A2E" stroke-width="2"/><circle cx="460" cy="220" r="4" fill="#E8912A"/>
+
+          <!-- body -->
+          <rect x="352" y="312" width="216" height="120" rx="10" fill="url(#doliP)" stroke="#B98A2E" stroke-width="2"/>
+          <rect x="352" y="312" width="216" height="16" fill="url(#goldBar)"/>
+          <rect x="352" y="416" width="216" height="16" fill="url(#goldBar)"/>
+          <!-- open window arch showing bride -->
+          <path d="M392 428 V366 Q460 320 528 366 V428 Z" fill="#FCEBCB" stroke="#7A1220" stroke-width="3"/>
+          <path d="M402 428 V372 Q460 332 518 372 V428" fill="none" stroke="#D6A83C" stroke-width="2"/>
+
+          <!-- ── Bride inside (happy, graceful) ── -->
+          <g transform="translate(460,360)">
+            <!-- lehenga/saree body -->
+            <path d="M-26 68 Q-34 40 -26 20 L-12 8 L12 8 L26 20 Q34 40 26 68 Z" fill="url(#doliBody)" stroke="#B98A2E" stroke-width="1"/>
+            <g fill="#E4C572"><circle cx="-10" cy="30" r="1.6"/><circle cx="0" cy="34" r="1.8"/><circle cx="10" cy="30" r="1.6"/><circle cx="-4" cy="46" r="1.4"/><circle cx="6" cy="46" r="1.4"/></g>
+            <!-- ghunghat/veil over head, framing face -->
+            <path d="M-14 6 Q-24 -18 0 -26 Q24 -18 14 6" fill="#C4562F" opacity=".92" stroke="#D6A83C" stroke-width="1"/>
+            <path d="M-14 6 Q0 -22 14 6" fill="none" stroke="#E4C572" stroke-width="1" stroke-dasharray="2 3"/>
+            <!-- face -->
+            <ellipse cx="0" cy="-2" rx="14" ry="17" fill="url(#skinLt)" stroke="#2B211C" stroke-width="1.3"/>
+            <path d="M-8 -4 Q-3.5 -8 1 -4 Q-3.5 0 -8 -4Z" fill="#1A1209"/>
+            <path d="M1 -4 Q5.5 -8 10 -4 Q5.5 0 1 -4Z" fill="#1A1209"/>
+            <path d="M-9 -9 Q-3.5 -13 1 -9" fill="none" stroke="#1A1209" stroke-width="1.1" stroke-linecap="round"/>
+            <path d="M1 -9 Q5.5 -13 10 -9" fill="none" stroke="#1A1209" stroke-width="1.1" stroke-linecap="round"/>
+            <path d="M-4 5 Q0 2 4 5 Q2 9 0 10 Q-2 9 -4 5Z" fill="#C4562F"/><!-- smiling lips -->
+            <circle cx="0" cy="-15" r="2.4" fill="#7A1220"/><!-- bindi -->
+            <line x1="0" y1="-19" x2="0" y2="-15" stroke="#D6A83C" stroke-width="1"/><circle cx="0" cy="-20" r="2" fill="#D6A83C"/>
+            <!-- nose ring -->
+            <circle cx="3" cy="0" r="2" fill="none" stroke="#D6A83C" stroke-width="1"/>
+            <!-- necklace -->
+            <path d="M-9 8 Q0 12 9 8" fill="none" stroke="#D6A83C" stroke-width="1.4"/>
+            <g fill="#D6A83C"><circle cx="-9" cy="8" r="1.8"/><circle cx="0" cy="11" r="2.4"/><circle cx="9" cy="8" r="1.8"/></g>
+            <!-- mehndi hand resting -->
+            <path d="M12 14 Q22 18 24 26" fill="none" stroke="#C47050" stroke-width="5" stroke-linecap="round"/>
+            <circle cx="24" cy="26" r="4" fill="url(#skinLt)"/>
+          </g>
+
+          <!-- tassels hanging from pole -->
+          <g class="tassel" style="transform-box:fill-box"><line x1="300" y1="312" x2="300" y2="330" stroke="#3E7C4A" stroke-width="2"/><circle cx="300" cy="336" r="7" fill="url(#mgD)"/><path d="M300 343 q5 10 0 20 q-5 -10 0 -20z" fill="#3E7C4A"/></g>
+          <g class="tassel" style="transform-box:fill-box;animation-delay:.6s"><line x1="620" y1="312" x2="620" y2="330" stroke="#3E7C4A" stroke-width="2"/><circle cx="620" cy="336" r="7" fill="url(#ttD)"/><path d="M620 343 q5 10 0 20 q-5 -10 0 -20z" fill="#3E7C4A"/></g>
+
+          <!-- garland draped across roof -->
+          <path d="M352 320 Q460 300 568 320" fill="none" stroke="#3E7C4A" stroke-width="2"/>
+          <g fill="url(#mgD)"><circle cx="380" cy="316" r="5"/><circle cx="420" cy="311" r="5"/><circle cx="460" cy="309" r="5"/><circle cx="500" cy="311" r="5"/><circle cx="540" cy="316" r="5"/></g>
+        </g>
+
+        <!-- ══ DOLI BEARERS (kahaar) — front and back ══ -->
+        <!-- back-left bearer -->
+        <g transform="translate(268,306)">
+          <g class="step-l" style="transform-box:fill-box">
+            <path d="M-14 118 Q-18 84 -12 58 L-2 46 L14 46 L20 58 Q24 84 18 118 Z" fill="#E8912A" stroke="#B98A2E" stroke-width="1"/>
+            <path d="M-2 46 Q-8 26 0 8" fill="none" stroke="#A85A30" stroke-width="6" stroke-linecap="round"/><!-- arm up to pole -->
+            <rect x="2" y="34" width="10" height="12" rx="3" fill="url(#skinMd)"/>
+            <ellipse cx="7" cy="16" rx="13" ry="16" fill="url(#skinMd)" stroke="#2B211C" stroke-width="1.2"/>
+            <path d="M0 14 Q4 10 8 14 Q4 18 0 14Z" fill="#1A1209"/><path d="M9 14 Q13 10 17 14 Q13 18 9 14Z" fill="#1A1209"/>
+            <path d="M2 22 Q7 20 12 22" fill="none" stroke="#8B4028" stroke-width="1.4"/>
+            <path d="M-4 4 Q7 -10 18 4 L14 -2 H0 Z" fill="#7A1220"/><!-- turban -->
+            <path d="M-14 118 Q-16 132 -6 138 L18 138 Q24 132 20 118 Z" fill="#5A0E19"/><!-- dhoti -->
+          </g>
+        </g>
+        <!-- front-left bearer -->
+        <g transform="translate(320,306)">
+          <g class="step-r" style="transform-box:fill-box">
+            <path d="M-14 118 Q-18 84 -12 58 L-2 46 L14 46 L20 58 Q24 84 18 118 Z" fill="#2E7048" stroke="#B98A2E" stroke-width="1"/>
+            <path d="M14 46 Q20 26 12 8" fill="none" stroke="#A85A30" stroke-width="6" stroke-linecap="round"/>
+            <rect x="0" y="34" width="10" height="12" rx="3" fill="url(#skinMd)"/>
+            <ellipse cx="5" cy="16" rx="13" ry="16" fill="url(#skinMd)" stroke="#2B211C" stroke-width="1.2"/>
+            <path d="M-2 14 Q2 10 6 14 Q2 18 -2 14Z" fill="#1A1209"/><path d="M7 14 Q11 10 15 14 Q11 18 7 14Z" fill="#1A1209"/>
+            <path d="M0 22 Q5 20 10 22" fill="none" stroke="#8B4028" stroke-width="1.4"/>
+            <path d="M-6 4 Q5 -10 16 4 L12 -2 H-2 Z" fill="#9B2233"/>
+            <path d="M-14 118 Q-16 132 -6 138 L18 138 Q24 132 20 118 Z" fill="#5A0E19"/>
+          </g>
+        </g>
+        <!-- back-right bearer -->
+        <g transform="translate(600,306)">
+          <g class="step-r" style="transform-box:fill-box;animation-delay:.3s">
+            <path d="M-14 118 Q-18 84 -12 58 L-2 46 L14 46 L20 58 Q24 84 18 118 Z" fill="#2E3A6E" stroke="#B98A2E" stroke-width="1"/>
+            <path d="M-2 46 Q-8 26 0 8" fill="none" stroke="#A85A30" stroke-width="6" stroke-linecap="round"/>
+            <rect x="2" y="34" width="10" height="12" rx="3" fill="url(#skinMd)"/>
+            <ellipse cx="7" cy="16" rx="13" ry="16" fill="url(#skinMd)" stroke="#2B211C" stroke-width="1.2"/>
+            <path d="M0 14 Q4 10 8 14 Q4 18 0 14Z" fill="#1A1209"/><path d="M9 14 Q13 10 17 14 Q13 18 9 14Z" fill="#1A1209"/>
+            <path d="M2 22 Q7 20 12 22" fill="none" stroke="#8B4028" stroke-width="1.4"/>
+            <path d="M-4 4 Q7 -10 18 4 L14 -2 H0 Z" fill="#7A1220"/>
+            <path d="M-14 118 Q-16 132 -6 138 L18 138 Q24 132 20 118 Z" fill="#5A0E19"/>
+          </g>
+        </g>
+        <!-- front-right bearer -->
+        <g transform="translate(652,306)">
+          <g class="step-l" style="transform-box:fill-box;animation-delay:.3s">
+            <path d="M-14 118 Q-18 84 -12 58 L-2 46 L14 46 L20 58 Q24 84 18 118 Z" fill="#C4562F" stroke="#B98A2E" stroke-width="1"/>
+            <path d="M14 46 Q20 26 12 8" fill="none" stroke="#A85A30" stroke-width="6" stroke-linecap="round"/>
+            <rect x="0" y="34" width="10" height="12" rx="3" fill="url(#skinMd)"/>
+            <ellipse cx="5" cy="16" rx="13" ry="16" fill="url(#skinMd)" stroke="#2B211C" stroke-width="1.2"/>
+            <path d="M-2 14 Q2 10 6 14 Q2 18 -2 14Z" fill="#1A1209"/><path d="M7 14 Q11 10 15 14 Q11 18 7 14Z" fill="#1A1209"/>
+            <path d="M0 22 Q5 20 10 22" fill="none" stroke="#8B4028" stroke-width="1.4"/>
+            <path d="M-6 4 Q5 -10 16 4 L12 -2 H-2 Z" fill="#9B2233"/>
+            <path d="M-14 118 Q-16 132 -6 138 L18 138 Q24 132 20 118 Z" fill="#5A0E19"/>
+          </g>
+        </g>
+
+        <!-- ══ FAMILY BLESSING — RIGHT (woman with aarti thali + child) ══ -->
+        <g transform="translate(772,308)">
+          <!-- woman with aarti plate -->
+          <g>
+            <path d="M-22 162 Q-36 116 -28 80 L-12 64 L20 64 L36 80 Q44 116 30 162 Z" fill="#9B2233" stroke="#B98A2E" stroke-width="1.2"/>
+            <path d="M-22 162 Q-36 116 -28 80" fill="none" stroke="#D6A83C" stroke-width="2"/>
+            <path d="M-12 64 L-12 42 Q4 36 22 42 L20 64 Z" fill="#1F5133"/>
+            <path d="M-12 42 Q-32 30 -36 88 Q-38 126 -26 162" fill="#D6A83C" opacity=".38"/>
+            <!-- arms holding thali forward -->
+            <path d="M-12 50 Q-30 58 -40 68" fill="none" stroke="#C47050" stroke-width="7" stroke-linecap="round"/>
+            <path d="M20 50 Q2 58 -8 68" fill="none" stroke="#C47050" stroke-width="7" stroke-linecap="round"/>
+            <!-- aarti thali -->
+            <ellipse cx="-24" cy="72" rx="20" ry="6" fill="#D6A83C" stroke="#B98A2E" stroke-width="1"/>
+            <path class="flame" d="M-24 66 q4 -12 0 -18 q-4 8 0 18z" fill="#E8912A" style="transform-box:fill-box"/>
+            <circle cx="-34" cy="70" r="2" fill="#C4562F"/><circle cx="-14" cy="70" r="2" fill="#C4562F"/>
+            <!-- face -->
+            <rect x="0" y="30" width="12" height="14" rx="4" fill="url(#skinLt)"/>
+            <ellipse cx="6" cy="10" rx="16" ry="20" fill="url(#skinLt)" stroke="#2B211C" stroke-width="1.4"/>
+            <path d="M-1 8 Q4 3 9 8 Q4 13 -1 8Z" fill="#1A1209"/><path d="M11 8 Q16 3 21 8 Q16 13 11 8Z" fill="#1A1209"/>
+            <path d="M2 18 Q8 15 14 18 Q11 23 8 24 Q5 23 2 18Z" fill="#C4562F"/>
+            <circle cx="6" cy="-3" r="2.2" fill="#7A1220"/>
+            <path d="M-10 4 Q-4 -16 6 -20 Q16 -16 22 4" fill="#1A1209"/>
+            <circle cx="6" cy="-22" r="8" fill="#1A1209"/>
+          </g>
+          <!-- child waving -->
+          <g transform="translate(52,60)">
+            <path d="M-10 100 Q-14 72 -8 52 L0 42 L12 42 L18 52 Q22 72 16 100 Z" fill="#E8912A" stroke="#B98A2E" stroke-width="1"/>
+            <g class="hand-wave" style="transform-box:fill-box;animation-delay:.2s"><path d="M12 48 Q24 36 30 22" fill="none" stroke="#C47050" stroke-width="5" stroke-linecap="round"/><circle cx="30" cy="22" r="4.5" fill="url(#skinLt)"/></g>
+            <path d="M0 48 Q-8 56 -10 68" fill="none" stroke="#C47050" stroke-width="5" stroke-linecap="round"/>
+            <rect x="1" y="30" width="9" height="12" rx="3" fill="url(#skinLt)"/>
+            <ellipse cx="6" cy="14" rx="13" ry="16" fill="url(#skinLt)" stroke="#2B211C" stroke-width="1.2"/>
+            <path d="M0 12 Q4 8 8 12 Q4 16 0 12Z" fill="#1A1209"/><path d="M9 12 Q13 8 17 12 Q13 16 9 12Z" fill="#1A1209"/>
+            <path d="M2 20 Q6 18 11 20 Q8 24 6 24 Q4 24 2 20Z" fill="#C4562F"/>
+            <path d="M-6 4 Q6 -8 18 4" fill="#7A1220"/>
+          </g>
+        </g>
+
+        <!-- Layer 3: falling petals -->
+        <g id="petals"></g>
+
+        <!-- ══ MADHUBANI DECORATIVE FRAME ══ -->
+        <!-- top & bottom floral border bands -->
+        <rect x="0" y="0" width="920" height="26" fill="url(#borderP)" opacity=".9"/>
+        <rect x="0" y="549" width="920" height="26" fill="url(#borderP)" opacity=".9"/>
+        <!-- corner lotus -->
+        <g fill="#C4562F"><path d="M20 546 q14 -22 28 0 q-14 12 -28 0z"/></g>
+        <g fill="#C4562F"><path d="M872 546 q14 -22 28 0 q-14 12 -28 0z"/></g>
+        <!-- fish motif lower -->
+        <g fill="none" stroke="#2E3A6E" stroke-width="1.6"><path d="M120 536 Q140 524 160 536 Q140 548 120 536 Z"/><circle cx="127" cy="536" r="1.6" fill="#2E3A6E"/></g>
+        <g fill="none" stroke="#2E3A6E" stroke-width="1.6"><path d="M760 536 Q780 524 800 536 Q780 548 760 536 Z"/><circle cx="767" cy="536" r="1.6" fill="#2E3A6E"/></g>
+        <!-- peacock lower-left corner -->
+        <g transform="translate(56,470)" opacity=".8" fill="none" stroke="#1F5133" stroke-width="1.8">
+          <path d="M0 0 q40 -8 34 34 Q20 8 0 0z"/><path d="M8 8 q30 -4 26 30 Q16 16 8 8z"/>
+          <circle cx="12" cy="12" r="4" fill="#2E3A6E" stroke="none"/>
+          <path d="M-2 2 q-14 6 -18 22" stroke="#2E7048"/>
+        </g>
+      </svg>
+    </div>
+    <div class="stage-caption">
+      <span class="deva">डोली</span> — A joyful new beginning, carried forward with family blessings.
+    </div>
+  </div>
+</section>
+
+<!-- ── MEANING BAND ── -->
+<div class="wrap">
+  <div class="meaning">
+    <div class="meaning-card">
+      <div class="k">Varmala</div>
+      <div class="deva-sm deva">वरमाला</div>
+      <p>Finding the right jodi. Two people, two families choosing each other with grace and consent.</p>
+    </div>
+    <div class="meaning-arrow">→</div>
+    <div class="meaning-card">
+      <div class="k">Dulhan ki Doli</div>
+      <div class="deva-sm deva">दुल्हन की डोली</div>
+      <p>Beginning the journey together. A celebrated departure into a shared new life — never a separation, always a new home.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ── STORY STEPS ── -->
+<section class="story-steps">
+  <div class="wrap">
+    <h2>The Doli Moment</h2>
+    <p class="sub">A curated animation sequence — cinematic, elegant, emotional</p>
+    <div class="steps-grid">
+      <div class="step">
+        <div class="num">1</div>
+        <div class="icon"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M4 10h16v8H4z"/><path d="M6 10 12 5l6 5"/><circle cx="12" cy="14" r="2"/></svg></div>
+        <div class="t">Decorated Doli</div>
+        <p>The palanquin appears — floral, gold-trimmed, richly patterned in Mithila motifs.</p>
+      </div>
+      <div class="step">
+        <div class="num">2</div>
+        <div class="icon"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="8" r="3"/><path d="M6 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg></div>
+        <div class="t">Graceful Bride</div>
+        <p>The bride is seated inside — happy, adorned, looking forward, never sorrowful.</p>
+      </div>
+      <div class="step">
+        <div class="num">3</div>
+        <div class="icon"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 21c-5-3.5-8-6.8-8-10.5A4.5 4.5 0 0 1 12 7a4.5 4.5 0 0 1 8 3.5C20 14.2 17 17.5 12 21Z"/></svg></div>
+        <div class="t">Family Blessing</div>
+        <p>Parents raise hands in blessing, a woman brings the aarti thali, a child waves.</p>
+      </div>
+      <div class="step">
+        <div class="num">4</div>
+        <div class="icon"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3c1.5 3 1.5 5 0 7-1.5-2-1.5-4 0-7z"/><path d="M5 12c3-1 5 0 7 2M19 12c-3-1-5 0-7 2"/></svg></div>
+        <div class="t">Petals & Diyas</div>
+        <p>Flower petals fall gently, diyas flicker, tassels sway — a living Mithila painting.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SPEC PANEL ── -->
+<div class="wrap">
+  <div class="spec-panel">
+    <h3>Dulhan ki Doli — V9 Specification (Section 12)</h3>
+    <div class="spec-list">
+      <div class="spec-item">Complements Varmala — does not replace it</div>
+      <div class="spec-item">Emotional message: a new beginning</div>
+      <div class="spec-item">Bride happy & graceful — never sad</div>
+      <div class="spec-item">Family shown blessing the bride</div>
+      <div class="spec-item">Richly decorated palanquin (gold + floral)</div>
+      <div class="spec-item">Doli bearers (kahaar) with walking motion</div>
+      <div class="spec-item">Aarti thali + waving child (family atmosphere)</div>
+      <div class="spec-item">Temple, houses, trees, river (depth)</div>
+      <div class="spec-item">Selective animation (bob, sway, flicker, petals)</div>
+      <div class="spec-item">Madhubani border · lotus · fish · peacock</div>
+      <div class="spec-item">Same tokens as homepage (maroon/gold/ivory)</div>
+      <div class="spec-item">Reduced-motion safe (animations disabled)</div>
+      <div class="spec-item">Responsive (stacks under 760px)</div>
+      <div class="spec-item">Feeds the cinematic intro (8–12s segment)</div>
+      <div class="spec-item">India only · zero Nepal references</div>
+      <div class="spec-item">Not cartoonish — cinematic & premium</div>
+    </div>
+  </div>
+</div>
+
+<footer class="mini-footer">
+  <span>Mithila Jodi</span> · Design Review · Dulhan ki Doli · V9 · India Only
+</footer>
+
+<script>
+/* build the top hanging garland along the curve */
+(function(){
+  var g=document.getElementById('topGarland');if(!g)return;
+  var svgns='http://www.w3.org/2000/svg';
+  // sample the quadratic curve path 0..1 across two arcs
+  function pt(t){
+    // piecewise: two beziers meeting at (460,60)
+    if(t<0.5){var u=t*2;var x=(1-u)*(1-u)*0+2*(1-u)*u*230+u*u*460;var y=(1-u)*(1-u)*40+2*(1-u)*u*130+u*u*60;return[x,y];}
+    var u=(t-0.5)*2;var x=(1-u)*(1-u)*460+2*(1-u)*u*690+u*u*920;var y=(1-u)*(1-u)*60+2*(1-u)*u*130+u*u*40;return[x,y];
+  }
+  for(var i=0;i<=40;i++){
+    var p=pt(i/40);
+    var c=document.createElementNS(svgns,'circle');
+    c.setAttribute('cx',p[0]);c.setAttribute('cy',p[1]);c.setAttribute('r',i%2?4:5.5);
+    c.setAttribute('fill',i%2?'#E8912A':'#D6A83C');g.appendChild(c);
+    if(i%3===0){var l=document.createElementNS(svgns,'path');l.setAttribute('d','M'+p[0]+' '+(p[1]+5)+' q4 8 0 16 q-4 -8 0 -16z');l.setAttribute('fill','#3E7C4A');g.appendChild(l);}
+  }
+})();
+
+/* falling petals inside the stage */
+(function(){
+  if(matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches)return;
+  var host=document.getElementById('petals');if(!host)return;
+  var svgns='http://www.w3.org/2000/svg';
+  var cols=['#C4562F','#E8912A','#9B2233','#D6A83C'];
+  for(var i=0;i<16;i++){
+    var p=document.createElementNS(svgns,'path');
+    var x=60+Math.random()*800;
+    p.setAttribute('d','M0 0 q7 -8 0 -12 q-7 4 0 12z');
+    p.setAttribute('fill',cols[i%4]);
+    p.setAttribute('transform','translate('+x+',30)');
+    p.setAttribute('class','petal-f');
+    p.style.transformBox='fill-box';
+    p.style.transformOrigin='center';
+    p.style.animationDuration=(4.5+Math.random()*4)+'s';
+    p.style.animationDelay=(Math.random()*5)+'s';
+    p.style.opacity='0';
+    host.appendChild(p);
+  }
+})();
+</script>
+</body>
+</html>
