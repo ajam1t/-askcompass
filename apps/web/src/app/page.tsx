@@ -7,6 +7,7 @@ import { BiodataSection } from '@/components/home/BiodataSection'
 import { SuccessStories } from '@/components/home/SuccessStories'
 import { FinalCTA } from '@/components/home/FinalCTA'
 import { MithilaFooter } from '@/components/home/MithilaFooter'
+import { MobileBottomNav } from '@/components/home/MobileBottomNav'
 
 const SITE = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://mithilajodi.com'
 
@@ -65,7 +66,7 @@ export default function HomePage() {
       />
       <MithilaHeader />
       <MithilaBorder variant="bottom" />
-      <main className="flex-1">
+      <main className="flex-1 pb-16 lg:pb-0">
         {/* 1. Hero */}
         <HeroSection />
         <MithilaBorder variant="top" />
@@ -81,6 +82,7 @@ export default function HomePage() {
         <FinalCTA />
       </main>
       <MithilaFooter />
+      <MobileBottomNav />
     </div>
   )
 }
