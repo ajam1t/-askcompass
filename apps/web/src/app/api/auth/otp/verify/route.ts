@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { createHash, randomBytes } from 'crypto'
 import { z } from 'zod'
 import { createAdminClient } from '@/lib/supabase/server'
 import { createOtpService } from '@/lib/services/otp/OtpService'
@@ -6,10 +7,12 @@ import { generateSessionToken, hashSessionToken, sessionExpiresAt } from '@/lib/
 import { INDIA_MOBILE_RE, SESSION_COOKIE, SESSION_DAYS, toE164 } from '@/lib/constants'
 import type { ConsentType } from '@/types/database'
 
+const RESET_TOKEN_EXPIRY_MINUTES = 15
+
 const VerifySchema = z.object({
   mobile: z.string(),
   code: z.string().regex(/^\d{6,8}$/, 'OTP must be 6 digits'),
-  intent: z.enum(['login', 'register']),
+  intent: z.enum(['login', 'register', 'forgot_password']),
   consent_terms: z.boolean().optional(),
   consent_privacy: z.boolean().optional(),
 })
@@ -45,6 +48,62 @@ export async function POST(request: NextRequest) {
       { ok: false, message: 'You must accept the Terms of Service and Privacy Policy to register' },
       { status: 400 }
     )
+  }
+
+  if (intent === 'forgot_password') {
+    // Verify OTP then return a one-time reset token — no session created
+    try {
+      const admin = await createAdminClient()
+      const otpService = createOtpService()
+      const verifyResult = await otpService.verify(mobile, code, admin)
+      if (!verifyResult.valid) {
+        const message = OTP_REASON_MESSAGES[verifyResult.reason ?? 'invalid'] ?? 'Invalid OTP'
+        return NextResponse.json({ ok: false, message }, { status: 400 })
+      }
+
+      const { data: account } = await admin
+        .from('accounts')
+        .select('id, account_status')
+        .eq('mobile', mobile)
+        .is('deleted_at', null)
+        .maybeSingle()
+
+      if (!account || account.account_status === 'banned' || account.account_status === 'deleted') {
+        return NextResponse.json(
+          { ok: false, message: 'No active account found with this number.' },
+          { status: 404 },
+        )
+      }
+
+      if (account.account_status === 'suspended') {
+        return NextResponse.json(
+          { ok: false, message: 'This account is temporarily suspended. Contact support.' },
+          { status: 403 },
+        )
+      }
+
+      const resetToken = randomBytes(32).toString('hex')
+      const resetTokenHash = createHash('sha256').update(resetToken).digest('hex')
+      const expiresAt = new Date(Date.now() + RESET_TOKEN_EXPIRY_MINUTES * 60 * 1000).toISOString()
+
+      const { error: updateError } = await admin
+        .from('accounts')
+        .update({
+          password_reset_token_hash: resetTokenHash,
+          password_reset_expires_at: expiresAt,
+        })
+        .eq('id', account.id)
+
+      if (updateError) {
+        console.error('[otp/verify] forgot_password update error:', updateError.message)
+        return NextResponse.json({ ok: false, message: 'Could not initiate password reset. Please try again.' }, { status: 500 })
+      }
+
+      return NextResponse.json({ ok: true, reset_token: resetToken })
+    } catch (err) {
+      console.error('[otp/verify] forgot_password error:', err)
+      return NextResponse.json({ ok: false, message: 'Server error. Please try again.' }, { status: 500 })
+    }
   }
 
   try {

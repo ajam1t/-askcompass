@@ -3,17 +3,16 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { checkPassword, PASSWORD_RULES } from '@/lib/password'
 
-type Step = 'mobile' | 'human' | 'sent' | 'otp' | 'password'
+type Step = 'mobile' | 'human' | 'sent' | 'otp' | 'new_password'
 
-export default function RegisterPage() {
-  const [step, setStep] = useState<Step>('mobile')
+export default function ForgotPasswordPage() {
+  const [step, setStep]                         = useState<Step>('mobile')
   const [mobile, setMobile]                     = useState('')
   const [challengeId, setChallengeId]           = useState('')
   const [challengeQ, setChallengeQ]             = useState('')
   const [humanAnswer, setHumanAnswer]           = useState('')
   const [otp, setOtp]                           = useState('')
-  const [consentTerms, setConsentTerms]         = useState(false)
-  const [consentPrivacy, setConsentPrivacy]     = useState(false)
+  const [resetToken, setResetToken]             = useState('')
   const [password, setPassword]                 = useState('')
   const [passwordConfirm, setPasswordConfirm]  = useState('')
   const [showPassword, setShowPassword]         = useState(false)
@@ -99,25 +98,24 @@ export default function RegisterPage() {
     }
   }
 
-  /* ── Step 4: OTP + consents → create account & session ── */
+  /* ── Step 4: verify OTP → get reset token ── */
   async function handleOtpVerify(e: React.FormEvent) {
     e.preventDefault()
-    if (otp.length < 6)   { setError('Enter the OTP'); return }
-    if (!consentTerms)    { setError('Please accept the Terms of Service to continue'); return }
-    if (!consentPrivacy)  { setError('Please accept the Privacy Policy to continue'); return }
+    if (otp.length < 6) { setError('Enter the OTP'); return }
     setError('')
     setLoading(true)
     try {
       const res  = await fetch('/api/auth/otp/verify', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ mobile, code: otp, intent: 'register', consent_terms: consentTerms, consent_privacy: consentPrivacy }),
+        body: JSON.stringify({ mobile, code: otp, intent: 'forgot_password' }),
       })
-      const data: { ok: boolean; message?: string } = await res.json()
+      const data: { ok: boolean; reset_token?: string; message?: string } = await res.json()
       if (!data.ok) { setError(data.message ?? 'Verification failed. Please try again.'); return }
+      setResetToken(data.reset_token!)
       setPassword('')
       setPasswordConfirm('')
-      setStep('password')
+      setStep('new_password')
     } catch {
       setError('Network error. Please check your connection and try again.')
     } finally {
@@ -125,8 +123,8 @@ export default function RegisterPage() {
     }
   }
 
-  /* ── Step 5: set password ── */
-  async function handleSetPassword(e: React.FormEvent) {
+  /* ── Step 5: set new password ── */
+  async function handleResetPassword(e: React.FormEvent) {
     e.preventDefault()
     if (!strength.length || !strength.uppercase || !strength.lowercase || !strength.number) {
       setError('Password does not meet the requirements below.'); return
@@ -135,13 +133,13 @@ export default function RegisterPage() {
     setError('')
     setLoading(true)
     try {
-      const res  = await fetch('/api/auth/password/set', {
+      const res  = await fetch('/api/auth/password/reset', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ password }),
+        body: JSON.stringify({ reset_token: resetToken, password }),
       })
       const data: { ok: boolean; message?: string } = await res.json()
-      if (!data.ok) { setError(data.message ?? 'Could not save password. Please try again.'); return }
+      if (!data.ok) { setError(data.message ?? 'Could not reset password. Please try again.'); return }
       window.location.href = '/profile'
     } catch {
       setError('Network error. Please check your connection and try again.')
@@ -161,14 +159,14 @@ export default function RegisterPage() {
 
       <div className="card p-6 sm:p-8">
 
-        {/* ── Step: sent ── */}
         {step === 'sent' && <OtpSentAnimation mobile={maskedMobile} />}
 
         {/* ── Step 1: mobile ── */}
         {step === 'mobile' && (
           <>
-            <p className="eyebrow mb-2">Register</p>
-            <h2 className="text-xl font-display text-ink mb-6">Create your account</h2>
+            <p className="eyebrow mb-2">Forgot Password</p>
+            <h2 className="text-xl font-display text-ink mb-2">Reset your password</h2>
+            <p className="text-sm text-ink-soft mb-6">Enter your registered mobile number to continue.</p>
             <form onSubmit={handleMobileSubmit} noValidate>
               <label className="block mb-1.5">
                 <span className="text-sm font-medium text-ink">Mobile number</span>
@@ -188,8 +186,7 @@ export default function RegisterPage() {
               </button>
             </form>
             <p className="mt-5 text-center text-sm text-ink-soft">
-              Already registered?{' '}
-              <Link href="/login" className="text-maroon font-medium hover:underline">Log in</Link>
+              <Link href="/login" className="text-maroon font-medium hover:underline">← Back to login</Link>
             </p>
           </>
         )}
@@ -226,12 +223,12 @@ export default function RegisterPage() {
           </>
         )}
 
-        {/* ── Step 4: OTP + consents ── */}
+        {/* ── Step 4: OTP entry ── */}
         {step === 'otp' && (
           <>
-            <p className="eyebrow mb-2">Verify &amp; Agree</p>
-            <h2 className="text-xl font-display text-ink mb-1">Enter the OTP</h2>
-            <p className="text-sm text-ink-soft mb-5">Sent to <span className="font-mono text-ink">{maskedMobile}</span></p>
+            <p className="eyebrow mb-2">Verify OTP</p>
+            <h2 className="text-xl font-display text-ink mb-1">Enter the code</h2>
+            <p className="text-sm text-ink-soft mb-6">Sent to <span className="font-mono text-ink">{maskedMobile}</span></p>
             <form onSubmit={handleOtpVerify} noValidate>
               <label className="block mb-1.5">
                 <span className="text-sm font-medium text-ink">OTP</span>
@@ -242,32 +239,14 @@ export default function RegisterPage() {
                   className="mt-1.5 block w-full px-4 py-3 text-center text-2xl font-mono tracking-[0.5em] border border-ink/20 rounded-mj focus:ring-2 focus:ring-maroon/30 focus:outline-none bg-white text-ink"
                 />
               </label>
-              <div className="mt-5 space-y-3 border-t border-ink/10 pt-5">
-                <p className="text-xs text-ink-soft font-medium uppercase tracking-wide">Required consents</p>
-                <label className="flex items-start gap-3 cursor-pointer">
-                  <input type="checkbox" checked={consentTerms} onChange={e => { setError(''); setConsentTerms(e.target.checked) }} className="mt-0.5 h-4 w-4 rounded accent-maroon flex-shrink-0" />
-                  <span className="text-sm text-ink-soft leading-relaxed">
-                    I have read and agree to the{' '}
-                    <Link href="/legal/terms" target="_blank" className="text-maroon hover:underline">Terms of Service</Link>
-                  </span>
-                </label>
-                <label className="flex items-start gap-3 cursor-pointer">
-                  <input type="checkbox" checked={consentPrivacy} onChange={e => { setError(''); setConsentPrivacy(e.target.checked) }} className="mt-0.5 h-4 w-4 rounded accent-maroon flex-shrink-0" />
-                  <span className="text-sm text-ink-soft leading-relaxed">
-                    I have read and agree to the{' '}
-                    <Link href="/legal/privacy" target="_blank" className="text-maroon hover:underline">Privacy Policy</Link>
-                    {' '}and consent to processing of my personal data
-                  </span>
-                </label>
-              </div>
               {error && <p className="mt-3 text-sm text-terra">{error}</p>}
-              <button type="submit" disabled={loading || otp.length < 6 || !consentTerms || !consentPrivacy} className="btn btn-primary w-full mt-5">
-                {loading ? 'Verifying…' : 'Verify & Continue'}
+              <button type="submit" disabled={loading || otp.length < 6} className="btn btn-primary w-full mt-5">
+                {loading ? 'Verifying…' : 'Verify OTP'}
               </button>
             </form>
             <div className="mt-5 flex items-center justify-between text-sm text-ink-soft">
               <button type="button" onClick={() => { setStep('mobile'); setOtp(''); setError('') }} className="hover:text-ink hover:underline">
-                ← Change number
+                ← Start over
               </button>
               <button type="button" onClick={handleResend} disabled={resendCooldown} className="hover:text-ink hover:underline disabled:opacity-40">
                 {resendCooldown ? 'Resend in 30s' : 'Resend OTP'}
@@ -276,15 +255,15 @@ export default function RegisterPage() {
           </>
         )}
 
-        {/* ── Step 5: set password ── */}
-        {step === 'password' && (
+        {/* ── Step 5: new password ── */}
+        {step === 'new_password' && (
           <>
-            <p className="eyebrow mb-2">Set Password</p>
-            <h2 className="text-xl font-display text-ink mb-1">Create a password</h2>
-            <p className="text-sm text-ink-soft mb-5">You&apos;ll use this to log in next time.</p>
-            <form onSubmit={handleSetPassword} noValidate>
+            <p className="eyebrow mb-2">New Password</p>
+            <h2 className="text-xl font-display text-ink mb-1">Set a new password</h2>
+            <p className="text-sm text-ink-soft mb-5">Choose a strong password for your account.</p>
+            <form onSubmit={handleResetPassword} noValidate>
               <label className="block mb-1.5">
-                <span className="text-sm font-medium text-ink">Password</span>
+                <span className="text-sm font-medium text-ink">New password</span>
                 <div className="mt-1.5 relative">
                   <input
                     type={showPassword ? 'text' : 'password'}
@@ -298,7 +277,6 @@ export default function RegisterPage() {
                 </div>
               </label>
 
-              {/* Password strength checklist */}
               {password.length > 0 && (
                 <ul className="mt-2 space-y-1">
                   {PASSWORD_RULES.map(rule => {
@@ -327,13 +305,12 @@ export default function RegisterPage() {
               )}
 
               {error && <p className="mt-3 text-sm text-terra">{error}</p>}
-
               <button
                 type="submit"
                 disabled={loading || !strength.length || !strength.uppercase || !strength.lowercase || !strength.number || password !== passwordConfirm}
                 className="btn btn-primary w-full mt-5"
               >
-                {loading ? 'Saving…' : 'Complete Registration'}
+                {loading ? 'Saving…' : 'Set New Password'}
               </button>
             </form>
           </>

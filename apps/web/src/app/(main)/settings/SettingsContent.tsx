@@ -36,6 +36,14 @@ export default function SettingsContent() {
   const [loadingConsents, setLoadingConsents] = useState(true)
   const [withdrawing, setWithdrawing] = useState<string | null>(null)
   const [withdrawMsg, setWithdrawMsg] = useState<Record<string, string>>({})
+  const [pwCurrent, setPwCurrent]       = useState('')
+  const [pwNew, setPwNew]               = useState('')
+  const [pwConfirm, setPwConfirm]       = useState('')
+  const [pwShowCurrent, setPwShowCurrent] = useState(false)
+  const [pwShowNew, setPwShowNew]       = useState(false)
+  const [pwLoading, setPwLoading]       = useState(false)
+  const [pwError, setPwError]           = useState('')
+  const [pwSuccess, setPwSuccess]       = useState(false)
   const [exporting, setExporting] = useState(false)
   const [deleteConfirm, setDeleteConfirm] = useState(false)
   const [deleteText, setDeleteText] = useState('')
@@ -67,6 +75,31 @@ export default function SettingsContent() {
       setWithdrawMsg(m => ({ ...m, [type]: json.message ?? 'Error withdrawing consent.' }))
     }
     setWithdrawing(null)
+  }
+
+  async function changePassword(e: React.FormEvent) {
+    e.preventDefault()
+    if (!pwCurrent) { setPwError('Enter your current password'); return }
+    if (pwNew.length < 8) { setPwError('New password must be at least 8 characters'); return }
+    if (pwNew !== pwConfirm) { setPwError('New passwords do not match'); return }
+    setPwError('')
+    setPwSuccess(false)
+    setPwLoading(true)
+    try {
+      const res = await fetch('/api/auth/password/change', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ current_password: pwCurrent, new_password: pwNew }),
+      })
+      const json = await res.json()
+      if (!json.ok) { setPwError(json.message ?? 'Could not change password. Please try again.'); return }
+      setPwSuccess(true)
+      setPwCurrent(''); setPwNew(''); setPwConfirm('')
+    } catch {
+      setPwError('Network error. Please try again.')
+    } finally {
+      setPwLoading(false)
+    }
   }
 
   async function requestExport() {
@@ -172,6 +205,59 @@ export default function SettingsContent() {
             <Link href="/legal/privacy" target="_blank" className="text-maroon hover:underline">Privacy Policy</Link>.
           </p>
         </div>
+      </section>
+
+      {/* Change Password */}
+      <section className="card p-6 mb-6">
+        <h2 className="font-serif text-lg text-ink mb-1">Change Password</h2>
+        <p className="text-sm text-ink-soft mb-5">
+          Don&apos;t have a password yet?{' '}
+          <Link href="/forgot-password" className="text-maroon hover:underline">Use forgot password</Link> to set one.
+        </p>
+        <form onSubmit={changePassword} noValidate className="space-y-4 max-w-sm">
+          <label className="block">
+            <span className="text-sm font-medium text-ink">Current password</span>
+            <div className="mt-1.5 relative">
+              <input
+                type={pwShowCurrent ? 'text' : 'password'}
+                value={pwCurrent} autoComplete="current-password"
+                onChange={e => { setPwError(''); setPwSuccess(false); setPwCurrent(e.target.value) }}
+                className="block w-full px-4 py-2.5 pr-12 border border-ink/20 rounded-mj focus:ring-2 focus:ring-maroon/30 focus:outline-none bg-white text-ink text-sm"
+              />
+              <button type="button" onClick={() => setPwShowCurrent(s => !s)} className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-soft hover:text-ink text-xs">
+                {pwShowCurrent ? 'Hide' : 'Show'}
+              </button>
+            </div>
+          </label>
+          <label className="block">
+            <span className="text-sm font-medium text-ink">New password</span>
+            <div className="mt-1.5 relative">
+              <input
+                type={pwShowNew ? 'text' : 'password'}
+                value={pwNew} autoComplete="new-password"
+                onChange={e => { setPwError(''); setPwSuccess(false); setPwNew(e.target.value) }}
+                className="block w-full px-4 py-2.5 pr-12 border border-ink/20 rounded-mj focus:ring-2 focus:ring-maroon/30 focus:outline-none bg-white text-ink text-sm"
+              />
+              <button type="button" onClick={() => setPwShowNew(s => !s)} className="absolute right-3 top-1/2 -translate-y-1/2 text-ink-soft hover:text-ink text-xs">
+                {pwShowNew ? 'Hide' : 'Show'}
+              </button>
+            </div>
+          </label>
+          <label className="block">
+            <span className="text-sm font-medium text-ink">Confirm new password</span>
+            <input
+              type={pwShowNew ? 'text' : 'password'}
+              value={pwConfirm} autoComplete="new-password"
+              onChange={e => { setPwError(''); setPwSuccess(false); setPwConfirm(e.target.value) }}
+              className="mt-1.5 block w-full px-4 py-2.5 border border-ink/20 rounded-mj focus:ring-2 focus:ring-maroon/30 focus:outline-none bg-white text-ink text-sm"
+            />
+          </label>
+          {pwError   && <p className="text-sm text-terra">{pwError}</p>}
+          {pwSuccess && <p className="text-sm text-green-700">Password changed successfully.</p>}
+          <button type="submit" disabled={pwLoading} className="btn btn-primary text-sm py-2 px-5 disabled:opacity-60">
+            {pwLoading ? 'Saving…' : 'Update Password'}
+          </button>
+        </form>
       </section>
 
       {/* Data Export */}
