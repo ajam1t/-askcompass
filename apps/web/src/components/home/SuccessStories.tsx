@@ -37,7 +37,7 @@ function StoryCard({
   return (
     <article className="card p-7 flex flex-col gap-5 hover:-translate-y-1 hover:shadow-mj transition-all duration-200">
       {/* Quote marks — Madhubani-style lotus */}
-      <div className="text-gold-lt text-5xl font-serif leading-none select-none" aria-hidden="true">"</div>
+      <div className="text-gold-lt text-5xl font-serif leading-none select-none" aria-hidden="true">&ldquo;</div>
 
       <p className="text-ink text-[15px] leading-relaxed -mt-4 flex-1">{quote}</p>
 
