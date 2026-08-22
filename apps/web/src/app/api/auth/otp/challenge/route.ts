@@ -25,14 +25,26 @@ export async function POST(request: NextRequest) {
   }
 
   const mobile = toE164(digits)
-  const admin = await createAdminClient()
-  const otpService = createOtpService()
 
-  const { sent, error } = await otpService.challenge(mobile, admin)
-  if (!sent) {
-    console.error('[otp/challenge] provider error:', error)
-    return NextResponse.json({ ok: false, message: 'Could not send OTP. Please try again.' }, { status: 500 })
+  try {
+    const admin = await createAdminClient()
+    const otpService = createOtpService()
+
+    const { sent, error } = await otpService.challenge(mobile, admin)
+    if (!sent) {
+      console.error('[otp/challenge] provider error:', error)
+      return NextResponse.json({ ok: false, message: 'Could not send OTP. Please try again.' }, { status: 500 })
+    }
+
+    return NextResponse.json({ ok: true, expires_in: 600 })
+  } catch (err) {
+    // Surface a clear JSON error instead of an opaque empty 500 (which the
+    // client shows as a generic "Network error"). Common causes: missing
+    // Supabase env vars on the server, or a DB/provider failure.
+    console.error('[otp/challenge] unhandled error:', err)
+    return NextResponse.json(
+      { ok: false, message: 'Could not send OTP right now. Please try again in a moment.' },
+      { status: 500 },
+    )
   }
-
-  return NextResponse.json({ ok: true, expires_in: 600 })
 }

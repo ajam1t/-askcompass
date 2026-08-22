@@ -47,6 +47,7 @@ export async function POST(request: NextRequest) {
     )
   }
 
+  try {
   const admin = await createAdminClient()
   const otpService = createOtpService()
 
@@ -178,4 +179,12 @@ export async function POST(request: NextRequest) {
     path: '/',
   })
   return response
+  } catch (err) {
+    // Return a clear JSON error rather than an opaque empty 500.
+    console.error('[otp/verify] unhandled error:', err)
+    return NextResponse.json(
+      { ok: false, message: 'Could not verify OTP right now. Please try again in a moment.' },
+      { status: 500 },
+    )
+  }
 }
