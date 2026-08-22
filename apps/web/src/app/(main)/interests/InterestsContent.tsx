@@ -8,6 +8,7 @@ type InterestProfile = {
   interest_id: string
   status: string
   created_at: string
+  conversation_id?: string | null
   profile: {
     id: string
     display_name: string
@@ -116,7 +117,16 @@ function ProfileRow({ item, tab, onAction }: {
           <span className="text-xs text-ink-soft">Withdrawn</span>
         )}
         {tab === 'mutual' && (
-          <span className="text-xs text-green-600 font-medium">Mutual match</span>
+          item.conversation_id ? (
+            <Link
+              href={`/messages/${item.conversation_id}`}
+              className="btn-primary text-xs py-1.5 px-3"
+            >
+              Message
+            </Link>
+          ) : (
+            <span className="text-xs text-green-600 font-medium">Mutual match</span>
+          )
         )}
       </div>
     </div>

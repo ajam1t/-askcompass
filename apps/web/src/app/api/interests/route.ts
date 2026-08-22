@@ -148,6 +148,22 @@ export async function GET() {
     id, display_name: 'Member', age: null, gender: '', caste: null, current_loc_name: null, photo_url: null,
   })
 
+  // Map partner profile id → conversation id (for mutual matches, so the UI can
+  // link straight into the chat thread).
+  const convByPartner = new Map<string, string>()
+  if (mutual.length > 0) {
+    const { data: convRows } = await admin
+      .from('conversations')
+      .select('id, profile_a, profile_b')
+      .or(`profile_a.eq.${myId},profile_b.eq.${myId}`)
+    for (const c of (convRows ?? [])) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const cv = c as any
+      const partnerId = cv.profile_a === myId ? cv.profile_b : cv.profile_a
+      convByPartner.set(partnerId as string, cv.id as string)
+    }
+  }
+
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   function toCard(interest: any, otherProfileId: string) {
     return {
@@ -155,6 +171,7 @@ export async function GET() {
       status: interest.status as string,
       created_at: (interest.sent_at ?? interest.responded_at) as string,
       message: (interest.message ?? null) as string | null,
+      conversation_id: convByPartner.get(otherProfileId) ?? null,
       profile: profileMap.get(otherProfileId) ?? fallback(otherProfileId),
     }
   }
