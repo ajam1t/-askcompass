@@ -34,6 +34,12 @@ export default function MainLayout({ children }: { children: React.ReactNode }) 
               Shortlist
             </Link>
             <Link
+              href="/biodata"
+              className="px-3 py-1.5 text-sm font-medium text-ink hover:text-maroon hover:bg-paper rounded-mj-sm transition-colors"
+            >
+              Biodata
+            </Link>
+            <Link
               href="/membership"
               className="px-3 py-1.5 text-sm font-medium text-ink hover:text-maroon hover:bg-paper rounded-mj-sm transition-colors"
             >
