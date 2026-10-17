@@ -2029,12 +2029,12 @@ document.addEventListener('click', function(e) {
   }
 })();
 
-(function initFromHash(){const hash=location.hash.replace('#','');if(['try','features','industries','pricing','faq','founder','contact'].includes(hash))showView(hash);else revealVisible();})();
+(function initFromHash(){const hash=location.hash.replace('#','');if(['try','features','industries','faq','contact'].includes(hash))showView(hash);else revealVisible();})();
 
 // Back button / popstate fix
 window.addEventListener('popstate', function() {
   var hash = location.hash.replace('#','');
-  if(['home','try','features','industries','pricing','faq','founder','contact'].includes(hash)) {
+  if(['home','try','features','industries','faq','contact'].includes(hash)) {
     showView(hash);
   } else {
     showView('home');
@@ -2914,6 +2914,9 @@ h1,h2,h3{text-wrap:balance}
 @media(max-width:860px){.footer-top{grid-template-columns:1fr 1fr}.fbrand{grid-column:1/-1}}
 @media(max-width:480px){.footer-top{grid-template-columns:1fr}}
 
+/* ---- Temporarily hidden: Pricing and Founder (delete this block to bring them back,
+        and re-add 'pricing','founder' to the hash lists in initFromHash and popstate) ---- */
+[data-view="pricing"],[data-view="founder"],#view-pricing,#view-founder{display:none!important}
 /* ---- Accessibility: respect reduced motion ---- */
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}}
 </style>
