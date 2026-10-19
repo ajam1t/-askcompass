@@ -1,57 +1,61 @@
 <!-- ───────────── Hero ───────────── -->
-<section class="hero" aria-labelledby="hero-title">
-  <div class="wrap hero-in">
-    <div class="hero-copy">
-      <p class="eyebrow">Intelligent workflow navigation</p>
-      <h1 id="hero-title">Complex work.<br><span class="hl">Clear direction.</span></h1>
-      <p class="hero-sub">Know what to do next.</p>
-      <p class="hero-lead">Ask Compass transforms complex procedures and organizational knowledge into intelligent, interactive guidance that helps people make better decisions and move work forward.</p>
+<section class="hx" aria-labelledby="hero-title">
+  <div class="hx-scene">{{HERO_SCENE}}</div>
+  <div class="wrap hx-in">
+    <div class="hx-copy">
+      <p class="hx-eyebrow">Intelligent workflow navigation</p>
+      <h1 id="hero-title">Complex work.<br><span class="hx-grad">Clear direction.</span></h1>
+      <p class="hx-sub">Capture knowledge. Guide execution. Improve how work gets done.</p>
+      <p class="hx-lead">Ask Compass helps organizations turn their knowledge, policies and procedures into guided workflows that show people the right next step, keep work consistent and make improvement visible.</p>
       <div class="hero-ctas">
-        <a class="btn btn-primary btn-sheen" href="/studio">Open Studio <span aria-hidden="true">→</span></a>
-        <a class="btn btn-ghost" href="/platform">Explore Platform</a>
+        <a class="btn hx-btn-primary btn-sheen" href="/studio">Open Studio <span aria-hidden="true">→</span></a>
+        <a class="btn hx-btn-outline" href="/platform">Explore Platform</a>
       </div>
-      <dl class="hero-principles" aria-label="How Ask Compass works">
-        <div><dt>Understand</dt><dd>the situation</dd></div>
-        <div><dt>Navigate</dt><dd>the decisions</dd></div>
-        <div><dt>Act</dt><dd>on the next step</dd></div>
-      </dl>
+      <ul class="hx-proof">
+        <li><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="3" y="5" width="14" height="10" rx="2"/><path d="m3.5 6 6.5 5 6.5-5"/></svg>No sign-up needed</li>
+        <li><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7"/><path d="M8.5 7.2v5.6l4.4-2.8z"/></svg>Interactive demo</li>
+        <li><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7"/><path d="M10 6.5v4l2.5 1.5"/></svg>Sample workflows</li>
+      </ul>
     </div>
 
-    <div class="compass-stage" id="compassStage" role="img" aria-label="A 3D compass whose needle points in turn to procedures, decisions, process maps, policies and guided actions.">
+    <div class="compass-stage hx-stage" id="compassStage" data-theme="dark" data-label-k="1.62" role="img" aria-label="A 3D compass on a mountain peak. A glowing path leads up to it, and its needle points in turn to knowledge, processes, execution and outcomes.">
+      <svg class="hx-peak" viewBox="0 0 600 700" preserveAspectRatio="xMidYMin meet" aria-hidden="true" focusable="false">
+        <defs>
+          <linearGradient id="hxRock" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b2a4f"/><stop offset=".35" stop-color="#0d1730"/><stop offset="1" stop-color="#060c1a"/></linearGradient>
+          <linearGradient id="hxRockRim" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#4c9aff" stop-opacity=".1"/><stop offset=".5" stop-color="#8fc2ff" stop-opacity=".7"/><stop offset="1" stop-color="#ffc59a" stop-opacity=".4"/></linearGradient>
+          <linearGradient id="hxPath" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bfe4ff"/><stop offset=".5" stop-color="#4cc3ff"/><stop offset="1" stop-color="#2563eb" stop-opacity=".9"/></linearGradient>
+          <filter id="hxPathGlow" x="-50%" y="-10%" width="200%" height="120%"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+        </defs>
+        <path class="hx-rock" d="M150 120 C200 96 236 70 300 62 C368 70 404 100 452 124 L520 210 L566 330 L600 470 L600 700 L0 700 L0 470 L40 330 L86 214 Z" fill="url(#hxRock)"/>
+        <path d="M86 214 L150 120 C200 96 236 70 300 62 C368 70 404 100 452 124 L520 210" fill="none" stroke="url(#hxRockRim)" stroke-width="2"/>
+        <path class="hx-trail-glow" d="M300 96 C268 150 360 176 330 232 C300 290 196 300 214 372 C232 440 372 446 352 520 C334 590 216 610 236 700" fill="none" stroke="url(#hxPath)" stroke-width="16" stroke-linecap="round" filter="url(#hxPathGlow)" opacity=".55"/>
+        <path class="hx-trail" d="M300 96 C268 150 360 176 330 232 C300 290 196 300 214 372 C232 440 372 446 352 520 C334 590 216 610 236 700" fill="none" stroke="url(#hxPath)" stroke-width="5" stroke-linecap="round"/>
+        <path class="hx-trail-pulse" d="M300 96 C268 150 360 176 330 232 C300 290 196 300 214 372 C232 440 372 446 352 520 C334 590 216 610 236 700" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-dasharray="24 260"/>
+      </svg>
+      <div class="hx-halo" aria-hidden="true"></div>
       <svg class="stage-lines" aria-hidden="true"></svg>
       <div class="compass-fallback" aria-hidden="true">
         <svg viewBox="0 0 240 240">
           <defs>
-            <radialGradient id="cfFace" cx=".5" cy=".42" r=".6"><stop offset="0" stop-color="#ffffff"/><stop offset=".85" stop-color="#F1F6FC"/><stop offset="1" stop-color="#DCE5F1"/></radialGradient>
-            <linearGradient id="cfRim" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".5" stop-color="#C9D3E1"/><stop offset="1" stop-color="#8E9BB0"/></linearGradient>
+            <radialGradient id="cfFace" cx=".5" cy=".42" r=".6"><stop offset="0" stop-color="#1b3570"/><stop offset=".85" stop-color="#0d1c40"/><stop offset="1" stop-color="#081430"/></radialGradient>
+            <linearGradient id="cfRim" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".5" stop-color="#9fb0cc"/><stop offset="1" stop-color="#3b4d6e"/></linearGradient>
           </defs>
           <circle cx="120" cy="120" r="112" fill="url(#cfRim)"/>
           <circle cx="120" cy="120" r="96" fill="url(#cfFace)"/>
-          <circle cx="120" cy="120" r="88" fill="none" stroke="#9AA8BC" stroke-width="6" stroke-dasharray=".8 3.8"/>
-          <g font-family="Geist, system-ui, sans-serif" font-weight="600" font-size="13" text-anchor="middle" fill="#14243B"><text x="120" y="54" fill="#173F73">N</text><text x="190" y="125">E</text><text x="120" y="196">S</text><text x="50" y="125">W</text></g>
-          <path d="M120 44l8 76h-16z" fill="#3F80F2"/><path d="M120 44l8 76h-8z" fill="#173F73"/>
-          <path d="M120 196l-8-76h16z" fill="#FCFCFA"/><path d="M120 196l8-76h-8z" fill="#C7D1DE"/>
-          <circle cx="120" cy="120" r="12" fill="#10284C"/><circle cx="120" cy="120" r="4" fill="#F4B544"/>
+          <circle cx="120" cy="120" r="88" fill="none" stroke="#6fb2ff" stroke-width="6" stroke-dasharray=".8 3.8" opacity=".8"/>
+          <g font-family="Geist, system-ui, sans-serif" font-weight="600" font-size="13" text-anchor="middle" fill="#cfe2ff"><text x="120" y="54" fill="#8fd0ff">N</text><text x="190" y="125">E</text><text x="120" y="196">S</text><text x="50" y="125">W</text></g>
+          <path d="M120 40l10 80h-20z" fill="#6aa8ff"/><path d="M120 40l10 80h-10z" fill="#2563eb"/>
+          <path d="M120 200l-10-80h20z" fill="#e8eefc"/><path d="M120 200l10-80h-10z" fill="#9fb0cc"/>
+          <circle cx="120" cy="120" r="12" fill="#081430" stroke="#6fb2ff" stroke-width="2"/><circle cx="120" cy="120" r="4" fill="#EFB64A"/>
         </svg>
       </div>
       <div class="compass-canvas"></div>
-      <ul class="bearings" id="bearings">
-        <li data-bearing="-52"><button type="button"><span class="b-deg">308°</span>Procedures</button></li>
-        <li data-bearing="22"><button type="button"><span class="b-deg">022°</span>Decisions</button></li>
-        <li data-bearing="96"><button type="button"><span class="b-deg">096°</span>Process maps</button></li>
-        <li data-bearing="160"><button type="button"><span class="b-deg">160°</span>Policies</button></li>
-        <li data-bearing="232"><button type="button"><span class="b-deg">232°</span>Guided actions</button></li>
+      <ul class="bearings hx-labels" id="bearings">
+        <li data-bearing="-42"><button type="button"><span class="hx-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg></span><span class="hx-lt"><b>Knowledge</b><span>Centralized</span></span></button></li>
+        <li data-bearing="48"><button type="button"><span class="hx-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.5 18h7M18 8.5v7M7.8 16.2 16.2 7.8"/></svg></span><span class="hx-lt"><b>Processes</b><span>Visualized</span></span></button></li>
+        <li data-bearing="-108"><button type="button"><span class="hx-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l10-6.5z"/></svg></span><span class="hx-lt"><b>Execution</b><span>Guided</span></span></button></li>
+        <li data-bearing="112"><button type="button"><span class="hx-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 20V13M10 20V9M15 20v-5M20 20V5"/></svg></span><span class="hx-lt"><b>Outcomes</b><span>Improved</span></span></button></li>
       </ul>
-      <div class="ctx-panel glass" id="ctxPanel" aria-live="polite">
-        <p class="ctx-label" id="ctxLabel">Heading</p>
-        <p class="ctx-title" id="ctxTitle">North · ready for a question</p>
-        <p class="ctx-meta" id="ctxMeta">Ask about a task to set a direction</p>
-      </div>
-      <div class="compass-controls" role="group" aria-label="Compass controls">
-        <button type="button" class="neu-btn" id="ccPrev" aria-label="Point to the previous label"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
-        <button type="button" class="neu-btn neu-wide" id="ccPlay" aria-pressed="true"><span class="cc-dot" aria-hidden="true"></span><span id="ccPlayText">Auto</span></button>
-        <button type="button" class="neu-btn" id="ccNext" aria-label="Point to the next label"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg></button>
-      </div>
     </div>
   </div>
 </section>

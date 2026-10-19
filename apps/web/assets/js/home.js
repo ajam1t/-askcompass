@@ -42,6 +42,7 @@
     var NORTH = { label: 'Heading', title: 'North · ready for a question', meta: 'Ask about a task to set a direction' };
     function showContext(i) {
       var c = i < 0 ? NORTH : CONTEXT[i];
+      if (!$('#ctxLabel')) return;
       $('#ctxLabel').textContent = c.label; $('#ctxTitle').textContent = c.title; $('#ctxMeta').textContent = c.meta;
     }
 
@@ -53,7 +54,7 @@
       var f = window.acCompassFrame(r.width, r.height), paths = '', dots = '';
       labels.forEach(function (li, i) {
         var b = (+li.dataset.bearing) * Math.PI / 180;
-        var k = r.width < 560 ? 1.62 : 1.5;
+        var k = +(stage.dataset.labelK || (r.width < 560 ? 1.62 : 1.5));
         var x = f.cx + Math.sin(b) * f.rx * k, y = f.cy - Math.cos(b) * f.ry * k;
         var hw = li.offsetWidth / 2 + 4, hh = li.offsetHeight / 2 + 4;
         x = Math.min(Math.max(x, hw), r.width - hw);
@@ -103,11 +104,11 @@
     });
 
     // Tactile controls: step the needle between labels, or pause the tour.
-    var playBtn = $('#ccPlay');
+    var playBtn = $('#ccPlay') || document.createElement('button');
     function setAuto(on) {
       auto = on;
       playBtn.setAttribute('aria-pressed', String(on));
-      $('#ccPlayText').textContent = on ? 'Auto' : 'Paused';
+      if ($('#ccPlayText')) $('#ccPlayText').textContent = on ? 'Auto' : 'Paused';
       playBtn.setAttribute('aria-label', on ? 'Pause the automatic tour' : 'Resume the automatic tour');
       if (on) { holdUntil = 0; cycle(); } else clearTimeout(cycleTimer);
     }
@@ -116,14 +117,14 @@
       if (auto) setAuto(false);
       aim(n);
     }
-    $('#ccPrev').addEventListener('click', function () { stepLabel(-1); });
-    $('#ccNext').addEventListener('click', function () { stepLabel(1); });
+    if ($('#ccPrev')) $('#ccPrev').addEventListener('click', function () { stepLabel(-1); });
+    if ($('#ccNext')) $('#ccNext').addEventListener('click', function () { stepLabel(1); });
     playBtn.addEventListener('click', function () { setAuto(!auto); });
     function syncMotionPref() { if (reduceMotion.matches) { setAuto(false); aim(-1); } }
     reduceMotion.addEventListener('change', syncMotionPref);
 
     // Spatial depth: panels drift with the pointer at different depths (mouse only).
-    var heroEl = $('.hero');
+    var heroEl = $('.hx') || $('.hero');
     heroEl.addEventListener('pointermove', function (e) {
       if (e.pointerType !== 'mouse' || reduceMotion.matches) return;
       var r = stage.getBoundingClientRect();
@@ -372,4 +373,34 @@
 
   })();
 
+  if (document.getElementById('studioCanvas')) (function () {
+    /* ───────── Studio preview canvas ─────────
+       Selecting a node shows what happens there; the decision switches the highlighted branch. */
+    var canvas = $('#studioCanvas');
+    var SAMPLE = '/studio#/p/onboarding-week-one/run';
+    var NODES = {
+      start: { kind: 'Start', title: 'Start: new employee', text: 'Begins when the People Team confirms a start date and the role.', docs: [['New starter’s first week', SAMPLE]] },
+      email: { kind: 'Action', title: 'Send welcome email', text: 'Send the welcome pack with first-day details, the schedule and who to ask for help.', docs: [['Welcome email template', SAMPLE], ['First-day schedule', SAMPLE]] },
+      decision: { kind: 'Decision', title: 'Equipment required?', text: 'Check the role profile. Choose an answer to see which path the new employee takes.', choice: true, docs: [['Equipment request procedure', '/studio#/p/equipment-request/run']] },
+      yes: { kind: 'Action · Yes path', title: 'Create IT ticket', text: 'Raise an equipment request at least five working days before the start date.', docs: [['Equipment request procedure', '/studio#/p/equipment-request/run']] },
+      no: { kind: 'Action · No path', title: 'Provide access', text: 'Grant access to the systems listed for the role, at the lowest level that meets the need.', docs: [['System access procedure', '/studio#/p/system-access/run']] },
+      end: { kind: 'End', title: 'End: ready for day one', text: 'Confirm with the manager that everything is in place before the first day.', docs: [['New starter’s first week', SAMPLE]] }
+    };
+    var nodes = $$('.hn', canvas);
+    function setPath(b) {
+      canvas.dataset.path = b;
+      $$('[data-choose]').forEach(function (x) { x.setAttribute('aria-pressed', String(x.dataset.choose === b)); });
+    }
+    function select(id) {
+      var n = NODES[id];
+      if (id === 'yes' || id === 'no') setPath(id);
+      nodes.forEach(function (b) { var on = b.dataset.node === id; b.classList.toggle('is-sel', on); b.setAttribute('aria-pressed', String(on)); });
+      $('#hstKind').textContent = n.kind; $('#hstTitle').textContent = n.title; $('#hstText').textContent = n.text;
+      $('#hstChoice').hidden = !n.choice;
+      $('#hstDocs').innerHTML = n.docs.map(function (d) { return '<li><a href="' + d[1] + '">' + esc(d[0]) + '</a></li>'; }).join('');
+    }
+    nodes.forEach(function (b) { b.addEventListener('click', function () { select(b.dataset.node); }); });
+    $$('[data-choose]').forEach(function (x) { x.addEventListener('click', function () { setPath(x.dataset.choose); }); });
+    setPath(canvas.dataset.path || 'yes');
+  })();
 })();

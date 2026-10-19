@@ -11,6 +11,7 @@ import { PLATFORM } from './src/content/platform.mjs';
 import { SOLUTIONS } from './src/content/solutions.mjs';
 import { GUIDES, FAQ } from './src/content/resources.mjs';
 import { PAGES } from './src/content/pages.mjs';
+import { heroScene } from './src/scene.mjs';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 const OUT = join(ROOT, 'public');
@@ -53,6 +54,7 @@ ${page.headExtra || ''}
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="/assets/css/site.css">
 <link rel="stylesheet" href="/assets/css/pages.css">
+${page.styles || ''}
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join('\n')}
 </head>`;
 }
@@ -87,6 +89,7 @@ function header(page) {
       <a class="btn btn-primary nav-cta-mobile" href="/studio">Open Studio</a>
     </nav>
     <div class="header-actions">
+      <a class="btn btn-ghost btn-sm hdr-get" href="/contact">Get started</a>
       <a class="btn btn-primary btn-sm" href="/studio">Open Studio</a>
       <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mainNav" aria-label="Open menu"><span></span><span></span></button>
     </div>
@@ -249,7 +252,7 @@ function renderGuide(g) {
 const pages = [];
 const add = (p) => pages.push(p);
 
-// Home: hero, demo, how it works, three use cases, founder, closing CTA.
+// Home: hero, sample strip, platform preview, capabilities, Studio preview, industries, founder.
 add({
   path: '/', section: 'home', title: 'Ask Compass · Complex work. Clear direction.',
   description: 'Ask Compass turns procedures and organizational knowledge into interactive, step-by-step guidance, so people know what to do next and move work forward.',
@@ -261,9 +264,10 @@ add({
     if (['try','features','industries','faq','contact','build','run','dashboard','pricing'].indexOf(h) !== -1) location.replace('/app.html#' + h);
   })();
 </script>`,
+  styles: '<link rel="stylesheet" href="/assets/css/home.css">',
   jsonLd: { '@context': 'https://schema.org', '@type': 'Organization', name: 'Ask Compass', url: SITE.origin + '/', email: SITE.email, founder: { '@type': 'Person', name: 'Resham Chaudhary' }, sameAs: [SITE.linkedin] },
   scripts: ['<script src="/assets/js/home.js" defer></script>', '<script type="module" src="/assets/js/compass.js"></script>'],
-  body: ['hero', 'demo', 'journey', 'home-usecases', 'founder', 'final'].map(section).join('\n\n')
+  body: ['hero', 'home-strip', 'home-platform', 'home-capabilities', 'home-studio', 'home-industries', 'founder'].map(section).join('\n\n').replace('{{HERO_SCENE}}', heroScene())
 });
 
 add({
