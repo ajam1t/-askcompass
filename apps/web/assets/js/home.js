@@ -60,10 +60,26 @@
     return { cx: w / 2, cy: h / 2, rx: rx, ry: rx * 0.9, dist: (h / 2) / pxPerUnit / tanHalf };
   };
 
+  // What the glass panel says when the needle points at each label.
+  var CONTEXT = [
+    { label: 'Procedure', title: 'Request new equipment', meta: '6 steps · v3.2 · Owner: IT Operations' },
+    { label: 'Decision', title: 'Is manager approval required?', meta: 'Two paths, based on cost and catalog' },
+    { label: 'Process map', title: 'Start → Eligibility → Approval → Submit', meta: 'One branch, one exception' },
+    { label: 'Policy', title: '§2.1 Approval thresholds', meta: 'Approved source · linked to the decision' },
+    { label: 'Guided action', title: 'Next: get manager approval', meta: 'Checklist: approval received' }
+  ];
+  var NORTH = { label: 'Heading', title: 'North · ready for a question', meta: 'Ask about a task to set a direction' };
+  function showContext(i) {
+    var c = i < 0 ? NORTH : CONTEXT[i];
+    $('#ctxLabel').textContent = c.label; $('#ctxTitle').textContent = c.title; $('#ctxMeta').textContent = c.meta;
+  }
+
+  // Each label is joined to the compass rim by a curved route with a waypoint,
+  // so the active bearing reads as a path rather than a pointer.
   function placeBearings() {
     var r = stage.getBoundingClientRect();
     if (!r.width) return;
-    var f = window.acCompassFrame(r.width, r.height), paths = '';
+    var f = window.acCompassFrame(r.width, r.height), paths = '', dots = '';
     labels.forEach(function (li, i) {
       var b = (+li.dataset.bearing) * Math.PI / 180;
       var k = r.width < 560 ? 1.62 : 1.5;
@@ -73,28 +89,33 @@
       y = Math.min(Math.max(y, hh), r.height - hh);
       li.style.left = x.toFixed(1) + 'px'; li.style.top = y.toFixed(1) + 'px';
       var ex = f.cx + Math.sin(b) * f.rx * 1.06, ey = f.cy - Math.cos(b) * f.ry * 1.06;
-      paths += '<path data-i="' + i + '" d="M' + x.toFixed(1) + ' ' + y.toFixed(1) + 'L' + ex.toFixed(1) + ' ' + ey.toFixed(1) + '"/>';
+      var b2 = b + (i % 2 ? .16 : -.16), mx = f.cx + Math.sin(b2) * f.rx * 1.27, my = f.cy - Math.cos(b2) * f.ry * 1.27;
+      paths += '<path data-i="' + i + '" d="M' + x.toFixed(1) + ' ' + y.toFixed(1) + ' Q' + mx.toFixed(1) + ' ' + my.toFixed(1) + ' ' + ex.toFixed(1) + ' ' + ey.toFixed(1) + '"/>';
+      var wx = .25 * x + .5 * mx + .25 * ex, wy = .25 * y + .5 * my + .25 * ey;
+      dots += '<circle class="waypoint" data-i="' + i + '" cx="' + wx.toFixed(1) + '" cy="' + wy.toFixed(1) + '" r="3.2"/>';
     });
     lines.setAttribute('viewBox', '0 0 ' + Math.round(r.width) + ' ' + Math.round(r.height));
-    lines.innerHTML = paths;
+    lines.innerHTML = paths + dots;
     stage.classList.add('has-bearings');
     markActive(activeIndex);
   }
 
-  var activeIndex = -1, cycleTimer = 0, cycleStep = 0, holdUntil = 0;
+  var activeIndex = -1, cycleTimer = 0, cycleStep = 0, holdUntil = 0, auto = true;
   function markActive(i) {
     activeIndex = i;
     labels.forEach(function (li, j) { li.classList.toggle('is-active', j === i); });
-    $$('path', lines).forEach(function (p) { p.classList.toggle('is-active', +p.dataset.i === i); });
+    $$('[data-i]', lines).forEach(function (p) { p.classList.toggle('is-active', +p.dataset.i === i); });
   }
   function aim(i) {
+    var changed = i !== activeIndex;
     markActive(i);
+    if (changed) showContext(i);
     var bearing = i < 0 ? 0 : +labels[i].dataset.bearing;
     stage.dispatchEvent(new CustomEvent('compass:target', { detail: { bearing: bearing } }));
   }
   function cycle() {
     clearTimeout(cycleTimer);
-    if (reduceMotion.matches) { aim(-1); return; }
+    if (reduceMotion.matches || !auto) return;
     if (Date.now() < holdUntil) { cycleTimer = setTimeout(cycle, holdUntil - Date.now()); return; }
     // Alternate: point at a label, then settle back to north.
     var atLabel = cycleStep % 2 === 0;
@@ -102,20 +123,49 @@
     cycleStep++;
     cycleTimer = setTimeout(cycle, atLabel ? 3800 : 2200);
   }
+  function pickLabel(i) { holdUntil = Date.now() + 6000; aim(i); cycleStep = i * 2 + 1; cycle(); }
   labels.forEach(function (li, i) {
     var btn = $('button', li);
-    function pick() { holdUntil = Date.now() + 6000; aim(i); cycleStep = i * 2 + 1; cycle(); }
-    btn.addEventListener('click', pick);
-    btn.addEventListener('mouseenter', pick);
-    btn.addEventListener('focus', pick);
+    btn.addEventListener('click', function () { pickLabel(i); });
+    btn.addEventListener('mouseenter', function () { pickLabel(i); });
+    btn.addEventListener('focus', function () { pickLabel(i); });
   });
-  reduceMotion.addEventListener('change', cycle);
+
+  // Tactile controls: step the needle between labels, or pause the tour.
+  var playBtn = $('#ccPlay');
+  function setAuto(on) {
+    auto = on;
+    playBtn.setAttribute('aria-pressed', String(on));
+    $('#ccPlayText').textContent = on ? 'Auto' : 'Paused';
+    playBtn.setAttribute('aria-label', on ? 'Pause the automatic tour' : 'Resume the automatic tour');
+    if (on) { holdUntil = 0; cycle(); } else clearTimeout(cycleTimer);
+  }
+  function stepLabel(d) {
+    var n = activeIndex < 0 ? (d > 0 ? 0 : labels.length - 1) : (activeIndex + d + labels.length) % labels.length;
+    if (auto) setAuto(false);
+    aim(n);
+  }
+  $('#ccPrev').addEventListener('click', function () { stepLabel(-1); });
+  $('#ccNext').addEventListener('click', function () { stepLabel(1); });
+  playBtn.addEventListener('click', function () { setAuto(!auto); });
+  function syncMotionPref() { if (reduceMotion.matches) { setAuto(false); aim(-1); } }
+  reduceMotion.addEventListener('change', syncMotionPref);
+
+  // Spatial depth: panels drift with the pointer at different depths (mouse only).
+  var heroEl = $('.hero');
+  heroEl.addEventListener('pointermove', function (e) {
+    if (e.pointerType !== 'mouse' || reduceMotion.matches) return;
+    var r = stage.getBoundingClientRect();
+    stage.style.setProperty('--px', Math.max(-1, Math.min(1, (e.clientX - r.left - r.width / 2) / (r.width / 2))).toFixed(3));
+    stage.style.setProperty('--py', Math.max(-1, Math.min(1, (e.clientY - r.top - r.height / 2) / (r.height / 2))).toFixed(3));
+  }, { passive: true });
+  heroEl.addEventListener('pointerleave', function () { stage.style.setProperty('--px', 0); stage.style.setProperty('--py', 0); });
 
   if ('ResizeObserver' in window) new ResizeObserver(function () { requestAnimationFrame(placeBearings); }).observe(stage);
   else window.addEventListener('resize', placeBearings);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(placeBearings);
   placeBearings();
-  setTimeout(cycle, 1400);
+  if (reduceMotion.matches) setAuto(false); else setTimeout(cycle, 1400);
 
   /* ───────── Interactive procedure demo ───────── */
   var SOURCES = {
@@ -151,13 +201,17 @@
   function doneCount() { return pathIds().filter(function (id) { return state.done[id]; }).length; }
 
   var route = $('#route');
+  var shownSteps = {};
   function renderRoute() {
     var ids = pathIds(), html = '';
     ids.forEach(function (id) {
+      // Steps revealed by a decision arrive from depth, so the new branch is easy to follow.
+      var isNew = !shownSteps[id] && Object.keys(shownSteps).length > 0; shownSteps[id] = true;
       var s = STEPS[id], isDone = !!state.done[id], isCur = state.current === id, isOpen = state.open === id;
       var cls = ['r-step', isDone ? 'is-done' : isCur ? 'is-current' : 'is-upcoming'];
       if (s.kind === 'Decision') cls.push('is-decision');
       if (isOpen) cls.push('is-open');
+      if (isNew) cls.push('is-new');
       var choiceTag = id === 'decision' && state.choice ? '<span class="r-choice">' + (state.choice === 'approval' ? 'Yes' : 'No') + '</span>' : '';
       html += '<li class="' + cls.join(' ') + '" data-id="' + id + '">' +
         '<span class="r-marker" aria-hidden="true"></span>' +
@@ -283,7 +337,8 @@
     renderAll();
   }
   function changeAnswer() {
-    ['decision', 'approval', 'submit', 'confirm'].forEach(function (k) { delete state.done[k]; });
+    ['decision', 'approval', 'submit', 'confirm'].forEach(function (k) { delete state.done[k]; delete shownSteps[k]; });
+    shownSteps.decision = true;
     state.choice = null; state.current = 'decision'; state.open = 'decision';
     renderAll();
   }
@@ -337,7 +392,7 @@
       var other = t === tabSteps ? tabMap : tabSteps; other.click(); other.focus();
     });
   });
-  $('#demoReset').addEventListener('click', function () { resetState(); setTab('steps'); renderAll(); });
+  $('#demoReset').addEventListener('click', function () { resetState(); shownSteps = {}; setTab('steps'); renderAll(); });
   setTab('steps');
   renderAll();
 
@@ -376,8 +431,68 @@
   }
   showUse(0, false);
 
+  /* ───────── Why Ask Compass: generated comparison ─────────
+     "Stored documents" draws a seeded scatter of files with crossing links,
+     loops and dead ends. "Navigated work" draws one route with a decision,
+     an alternative branch and a live path to the goal. */
+  var whySvg = $('#whySvg');
+  function rng(seed) { return function () { seed = (seed * 16807) % 2147483647; return (seed - 1) / 2147483646; }; }
+  function drawWhy(mode) {
+    var svg = '', W = 520, H = 340;
+    if (mode === 'docs') {
+      var rand = rng(7), pts = [];
+      // Jittered 4×4 grid: scattered, but spread across the whole frame.
+      for (var i = 0; i < 16; i++) pts.push({ x: 70 + (i % 4) * 125 + (rand() - .5) * 90, y: 50 + Math.floor(i / 4) * 80 + (rand() - .5) * 50 });
+      pts[0] = { x: 44, y: 170 }; pts[15] = { x: 476, y: 170 };
+      for (var a = 0; a < pts.length; a++) {
+        for (var b = a + 1; b < pts.length; b++) {
+          var d = Math.hypot(pts[a].x - pts[b].x, pts[a].y - pts[b].y);
+          if (d < 150 && rand() > .35) svg += '<path class="w-edge' + (rand() > .55 ? ' dead' : '') + '" d="M' + pts[a].x.toFixed(0) + ' ' + pts[a].y.toFixed(0) + ' L' + pts[b].x.toFixed(0) + ' ' + pts[b].y.toFixed(0) + '"/>';
+        }
+      }
+      pts.forEach(function (p, i) {
+        var cls = i === 0 ? 'w-node step' : i === 15 ? 'w-node goal' : (i % 5 === 3 ? 'w-node x' : 'w-node doc');
+        svg += i === 0 || i === 15 ? '<circle class="' + cls + '" cx="' + p.x + '" cy="' + p.y + '" r="9"/>' : '<rect class="' + cls + '" x="' + (p.x - 9).toFixed(0) + '" y="' + (p.y - 11).toFixed(0) + '" width="18" height="22" rx="3"/>';
+      });
+      svg += '<text class="strong" x="30" y="200">Question</text><text class="strong" x="452" y="200">Action</text>';
+    } else {
+      var N = { q: [44, 170], s1: [140, 170], s2: [236, 170], dec: [322, 170], y: [404, 96], n: [404, 244], goal: [476, 170] };
+      var seg = function (a, b, cls) { var A = N[a], B = N[b]; return '<path class="w-edge ' + cls + '" d="M' + A[0] + ' ' + A[1] + ' C' + (A[0] + 40) + ' ' + A[1] + ' ' + (B[0] - 40) + ' ' + B[1] + ' ' + B[0] + ' ' + B[1] + '"/>'; };
+      svg += seg('q', 's1', 'route') + seg('s1', 's2', 'route') + seg('s2', 'dec', 'route') + seg('dec', 'y', 'live') + seg('y', 'goal', 'live') + seg('dec', 'n', 'alt') + seg('n', 'goal', 'alt');
+      svg += '<g class="enter"><circle class="w-node step" cx="44" cy="170" r="9"/><circle class="w-node step" cx="140" cy="170" r="8"/><circle class="w-node step" cx="236" cy="170" r="8"/>' +
+        '<rect class="w-node dec" x="311" y="159" width="22" height="22" rx="3" transform="rotate(45 322 170)"/><circle class="w-node step" cx="404" cy="96" r="8"/><circle class="w-node" cx="404" cy="244" r="8"/><circle class="w-node goal" cx="476" cy="170" r="10"/></g>' +
+        '<text class="strong" x="30" y="200">Question</text><text x="116" y="200">Eligibility</text><text x="212" y="200">Details</text><text class="strong" x="296" y="214">Approval?</text>' +
+        '<text x="372" y="78">Yes · approval</text><text x="372" y="272">No · submit</text><text class="strong" x="452" y="200">Action</text>';
+    }
+    whySvg.innerHTML = svg;
+    $('#whyCaption').textContent = mode === 'docs'
+      ? 'Stored documents: the same answer is spread across many files, with dead ends and loops before you reach an action.'
+      : 'Navigated work: one route from question to action. The decision shows both branches, and the path you are on stays lit.';
+  }
+  $$('.why-toggle button').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      $$('.why-toggle button').forEach(function (b) { b.setAttribute('aria-checked', String(b === btn)); });
+      drawWhy(btn.dataset.mode);
+    });
+    btn.addEventListener('keydown', function (e) {
+      if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+      var other = $$('.why-toggle button').filter(function (b) { return b !== btn; })[0]; other.click(); other.focus();
+    });
+  });
+  drawWhy('docs');
+
+  /* Final compass tilts gently toward the pointer. */
+  var dial = $('#dial3d'), finalSec = $('.final');
+  finalSec.addEventListener('pointermove', function (e) {
+    if (e.pointerType !== 'mouse' || reduceMotion.matches) return;
+    var r = finalSec.getBoundingClientRect();
+    dial.style.setProperty('--tx', ((e.clientX - r.left) / r.width * 2 - 1).toFixed(3));
+    dial.style.setProperty('--ty', ((e.clientY - r.top) / r.height * 2 - 1).toFixed(3));
+  }, { passive: true });
+  finalSec.addEventListener('pointerleave', function () { dial.style.setProperty('--tx', 0); dial.style.setProperty('--ty', 0); });
+
   /* ───────── Gentle reveal for section content ───────── */
-  var revealTargets = $$('.section-head, .cap-list li, .diff-row, .j-step, .side, .anatomy, .final-copy');
+  var revealTargets = $$('.section-head, .why-head, .why-viz, .cap-list li, .diff-row, .j-step, .flowline li, .side, .anatomy, .founder-copy, .final-copy');
   if ('IntersectionObserver' in window && !reduceMotion.matches) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); } });
