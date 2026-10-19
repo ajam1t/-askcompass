@@ -1,0 +1,53 @@
+<!-- ───────────── Experience the Studio ───────────── -->
+<section class="section hst" id="studio-preview" aria-labelledby="hst-title">
+  <div class="wrap hst-in">
+    <div class="hst-copy">
+      <p class="eyebrow">Experience the Studio</p>
+      <h2 id="hst-title">Build it once. See it as a map. Follow it step by step.</h2>
+      <p class="section-lead">Select a step on the sample workflow to see what happens there, then choose a branch at the decision.</p>
+      <ul class="hst-checks">
+        <li>Steps, decisions and exceptions in one definition</li>
+        <li>The process map and the guided run read the same source</li>
+        <li>Drafts are reviewed and approved before they go live</li>
+        <li>Runs in your browser with sample data, no sign-up</li>
+      </ul>
+      <div class="hero-ctas"><a class="btn btn-primary btn-sheen" href="/studio">Open Studio <span aria-hidden="true">→</span></a><a class="btn btn-ghost" href="/platform">Explore Platform</a></div>
+    </div>
+
+    <div class="hst-canvas">
+      <div class="hst-bar"><span class="hst-name">New employee onboarding</span><span class="status status-demo">Interactive preview · sample workflow</span></div>
+      <div class="hst-body">
+        <div class="hst-flow" id="studioCanvas" data-path="yes">
+          <svg class="hst-lines" viewBox="0 0 100 125" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+            <path d="M50 15.5V29.5"/>
+            <path d="M50 40V51"/>
+            <path class="br-yes" d="M50 66C50 74 25 72 25 81"/>
+            <path class="br-no" d="M50 66C50 74 75 72 75 81"/>
+            <path class="br-yes" d="M25 93C25 101 50 99 50 106"/>
+            <path class="br-no" d="M75 93C75 101 50 99 50 106"/>
+          </svg>
+          <span class="hst-tag t-yes" aria-hidden="true">Yes</span>
+          <span class="hst-tag t-no" aria-hidden="true">No</span>
+          <button type="button" class="hn hn-start is-sel" data-node="start" style="--x:50%;--y:10%" aria-pressed="true">Start: new employee</button>
+          <button type="button" class="hn" data-node="email" style="--x:50%;--y:28%" aria-pressed="false">Send welcome email</button>
+          <button type="button" class="hn hn-dec" data-node="decision" style="--x:50%;--y:47.5%" aria-pressed="false">Equipment required?</button>
+          <button type="button" class="hn br-yes" data-node="yes" style="--x:25%;--y:70%" aria-pressed="false">Create IT ticket</button>
+          <button type="button" class="hn br-no" data-node="no" style="--x:75%;--y:70%" aria-pressed="false">Provide access</button>
+          <button type="button" class="hn hn-end" data-node="end" style="--x:50%;--y:90%" aria-pressed="false">End: ready for day one</button>
+        </div>
+        <aside class="hst-panel" aria-live="polite">
+          <p class="hst-ph"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2.2 4.8-4.8 2.2 2.2-4.8z"/></svg>What happens at this step?</p>
+          <p class="hst-kind" id="hstKind">Start</p>
+          <h3 class="hst-title" id="hstTitle">Start: new employee</h3>
+          <p class="hst-text" id="hstText">Begins when the People Team confirms a start date and the role.</p>
+          <div class="hst-choice" id="hstChoice" hidden>
+            <button type="button" data-choose="yes">Yes</button>
+            <button type="button" data-choose="no">No</button>
+          </div>
+          <p class="hst-dh">Related documents</p>
+          <ul class="hst-docs" id="hstDocs"><li><a href="/studio#/p/onboarding-week-one/run">New starter’s first week</a></li></ul>
+        </aside>
+      </div>
+    </div>
+  </div>
+</section>

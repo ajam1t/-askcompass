@@ -89,23 +89,24 @@ async function mountCompass(T, stage) {
   const crown = new T.Mesh(crownGeo, metal); crown.position.set(0, 1.49, 0.02); crown.rotation.y = Math.PI / 2; body.add(crown);
 
   // Dial.
-  const dialTex = keep(new T.CanvasTexture(drawDial(small ? 1024 : 2048)));
+  const dark = stage.dataset.theme === 'dark';
+  const dialTex = keep(new T.CanvasTexture(drawDial(small ? 1024 : 2048, dark ? DARK_DIAL : LIGHT_DIAL)));
   dialTex.colorSpace = T.SRGBColorSpace; dialTex.anisotropy = aniso;
   const dialGeo = keep(new T.CircleGeometry(1.0, seg));
-  const dial = new T.Mesh(dialGeo, keep(new T.MeshStandardMaterial({ map: dialTex, emissive: 0xffffff, emissiveMap: dialTex, emissiveIntensity: 0.5, roughness: 0.6, metalness: 0 })));
+  const dial = new T.Mesh(dialGeo, keep(new T.MeshStandardMaterial({ map: dialTex, emissive: 0xffffff, emissiveMap: dialTex, emissiveIntensity: dark ? 0.6 : 0.5, roughness: 0.6, metalness: 0 })));
   dial.position.z = 0.02; body.add(dial);
 
   // Restrained blue edge light on the inner bezel.
-  const edgeMat = keep(new T.MeshBasicMaterial({ color: 0x5b97f5, transparent: true, opacity: 0.55, toneMapped: false }));
+  const edgeMat = keep(new T.MeshBasicMaterial({ color: dark ? 0x5fd0ff : 0x5b97f5, transparent: true, opacity: dark ? 0.9 : 0.55, toneMapped: false }));
   const edgeGeo = keep(new T.TorusGeometry(1.0, 0.004, 8, seg));
   const edge = new T.Mesh(edgeGeo, edgeMat); edge.position.z = 0.078; body.add(edge);
 
-  // A soft gold light that travels slowly around the outer ring.
+  // A soft light (gold, or cyan on the dark hero) that travels slowly around the outer ring.
   const glowTex = keep(new T.CanvasTexture(drawGlow()));
-  const glowMat = keep(new T.SpriteMaterial({ map: glowTex, color: 0xf4b544, transparent: true, opacity: 0.6, depthWrite: false, blending: T.AdditiveBlending, toneMapped: false }));
+  const glowMat = keep(new T.SpriteMaterial({ map: glowTex, color: dark ? 0x5fd0ff : 0xf4b544, transparent: true, opacity: 0.6, depthWrite: false, blending: T.AdditiveBlending, toneMapped: false }));
   const glow = new T.Sprite(glowMat); glow.scale.set(0.3, 0.3, 1); body.add(glow);
   const trailGeo = keep(new T.TorusGeometry(1.215, 0.006, 8, seg, Math.PI * 0.35));
-  const trailMat = keep(new T.MeshBasicMaterial({ color: 0xf4b544, transparent: true, opacity: 0.7, toneMapped: false }));
+  const trailMat = keep(new T.MeshBasicMaterial({ color: dark ? 0x7fe0ff : 0xf4b544, transparent: true, opacity: 0.7, toneMapped: false }));
   const trail = new T.Mesh(trailGeo, trailMat); trail.position.z = 0.205; body.add(trail);
 
   // Needle: faceted deep-blue north, porcelain south; gold stays on the hub and the travelling light.
@@ -273,31 +274,34 @@ function buildStudio(T) {
   return s;
 }
 
-function drawDial(S) {
+// Dial colours: the light face for the light site, a navy face with cyan marks for the dark hero.
+const LIGHT_DIAL = { face: ['#ffffff', '#f7f9fc', '#e7edf6', '#ccd6e5'], rings: ['#b7c4d8', '#d2dcea', '#dfe6f1', '#e4eaf3'], route: '#d5deeb', rose: ['#edf1f8', '#e3eaf5', '#e1e8f3', '#d5dfee'], ticks: ['#173F73', '#14243B', '#8b9ab0'], deg: '#5D6B80', north: '#173F73', letters: '#14243B', vignette: 'rgba(16,40,76,.22)' };
+const DARK_DIAL = { face: ['#15306a', '#0e2250', '#0a1a3e', '#06112a'], rings: ['#4c9aff', '#2c5aa8', '#22468a', '#1f3f7c'], route: '#3d6fc4', rose: ['#1d3f80', '#1a3873', '#16326a', '#132c5f'], ticks: ['#8fe1ff', '#cfe6ff', '#5c86c8'], deg: '#9fbde6', north: '#7fe0ff', letters: '#e6f0ff', vignette: 'rgba(3,8,22,.45)' };
+function drawDial(S, P) {
   const c = document.createElement('canvas'); c.width = c.height = S;
   const g = c.getContext('2d'), k = S / 2; g.translate(k, k);
   const font = (w) => w + ' Geist, Inter, system-ui, -apple-system, Segoe UI, sans-serif';
   const mono = (w) => w + ' "Geist Mono", ui-monospace, Menlo, monospace';
   let gr = g.createRadialGradient(0, -k * 0.15, 0, 0, 0, k);
-  gr.addColorStop(0, '#ffffff'); gr.addColorStop(0.72, '#f7f9fc'); gr.addColorStop(0.94, '#e7edf6'); gr.addColorStop(1, '#ccd6e5');
+  gr.addColorStop(0, P.face[0]); gr.addColorStop(0.72, P.face[1]); gr.addColorStop(0.94, P.face[2]); gr.addColorStop(1, P.face[3]);
   g.fillStyle = gr; g.beginPath(); g.arc(0, 0, k, 0, Math.PI * 2); g.fill();
   const ring = (r, w, col) => { g.strokeStyle = col; g.lineWidth = w * k; g.beginPath(); g.arc(0, 0, r * k, 0, Math.PI * 2); g.stroke(); };
-  ring(0.955, 0.004, '#b7c4d8'); ring(0.83, 0.003, '#d2dcea'); ring(0.58, 0.0025, '#dfe6f1'); ring(0.3, 0.0025, '#e4eaf3');
+  ring(0.955, 0.004, P.rings[0]); ring(0.83, 0.003, P.rings[1]); ring(0.58, 0.0025, P.rings[2]); ring(0.3, 0.0025, P.rings[3]);
   // Faint navigation grid: a dashed route arc through the centre.
-  g.save(); g.setLineDash([0.012 * k, 0.018 * k]); g.strokeStyle = '#d5deeb'; g.lineWidth = 0.003 * k;
+  g.save(); g.setLineDash([0.012 * k, 0.018 * k]); g.strokeStyle = P.route; g.lineWidth = 0.003 * k;
   g.beginPath(); g.moveTo(-0.58 * k, 0.2 * k); g.quadraticCurveTo(-0.1 * k, -0.45 * k, 0.5 * k, -0.28 * k); g.stroke(); g.restore();
   for (let i = 0; i < 8; i++) {
     const a = i * Math.PI / 4, len = (i % 2 ? 0.42 : 0.58) * k, w = (i % 2 ? 0.045 : 0.07) * k;
     g.save(); g.rotate(a);
-    g.fillStyle = i % 2 ? '#edf1f8' : '#e3eaf5'; g.beginPath(); g.moveTo(0, -len); g.lineTo(-w, 0); g.lineTo(0, 0); g.fill();
-    g.fillStyle = i % 2 ? '#e1e8f3' : '#d5dfee'; g.beginPath(); g.moveTo(0, -len); g.lineTo(w, 0); g.lineTo(0, 0); g.fill();
+    g.fillStyle = i % 2 ? P.rose[0] : P.rose[1]; g.beginPath(); g.moveTo(0, -len); g.lineTo(-w, 0); g.lineTo(0, 0); g.fill();
+    g.fillStyle = i % 2 ? P.rose[2] : P.rose[3]; g.beginPath(); g.moveTo(0, -len); g.lineTo(w, 0); g.lineTo(0, 0); g.fill();
     g.restore();
   }
   for (let d = 0; d < 360; d += 2) {
     const major = d % 10 === 0, card = d % 90 === 0;
     const len = card ? 0.085 : major ? 0.06 : 0.03;
     g.save(); g.rotate(d * Math.PI / 180);
-    g.strokeStyle = card ? '#173F73' : major ? '#14243B' : '#8b9ab0';
+    g.strokeStyle = card ? P.ticks[0] : major ? P.ticks[1] : P.ticks[2];
     g.lineWidth = (card ? 0.008 : major ? 0.0055 : 0.003) * k; g.lineCap = 'round';
     g.beginPath(); g.moveTo(0, -0.94 * k); g.lineTo(0, -(0.94 - len) * k); g.stroke();
     g.restore();
@@ -305,17 +309,17 @@ function drawDial(S) {
   g.textAlign = 'center'; g.textBaseline = 'middle';
   for (let d = 30; d < 360; d += 30) {
     if (d % 90 === 0) continue;
-    g.save(); g.rotate(d * Math.PI / 180); g.fillStyle = '#5D6B80'; g.font = mono('500 ' + Math.round(0.046 * k) + 'px');
+    g.save(); g.rotate(d * Math.PI / 180); g.fillStyle = P.deg; g.font = mono('500 ' + Math.round(0.046 * k) + 'px');
     g.fillText(String(d).padStart(3, '0'), 0, -0.78 * k); g.restore();
   }
   [['N', 0], ['E', 90], ['S', 180], ['W', 270]].forEach(([t, d]) => {
     g.save(); g.rotate(d * Math.PI / 180);
-    g.fillStyle = t === 'N' ? '#173F73' : '#14243B'; g.font = font('600 ' + Math.round((t === 'N' ? 0.13 : 0.105) * k) + 'px');
+    g.fillStyle = t === 'N' ? P.north : P.letters; g.font = font('600 ' + Math.round((t === 'N' ? 0.13 : 0.105) * k) + 'px');
     g.fillText(t, 0, -0.69 * k); g.restore();
   });
   // Gold north marker above the N.
   g.fillStyle = '#E9A93A'; g.beginPath(); g.moveTo(0, -0.905 * k); g.lineTo(0.03 * k, -0.86 * k); g.lineTo(-0.03 * k, -0.86 * k); g.closePath(); g.fill();
-  gr = g.createRadialGradient(0, 0, 0.9 * k, 0, 0, k); gr.addColorStop(0, 'rgba(16,40,76,0)'); gr.addColorStop(1, 'rgba(16,40,76,.22)');
+  gr = g.createRadialGradient(0, 0, 0.9 * k, 0, 0, k); gr.addColorStop(0, 'rgba(16,40,76,0)'); gr.addColorStop(1, P.vignette);
   g.fillStyle = gr; g.beginPath(); g.arc(0, 0, k, 0, Math.PI * 2); g.fill();
   return c;
 }

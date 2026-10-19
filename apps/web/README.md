@@ -20,11 +20,12 @@ Preview locally with any static server pointed at `public/`, for example `npx se
 | `src/content/solutions.mjs` | Solutions overview and the 7 solution pages |
 | `src/content/resources.mjs` | Guides and FAQ |
 | `src/content/pages.mjs` | Resources, About, Contact, legal, workspace and 404 pages |
-| `src/sections/*.html` | Homepage and shared sections (hero, demo, founder, CTA, …) |
-| `assets/css/site.css` | Design tokens and homepage styles |
+| `src/sections/*.html` | Homepage and shared sections (hero, platform preview, capabilities, Studio preview, founder, …) |
+| `assets/css/site.css` | Design tokens and shared styles |
+| `assets/css/home.css`, `src/scene.mjs` | Homepage styles and the generated night-sky hero scene |
 | `assets/css/pages.css` | Inner-page components |
 | `assets/js/site.js` | Header, menus, generated diagrams, reveals (every page) |
-| `assets/js/home.js`, `compass.js` | Homepage compass labels, demo and the Three.js compass |
+| `assets/js/home.js`, `compass.js` | Homepage compass labels, Studio preview canvas and the Three.js compass |
 | `studio.html`, `assets/js/studio*.js` | Public Studio demo (browser-only data) |
 | `app.html` | Legacy prototype, kept for existing links |
 | `vercel.json` | Build settings, `/studio` alias and hostname redirects |
