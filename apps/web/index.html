@@ -51,14 +51,15 @@
         <div class="nav-drop-menu" id="resMenu">
           <a href="app.html#faq">FAQ<small>Common questions about Ask Compass</small></a>
           <a href="app.html#contact">Contact<small>Talk to the team behind it</small></a>
-          <a href="app.html#build">Prototype workspace<small>Build and run a guided flow</small></a>
+          <a href="studio.html">Ask Compass Studio<small>The working prototype</small></a>
+          <a href="#founder">Founder<small>Who is building Ask Compass</small></a>
         </div>
       </div>
-      <a class="btn btn-primary nav-cta-mobile" href="app.html#build">Get Started</a>
+      <a class="btn btn-primary nav-cta-mobile" href="studio.html">Get Started</a>
     </nav>
 
     <div class="header-actions">
-      <a class="btn btn-primary btn-sm" href="app.html#build">Get Started</a>
+      <a class="btn btn-primary btn-sm" href="studio.html">Get Started</a>
       <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mainNav" aria-label="Open menu">
         <span></span><span></span>
       </button>
@@ -74,10 +75,11 @@
     <div class="hero-copy">
       <p class="eyebrow">Intelligent workflow navigation</p>
       <h1 id="hero-title">Complex work.<br><span class="hl">Clear direction.</span></h1>
-      <p class="hero-lead">Ask Compass transforms complex procedures and organizational knowledge into clear, contextual guidance, so you can understand the right next step and move work forward with confidence.</p>
+      <p class="hero-sub">Know what to do next.</p>
+      <p class="hero-lead">Ask Compass transforms complex procedures and organizational knowledge into intelligent, interactive guidance that helps people make better decisions and move work forward.</p>
       <div class="hero-ctas">
-        <a class="btn btn-primary" href="#product">Explore Ask Compass <span aria-hidden="true">→</span></a>
-        <a class="btn btn-ghost" href="#how">See how it works</a>
+        <a class="btn btn-primary btn-sheen" href="#product">Explore Ask Compass <span aria-hidden="true">→</span></a>
+        <a class="btn btn-ghost" href="#how">See How It Works</a>
       </div>
       <dl class="hero-principles" aria-label="How Ask Compass works">
         <div><dt>Understand</dt><dd>the situation</dd></div>
@@ -98,7 +100,7 @@
           <circle cx="120" cy="120" r="96" fill="url(#cfFace)"/>
           <circle cx="120" cy="120" r="88" fill="none" stroke="#9AA8BC" stroke-width="6" stroke-dasharray=".8 3.8"/>
           <g font-family="Geist, system-ui, sans-serif" font-weight="600" font-size="13" text-anchor="middle" fill="#14243B"><text x="120" y="54" fill="#173F73">N</text><text x="190" y="125">E</text><text x="120" y="196">S</text><text x="50" y="125">W</text></g>
-          <path d="M120 44l8 76h-16z" fill="#F4B544"/><path d="M120 44l8 76h-8z" fill="#D99A1E"/>
+          <path d="M120 44l8 76h-16z" fill="#3F80F2"/><path d="M120 44l8 76h-8z" fill="#173F73"/>
           <path d="M120 196l-8-76h16z" fill="#FCFCFA"/><path d="M120 196l8-76h-8z" fill="#C7D1DE"/>
           <circle cx="120" cy="120" r="12" fill="#10284C"/><circle cx="120" cy="120" r="4" fill="#F4B544"/>
         </svg>
@@ -111,6 +113,16 @@
         <li data-bearing="160"><button type="button"><span class="b-deg">160°</span>Policies</button></li>
         <li data-bearing="232"><button type="button"><span class="b-deg">232°</span>Guided actions</button></li>
       </ul>
+      <div class="ctx-panel glass" id="ctxPanel" aria-live="polite">
+        <p class="ctx-label" id="ctxLabel">Heading</p>
+        <p class="ctx-title" id="ctxTitle">North · ready for a question</p>
+        <p class="ctx-meta" id="ctxMeta">Ask about a task to set a direction</p>
+      </div>
+      <div class="compass-controls" role="group" aria-label="Compass controls">
+        <button type="button" class="neu-btn" id="ccPrev" aria-label="Point to the previous label"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
+        <button type="button" class="neu-btn neu-wide" id="ccPlay" aria-pressed="true"><span class="cc-dot" aria-hidden="true"></span><span id="ccPlayText">Auto</span></button>
+        <button type="button" class="neu-btn" id="ccNext" aria-label="Point to the next label"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg></button>
+      </div>
     </div>
   </div>
 </section>
@@ -189,8 +201,8 @@
     <div class="section-head cap-head">
       <p class="eyebrow">Capabilities</p>
       <h2 id="cap-title">Built to help people find their way through a process.</h2>
-      <p class="section-lead">Six capabilities shape the product. One of them is available in the prototype today; the rest are in development.</p>
-      <a class="text-link" href="app.html#run">Open the prototype workspace →</a>
+      <p class="section-lead">Six capabilities shape the product. Four of them work today in Ask Compass Studio, our browser-based prototype; the other two are in development.</p>
+      <a class="text-link" href="studio.html">Open Ask Compass Studio →</a>
     </div>
     <ul class="cap-list">
       <li>
@@ -203,7 +215,7 @@
       </li>
       <li>
         <svg class="glyph" viewBox="0 0 40 40" aria-hidden="true"><rect x="14" y="4" width="12" height="8" rx="2"/><path d="M20 12v6M20 18 10 24M20 18l10 6"/><rect x="4" y="24" width="12" height="8" rx="2"/><rect class="g-gold-stroke" x="24" y="24" width="12" height="8" rx="2"/></svg>
-        <div><h3>Interactive process maps</h3><p>See steps, decision points, branches and dependencies, and move through them visually.</p><span class="tag">In development</span></div>
+        <div><h3>Interactive process maps</h3><p>See steps, decision points, branches and dependencies, and move through them visually.</p><span class="tag tag-live">In the prototype</span></div>
       </li>
       <li>
         <svg class="glyph" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="15"/><path class="g-gold-fill" d="M20 8l4 12h-8z"/><path d="M20 32l-4-12h8z"/></svg>
@@ -211,35 +223,73 @@
       </li>
       <li>
         <svg class="glyph" viewBox="0 0 40 40" aria-hidden="true"><path d="M6 20h28"/><path class="g-dash" d="M14 20c0-9 12-9 12 0"/><circle cx="6" cy="20" r="3"/><circle class="g-gold" cx="34" cy="20" r="3"/></svg>
-        <div><h3>Exception handling</h3><p>Make alternative paths, missing prerequisites and escalation conditions easy to spot.</p><span class="tag">In development</span></div>
+        <div><h3>Exception handling</h3><p>Make alternative paths, missing prerequisites and escalation conditions easy to spot.</p><span class="tag tag-live">In the prototype</span></div>
       </li>
       <li>
         <svg class="glyph" viewBox="0 0 40 40" aria-hidden="true"><path d="M11 5h13l7 7v23H11z"/><path d="M24 5v7h7"/><path d="M16 20h10M16 26h7"/><circle class="g-gold" cx="31" cy="31" r="4"/></svg>
-        <div><h3>Trusted knowledge</h3><p>Connect guidance to approved sources, with clear ownership, versions and update status.</p><span class="tag">In development</span></div>
+        <div><h3>Trusted knowledge</h3><p>Connect guidance to approved sources, with clear ownership, versions and update status.</p><span class="tag tag-live">In the prototype</span></div>
       </li>
     </ul>
   </div>
 </section>
 
-<!-- ───────────── The difference ───────────── -->
-<section class="section diff-section" aria-labelledby="diff-title">
+<!-- ───────────── Studio workflow ───────────── -->
+<section class="section studio-section" id="studio" aria-labelledby="studio-title">
   <div class="wrap">
-    <div class="section-head narrow">
-      <p class="eyebrow">The difference</p>
-      <h2 id="diff-title">Documentation tells you what exists. Ask Compass helps you understand what to do.</h2>
-    </div>
-    <div class="diff" role="table" aria-label="Working from documents compared with navigating in Ask Compass">
-      <div class="diff-row diff-head" role="row">
-        <span role="columnheader">Working from documents</span>
-        <span role="columnheader" class="diff-mid" aria-hidden="true"></span>
-        <span role="columnheader">Navigating with Ask Compass</span>
+    <div class="section-head split-head">
+      <div>
+        <p class="eyebrow">Ask Compass Studio</p>
+        <h2 id="studio-title">Change procedures safely, with a person in the loop.</h2>
       </div>
-      <div class="diff-row" role="row"><span role="cell">Search across several documents and folders.</span><span class="diff-mid" aria-hidden="true"><i></i></span><span role="cell">Find the guidance that matches the task.</span></div>
-      <div class="diff-row" role="row"><span role="cell">Read the procedure and interpret it yourself.</span><span class="diff-mid" aria-hidden="true"><i></i></span><span role="cell">See only the steps that apply.</span></div>
-      <div class="diff-row" role="row"><span role="cell">Work out which branch fits your case.</span><span class="diff-mid" aria-hidden="true"><i class="d-branch"></i></span><span role="cell">Answer a question and follow the right branch.</span></div>
-      <div class="diff-row" role="row"><span role="cell">Discover exceptions halfway through.</span><span class="diff-mid" aria-hidden="true"><i class="d-exception"></i></span><span role="cell">Known exceptions appear at the step they affect.</span></div>
-      <div class="diff-row" role="row"><span role="cell">Ask a colleague to confirm.</span><span class="diff-mid" aria-hidden="true"><i class="d-end"></i></span><span role="cell">Reach a clear next action, with the source attached.</span></div>
+      <p class="section-lead">Studio is where procedures are written, reviewed and kept current. Every step below works in the prototype today.</p>
     </div>
+    <ol class="flowline">
+      <li><span class="fl-node" aria-hidden="true"></span><h3>Draft</h3><p>Editors change a copy. Everyone keeps following the approved version.</p></li>
+      <li><span class="fl-node" aria-hidden="true"></span><h3>Check</h3><p>Studio flags missing answers, dead ends and steps nobody can reach.</p></li>
+      <li><span class="fl-node is-gold" aria-hidden="true"></span><h3>Review</h3><p>Approvers compare old and new side by side, then approve or return it with a comment.</p></li>
+      <li><span class="fl-node" aria-hidden="true"></span><h3>Publish</h3><p>A new version goes live. Older versions stay in the history and can be restored.</p></li>
+      <li><span class="fl-node" aria-hidden="true"></span><h3>Notify and learn</h3><p>People who use the procedure are told it changed. Flags and drop-offs show what to fix next.</p></li>
+    </ol>
+    <ul class="studio-extras">
+      <li><b>Linked procedures</b> One procedure can hand off to another, such as an identity check, and come back.</li>
+      <li><b>Step-level search</b> Search finds the exact step, not just the document.</li>
+      <li><b>Roles</b> Viewer, Editor, Approver and Admin each see what they need.</li>
+      <li><b>Audit log</b> Every edit, approval and restore is recorded.</li>
+    </ul>
+    <a class="btn btn-primary" href="studio.html">Open Ask Compass Studio <span aria-hidden="true">→</span></a>
+  </div>
+</section>
+
+<!-- ───────────── Why Ask Compass ───────────── -->
+<section class="section why-section" id="why" aria-labelledby="why-title">
+  <div class="wrap">
+    <div class="why-head">
+      <p class="brut-label">Why Ask Compass</p>
+      <h2 id="why-title" class="brut-title">From finding information to <span>knowing what to do.</span></h2>
+    </div>
+    <div class="why-grid">
+      <div class="why-viz brut-frame">
+        <div class="why-toggle" role="radiogroup" aria-label="Compare two ways of working">
+          <button type="button" role="radio" aria-checked="true" data-mode="docs">Stored documents</button>
+          <button type="button" role="radio" aria-checked="false" data-mode="compass">Navigated work</button>
+        </div>
+        <svg class="why-svg" id="whySvg" viewBox="0 0 520 340" role="img" aria-labelledby="whyCaption"></svg>
+        <p class="why-caption" id="whyCaption">Stored documents: the same answer is spread across many files, with dead ends and loops before you reach an action.</p>
+      </div>
+      <div class="diff" role="table" aria-label="Working from documents compared with navigating in Ask Compass">
+        <div class="diff-row diff-head" role="row">
+          <span role="columnheader">Documents alone</span>
+          <span role="columnheader" class="diff-mid" aria-hidden="true"></span>
+          <span role="columnheader">With Ask Compass</span>
+        </div>
+        <div class="diff-row" role="row"><span role="cell">Search across several documents and folders.</span><span class="diff-mid" aria-hidden="true"><i></i></span><span role="cell">Find the guidance that matches the task.</span></div>
+        <div class="diff-row" role="row"><span role="cell">Read the procedure and interpret it yourself.</span><span class="diff-mid" aria-hidden="true"><i></i></span><span role="cell">See only the steps that apply.</span></div>
+        <div class="diff-row" role="row"><span role="cell">Work out which branch fits your case.</span><span class="diff-mid" aria-hidden="true"><i class="d-branch"></i></span><span role="cell">Answer a question and follow the right branch.</span></div>
+        <div class="diff-row" role="row"><span role="cell">Discover exceptions halfway through.</span><span class="diff-mid" aria-hidden="true"><i class="d-exception"></i></span><span role="cell">Known exceptions appear at the step they affect.</span></div>
+        <div class="diff-row" role="row"><span role="cell">Ask a colleague to confirm.</span><span class="diff-mid" aria-hidden="true"><i class="d-end"></i></span><span role="cell">Reach a clear next action, with the source attached.</span></div>
+      </div>
+    </div>
+    <p class="why-fair">Good documentation still matters. Ask Compass is built on top of approved procedures; it changes how people move through them.</p>
   </div>
 </section>
 
@@ -334,10 +384,11 @@
       <p class="eyebrow">Trust and governance</p>
       <h2 id="trust-title">Guidance you can check.</h2>
       <p class="section-lead">People should only follow guidance when they can see where it came from. This is how Ask Compass is designed to show it.</p>
-      <p class="direction-note">Product direction: these elements are being built and are not all available yet.</p>
+      <p class="direction-note">Source references, approved versions, owners, update dates, exceptions, change notices and human approval work in the Studio prototype today. Escalation guidance is written into individual steps.</p>
     </div>
     <figure class="anatomy">
       <div class="anatomy-card">
+        <div class="change-chip glass" aria-label="Change notice"><span class="cc-pulse" aria-hidden="true"></span><span><b>Updated since you last used it</b>Approval limit changed in v3.2</span></div>
         <p class="a-step"><span class="a-mark" aria-hidden="true"></span>Get manager approval</p>
         <p class="a-body">Send the request to your manager for approval before you submit it.</p>
         <p class="a-exc"><strong>Exception:</strong> if your manager is away for more than two business days, route the approval to their delegate.</p>
@@ -357,29 +408,49 @@
         <li><b>Visible exceptions</b> Alternative paths appear where they apply.</li>
         <li><b>Escalation guidance</b> Know who to contact when the standard path does not work.</li>
         <li><b>Human review</b> Important changes are reviewed by people before they go live.</li>
+        <li><b>Change awareness</b> People who use a procedure are told when it changes.</li>
       </ol>
       <figcaption class="sr-only">An example guidance step with its source, version, owner, update date, exception and escalation route.</figcaption>
     </figure>
   </div>
 </section>
 
+<!-- ───────────── Founder ───────────── -->
+<section class="section founder-section" id="founder" aria-labelledby="founder-title">
+  <div class="wrap founder">
+    <figure class="founder-photo">
+      <img src="assets/img/founder-resham-chaudhary.jpg" width="480" height="640" alt="Resham Chaudhary, founder of Ask Compass" loading="lazy" decoding="async">
+    </figure>
+    <div class="founder-copy">
+      <p class="eyebrow">Founder</p>
+      <h2 id="founder-title">Resham Chaudhary</h2>
+      <p class="founder-role">Founder, Ask Compass · Student at NMIMS</p>
+      <p class="section-lead">Ask Compass starts from a simple observation: most organizations have plenty of documentation, but people still struggle to find a clear path through it. Resham is building Ask Compass to turn procedures into guidance people can actually follow.</p>
+      <div class="hero-ctas"><a class="btn btn-ghost" href="app.html#contact">Get in touch</a></div>
+    </div>
+  </div>
+</section>
+
 <!-- ───────────── Final CTA ───────────── -->
 <section class="final" aria-labelledby="final-title">
   <div class="wrap final-in">
-    <svg class="final-rose" viewBox="0 0 200 200" aria-hidden="true">
-      <circle cx="100" cy="100" r="92"/>
-      <circle cx="100" cy="100" r="70" class="fr-faint"/>
-      <path d="M100 4v14M100 182v14M4 100h14M182 100h14" />
-      <path class="fr-needle" d="M100 30l9 70h-18z"/>
-      <path class="fr-south" d="M100 170l-9-70h18z"/>
-      <circle cx="100" cy="100" r="6" class="fr-hub"/>
-    </svg>
+    <div class="dial3d" id="dial3d" aria-hidden="true">
+      <div class="d3-halo"></div>
+      <div class="d3-body">
+        <div class="d3-layer d3-base"></div>
+        <div class="d3-layer d3-rim"></div>
+        <div class="d3-layer d3-face"><span>N</span></div>
+        <div class="d3-layer d3-needle"><i></i></div>
+        <div class="d3-layer d3-glass"></div>
+      </div>
+    </div>
     <div class="final-copy">
-      <h2 id="final-title">Stop navigating complexity alone.</h2>
+      <p class="eyebrow eyebrow-light">Ask Compass</p>
+      <h2 id="final-title">Find your direction. <span>Move work forward.</span></h2>
       <p>Give people a clearer path through the work they need to get done.</p>
       <div class="hero-ctas">
-        <a class="btn btn-gold" href="app.html#build">Get Started <span aria-hidden="true">→</span></a>
-        <a class="btn btn-ghost-dark" href="#product">Explore the product</a>
+        <a class="btn btn-gold btn-sheen" href="studio.html">Explore Ask Compass <span aria-hidden="true">→</span></a>
+        <a class="btn btn-ghost-dark" href="#how">See How It Works</a>
       </div>
     </div>
   </div>
@@ -398,9 +469,9 @@
       <p>Complex work. Clear direction.</p>
     </div>
     <nav class="f-cols" aria-label="Footer">
-      <div><h4>Product</h4><a href="#product">Overview</a><a href="#capabilities">Features</a><a href="#use-cases">Use cases</a></div>
-      <div><h4>Try it</h4><a href="app.html#build">Build a flow</a><a href="app.html#run">Workflow engine</a><a href="app.html#dashboard">Dashboard</a></div>
-      <div><h4>Resources</h4><a href="app.html#faq">FAQ</a><a href="app.html#contact">Contact</a></div>
+      <div><h4>Product</h4><a href="#product">Overview</a><a href="#capabilities">Features</a><a href="#why">Why Ask Compass</a><a href="#use-cases">Use cases</a></div>
+      <div><h4>Try it</h4><a href="studio.html">Ask Compass Studio</a><a href="studio.html#/approvals">Approvals</a><a href="studio.html#/insights">Insights</a></div>
+      <div><h4>Company</h4><a href="#founder">Founder</a><a href="app.html#faq">FAQ</a><a href="app.html#contact">Contact</a></div>
     </nav>
   </div>
   <div class="wrap f-base"><span>© 2026 Ask Compass</span></div>

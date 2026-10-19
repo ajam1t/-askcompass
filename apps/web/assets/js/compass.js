@@ -108,7 +108,7 @@ async function mountCompass(T, stage) {
   const trailMat = keep(new T.MeshBasicMaterial({ color: 0xf4b544, transparent: true, opacity: 0.7, toneMapped: false }));
   const trail = new T.Mesh(trailGeo, trailMat); trail.position.z = 0.205; body.add(trail);
 
-  // Needle: faceted gold north, porcelain south.
+  // Needle: faceted deep-blue north, porcelain south; gold stays on the hub and the travelling light.
   const needle = new T.Group(); needle.position.z = 0.075; body.add(needle);
   const extrude = { depth: 0.016, bevelEnabled: true, bevelThickness: 0.006, bevelSize: 0.004, bevelSegments: 2, curveSegments: 1 };
   const facet = (pts, color, rough, metalness) => {
@@ -118,8 +118,8 @@ async function mountCompass(T, stage) {
     needle.add(new T.Mesh(g, m));
   };
   const L = 0.8, W = 0.07;
-  facet([[0, L], [-W, 0], [0, 0]], 0xf6c25c, 0.26, 0.55);
-  facet([[0, L], [0, 0], [W, 0]], 0xd9981f, 0.24, 0.6);
+  facet([[0, L], [-W, 0], [0, 0]], 0x3f80f2, 0.22, 0.55);
+  facet([[0, L], [0, 0], [W, 0]], 0x173f73, 0.2, 0.6);
   facet([[0, -L], [0, 0], [-W, 0]], 0xfafbfc, 0.35, 0.1);
   facet([[0, -L], [W, 0], [0, 0]], 0xc7d1de, 0.32, 0.15);
 
