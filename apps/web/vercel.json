@@ -1,7 +1,36 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": null,
-  "installCommand": "echo 'Static site: nothing to install'",
-  "buildCommand": "rm -rf public && mkdir -p public && cp -R index.html app.html studio.html assets public/",
-  "outputDirectory": "public"
+  "installCommand": "echo 'No dependencies to install'",
+  "buildCommand": "node build.mjs",
+  "outputDirectory": "public",
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/studio", "destination": "/studio.html" }
+  ],
+  "redirects": [
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "demo.askcompass.in" }],
+      "destination": "/studio",
+      "permanent": false
+    },
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "app.askcompass.in" }],
+      "destination": "/workspace",
+      "permanent": false
+    },
+    {
+      "source": "/((?!workspace/unavailable|assets/).*)",
+      "has": [{ "type": "host", "value": "(?<tenant>[a-z0-9-]+)\\.askcompass\\.in" }],
+      "missing": [
+        { "type": "host", "value": "www.askcompass.in" },
+        { "type": "host", "value": "demo.askcompass.in" },
+        { "type": "host", "value": "app.askcompass.in" }
+      ],
+      "destination": "/workspace/unavailable",
+      "permanent": false
+    }
+  ]
 }

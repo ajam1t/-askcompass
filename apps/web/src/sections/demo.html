@@ -1,0 +1,67 @@
+<!-- ───────────── Product demonstration ───────────── -->
+<section class="section demo-section" id="product" aria-labelledby="demo-title">
+  <div class="wrap">
+    <div class="section-head split-head">
+      <div>
+        <p class="eyebrow">The product</p>
+        <h2 id="demo-title">From complicated procedures to clear next steps.</h2>
+      </div>
+      <p class="section-lead">Instead of searching documents and working out which rules apply, people ask about the task in front of them and follow a path built from the approved procedure. Try it below: answer the decision, open a source, and mark steps complete.</p>
+    </div>
+
+    <div class="demo" id="demo">
+      <div class="demo-bar">
+        <span class="demo-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span class="demo-title">Ask Compass</span>
+        <span class="demo-badge">Interactive demo · sample procedure</span>
+      </div>
+
+      <div class="demo-body">
+        <div class="demo-main">
+          <div class="ask-row">
+            <svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="9" cy="9" r="6"/><path d="M13.5 13.5 18 18"/></svg>
+            <p class="ask-q" id="demoQuestion">How do I request new equipment?</p>
+          </div>
+
+          <div class="answer">
+            <p class="answer-text">Follow the <strong>Equipment Request</strong> procedure. It takes five or six steps, and one decision depends on the cost of the item.</p>
+            <button class="src-chip" type="button" data-source="overview"><span class="src-dot" aria-hidden="true"></span>Equipment Request Procedure · v3.2</button>
+          </div>
+
+          <div class="demo-toolbar">
+            <div class="seg" role="tablist" aria-label="View">
+              <button type="button" role="tab" id="tabSteps" aria-selected="true" aria-controls="viewSteps">Step by step</button>
+              <button type="button" role="tab" id="tabMap" aria-selected="false" aria-controls="viewMap">Process map</button>
+            </div>
+            <div class="progress" aria-live="polite">
+              <span class="progress-label" id="progressLabel">0 of 5 steps complete</span>
+              <span class="progress-track"><span class="progress-fill" id="progressFill"></span></span>
+            </div>
+          </div>
+
+          <div id="viewSteps" role="tabpanel" aria-labelledby="tabSteps">
+            <ol class="route" id="route"></ol>
+          </div>
+          <div id="viewMap" role="tabpanel" aria-labelledby="tabMap" hidden>
+            <div class="map-wrap"><svg class="map" id="map" viewBox="0 0 560 470" role="group" aria-label="Process map of the equipment request procedure"></svg></div>
+            <p class="map-hint">Select a step on the map to open it in the step-by-step view.</p>
+          </div>
+        </div>
+
+        <aside class="demo-side" aria-label="Next action and sources">
+          <div class="next-card">
+            <p class="mini-label">Next action</p>
+            <p class="next-title" id="nextTitle">Start a request</p>
+            <p class="next-text" id="nextText"></p>
+          </div>
+          <div class="source-panel" id="sourcePanel" tabindex="-1">
+            <p class="mini-label">Source</p>
+            <div id="sourceBody"></div>
+          </div>
+          <button class="reset-btn" type="button" id="demoReset">Restart demo</button>
+        </aside>
+      </div>
+    </div>
+    <p class="demo-note">This demonstration runs in your browser with a sample procedure. It is not connected to any organization’s data.</p>
+  </div>
+</section>

@@ -1,0 +1,57 @@
+<!-- ───────────── Hero ───────────── -->
+<section class="hero" aria-labelledby="hero-title">
+  <div class="wrap hero-in">
+    <div class="hero-copy">
+      <p class="eyebrow">Intelligent workflow navigation</p>
+      <h1 id="hero-title">Complex work.<br><span class="hl">Clear direction.</span></h1>
+      <p class="hero-sub">Know what to do next.</p>
+      <p class="hero-lead">Ask Compass transforms complex procedures and organizational knowledge into intelligent, interactive guidance that helps people make better decisions and move work forward.</p>
+      <div class="hero-ctas">
+        <a class="btn btn-primary btn-sheen" href="/studio">Open Studio <span aria-hidden="true">→</span></a>
+        <a class="btn btn-ghost" href="/platform">Explore Platform</a>
+      </div>
+      <dl class="hero-principles" aria-label="How Ask Compass works">
+        <div><dt>Understand</dt><dd>the situation</dd></div>
+        <div><dt>Navigate</dt><dd>the decisions</dd></div>
+        <div><dt>Act</dt><dd>on the next step</dd></div>
+      </dl>
+    </div>
+
+    <div class="compass-stage" id="compassStage" role="img" aria-label="A 3D compass whose needle points in turn to procedures, decisions, process maps, policies and guided actions.">
+      <svg class="stage-lines" aria-hidden="true"></svg>
+      <div class="compass-fallback" aria-hidden="true">
+        <svg viewBox="0 0 240 240">
+          <defs>
+            <radialGradient id="cfFace" cx=".5" cy=".42" r=".6"><stop offset="0" stop-color="#ffffff"/><stop offset=".85" stop-color="#F1F6FC"/><stop offset="1" stop-color="#DCE5F1"/></radialGradient>
+            <linearGradient id="cfRim" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".5" stop-color="#C9D3E1"/><stop offset="1" stop-color="#8E9BB0"/></linearGradient>
+          </defs>
+          <circle cx="120" cy="120" r="112" fill="url(#cfRim)"/>
+          <circle cx="120" cy="120" r="96" fill="url(#cfFace)"/>
+          <circle cx="120" cy="120" r="88" fill="none" stroke="#9AA8BC" stroke-width="6" stroke-dasharray=".8 3.8"/>
+          <g font-family="Geist, system-ui, sans-serif" font-weight="600" font-size="13" text-anchor="middle" fill="#14243B"><text x="120" y="54" fill="#173F73">N</text><text x="190" y="125">E</text><text x="120" y="196">S</text><text x="50" y="125">W</text></g>
+          <path d="M120 44l8 76h-16z" fill="#3F80F2"/><path d="M120 44l8 76h-8z" fill="#173F73"/>
+          <path d="M120 196l-8-76h16z" fill="#FCFCFA"/><path d="M120 196l8-76h-8z" fill="#C7D1DE"/>
+          <circle cx="120" cy="120" r="12" fill="#10284C"/><circle cx="120" cy="120" r="4" fill="#F4B544"/>
+        </svg>
+      </div>
+      <div class="compass-canvas"></div>
+      <ul class="bearings" id="bearings">
+        <li data-bearing="-52"><button type="button"><span class="b-deg">308°</span>Procedures</button></li>
+        <li data-bearing="22"><button type="button"><span class="b-deg">022°</span>Decisions</button></li>
+        <li data-bearing="96"><button type="button"><span class="b-deg">096°</span>Process maps</button></li>
+        <li data-bearing="160"><button type="button"><span class="b-deg">160°</span>Policies</button></li>
+        <li data-bearing="232"><button type="button"><span class="b-deg">232°</span>Guided actions</button></li>
+      </ul>
+      <div class="ctx-panel glass" id="ctxPanel" aria-live="polite">
+        <p class="ctx-label" id="ctxLabel">Heading</p>
+        <p class="ctx-title" id="ctxTitle">North · ready for a question</p>
+        <p class="ctx-meta" id="ctxMeta">Ask about a task to set a direction</p>
+      </div>
+      <div class="compass-controls" role="group" aria-label="Compass controls">
+        <button type="button" class="neu-btn" id="ccPrev" aria-label="Point to the previous label"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12.5 4.5 7 10l5.5 5.5"/></svg></button>
+        <button type="button" class="neu-btn neu-wide" id="ccPlay" aria-pressed="true"><span class="cc-dot" aria-hidden="true"></span><span id="ccPlayText">Auto</span></button>
+        <button type="button" class="neu-btn" id="ccNext" aria-label="Point to the next label"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M7.5 4.5 13 10l-5.5 5.5"/></svg></button>
+      </div>
+    </div>
+  </div>
+</section>
