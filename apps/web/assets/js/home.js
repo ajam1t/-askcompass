@@ -492,7 +492,7 @@
   finalSec.addEventListener('pointerleave', function () { dial.style.setProperty('--tx', 0); dial.style.setProperty('--ty', 0); });
 
   /* ───────── Gentle reveal for section content ───────── */
-  var revealTargets = $$('.section-head, .why-head, .why-viz, .cap-list li, .diff-row, .j-step, .flowline li, .side, .anatomy, .founder-copy, .final-copy');
+  var revealTargets = $$('.section-head, .why-head, .why-viz, .cap-list li, .diff-row, .j-step, .flowline li, .side, .anatomy, .final-copy');
   if ('IntersectionObserver' in window && !reduceMotion.matches) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); } });
