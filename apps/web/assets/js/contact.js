@@ -29,7 +29,14 @@
     if (msg) el.setAttribute('aria-describedby', ids[field] + '-err'); else el.removeAttribute('aria-describedby');
     return !msg;
   }
-  Object.keys(rules).forEach(function (f) { form[f].addEventListener('blur', function () { if (form[f].value) check(f); }); });
+  // Re-check a field while the visitor fixes it, so errors clear before they reach
+  // the submit button (re-checking on blur moved the button mid-click).
+  Object.keys(rules).forEach(function (f) {
+    form[f].addEventListener(f === 'topic' ? 'change' : 'input', function () {
+      if (form[f].getAttribute('aria-invalid') === 'true') check(f);
+      if (status.classList.contains('is-error')) { status.className = 'form-status'; status.textContent = ''; }
+    });
+  });
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     status.className = 'form-status'; status.textContent = '';
