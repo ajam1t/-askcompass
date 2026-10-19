@@ -495,13 +495,26 @@ h3 { font-size: 18px; line-height: 1.3; font-weight: 600; letter-spacing: -.01em
 .studio-extras li + li { padding-left: 20px; border-left: 1px solid var(--line); }
 .studio-extras b { display: block; color: var(--ink); font-weight: 600; margin-bottom: 4px; }
 
-/* ── Founder ── */
-.founder { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 7fr); gap: 56px; align-items: center; }
-.founder-photo { margin: 0; position: relative; max-width: 380px; }
-.founder-photo img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 4; object-fit: cover; border-radius: var(--radius-lg); box-shadow: var(--shadow-2); }
-.founder-photo::after { content: ""; position: absolute; right: -14px; bottom: -14px; width: 64px; height: 64px; border-right: 2px solid var(--gold); border-bottom: 2px solid var(--gold); border-radius: 0 0 18px 0; pointer-events: none; }
-.founder-copy { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
-.founder-role { font-family: var(--mono); font-size: 13px; color: var(--deep); }
+/* ── Founder card ── */
+.founder-section { background: linear-gradient(180deg, var(--bg) 0%, var(--bg-blue) 100%); }
+.founder-card { position: relative; max-width: 640px; margin: 0 auto; padding: 48px 40px 40px; border-radius: 32px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 12px;
+  background: rgba(255, 255, 255, .72); -webkit-backdrop-filter: blur(18px) saturate(1.4); backdrop-filter: blur(18px) saturate(1.4); border: 1px solid var(--glass-edge); box-shadow: var(--glass-shadow); }
+.fc-photo { position: relative; width: 168px; aspect-ratio: 1; border-radius: 50%; padding: 6px; background: #fff; box-shadow: 0 0 0 1px var(--line), 0 18px 40px rgba(16, 40, 76, .14), 0 0 0 10px rgba(76, 154, 255, .08); margin-bottom: 10px; }
+.fc-photo::after { content: ""; position: absolute; inset: -6px; border-radius: 50%; border: 1.5px solid transparent; border-top-color: var(--gold); border-right-color: var(--gold); transform: rotate(-20deg); pointer-events: none; }
+.fc-photo img { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 50%; }
+.founder-card h2 { font-size: clamp(28px, 3.4vw, 38px); }
+.fc-role { font-family: var(--mono); font-size: 13px; color: var(--deep); }
+.fc-text { font-size: 17px; line-height: 1.6; color: var(--ink-2); max-width: 32em; }
+.fc-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 12px; }
+.fc-btn { display: inline-flex; align-items: center; gap: 9px; min-height: 46px; padding: 0 20px; border-radius: 999px; border: 1px solid var(--line-strong); background: var(--surface); text-decoration: none; font-weight: 600; font-size: 15px; box-shadow: 0 1px 2px rgba(16, 40, 76, .05); transition: border-color .2s, transform .2s var(--ease), box-shadow .2s; }
+.fc-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 18px rgba(16, 40, 76, .08); }
+.fc-btn svg { width: 19px; height: 19px; flex: none; }
+.fc-call, .fc-wa { color: #15803D; }
+.fc-call:hover, .fc-wa:hover { border-color: #86C99B; }
+.fc-call svg, .fc-wa svg { fill: currentColor; }
+.fc-mail, .fc-in { color: var(--blue); }
+.fc-mail:hover, .fc-in:hover { border-color: #9CBDF5; }
+.fc-mail svg, .fc-in svg { fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
 @media (max-width: 1080px) {
   .flowline { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 32px; }
@@ -516,8 +529,6 @@ h3 { font-size: 18px; line-height: 1.3; font-weight: 600; letter-spacing: -.01em
   .studio-extras { grid-template-columns: 1fr; }
   .studio-extras li, .studio-extras li + li { padding: 16px 0; border-left: 0; border-bottom: 1px solid var(--line); }
   .studio-section .btn { width: 100%; }
-  .founder { grid-template-columns: 1fr; gap: 32px; }
-  .founder-photo { max-width: 300px; }
 }
 
 
@@ -663,6 +674,9 @@ h3 { font-size: 18px; line-height: 1.3; font-weight: 600; letter-spacing: -.01em
   .change-chip { position: static; margin-bottom: 4px; max-width: none; }
   .anatomy-card .a-step { margin-top: 0; }
   .dial3d { max-width: 180px; }
+  .founder-card { padding: 36px 20px 28px; border-radius: 24px; }
+  .fc-photo { width: 140px; }
+  .fc-text { font-size: 16px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .compass-stage::before, .stage-lines path.is-active, .why-svg .w-edge.live { animation: none; }
