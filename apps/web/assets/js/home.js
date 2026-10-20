@@ -628,4 +628,106 @@
     if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { inView = en[0].isIntersecting; tick(); }).observe(board);
     document.addEventListener('visibilitychange', tick);
   })();
+  if (document.getElementById('hchGrid')) (function () {
+    /* ───────── The challenge: problem ⇄ fix ─────────
+       The toggle sets every card; with a mouse, hovering a card previews its fix,
+       and focusing a card with the keyboard does the same. */
+    var cards = $$('#hchGrid .hch-card'), btns = $$('.hch-toggle button'), knob = $('.hch-knob');
+    var view = 'problem';
+    function placeKnob() {
+      var on = btns.filter(function (b) { return b.dataset.view === view; })[0], g = on.parentElement.getBoundingClientRect(), r = on.getBoundingClientRect();
+      knob.style.setProperty('--kl', (r.left - g.left - on.parentElement.clientLeft) + 'px'); knob.style.setProperty('--kw', r.width + 'px');
+    }
+    function apply() { cards.forEach(function (c) { c.classList.toggle('is-fixed', view === 'fix' || c.dataset.peek === '1'); }); }
+    function setView(v) {
+      view = v;
+      btns.forEach(function (b) { var on = b.dataset.view === v; b.classList.toggle('is-on', on); b.setAttribute('aria-pressed', String(on)); });
+      placeKnob(); apply();
+    }
+    btns.forEach(function (b) { b.addEventListener('click', function () { setView(b.dataset.view); }); });
+    cards.forEach(function (c) {
+      c.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') { c.dataset.peek = '1'; apply(); } });
+      c.addEventListener('pointerleave', function () { delete c.dataset.peek; apply(); });
+      c.addEventListener('focus', function () { if (c.matches(':focus-visible')) { c.dataset.peek = '1'; apply(); } });
+      c.addEventListener('blur', function () { delete c.dataset.peek; apply(); });
+      // Tap (touch) flips a single card.
+      c.addEventListener('click', function (e) { if (e.pointerType && e.pointerType !== 'mouse' && !e.target.closest('a')) { c.dataset.peek = c.dataset.peek === '1' ? '' : '1'; apply(); } });
+    });
+    if ('ResizeObserver' in window) new ResizeObserver(placeKnob).observe($('.hch-toggle')); else window.addEventListener('resize', placeKnob);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(placeKnob);
+    setView('problem');
+  })();
+  if (document.getElementById('hinTabs')) (function () {
+    /* ───────── SI knowledge infrastructure tabs ─────────
+       Click, tap or arrow keys select a tab. While on screen and before anyone
+       interacts, the tabs advance on their own (not with reduced motion). The search
+       panel types its query each time it opens. */
+    var root = $('#hinTabs'), bar = $('.hin-bar', root), ind = $('.hin-ind', bar);
+    var tabs = $$('[role="tab"]', bar), panels = tabs.map(function (t) { return document.getElementById(t.getAttribute('aria-controls')); });
+    var CYCLE = 8000, active = 0, timer = 0, typer = 0, touched = false, inView = false;
+    root.style.setProperty('--cycle', CYCLE + 'ms');
+    var q = $('#hinQuery'), QUERY = q.textContent;
+    function place() {
+      var t = tabs[active];
+      ind.style.setProperty('--l', t.offsetLeft + 'px'); ind.style.setProperty('--w', t.offsetWidth + 'px');
+    }
+    function typeQuery() {
+      clearInterval(typer);
+      if (reduceMotion.matches) { q.textContent = QUERY; return; }
+      var n = 0; q.textContent = '';
+      typer = setInterval(function () { n++; q.textContent = QUERY.slice(0, n); if (n >= QUERY.length) clearInterval(typer); }, 55);
+    }
+    function select(i, opts) {
+      opts = opts || {};
+      active = i;
+      tabs.forEach(function (t, j) { var on = j === i; t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1; panels[j].classList.toggle('is-on', on); });
+      var prog = $('.hin-prog', tabs[i]); prog.style.animation = 'none'; void prog.offsetWidth; prog.style.animation = '';
+      place();
+      var t = tabs[i]; if (t.offsetLeft < bar.scrollLeft || t.offsetLeft + t.offsetWidth > bar.scrollLeft + bar.clientWidth) bar.scrollTo({ left: t.offsetLeft - 24, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+      if (panels[i].querySelector('#hinQuery')) typeQuery();
+      if (opts.focus) t.focus();
+      schedule();
+    }
+    function stop() { touched = true; root.classList.remove('is-auto'); clearTimeout(timer); }
+    function schedule() {
+      clearTimeout(timer);
+      var auto = !touched && inView && !reduceMotion.matches && !document.hidden;
+      root.classList.toggle('is-auto', auto);
+      if (auto) timer = setTimeout(function () { select((active + 1) % tabs.length); }, CYCLE);
+    }
+    tabs.forEach(function (t, i) {
+      t.addEventListener('click', function () { stop(); select(i); });
+      t.addEventListener('keydown', function (e) {
+        var k = e.key, n = k === 'ArrowRight' ? active + 1 : k === 'ArrowLeft' ? active - 1 : k === 'Home' ? 0 : k === 'End' ? tabs.length - 1 : null;
+        if (n === null) return; e.preventDefault(); stop(); select((n + tabs.length) % tabs.length, { focus: true });
+      });
+    });
+    root.addEventListener('focusin', stop);
+    $('.hin-stage', root).addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') stop(); });
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { inView = en[0].isIntersecting; schedule(); }, { threshold: 0.35 }).observe(root);
+    document.addEventListener('visibilitychange', schedule);
+    reduceMotion.addEventListener('change', schedule);
+    if ('ResizeObserver' in window) new ResizeObserver(place).observe(bar); else window.addEventListener('resize', place);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(place);
+    select(0);
+  })();
+  if (document.getElementById('hindGrid')) (function () {
+    /* ───────── Industries ─────────
+       Each preview plays once as its card scrolls into view and replays on hover.
+       The chips filter the grid, with a view transition where supported. */
+    var cards = $$('#hindGrid .icard'), chips = $$('.hind-filter button');
+    cards.forEach(function (c, i) { c.style.setProperty('--vt', 'icard-' + i); });
+    function play(c) { c.classList.remove('play'); void c.offsetWidth; c.classList.add('play'); }
+    if ('IntersectionObserver' in window && !reduceMotion.matches) {
+      var io = new IntersectionObserver(function (en) { en.forEach(function (e) { if (e.isIntersecting) { setTimeout(function () { play(e.target); }, (cards.indexOf(e.target) % 4) * 120); io.unobserve(e.target); } }); }, { threshold: 0.4 });
+      cards.forEach(function (c) { io.observe(c); });
+    } else cards.forEach(function (c) { c.classList.add('play'); });
+    cards.forEach(function (c) { c.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse' && !reduceMotion.matches) play(c); }); });
+    function filter(f) {
+      chips.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.f === f)); });
+      var apply = function () { cards.forEach(function (c) { c.hidden = f !== 'all' && c.dataset.t.split(' ').indexOf(f) === -1; }); };
+      if (document.startViewTransition && !reduceMotion.matches) document.startViewTransition(apply); else apply();
+    }
+    chips.forEach(function (b) { b.addEventListener('click', function () { filter(b.dataset.f); }); });
+  })();
 })();
