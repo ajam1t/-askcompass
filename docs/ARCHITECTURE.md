@@ -8,7 +8,7 @@ customer workspaces. Anything marked **Target** is a design, not running code.
 | Layer | Domain | Purpose | Status |
 |---|---|---|---|
 | Marketing site | `askcompass.in` → `www.askcompass.in` | Explain the product, platform, solutions, resources, contact | **Live** |
-| Public demo | `demo.askcompass.in` and `studio.askcompass.in` (also `/studio`, `/studio.html`) | No-login Studio with synthetic sample procedures | **Live** |
+| Public demo | `studio.askcompass.in/studio` (`demo.askcompass.in` and `www.askcompass.in/studio` redirect here) | No-login Studio with synthetic sample procedures | **Live** |
 | Central app entry | `app.askcompass.in` | Workspace discovery, then sign-in. The header **Login** button on every page links here | **Placeholder** page at `/workspace`; no sign-in yet |
 | Customer workspaces | `{company}.askcompass.in` | One organization's procedures, users and data | **Target**; unknown subdomains show “workspace not available” |
 
@@ -30,8 +30,10 @@ hostnames listed; `www.askcompass.in` is explicitly excluded and the marketing h
 
 | Request | Result |
 |---|---|
-| `demo.askcompass.in/` | 307 → `/studio` |
+| `www.askcompass.in/studio`, `/studio.html` | 307 → `https://studio.askcompass.in/studio` (the `#` route is kept by the browser) |
+| `demo.askcompass.in/*` | 307 → `https://studio.askcompass.in/studio` |
 | `studio.askcompass.in/` | 307 → `/studio` |
+| `studio.askcompass.in/{other page}` | 307 → the same path on `www.askcompass.in` (Studio assets excepted) |
 | `app.askcompass.in/` | 307 → `/workspace` |
 | `{anything-else}.askcompass.in/*` | 307 → `/workspace/unavailable` (except `/workspace/unavailable` and `/assets/*`) |
 | `www.askcompass.in/*` | Served normally |
