@@ -9,6 +9,7 @@ import { fileURLToPath } from 'node:url';
 import { SITE, NAV, FOOTER, STATUS } from './src/content/site.mjs';
 import { PLATFORM } from './src/content/platform.mjs';
 import { renderPlatformOverview } from './src/content/platform-page.mjs';
+import { renderSolutionsOverview } from './src/content/solutions-page.mjs';
 import { SOLUTIONS } from './src/content/solutions.mjs';
 import { GUIDES, FAQ } from './src/content/resources.mjs';
 import { PAGES } from './src/content/pages.mjs';
@@ -271,8 +272,8 @@ add({
 });
 
 add({
-  ...PLATFORM.overview, path: '/platform', section: 'platform', bodyClass: 'is-platform', crumbs: [{ label: 'Platform', href: '/platform' }],
-  styles: '<link rel="stylesheet" href="/assets/css/platform.css">',
+  ...PLATFORM.overview, path: '/platform', section: 'platform', bodyClass: 'is-overview is-platform', crumbs: [{ label: 'Platform', href: '/platform' }],
+  styles: '<link rel="stylesheet" href="/assets/css/overview.css">\n<link rel="stylesheet" href="/assets/css/platform.css">',
   jsonLd: { '@context': 'https://schema.org', '@type': 'WebPage', name: PLATFORM.overview.title, description: PLATFORM.overview.description, url: absolute('/platform'),
     publisher: { '@type': 'Organization', name: 'Ask Compass', url: SITE.origin + '/' },
     mainEntity: { '@type': 'ItemList', name: 'Ask Compass platform capabilities', itemListElement: PLATFORM.pages.map((p, i) => ({ '@type': 'ListItem', position: i + 1, name: p.title, url: absolute(`/platform/${p.slug}`) })) } },
@@ -282,9 +283,13 @@ add({
 PLATFORM.pages.forEach((p) => add(renderCapability(p)));
 
 add({
-  ...SOLUTIONS.overview, path: '/solutions', section: 'solutions', crumbs: [{ label: 'Solutions', href: '/solutions' }],
-  body: pageHero({ ...SOLUTIONS.overview, crumbs: [{ label: 'Solutions' }] }) + SOLUTIONS.overview.render({ esc, section, SOLUTIONS, relatedLinks, linkToSolution }) +
-    cta({ title: 'Have a process people struggle to follow?', text: 'Tell us about it. We will show how it would work as a guided procedure.', primary: { label: 'Send a business enquiry', href: '/contact' }, secondary: { label: 'Open Studio', href: '/studio' } })
+  ...SOLUTIONS.overview, path: '/solutions', section: 'solutions', bodyClass: 'is-overview is-solutions', crumbs: [{ label: 'Solutions', href: '/solutions' }],
+  styles: '<link rel="stylesheet" href="/assets/css/overview.css">\n<link rel="stylesheet" href="/assets/css/solutions.css">',
+  jsonLd: { '@context': 'https://schema.org', '@type': 'WebPage', name: SOLUTIONS.overview.title, description: SOLUTIONS.overview.description, url: absolute('/solutions'),
+    publisher: { '@type': 'Organization', name: 'Ask Compass', url: SITE.origin + '/' },
+    mainEntity: { '@type': 'ItemList', name: 'Ask Compass solutions', itemListElement: SOLUTIONS.pages.map((s, i) => ({ '@type': 'ListItem', position: i + 1, name: s.title, url: absolute(`/solutions/${s.slug}`) })) } },
+  scripts: ['<script src="/assets/js/solutions.js" defer></script>'],
+  body: renderSolutionsOverview({ esc, statusPill, crumbsHtml: breadcrumbs({ crumbs: [{ label: 'Solutions' }] }), SOLUTIONS, PLATFORM })
 });
 SOLUTIONS.pages.forEach((s) => add(renderSolution(s)));
 

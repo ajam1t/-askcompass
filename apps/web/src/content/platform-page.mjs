@@ -5,7 +5,7 @@
 
 const svg = (paths, cls = '') => `<svg class="${cls}" viewBox="0 0 24 24" aria-hidden="true">${paths}</svg>`;
 
-const ICONS = {
+export const ICONS = {
   'workflow-builder': '<rect x="3.5" y="3.5" width="7" height="5" rx="1.2"/><rect x="13.5" y="15.5" width="7" height="5" rx="1.2"/><path d="M7 8.5V12h10v3.5"/>',
   'process-maps': '<circle cx="12" cy="5" r="2.4"/><circle cx="6" cy="19" r="2.4"/><circle cx="18" cy="19" r="2.4"/><path d="M12 7.4v4M12 11.4 6.8 16.8M12 11.4l5.2 5.4"/>',
   'si-procedure-studio': '<path d="M11 3.5l1.8 4.7 4.7 1.8-4.7 1.8L11 16.5l-1.8-4.7L4.5 10l4.7-1.8z"/><path d="M18 14.5l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/>',
@@ -27,7 +27,7 @@ const GROUPS = [
 ];
 
 // Order is the bento order: featured first, then two wide cards placed by CSS.
-const CAPS = [
+export const CAPS = [
   { slug: 'guided-procedures', group: 'guide', featured: true,
     what: 'People follow the work one question at a time, with checklists, exceptions and the source beside every step.',
     benefit: 'Fewer wrong turns, and no re-reading of a long document mid-task.' },
