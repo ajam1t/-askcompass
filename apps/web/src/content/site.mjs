@@ -63,5 +63,5 @@ export const FOOTER = [
   { title: 'Solutions', links: [{ label: 'Overview', href: '/solutions' }, ...NAV.solutions.items] },
   { title: 'Resources', links: [{ label: 'Library', href: '/resources' }, { label: 'Guides & Insights', href: '/resources/guides' }, { label: 'FAQ', href: '/faq' }] },
   { title: 'Company', links: [{ label: 'About', href: '/about' }, { label: 'Contact', href: '/contact' }] },
-  { title: 'Product', links: [{ label: 'Open Studio demo', href: '/studio' }, { label: 'Workspace sign-in', href: '/workspace' }, { label: 'Security', href: '/security' }] }
+  { title: 'Product', links: [{ label: 'Pricing', href: '/pricing' }, { label: 'Open Studio demo', href: '/studio' }, { label: 'Workspace sign-in', href: '/workspace' }, { label: 'Security', href: '/security' }] }
 ];

@@ -1,9 +1,12 @@
 # Ask Compass design system
 
 The website's visual language in one page. Tokens live in `apps/web/assets/css/site.css` (`:root`);
-homepage-only styles live in `assets/css/home.css`. The Platform (`/platform`) and Solutions (`/solutions`)
-overviews share `assets/css/overview.css` (pills, gradient headings, chips, hero shell, closing band) and add
-`platform.css`/`platform.js` or `solutions.css`/`solutions.js`. The gold and teal action buttons (`.hx-btn-gold`,
+homepage-only styles live in `assets/css/home.css`. Every page loads `assets/css/overview.css` (pills, gradient
+headings, capability chips, the light hero shell and the closing band); the Platform and Solutions overviews add
+`platform.css`/`platform.js` or `solutions.css`/`solutions.js`, and inner pages (capabilities, solutions, pricing,
+resources, company, legal) use `pages.css`. Inner heroes end their headline in the brand gradient and can carry a
+summary card on the right; closing bands are light, with the emblem and gold and teal actions. The leadership
+sign-in (`/ceo`) is a bare page with `ceo.css`/`ceo.js`. The gold and teal action buttons (`.hx-btn-gold`,
 `.hx-btn-teal`) are shared in `site.css`.
 
 ## Idea

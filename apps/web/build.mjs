@@ -9,7 +9,9 @@ import { fileURLToPath } from 'node:url';
 import { SITE, NAV, FOOTER, STATUS } from './src/content/site.mjs';
 import { PLATFORM } from './src/content/platform.mjs';
 import { renderPlatformOverview } from './src/content/platform-page.mjs';
-import { renderSolutionsOverview } from './src/content/solutions-page.mjs';
+import { renderSolutionsOverview, META as SOL_META } from './src/content/solutions-page.mjs';
+import { ICONS, CAPS, GROUPS } from './src/content/platform-page.mjs';
+import { renderPricing, PRICING_FAQ } from './src/content/pricing-page.mjs';
 import { SOLUTIONS } from './src/content/solutions.mjs';
 import { GUIDES, FAQ } from './src/content/resources.mjs';
 import { PAGES } from './src/content/pages.mjs';
@@ -55,6 +57,7 @@ ${page.headExtra || ''}
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="/assets/css/site.css">
 <link rel="stylesheet" href="/assets/css/pages.css">
+<link rel="stylesheet" href="/assets/css/overview.css">
 ${page.styles || ''}
 ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script>`).join('\n')}
 </head>`;
@@ -87,6 +90,7 @@ function header(page) {
       ${megaMenu('mm-platform', 'Platform', NAV.platform, page.path, page.section === 'platform')}
       ${megaMenu('mm-solutions', 'Solutions', NAV.solutions, page.path, page.section === 'solutions')}
       ${megaMenu('mm-resources', 'Resources', NAV.resources, page.path, page.section === 'resources')}
+      <a href="/pricing"${cur('pricing')}>Pricing</a>
       <a href="/about"${cur('about')}>About</a>
       <a href="/contact"${cur('contact')}>Contact</a>
       <a class="btn nav-cta-mobile nav-login-mobile" href="https://app.askcompass.in">Login</a>
@@ -131,7 +135,7 @@ function breadcrumbLd(page) {
 function layout(page) {
   const scripts = [...(page.bare ? [] : ['<script src="/assets/js/site.js" defer></script>']), ...(page.scripts || [])].join('\n');
   return `${head(page)}
-<body class="${page.bodyClass || ''}">
+<body class="${page.bodyClass || 'is-inner'}">
 ${page.bare ? '' : header(page)}
 <main id="main">
 ${page.body}
@@ -156,20 +160,34 @@ export function flow(steps, label) {
 }
 const KIND = { action: 'Step', decision: 'Decision', exception: 'Exception', approval: 'Approval', auto: 'Automation', link: 'Linked procedure', form: 'Form', end: 'Outcome', source: 'Source' };
 
-const cta = (c) => `<section class="band band-cta"><div class="wrap band-cta-in">
-    <div><h2>${esc(c.title)}</h2><p>${esc(c.text)}</p></div>
-    <div class="hero-ctas">${c.primary ? `<a class="btn btn-gold btn-sheen" href="${c.primary.href}">${esc(c.primary.label)} <span aria-hidden="true">→</span></a>` : ''}${c.secondary ? `<a class="btn btn-ghost-dark" href="${c.secondary.href}">${esc(c.secondary.label)}</a>` : ''}</div>
+// Headings end in the brand gradient: the last two or three words carry it.
+const gradTail = (t) => {
+  const w = String(t).split(' ');
+  if (w.length < 3) return `<span class="px-grad">${esc(t)}</span>`;
+  const n = w.length > 5 ? 3 : 2;
+  return `${esc(w.slice(0, -n).join(' '))} <span class="px-grad">${esc(w.slice(-n).join(' '))}</span>`;
+};
+
+// The closing band used across inner pages: light, with the emblem, gold and teal actions.
+const cta = (c) => `<section class="px-close"><div class="wrap px-close-in">
+    <img class="px-close-mark" src="/assets/brand/logo-128.webp" width="128" height="128" alt="">
+    <div class="px-close-copy"><h2>${gradTail(c.title)}</h2><p>${esc(c.text)}</p></div>
+    <div class="hero-ctas">${c.primary ? `<a class="btn hx-btn-gold btn-sheen" href="${c.primary.href}">${esc(c.primary.label)} <span aria-hidden="true">→</span></a>` : ''}${c.secondary ? `<a class="btn hx-btn-teal" href="${c.secondary.href}">${esc(c.secondary.label)}</a>` : ''}</div>
   </div></section>`;
 
 const relatedLinks = (items) => `<ul class="related">${items.map((r) => `<li><a href="${r.href}"><b>${esc(r.label)}</b><span>${esc(r.desc || '')}</span></a></li>`).join('')}</ul>`;
 
+// Light hero shared by inner pages; `heroAside` adds a summary card on the right.
 function pageHero(p) {
-  return `<section class="page-hero"><div class="wrap">
-    ${breadcrumbs(p)}
-    <p class="eyebrow">${esc(p.eyebrow)}</p>
-    <h1>${p.h1Html || esc(p.h1 || p.title)}</h1>
-    <p class="page-lead">${esc(p.lead)}</p>
-    ${p.heroActions || ''}
+  return `<section class="page-hero px-hero${p.heroAside ? ' has-aside' : ''}"><div class="px-hero-bg" aria-hidden="true"></div><div class="wrap ph-in">
+    <div class="ph-copy">
+      ${breadcrumbs(p)}
+      <p class="px-pill">${esc(p.eyebrow)}</p>
+      <h1>${p.h1Html || gradTail(p.h1 || p.title)}</h1>
+      <p class="page-lead">${esc(p.lead)}</p>
+      ${p.heroActions || ''}
+    </div>
+    ${p.heroAside || ''}
   </div></section>`;
 }
 
@@ -178,6 +196,36 @@ const platformByKey = Object.fromEntries(PLATFORM.pages.map((p) => [p.slug, p]))
 const solutionByKey = Object.fromEntries(SOLUTIONS.pages.map((p) => [p.slug, p]));
 const linkToPlatform = (slug) => { const p = platformByKey[slug]; return { href: `/platform/${slug}`, label: p.title, desc: p.navDesc }; };
 const linkToSolution = (slug) => { const p = solutionByKey[slug]; return { href: `/solutions/${slug}`, label: p.title, desc: p.navDesc }; };
+
+const capGroup = Object.fromEntries(CAPS.map((c) => [c.slug, c.group]));
+const groupTitle = Object.fromEntries(GROUPS.map((g) => [g.key, g.title]));
+const svgIcon = (paths, cls) => `<svg class="${cls}" viewBox="0 0 24 24" aria-hidden="true">${paths}</svg>`;
+
+// "At a glance" card in a capability hero: group, real feature counts and what works today.
+function capSpec(p) {
+  const items = p.groups.flatMap((g) => g.items);
+  const count = (k) => items.filter((i) => i[1] === k).length;
+  const parts = ['demo', 'dev', 'planned'].filter((k) => count(k));
+  const label = { demo: 'in the demo', dev: 'in development', planned: 'planned' };
+  const today = items.filter((i) => i[1] === 'demo').slice(0, 4);
+  return `<aside class="ph-spec g-${capGroup[p.slug]}" aria-label="${esc(p.title)} at a glance">
+      <div class="sp-top"><span class="sp-ic">${svgIcon(ICONS[p.slug], 'sp-svg')}</span><div><p class="sp-k">${esc(groupTitle[capGroup[p.slug]])}</p><b>${esc(p.title)}</b></div></div>
+      <div class="sp-meter"><span class="px-bar" aria-hidden="true">${parts.map((k) => `<i class="m-${k}" style="--w:${(count(k) / items.length * 100).toFixed(1)}%"></i>`).join('')}</span>
+      <p class="sp-mt">${parts.map((k) => `<span class="mt-${k}">${count(k)} ${label[k]}</span>`).join(' · ')}</p></div>
+      ${today.length ? `<p class="sp-h">Works in the demo today</p><ul class="sp-list">${today.map((i) => `<li>${esc(i[0])}</li>`).join('')}</ul>` : `<p class="sp-h">Not in the demo yet</p><p class="sp-none">Every feature of this capability is planned. The page below explains how it is designed to work.</p>`}
+    </aside>`;
+}
+
+// Summary card in a solution hero: what to expect and the capabilities it is built from.
+function solSpec(s) {
+  const m = SOL_META[s.slug];
+  return `<aside class="ph-spec ph-sol" style="--c:${m.c}" aria-label="${esc(s.title)} at a glance">
+      <div class="sp-top"><span class="sp-ic">${svgIcon(m.icon, 'sp-svg')}</span><div><p class="sp-k">Solution</p><b>${esc(s.title)}</b></div></div>
+      <p class="sp-h">What to expect</p><ul class="sp-list sp-out">${s.outcomes.map((o) => `<li>${esc(o)}</li>`).join('')}</ul>
+      <p class="sp-h">Built from</p><div class="px-chips">${s.features.map((f) => `<a class="px-chip g-${capGroup[f]}" href="/platform/${f}">${svgIcon(ICONS[f], 'px-chip-ic')}${esc(platformByKey[f].title)}</a>`).join('')}</div>
+      <p class="sp-fine">Intended effects of guided work, not measured results.</p>
+    </aside>`;
+}
 
 function renderCapability(p) {
   const groups = p.groups.map((g) => `<div class="feat-group">
@@ -192,7 +240,7 @@ function renderCapability(p) {
     path: `/platform/${p.slug}`, section: 'platform', title: p.title, description: p.description,
     crumbs: [{ label: 'Platform', href: '/platform' }, { label: p.title, href: `/platform/${p.slug}` }],
     body: pageHero({ ...p, eyebrow: p.module, crumbs: [{ label: 'Platform', href: '/platform' }, { label: p.title }],
-      heroActions: `<div class="hero-ctas"><a class="btn btn-primary btn-sheen" href="${p.demoHref || '/studio'}">${esc(p.demoLabel || 'Try it in the Studio demo')} <span aria-hidden="true">→</span></a><a class="btn btn-ghost" href="/contact">Talk to us</a></div>` }) +
+      heroActions: `<div class="hero-ctas"><a class="btn hx-btn-gold btn-sheen" href="${p.demoHref || '/studio'}">${esc(p.demoLabel || (p.demoHref ? 'Try it in the Studio demo' : 'Open Studio'))} <span aria-hidden="true">→</span></a><a class="btn hx-btn-teal" href="/contact">Talk to us</a></div>`, heroAside: capSpec(p) }) +
       `<section class="section section-tight"><div class="wrap split">
         <div class="split-l"><p class="eyebrow">Example</p><h2>${esc(p.exampleTitle)}</h2><p class="section-lead">${esc(p.exampleText)}</p></div>
         <div class="split-r">${flow(p.example, p.exampleTitle)}</div>
@@ -216,7 +264,7 @@ function renderSolution(s) {
     path: `/solutions/${s.slug}`, section: 'solutions', title: s.title, description: s.description,
     crumbs: [{ label: 'Solutions', href: '/solutions' }, { label: s.title, href: `/solutions/${s.slug}` }],
     body: pageHero({ ...s, eyebrow: 'Solutions', crumbs: [{ label: 'Solutions', href: '/solutions' }, { label: s.title }],
-      heroActions: `<div class="hero-ctas"><a class="btn btn-primary btn-sheen" href="/contact?topic=${encodeURIComponent(s.title)}">Discuss your process <span aria-hidden="true">→</span></a><a class="btn btn-ghost" href="${s.demoHref || '/studio'}">Try a sample</a></div>` }) +
+      heroActions: `<div class="hero-ctas"><a class="btn hx-btn-gold btn-sheen" href="/contact?topic=${encodeURIComponent(s.title)}">Discuss your process <span aria-hidden="true">→</span></a>${s.demoHref ? `<a class="btn hx-btn-teal" href="${s.demoHref}">Try a sample</a>` : '<a class="btn hx-btn-teal" href="/platform">Explore the platform</a>'}</div>`, heroAside: solSpec(s) }) +
       `<section class="section section-tight"><div class="wrap split">
         <div class="split-l"><p class="eyebrow">The problem</p><h2>${esc(s.problemTitle)}</h2></div>
         <div class="split-r prose-lg">${s.problem.map((p) => `<p>${esc(p)}</p>`).join('')}</div>
@@ -247,8 +295,8 @@ function renderGuide(g) {
     body: pageHero({ ...g, eyebrow: `${g.category} · ${g.minutes} min read`, crumbs: [{ label: 'Resources', href: '/resources' }, { label: 'Guides', href: '/resources/guides' }, { label: g.title }] }) +
       `<section class="section section-tight"><div class="wrap article">
         <article class="prose">${g.body}</article>
-        <aside class="article-side"><p class="eyebrow">Related</p>${relatedLinks(g.related.map(linkToPlatform))}<a class="btn btn-primary" href="/studio">Try it in Studio</a></aside>
-      </div></section>`
+        <aside class="article-side"><p class="eyebrow">Related</p>${relatedLinks(g.related.map(linkToPlatform))}<a class="btn hx-btn-teal" href="/studio">Try it in Studio</a></aside>
+      </div></section>` + cta({ title: 'See it in a guided procedure.', text: 'The Studio demo runs in your browser with sample procedures. No account needed.', primary: { label: 'Open Studio', href: '/studio' }, secondary: { label: 'More guides', href: '/resources/guides' } })
   };
 }
 
@@ -265,7 +313,8 @@ add({
   // Links to the previous single-page site (e.g. /#build) now live in the legacy app.
   (function () {
     var h = location.hash.slice(1);
-    if (['try','features','industries','faq','contact','build','run','dashboard','pricing'].indexOf(h) !== -1) location.replace('/app.html#' + h);
+    if (h === 'pricing') location.replace('/pricing');
+    else if (['try','features','industries','faq','contact','build','run','dashboard'].indexOf(h) !== -1) location.replace('/app.html#' + h);
   })();
 </script>`,
   styles: '<link rel="stylesheet" href="/assets/css/home.css">',
@@ -276,7 +325,7 @@ add({
 
 add({
   ...PLATFORM.overview, path: '/platform', section: 'platform', bodyClass: 'is-overview is-platform', crumbs: [{ label: 'Platform', href: '/platform' }],
-  styles: '<link rel="stylesheet" href="/assets/css/overview.css">\n<link rel="stylesheet" href="/assets/css/platform.css">',
+  styles: '<link rel="stylesheet" href="/assets/css/platform.css">',
   jsonLd: { '@context': 'https://schema.org', '@type': 'WebPage', name: PLATFORM.overview.title, description: PLATFORM.overview.description, url: absolute('/platform'),
     publisher: { '@type': 'Organization', name: 'Ask Compass', url: SITE.origin + '/' },
     mainEntity: { '@type': 'ItemList', name: 'Ask Compass platform capabilities', itemListElement: PLATFORM.pages.map((p, i) => ({ '@type': 'ListItem', position: i + 1, name: p.title, url: absolute(`/platform/${p.slug}`) })) } },
@@ -287,7 +336,7 @@ PLATFORM.pages.forEach((p) => add(renderCapability(p)));
 
 add({
   ...SOLUTIONS.overview, path: '/solutions', section: 'solutions', bodyClass: 'is-overview is-solutions', crumbs: [{ label: 'Solutions', href: '/solutions' }],
-  styles: '<link rel="stylesheet" href="/assets/css/overview.css">\n<link rel="stylesheet" href="/assets/css/solutions.css">',
+  styles: '<link rel="stylesheet" href="/assets/css/solutions.css">',
   jsonLd: { '@context': 'https://schema.org', '@type': 'WebPage', name: SOLUTIONS.overview.title, description: SOLUTIONS.overview.description, url: absolute('/solutions'),
     publisher: { '@type': 'Organization', name: 'Ask Compass', url: SITE.origin + '/' },
     mainEntity: { '@type': 'ItemList', name: 'Ask Compass solutions', itemListElement: SOLUTIONS.pages.map((s, i) => ({ '@type': 'ListItem', position: i + 1, name: s.title, url: absolute(`/solutions/${s.slug}`) })) } },
@@ -295,6 +344,15 @@ add({
   body: renderSolutionsOverview({ esc, statusPill, crumbsHtml: breadcrumbs({ crumbs: [{ label: 'Solutions' }] }), SOLUTIONS, PLATFORM })
 });
 SOLUTIONS.pages.forEach((s) => add(renderSolution(s)));
+
+add({
+  path: '/pricing', section: 'pricing', title: 'Pricing',
+  description: 'ASK COMPASS pricing: one plan at $1 per user per month, with every capability included. Try the free Studio demo while customer workspaces open.',
+  crumbs: [{ label: 'Pricing', href: '/pricing' }],
+  jsonLd: { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: PRICING_FAQ.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
+  scripts: ['<script src="/assets/js/pricing.js" defer></script>'],
+  body: renderPricing({ esc, statusPill, pageHero, cta, PLATFORM })
+});
 
 // Leadership sign-in, served at ceo.askcompass.in. Sign-in is not live: nothing is sent or stored.
 add({

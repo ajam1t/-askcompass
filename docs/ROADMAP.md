@@ -44,3 +44,8 @@ Order is set by dependencies, not by how impressive a feature sounds.
 
 Every item moves to “In development” on the website only when work has started, and to “Available” only when it is
 built, tested and running in customer workspaces.
+
+## Pricing
+
+One plan: **$1 per user per month** (US dollars), every capability included, shown at `/pricing`. Customer
+workspaces are not open yet, so the page states that nobody is billed today; billing arrives with the backend.

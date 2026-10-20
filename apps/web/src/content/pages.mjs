@@ -6,7 +6,19 @@ export function PAGES({ esc, section, flow, statusPill, relatedLinks, linkToPlat
   const prose = (html) => `<section class="section section-tight"><div class="wrap"><div class="prose legal">${html}</div></div></section>`;
   const updated = 'Last updated 19 October 2026';
   const reviewNote = '<p class="note">This page is a plain-language description of how the site works today. It has not yet been reviewed by a lawyer and is not legal advice. It will be revised when customer workspaces launch.</p>';
-  const founderCard = section('founder');
+  // Leadership profiles on the About page (photos in assets/img/team).
+  const founderCard = `<section class="section" id="team" aria-labelledby="team-title"><div class="wrap">
+  <div class="section-head team-head"><p class="eyebrow">Leadership</p><h2 id="team-title">The people building ASK COMPASS.</h2></div>
+  <div class="team">
+    <article class="tm tm-founder"><span class="tm-ava"><img src="/assets/img/team/resham.webp" width="256" height="256" alt="Resham Chaudhary" loading="lazy" decoding="async"></span>
+      <h3>Resham Chaudhary</h3><span class="tm-role">Founder</span>
+      <p>Building ASK COMPASS for teams who work with procedures, approvals, quality checks and operational decisions, so everyone knows the right next step.</p></article>
+    <article class="tm tm-ceo"><span class="tm-ava"><img src="/assets/img/team/amit.webp" width="256" height="256" alt="Amit Jha" loading="lazy" decoding="async"></span>
+      <h3>Amit Jha</h3><span class="tm-role">CEO</span>
+      <p>Leading ASK COMPASS as chief executive: the product, the platform and how it reaches the teams who need it.</p></article>
+  </div>
+  <p class="team-more"><a class="text-link" href="/contact">Send us a message →</a></p>
+</div></section>`;
 
   return [
     {
@@ -35,7 +47,7 @@ export function PAGES({ esc, section, flow, statusPill, relatedLinks, linkToPlat
 <section class="section"><div class="wrap split">
   <div class="split-l"><p class="eyebrow">Questions</p><h2>Looking for a quick answer?</h2></div>
   <div class="split-r prose-lg"><p>The FAQ covers what works today, what is planned, how the demo stores data and how to get in touch.</p><p><a class="btn btn-ghost" href="/faq">Read the FAQ</a></p></div>
-</div></section>`
+</div></section>` + cta({ title: 'Try the patterns in a real procedure.', text: 'Every guide links to a sample you can open in the Studio demo. No account needed.', primary: { label: 'Open Studio', href: '/studio' }, secondary: { label: 'Talk to us', href: '/contact' } })
     },
     {
       path: '/resources/guides', section: 'resources', title: 'Guides & Insights',
@@ -45,7 +57,7 @@ export function PAGES({ esc, section, flow, statusPill, relatedLinks, linkToPlat
 <section class="section section-tight"><div class="wrap">
   <ul class="guide-cards guide-cards-list">${GUIDES.map(guideCard).join('')}</ul>
   <p class="muted-note">Topics coming next: SI-assisted procedure creation, knowledge management at the moment of work, and designing approval workflows.</p>
-</div></section>`
+</div></section>` + cta({ title: 'Put a guide into practice.', text: 'Open a sample procedure in the Studio demo and see the patterns at work.', primary: { label: 'Open Studio', href: '/studio' }, secondary: { label: 'Read the FAQ', href: '/faq' } })
     },
     {
       path: '/faq', section: 'resources', title: 'FAQ',
@@ -105,7 +117,7 @@ ${founderCard}
       </select><p class="err" id="cTopic-err"></p></div>
     <div class="field"><label for="cMessage">Message</label><textarea id="cMessage" name="message" rows="5" required placeholder="Which process would you like to make easier to follow?"></textarea><p class="err" id="cMessage-err"></p></div>
     <div class="hp" aria-hidden="true"><label for="cWebsite">Leave this empty</label><input id="cWebsite" name="website" tabindex="-1" autocomplete="off"></div>
-    <button class="btn btn-primary" type="submit">Open in my email app</button>
+    <button class="btn hx-btn-gold" type="submit">Open in my email app</button>
     <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
   </form>
   <aside class="contact-side">
@@ -204,11 +216,11 @@ ${reviewNote}
       <label for="wsSlug">Workspace name</label>
       <div class="ws-input"><input id="wsSlug" name="slug" autocomplete="organization" placeholder="your-company" spellcheck="false" inputmode="url"><span>.askcompass.in</span></div>
       <p class="err" id="wsSlug-err"></p>
-      <button class="btn btn-primary" type="submit">Continue</button>
+      <button class="btn hx-btn-gold" type="submit">Continue</button>
       <div class="form-status" id="wsStatus" role="status" aria-live="polite"></div>
     </form>
     <div class="ws-note"><b>Customer workspaces are not open yet.</b> Sign-in will be added together with server-side permission checks and per-organization data isolation. Until then there are no accounts, and this page will never ask for a password.</div>
-    <div class="hero-ctas"><a class="btn btn-ghost" href="/studio">Try the Studio demo</a><a class="btn btn-ghost" href="/contact?topic=Workspace%20for%20my%20company">Request a workspace</a></div>
+    <div class="hero-ctas"><a class="btn hx-btn-teal" href="/studio">Try the Studio demo</a><a class="btn btn-ghost" href="/contact?topic=Workspace%20for%20my%20company">Request a workspace</a></div>
   </div>
 </div></section>`
     },
@@ -221,7 +233,7 @@ ${reviewNote}
     <p class="eyebrow" id="wsHost">Workspace</p>
     <h1>This workspace isn’t available</h1>
     <p class="page-lead">There is no active Ask Compass workspace at this address. It may not have been set up yet, or the name may be misspelled.</p>
-    <div class="hero-ctas"><a class="btn btn-primary" href="${SITE.origin}/workspace">Find your workspace</a><a class="btn btn-ghost" href="${SITE.origin}/">Go to askcompass.in</a></div>
+    <div class="hero-ctas"><a class="btn hx-btn-gold" href="${SITE.origin}/workspace">Find your workspace</a><a class="btn btn-ghost" href="${SITE.origin}/">Go to askcompass.in</a></div>
   </div>
 </div></section>`
     },

@@ -19,7 +19,7 @@ export const ICONS = {
   'security-governance': '<path d="M12 3 5 6v5c0 4.5 3 8.3 7 10 4-1.7 7-5.5 7-10V6z"/><path d="m9 12 2 2 4-4"/>'
 };
 
-const GROUPS = [
+export const GROUPS = [
   { key: 'guide', title: 'Guide & enable', line: 'Help people do the work right, while they are doing it.' },
   { key: 'create', title: 'Create & structure', line: 'Give what people know a clear, followable shape.' },
   { key: 'connect', title: 'Connect & improve', line: 'Run procedures reliably and learn from every run.' },
