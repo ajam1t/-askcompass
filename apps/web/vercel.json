@@ -18,6 +18,12 @@
     },
     {
       "source": "/",
+      "has": [{ "type": "host", "value": "studio.askcompass.in" }],
+      "destination": "/studio",
+      "permanent": false
+    },
+    {
+      "source": "/",
       "has": [{ "type": "host", "value": "app.askcompass.in" }],
       "destination": "/workspace",
       "permanent": false
@@ -28,6 +34,7 @@
       "missing": [
         { "type": "host", "value": "www.askcompass.in" },
         { "type": "host", "value": "demo.askcompass.in" },
+        { "type": "host", "value": "studio.askcompass.in" },
         { "type": "host", "value": "app.askcompass.in" }
       ],
       "destination": "/workspace/unavailable",

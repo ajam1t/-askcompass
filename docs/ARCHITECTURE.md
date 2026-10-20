@@ -8,8 +8,8 @@ customer workspaces. Anything marked **Target** is a design, not running code.
 | Layer | Domain | Purpose | Status |
 |---|---|---|---|
 | Marketing site | `askcompass.in` → `www.askcompass.in` | Explain the product, platform, solutions, resources, contact | **Live** |
-| Public demo | `demo.askcompass.in` (also `/studio`, `/studio.html`) | No-login Studio with synthetic sample procedures | **Live at `/studio`**; subdomain needs DNS |
-| Central app entry | `app.askcompass.in` | Workspace discovery, then sign-in. The header **Login** button on every page links here | **Placeholder** page at `/workspace`; no sign-in yet; the subdomain needs DNS (section 7) |
+| Public demo | `demo.askcompass.in` and `studio.askcompass.in` (also `/studio`, `/studio.html`) | No-login Studio with synthetic sample procedures | **Live** |
+| Central app entry | `app.askcompass.in` | Workspace discovery, then sign-in. The header **Login** button on every page links here | **Placeholder** page at `/workspace`; no sign-in yet |
 | Customer workspaces | `{company}.askcompass.in` | One organization's procedures, users and data | **Target**; unknown subdomains show “workspace not available” |
 
 ## 2. What is deployed today
@@ -31,6 +31,7 @@ hostnames listed; `www.askcompass.in` is explicitly excluded and the marketing h
 | Request | Result |
 |---|---|
 | `demo.askcompass.in/` | 307 → `/studio` |
+| `studio.askcompass.in/` | 307 → `/studio` |
 | `app.askcompass.in/` | 307 → `/workspace` |
 | `{anything-else}.askcompass.in/*` | 307 → `/workspace/unavailable` (except `/workspace/unavailable` and `/assets/*`) |
 | `www.askcompass.in/*` | Served normally |
@@ -98,10 +99,17 @@ keep reading one definition. Index every table on `(tenant_id, …)`; enforce fo
 
 ## 7. Manual steps (DNS and Vercel)
 
-These cannot be done from the repository:
+These cannot be done from the repository. DNS for `askcompass.in` is at GoDaddy.
 
-1. In Vercel → Project → Settings → Domains, add `demo.askcompass.in` and `app.askcompass.in`.
-2. At the DNS provider for `askcompass.in`, add the CNAME records Vercel shows for each (normally `cname.vercel-dns.com`).
-3. For customer workspaces, add the wildcard `*.askcompass.in`. Vercel issues wildcard certificates only when the
-   domain uses Vercel's nameservers, so either move DNS to Vercel or add each tenant subdomain individually.
-4. Keep Vercel Deployment Protection off for production so the public site and demo stay reachable.
+1. In Vercel → Project → Domains, add the subdomain and connect it to Production.
+2. In GoDaddy → askcompass.in → DNS, add a CNAME with the short name (for example `app`) and the value Vercel
+   shows (currently `2d11c36d229eb95f.vercel-dns-017.com`). Leave the `@` A record and the `www` CNAME as they are.
+3. Click Refresh in Vercel until the domain shows Valid Configuration; HTTPS is issued automatically.
+
+Connected so far: `app`, `demo`, `studio`, `ceo` and `mithilajodi`. `ceo` (the owner's admin area) and
+`mithilajodi` (the first customer workspace) show "workspace not available" until sign-in, tenant data and
+server-side role checks exist; nothing private is served on them.
+
+For many customer workspaces, a wildcard `*.askcompass.in` is simpler. Vercel issues wildcard certificates only
+when the domain uses Vercel's nameservers, so either move DNS to Vercel or keep adding each subdomain individually.
+Keep Vercel Deployment Protection off for production so the public site and demo stay reachable.
