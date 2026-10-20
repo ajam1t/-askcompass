@@ -6,18 +6,25 @@ export function PAGES({ esc, section, flow, statusPill, relatedLinks, linkToPlat
   const prose = (html) => `<section class="section section-tight"><div class="wrap"><div class="prose legal">${html}</div></div></section>`;
   const updated = 'Last updated 19 October 2026';
   const reviewNote = '<p class="note">This page is a plain-language description of how the site works today. It has not yet been reviewed by a lawyer and is not legal advice. It will be revised when customer workspaces launch.</p>';
-  // Leadership profiles on the About page (photos in assets/img/team).
-  const founderCard = `<section class="section" id="team" aria-labelledby="team-title"><div class="wrap">
-  <div class="section-head team-head"><p class="eyebrow">Leadership</p><h2 id="team-title">The people building ASK COMPASS.</h2></div>
-  <div class="team">
-    <article class="tm tm-founder"><span class="tm-ava"><img src="/assets/img/team/resham.webp" width="256" height="256" alt="Resham Chaudhary" loading="lazy" decoding="async"></span>
-      <h3>Resham Chaudhary</h3><span class="tm-role">Founder</span>
-      <p>Building ASK COMPASS for teams who work with procedures, approvals, quality checks and operational decisions, so everyone knows the right next step.</p></article>
-    <article class="tm tm-ceo"><span class="tm-ava"><img src="/assets/img/team/amit.webp" width="256" height="256" alt="Amit Jha" loading="lazy" decoding="async"></span>
-      <h3>Amit Jha</h3><span class="tm-role">CEO</span>
-      <p>Leading ASK COMPASS as chief executive: the product, the platform and how it reaches the teams who need it.</p></article>
-  </div>
-  <p class="team-more"><a class="text-link" href="/contact">Send us a message →</a></p>
+  // The founder feature on the About page.
+  const founderCard = `<section class="section fd-sec" id="founder" aria-labelledby="fd-title"><div class="wrap">
+  <article class="fd">
+    <div class="fd-deck" aria-hidden="true">
+      <i class="fd-aurora"></i>
+      <span class="fd-orbit o1"><b></b></span><span class="fd-orbit o2"><b></b></span>
+      <span class="fd-portrait"><span class="fd-ring"></span><img src="/assets/img/team/resham-320.webp" width="320" height="320" alt=""></span>
+      <span class="fd-badge"><img src="/assets/brand/logo-64.webp" width="64" height="64" alt="">Founder</span>
+    </div>
+    <div class="fd-copy">
+      <p class="eyebrow">Meet the founder</p>
+      <h2 id="fd-title">Resham <span class="px-grad">Chaudhary</span></h2>
+      <p class="fd-role">Founder, ASK COMPASS</p>
+      <p class="fd-bio">Building ASK COMPASS for teams who work with procedures, approvals, quality checks and operational decisions, so everyone knows the right next step.</p>
+      <p class="fd-k">Building for teams who work with</p>
+      <ul class="fd-focus"><li>Procedures</li><li>Approvals</li><li>Quality checks</li><li>Operational decisions</li></ul>
+      <div class="hero-ctas"><a class="btn hx-btn-gold btn-sheen" href="/contact">Send Resham a message <span aria-hidden="true">→</span></a><a class="btn hx-btn-teal" href="/platform">See the platform</a></div>
+    </div>
+  </article>
 </div></section>`;
 
   return [
