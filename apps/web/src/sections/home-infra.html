@@ -1,0 +1,117 @@
+<!-- ───────────── SI knowledge infrastructure ─────────────
+     Five tabs on a blueprint field. Each panel pairs a short argument with a live
+     drawing that plays when the tab opens. -->
+<section class="section hin" id="infrastructure" aria-labelledby="hin-title">
+  <div class="wrap">
+    <header class="hin-head">
+      <p class="hin-pill">SI knowledge infrastructure</p>
+      <h2 id="hin-title">Everything <span class="hin-hl">under the hood</span></h2>
+      <p class="section-lead">Five things document-based knowledge management can’t do, and how ASK COMPASS is built to do them.</p>
+    </header>
+
+    <div class="hin-tabs" id="hinTabs">
+      <div class="hin-bar" role="tablist" aria-label="Under the hood">
+        <span class="hin-ind" aria-hidden="true"></span>
+        <button type="button" role="tab" id="hit-0" aria-controls="hip-0" aria-selected="true"><span class="hin-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><path d="M8 16 16 8"/></svg></span>Visual by design<i class="hin-prog" aria-hidden="true"></i></button>
+        <button type="button" role="tab" id="hit-1" aria-controls="hip-1" aria-selected="false" tabindex="-1"><span class="hin-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.5 3 8.3 7 10 4-1.7 7-5.5 7-10V6z"/><path d="m9 12 2 2 4-4"/></svg></span>Governed by default<i class="hin-prog" aria-hidden="true"></i></button>
+        <button type="button" role="tab" id="hit-2" aria-controls="hip-2" aria-selected="false" tabindex="-1"><span class="hin-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l10-6.5z"/></svg></span>Built for execution<i class="hin-prog" aria-hidden="true"></i></button>
+        <button type="button" role="tab" id="hit-3" aria-controls="hip-3" aria-selected="false" tabindex="-1"><span class="hin-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="8" cy="9" r="3"/><path d="M3 20a5 5 0 0 1 10 0M17 5l1 2 2 1-2 1-1 2-1-2-2-1 2-1zM19 14l.7 1.3L21 16l-1.3.7L19 18l-.7-1.3L17 16l1.3-.7z"/></svg></span>People and SI<i class="hin-prog" aria-hidden="true"></i></button>
+        <button type="button" role="tab" id="hit-4" aria-controls="hip-4" aria-selected="false" tabindex="-1"><span class="hin-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="10.5"/></svg></span>Engineered for scale<i class="hin-prog" aria-hidden="true"></i></button>
+      </div>
+
+      <div class="hin-stage">
+        <!-- 1 Visual by design -->
+        <div class="hin-panel is-on" role="tabpanel" id="hip-0" aria-labelledby="hit-0">
+          <div class="hin-copy">
+            <h3>Your team answers one question, not a 40-page PDF.</h3>
+            <p>Every procedure becomes a guided run: ASK COMPASS asks one question at a time and shows the next step from the answer. Nobody has to read, interpret and hope they got it right, and the full map is one click away under Procedure Flow.</p>
+            <div class="hin-meta"><span class="status status-demo">In the demo</span><a class="text-link" href="/studio#/p/equipment-request/run">Try a guided run →</a></div>
+          </div>
+          <div class="hin-vis vis-vs" aria-hidden="true">
+            <div class="vs-doc"><span class="vs-mark no">✕</span><div class="vs-pages"><i></i><i></i><i></i></div><div class="vs-sheet"><b></b><div class="vs-lines">
+              <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div><small>Policy_v7_FINAL(2).pdf · 40 pages</small></div>
+            <div class="vs-q"><span class="vs-mark ok">✓</span>
+              <span class="q-badge">Decision</span>
+              <p class="q-text">Is the item over ₹1,00,000 or outside the standard catalog?</p>
+              <span class="q-chip">Approval thresholds §2.1</span>
+              <p class="q-sel">Select one option</p>
+              <span class="q-opt yes">Yes</span><span class="q-opt">No</span>
+              <div class="q-btns"><span>← Back</span><span class="q-pf">Procedure Flow</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2 Governed by default -->
+        <div class="hin-panel" role="tabpanel" id="hip-1" aria-labelledby="hit-1">
+          <div class="hin-copy">
+            <h3>Prove every process. Every change. Every time.</h3>
+            <p>Versioned procedures, review and approval before anything goes live, and an audit log of who changed what and when. Roll out a change and see exactly which version people followed. Role-based sign-in is planned.</p>
+            <div class="hin-meta"><span class="status status-demo">In the demo</span><a class="text-link" href="/studio#/audit">Open the audit log →</a></div>
+          </div>
+          <div class="hin-vis vis-gov" aria-hidden="true">
+            <div class="gv-time"><span class="gv-v">v1.0</span><span class="gv-v">v1.1</span><span class="gv-v now">v2.0</span><i class="gv-track"></i></div>
+            <div class="gv-chart"><small>Procedure views · sample</small><div class="gv-bars"><i style="--h:55%"></i><i style="--h:78%"></i><i style="--h:42%"></i><i style="--h:36%"></i><i style="--h:60%"></i><i style="--h:48%"></i><i style="--h:70%"></i></div></div>
+            <ul class="gv-log">
+              <li><time>10:13</time><b>Quality lead</b><span>Approved <u>v2.0 · Refund request</u></span></li>
+              <li><time>09:56</time><b>Editor</b><span>Submitted a change to <u>Step 3</u></span></li>
+              <li><time>09:20</time><b>Support agent</b><span>Followed <u>v1.1 · Refund request</u></span></li>
+              <li><time>08:44</time><b>Owner</b><span>Restored <u>v1.1</u> for review</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 3 Built for execution -->
+        <div class="hin-panel" role="tabpanel" id="hip-2" aria-labelledby="hit-2">
+          <div class="hin-copy">
+            <h3>Other tools store knowledge. ASK COMPASS runs it.</h3>
+            <p>Wikis hand people a list of articles and wish them luck. ASK COMPASS walks them through the work, step by step. Search in plain words and land on the exact step in the right procedure. No tab-hopping, no guessing.</p>
+            <div class="hin-meta"><span class="status status-demo">In the demo</span><a class="text-link" href="/studio#/search?q=refund">Try the search →</a></div>
+          </div>
+          <div class="hin-vis vis-search" aria-hidden="true">
+            <div class="sr-box"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg><span class="sr-q" id="hinQuery">refund after 30 days</span><i class="sr-caret"></i></div>
+            <ul class="sr-res">
+              <li class="hot"><small>Handle a refund request › Step 2</small><b>Delivered within 30 days?</b><em>Opens at this step</em></li>
+              <li><small>Handle a refund request</small><b>Issue the refund and close the case</b></li>
+              <li><small>Customer Support</small><b>Offer a repair or exchange</b></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- 4 People and SI -->
+        <div class="hin-panel" role="tabpanel" id="hip-3" aria-labelledby="hit-3">
+          <div class="hin-copy">
+            <h3>The flow your team follows is the one SI reads.</h3>
+            <p>Procedures are structured and versioned, so people and SI agents can work from the same published source. No parallel documentation, no two versions of the truth. Planned: an API for SI agents, copilots and self-service channels, with every answer tied to an approved step.</p>
+            <div class="hin-meta"><span class="status status-planned">Planned</span><a class="text-link" href="/platform/si-procedure-studio">SI Procedure Studio →</a></div>
+          </div>
+          <div class="hin-vis vis-link" aria-hidden="true">
+            <div class="lk-node lk-person"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><small>Your team</small></div>
+            <i class="lk-wire w1"><b></b></i>
+            <div class="lk-node lk-core"><img src="/assets/brand/logo-128.webp" width="96" height="96" alt="" loading="lazy"><small>Published procedure</small></div>
+            <i class="lk-wire w2"><b></b></i>
+            <div class="lk-node lk-si"><svg viewBox="0 0 24 24"><path d="M12 2.5l1.8 4.7 4.7 1.8-4.7 1.8L12 15.5l-1.8-4.7L5.5 9l4.7-1.8zM18.5 14l.9 2.3 2.3.9-2.3.9-.9 2.4-.9-2.4-2.3-.9 2.3-.9zM5.5 15l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"/></svg><small>SI agents</small></div>
+          </div>
+        </div>
+
+        <!-- 5 Engineered for scale -->
+        <div class="hin-panel" role="tabpanel" id="hip-4" aria-labelledby="hit-4">
+          <div class="hin-copy">
+            <h3>What works for one team becomes how the whole business runs.</h3>
+            <p>Capture the way your best people work once, then follow it everywhere: across teams, sites and regions. Onboard someone in Pune the same way as in Bengaluru, and roll out a change to everyone at once.</p>
+            <div class="hin-meta"><span class="status status-planned">Multi-site workspaces planned</span><a class="text-link" href="/solutions/operations">Business operations →</a></div>
+          </div>
+          <div class="hin-vis vis-scale" aria-hidden="true">
+            <i class="sc-ring r1"></i><i class="sc-ring r2"></i><i class="sc-ring r3"></i>
+            <img class="sc-core" src="/assets/brand/logo-128.webp" width="96" height="96" alt="" loading="lazy">
+            <div class="sc-orbit o1"><span>Support</span></div>
+            <div class="sc-orbit o2"><span>Pune</span></div>
+            <div class="sc-orbit o3"><span>Quality</span></div>
+            <div class="sc-orbit o4"><span>Bengaluru</span></div>
+            <div class="sc-orbit o5"><span>Operations</span></div>
+            <div class="sc-orbit o6"><span>Mumbai</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

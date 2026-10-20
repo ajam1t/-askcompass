@@ -1,25 +1,69 @@
-<!-- ───────────── Industries ───────────── -->
-<section class="section hi" id="industries" aria-labelledby="hi-title">
-  <div class="wrap hi-in">
-    <div class="hi-copy">
-      <p class="hx-eyebrow">Built for every industry</p>
-      <h2 id="hi-title">Any team. Any process. <span class="hx-grad">Clear direction.</span></h2>
-      <p>Wherever work follows procedures, approvals and decisions, Ask Compass shows people the right next step.</p>
-      <p class="hi-flapline"><span aria-hidden="true">Built for</span> <span class="flap" id="flap" data-words="support teams|new starters|field crews|quality teams|auditors|process owners" aria-hidden="true">support teams</span><span class="sr-only">Built for support teams, new starters, field crews, quality teams, auditors and process owners.</span></p>
-      <a class="hk-all" href="/solutions">Explore solutions <span aria-hidden="true">→</span></a>
-    </div>
-    <ul class="hi-list">
-      <li><span aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></span>Technology</li>
-      <li><span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 20V10l5 3V10l5 3V6l8 4v10z"/></svg></span>Manufacturing</li>
-      <li><span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/><path d="M9 11h6M12 8v6"/></svg></span>Healthcare</li>
-      <li><span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M3 9 12 4l9 5M5 9v9M10 9v9M14 9v9M19 9v9M3 20h18"/></svg></span>Financial services</li>
-      <li><span aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M3 13h18"/></svg></span>Professional services</li>
-      <li><span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 20h16M6 20V10M10 20V10M14 20V10M18 20V10M3 10l9-6 9 6z"/></svg></span>Public sector</li>
-      <li><span aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="6" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="18" cy="12" r="1.6"/></svg></span>And more</li>
+<!-- ───────────── Industries: twelve cards, each with a small live preview ─────────────
+     Previews play when a card scrolls into view and replay on hover. The chips filter
+     the grid; the content stays readable without JavaScript. -->
+<section class="section hind" id="industries" aria-labelledby="hind-title">
+  <div class="wrap">
+    <header class="hind-head">
+      <p class="hin-pill">Industries</p>
+      <h2 id="hind-title">Built for the teams who <span class="hin-hl">can’t afford to get it wrong</span></h2>
+      <p class="section-lead">Regulated finance. High-volume support. Field operations. Wherever the right answer, the first time, is non-negotiable.</p>
+      <div class="hind-filter" role="group" aria-label="Filter industries">
+        <button type="button" aria-pressed="true" data-f="all">All</button>
+        <button type="button" aria-pressed="false" data-f="reg">Regulated</button>
+        <button type="button" aria-pressed="false" data-f="vol">High volume</button>
+        <button type="button" aria-pressed="false" data-f="ops">Field &amp; operations</button>
+      </div>
+    </header>
+
+    <ul class="hind-grid" id="hindGrid">
+      <li class="icard" data-t="reg vol" style="--c1:#dbeaff;--c2:#7fb2ff;--ink:#0d3a8a">
+        <div class="iv iv-chat" aria-hidden="true"><span class="who">Amit</span><span class="bub b1">Was my limit increase applied?</span><span class="who r">Support</span><span class="bub b2">Yes, ₹50,000 until midnight.</span></div>
+        <a class="ilab" href="/solutions/compliance-governance"><b>Banking &amp; finance</b><small>Card limits, KYC, disputes</small><i aria-hidden="true">→</i></a>
+      </li>
+      <li class="icard" data-t="reg" style="--c1:#ece4ff;--c2:#b69cff;--ink:#4a2aa8">
+        <div class="iv iv-dec" aria-hidden="true"><span class="db">Decision</span><span class="dq">Is the claim inside the policy period?</span><span class="do yes">Yes</span><span class="do">No</span></div>
+        <a class="ilab" href="/solutions/compliance-governance"><b>Insurance</b><small>Claims, renewals, endorsements</small><i aria-hidden="true">→</i></a>
+      </li>
+      <li class="icard" data-t="reg" style="--c1:#d9f6f1;--c2:#6fd6c4;--ink:#0b6b5f">
+        <div class="iv iv-check" aria-hidden="true"><span class="ck c1"><i>✓</i>Patient ID verified</span><span class="ck c2"><i>✓</i>Consent recorded</span><span class="ck c3"><i>✓</i>Handover note added</span></div>
+        <a class="ilab" href="/solutions/compliance-governance"><b>Healthcare</b><small>Admissions, consent, handovers</small><i aria-hidden="true">→</i></a>
+      </li>
+      <li class="icard" data-t="vol" style="--c1:#d9f2ff;--c2:#62c8f5;--ink:#075f86">
+        <div class="iv iv-search" aria-hidden="true"><span class="sb"><span class="sq">No network after recharge</span><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg></span><span class="sr">Troubleshoot mobile data › Step 1</span><span class="sr s2">Check the recharge has posted</span></div>
+        <a class="ilab" href="/solutions/customer-support"><b>Telecom</b><small>Activation, outages, plan changes</small><i aria-hidden="true">→</i></a>
+      </li>
+      <li class="icard" data-t="vol ops" style="--c1:#fff0cf;--c2:#f7c35c;--ink:#8a5500">
+        <div class="iv iv-search2" aria-hidden="true"><span class="sh">Search</span><span class="sb"><span class="sq">Power outage</span></span><span class="sr pick">Power outage › Is the area already reported?</span><span class="cur"></span></div>
+        <a class="ilab" href="/solutions/customer-support"><b>Utilities</b><small>Outages, meters, new connections</small><i aria-hidden="true">→</i></a>
+      </li>
+      <li class="icard" data-t="reg" style="--c1:#ffe2ea;--c2:#ff8fab;--ink:#a3214a">
+        <div class="iv iv-word" aria-hidden="true"><span class="wd">Application status</span><span class="ul"></span><span class="cur"></span></div>
+        <a class="ilab" href="/solutions/process-documentation"><b>Government &amp; public sector</b><small>Applications, permits, grievances</small><i aria-hidden="true">→</i></a>
+      </li>
+      <li class="icard" data-t="ops" style="--c1:#ffe6d6;--c2:#ff9f6b;--ink:#9a3d06">
+        <div class="iv iv-warn" aria-hidden="true"><span class="wb">⚠ Safety step</span><span class="wt">Lock out the machine before maintenance</span><span class="wk"><i>✓</i>Isolation tag attached</span></div>
+        <a class="ilab" href="/solutions/operations"><b>Manufacturing</b><small>Maintenance, quality checks, changeovers</small><i aria-hidden="true">→</i></a>
+      </li>
+      <li class="icard" data-t="vol" style="--c1:#ffe3f6;--c2:#f59ad6;--ink:#8f1d6c">
+        <div class="iv iv-dec" aria-hidden="true"><span class="db">Decision</span><span class="dq">Delivered within the last 30 days?</span><span class="do yes">Yes</span><span class="do">No</span></div>
+        <a class="ilab" href="/solutions/customer-support"><b>Retail &amp; e-commerce</b><small>Returns, refunds, order issues</small><i aria-hidden="true">→</i></a>
+      </li>
+      <li class="icard" data-t="ops" style="--c1:#dcf7e3;--c2:#6fd38f;--ink:#106b33">
+        <div class="iv iv-route" aria-hidden="true"><span class="rt"><i class="p1"></i><i class="p2"></i><i class="p3"></i><b class="truck"></b></span><span class="rl"><em>Pickup</em><em>Hub</em><em>Delivered</em></span><span class="rs">Proof of delivery captured</span></div>
+        <a class="ilab" href="/solutions/operations"><b>Logistics &amp; supply chain</b><small>Dispatch, exceptions, proof of delivery</small><i aria-hidden="true">→</i></a>
+      </li>
+      <li class="icard" data-t="vol" style="--c1:#e3e6ff;--c2:#8f9bff;--ink:#2c36a8">
+        <div class="iv iv-ticket" aria-hidden="true"><span class="tk"><b>Reset system access</b><small>INC-2041 · Priority 2</small><span class="st"><em class="open">Open</em><em class="done">Resolved</em></span></span></div>
+        <a class="ilab" href="/solutions/enterprise-automation"><b>IT &amp; technology</b><small>Access, incidents, onboarding</small><i aria-hidden="true">→</i></a>
+      </li>
+      <li class="icard" data-t="reg ops" style="--c1:#e0f7ef;--c2:#7ddbb7;--ink:#0f6b4a">
+        <div class="iv iv-stamp" aria-hidden="true"><span class="doc"><b>SOP-114</b><small>Line clearance</small><i></i><i></i><i></i></span><span class="stamp">v3.2 approved</span></div>
+        <a class="ilab" href="/solutions/compliance-governance"><b>Pharma &amp; life sciences</b><small>SOPs, deviations, batch records</small><i aria-hidden="true">→</i></a>
+      </li>
+      <li class="icard" data-t="vol" style="--c1:#fff4d6;--c2:#f5c35e;--ink:#7a4f00">
+        <div class="iv iv-queue" aria-hidden="true"><span class="qr"><i></i>Caller 1 · refund</span><span class="qr hot"><i></i>Caller 2 · address change</span><span class="qr"><i></i>Caller 3 · card block</span><span class="qn">Next step: verify the caller</span></div>
+        <a class="ilab" href="/solutions/employee-enablement"><b>BPO &amp; shared services</b><small>Multi-client queues, onboarding</small><i aria-hidden="true">→</i></a>
+      </li>
     </ul>
   </div>
-  <div class="wrap"><div class="hi-cta">
-    <p><b>See it working on a sample procedure.</b> The Studio demo runs in your browser with sample data. No account needed.</p>
-    <div class="hero-ctas"><a class="btn hx-btn-primary btn-sheen" href="/studio">Open Studio <span aria-hidden="true">→</span></a><a class="btn hx-btn-outline" href="/contact">Talk to us</a></div>
-  </div></div>
 </section>

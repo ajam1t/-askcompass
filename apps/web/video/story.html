@@ -55,23 +55,33 @@
   .crumbs { position: absolute; left: 40px; top: 22px; font-size: 14px; color: var(--ink-2); }
   .crumbs i { font-style: normal; color: var(--blue); }
   .ftitle { position: absolute; left: 40px; top: 48px; font-size: 22px; font-weight: 650; letter-spacing: -.02em; }
-  .fwin { position: absolute; left: 0; right: 0; top: 96px; bottom: 0; overflow: hidden;
-    -webkit-mask: linear-gradient(180deg, transparent 0, #000 40px, #000 85%, transparent); }
-  .track { position: absolute; left: 0; top: 0; width: 700px; }
-  .node { position: absolute; left: 110px; width: 400px; height: 70px; display: grid; place-items: center; text-align: center; padding: 0 22px; font-weight: 650; font-size: 19px; line-height: 1.25; border-radius: 14px; border: 2px solid #c6d3e6; background: #fff; color: var(--ink); }
-  .node.act { background: #eaf6f1; border-color: #8fd1b4; }
-  .node.chk { background: #e9f3fd; border-color: #8cbcf0; }
-  .node.dec { background: none; border: 0; }
-  .node.dec::before { content: ""; position: absolute; left: 90px; top: -20px; width: 220px; height: 110px; background: #fff3d9; border: 2px solid #e7b04a; clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); z-index: -1; }
-  .node.dec { z-index: 1; }
-  .node.apply { background: #fde9ee; border-color: #ee9db2; }
-  .node.end { border-radius: 999px; background: var(--navy); border-color: var(--navy); color: #fff; }
-  .node .done { position: absolute; right: -14px; top: -14px; width: 30px; height: 30px; border-radius: 50%; background: var(--ok); color: #fff; display: grid; place-items: center; font-size: 17px; box-shadow: 0 0 0 3px #fff; }
-  .arrow { position: absolute; left: 309px; width: 2px; background: #9aa9bf; }
-  .arrow::after { content: ""; position: absolute; left: -5px; bottom: -2px; border: 6px solid transparent; border-top: 8px solid #9aa9bf; border-bottom: 0; }
-  .lbl { position: absolute; font: 600 14px "Geist Mono", monospace; color: var(--ink-2); background: #fff; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--line); }
-  .side { position: absolute; left: 520px; height: 2px; width: 70px; background: #c9d3e0; }
-  .sidebox { position: absolute; left: 596px; width: 92px; padding: 6px 8px; font-size: 12.5px; line-height: 1.25; color: var(--ink-2); border: 1.5px dashed #c9d3e0; border-radius: 10px; text-align: center; background: #fff; }
+  .rprog { position: absolute; left: 40px; right: 40px; top: 92px; display: flex; align-items: center; gap: 12px; font: 500 12.5px "Geist Mono", monospace; color: var(--ink-2); }
+  .rprog i { flex: 1; height: 6px; border-radius: 3px; background: #e6edf7; overflow: hidden; }
+  .rprog i b { display: block; height: 100%; width: var(--p, 0%); background: linear-gradient(90deg, #2563EB, #0E8A80); border-radius: 3px; }
+  .rc { position: absolute; left: 70px; top: 130px; width: 560px; padding: 26px 28px 24px; border-radius: 20px; background: #fff; border: 1px solid #e3e9f3; box-shadow: 0 24px 50px rgba(16, 40, 76, .10); }
+  .badge { display: inline-flex; align-items: center; gap: 7px; padding: 6px 13px; border-radius: 999px; font: 700 13px "Geist", sans-serif; letter-spacing: .06em; text-transform: uppercase; }
+  .badge.dec { background: #fff3cf; color: #9a5a00; border: 1px solid #f3d27a; }
+  .badge.act { background: #e3f0ff; color: #1d4fa8; border: 1px solid #b9d3f7; }
+  .badge.end { background: #e3f4ec; color: #0e7a4c; border: 1px solid #b8e2cc; }
+  .badge::before { content: ""; width: 8px; height: 8px; background: currentColor; transform: rotate(45deg); }
+  .rq { margin: 18px 0 14px; font-size: 22px; font-weight: 700; line-height: 1.3; letter-spacing: -.015em; color: #0f1d36; }
+  .chip { display: inline-flex; align-items: center; gap: 8px; margin: -2px 0 16px; padding: 8px 14px; border-radius: 999px; background: #eaf3ff; border: 1px solid #c6dcfa; font-size: 15px; font-weight: 600; color: #2563EB; }
+  .chip svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; }
+  .sel { margin: 0 0 10px; font: 700 12.5px "Geist", sans-serif; letter-spacing: .1em; text-transform: uppercase; color: #9aa6bd; }
+  .opt { display: block; margin-bottom: 10px; padding: 16px 22px; border-radius: 14px; background: #f3f6fd; border: 1.5px solid #e1e7f3; font-size: 18px; color: #3a4762; }
+  .opt.is-on { background: #e7f0fd; border-color: var(--blue); color: var(--navy); font-weight: 600; box-shadow: 0 0 0 4px rgba(37, 99, 235, .12); }
+  .chk { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; padding: 14px 18px; border-radius: 14px; background: #f3f6fd; border: 1.5px solid #e1e7f3; font-size: 17px; color: #3a4762; }
+  .chk i { display: grid; place-items: center; flex: none; width: 24px; height: 24px; border-radius: 7px; border: 2px solid #b8c4d8; color: #fff; font: 700 14px sans-serif; font-style: normal; }
+  .chk.is-on { background: #e8f6ef; border-color: #a9dcc1; color: #10284C; }
+  .chk.is-on i { background: var(--ok); border-color: var(--ok); }
+  .rbtns { display: flex; gap: 12px; margin-top: 18px; }
+  .rb { display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border-radius: 999px; border: 1.5px solid #dfe5f0; background: #fff; font-size: 16px; font-weight: 600; color: #4a5670; }
+  .rb.pf { border: 2px solid #b49cf0; color: #5b32c9; }
+  .rb.pf svg { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linejoin: round; }
+  .rb.next { margin-left: auto; background: linear-gradient(180deg, #F5C35E, #EBAA3C); border-color: rgba(185, 122, 14, .35); color: var(--navy); }
+  .rb.is-press { transform: scale(.95); }
+  .rdone { display: grid; place-items: center; width: 72px; height: 72px; margin: 20px 0 6px; border-radius: 50%; background: var(--ok); color: #fff; font-size: 38px; box-shadow: 0 0 0 10px #e3f4ec; }
+  .rmeta { margin: 0; font-size: 16px; color: var(--ink-2); }
   .divider { position: absolute; left: 700px; top: 64px; bottom: 0; width: 1px; background: var(--line); }
   .chatbg { left: 701px; top: 64px; width: 499px; height: 584px; background: linear-gradient(180deg, #fbfcfe, #f5f8fc); }
   .chat-h { left: 730px; top: 84px; font: 500 13px "Geist Mono", monospace; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
@@ -85,6 +95,10 @@
   .card h3 { font-size: 30px; line-height: 1.2; text-align: center; letter-spacing: -.03em; color: var(--navy); }
   .lock { left: 0; right: 0; top: 230px; display: flex; flex-direction: column; align-items: center; gap: 18px; }
   .lock .brand { font-size: 52px; gap: 22px; letter-spacing: .08em; }
+  .bw { display: flex; flex-direction: column; gap: 3px; line-height: 1.05; }
+  .bw small { font-size: 11px; font-weight: 500; letter-spacing: .01em; color: var(--ink-2); }
+  .lock .bw { gap: 10px; }
+  .lock .bw small { font: 500 21px Geist, system-ui, sans-serif; letter-spacing: .01em; color: var(--ink-2); }
   .lock .brand svg, .lock .brand img { width: 120px; height: 120px; }
   .lock p { font-size: 28px; color: var(--ink-2); letter-spacing: -.02em; }
   .lock p b { color: var(--blue); }
@@ -112,7 +126,7 @@
   <!-- The app -->
   <div class="abs" id="app">
     <div class="bar">
-      <span class="brand"><img src="../assets/brand/logo-256.webp" alt="">ASK COMPASS</span>
+      <span class="brand"><img src="../assets/brand/logo-256.webp" alt=""><span class="bw"><span>ASK COMPASS</span><small>Where knowledge becomes direction</small></span></span>
       <span class="search" id="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4 4"/></svg><span id="q">Search procedures</span></span>
       <span class="pill">Live · v2.1</span>
     </div>
@@ -132,22 +146,18 @@
       <div>Debit card replacement<small>Cards &amp; Payments</small></div>
     </div>
     <div class="abs flowview" id="flow">
-      <p class="crumbs">Library / <i>Cards &amp; Payments</i> / <i>Incoming call</i> / Temporary debit card limit increase</p>
+      <p class="crumbs">Library / <i>Cards &amp; Payments</i> / <i>Incoming call</i></p>
       <p class="ftitle">Temporary debit card limit increase</p>
-      <div class="fwin"><div class="track" id="track">
-        <div class="node act" data-i="0" style="top:30px">Record account number &amp; requested limit<span class="done">✓</span></div>
-        <div class="arrow" style="top:104px;height:52px"></div>
-        <div class="node chk" data-i="1" style="top:160px">Check eligibility criteria<span class="done">✓</span></div>
-        <div class="arrow" style="top:234px;height:52px"></div>
-        <div class="node dec" data-i="2" style="top:310px">Meets criteria?<span class="done" style="right:76px;top:-30px">✓</span></div>
-        <div class="side" id="noLine" style="top:344px"></div>
-        <div class="sidebox" id="noBox" style="top:322px">No: refer to team lead</div>
-        <div class="arrow" style="top:394px;height:62px"></div>
-        <div class="lbl" id="yes" style="left:292px;top:410px">Yes</div>
-        <div class="node apply" data-i="3" style="top:460px">Get consent and apply the limit increase<span class="done">✓</span></div>
-        <div class="arrow" style="top:534px;height:52px"></div>
-        <div class="node end" data-i="4" style="top:590px">End call<span class="done">✓</span></div>
-      </div></div>
+      <div class="rprog"><span id="rStep">Step 1 of 4</span><i><b id="rBar"></b></i></div>
+      <div class="rc" id="rc0"><span class="badge act">Action</span><p class="rq">Record the account number and the requested limit</p><p class="sel">Complete before you continue</p>
+        <div class="chk" id="k00"><i>✓</i>Account number confirmed (ending 4482)</div><div class="chk" id="k01"><i>✓</i>Requested limit noted: ₹50,000 for today</div><div class="rbtns"><span class="rb pf"><svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5zM4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5"/></svg>Procedure Flow</span><span class="rb next">Next →</span></div></div>
+      <div class="rc" id="rc1"><span class="badge dec">Decision</span><p class="rq">Does the account meet the eligibility criteria?</p><span class="chip"><svg viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>Card limit policy §2</span><p class="sel">Select one option</p>
+        <div class="opt" id="o1y">Yes</div><div class="opt">No</div><div class="rbtns"><span class="rb back">← Back</span><span class="rb pf"><svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5zM4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5"/></svg>Procedure Flow</span></div></div>
+      <div class="rc" id="rc2"><span class="badge dec">Decision</span><p class="rq">Has the customer agreed to raise the limit to ₹50,000 until midnight?</p><span class="chip"><svg viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>Consent script</span><p class="sel">Select one option</p>
+        <div class="opt" id="o2y">Yes</div><div class="opt">No</div><div class="rbtns"><span class="rb back">← Back</span><span class="rb pf"><svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5zM4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5"/></svg>Procedure Flow</span></div></div>
+      <div class="rc" id="rc3"><span class="badge act">Action</span><p class="rq">Apply the temporary limit increase</p><p class="sel">Complete before you continue</p>
+        <div class="chk" id="k30"><i>✓</i>Limit set to ₹50,000 until midnight</div><div class="chk" id="k31"><i>✓</i>Customer told the new limit</div><div class="rbtns"><span class="rb back">← Back</span><span class="rb pf"><svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5zM4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5"/></svg>Procedure Flow</span><span class="rb next">Next →</span></div></div>
+      <div class="rc" id="rc4"><span class="badge end">End</span><div class="rdone">✓</div><p class="rq">Done. Close the call.</p><p class="rmeta">All 4 steps followed · v2.1 · recorded in the audit log</p><div class="rbtns"><span class="rb back">← Back</span><span class="rb pf"><svg viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5zM4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5"/></svg>Procedure Flow</span></div></div>
     </div>
     <div class="divider"></div>
     <div class="abs chatbg"></div>
@@ -168,7 +178,7 @@
   </div>
   <div class="abs" id="oA" style="left:592px;top:140px"><div class="av"><img src="amit.jpg" alt=""></div></div>
   <div class="abs lock" id="lock">
-    <span class="brand"><img src="../assets/brand/logo-256.webp" alt="">ASK COMPASS</span>
+    <span class="brand"><img src="../assets/brand/logo-256.webp" alt=""><span class="bw"><span>ASK COMPASS</span><small>Where knowledge becomes direction</small></span></span>
     <p>Beyond Intelligence. <b>Towards Clarity.</b></p>
     <small>askcompass.in</small>
   </div>
@@ -229,10 +239,12 @@
   const stars = $('#stars');
   const STAR_COLORS = ['#10284C', '#173F73', '#2563EB', '#4C9AFF', '#EFB64A'];
   for (let i = 0; i < 5; i++) stars.insertAdjacentHTML('beforeend', `<svg data-c="${STAR_COLORS[i]}"><use href="#star"/></svg>`);
-  const nodes = [...document.querySelectorAll('.node')];
-  // When each step becomes the current one, and the track offset that keeps it in view
-  const STEPS = [11.4, 16.5, 19.6, 23.6, 27.6];
-  const CAM = [[11, 0], [16.2, 0], [16.9, -40], [19.3, -40], [20, -150], [23.3, -150], [24, -300], [27.3, -300], [28, -360]];
+  // Guided run: one card at a time. [card, in, out]
+  const CARDS = [['#rc0', 11.4, 16.5], ['#rc1', 16.6, 21.8], ['#rc2', 21.9, 26.9], ['#rc3', 27.0, 29.8], ['#rc4', 29.9, 31]];
+  // Cursor clicks inside the run: [time, element]
+  const CLICKS = [[16.2, '#rc0 .rb.next'], [21.4, '#o1y'], [26.5, '#o2y'], [29.5, '#rc3 .rb.next']];
+  let CUR_KEYS = null;
+  function centre(sel) { const r = $(sel).getBoundingClientRect(), st = $('#stage').getBoundingClientRect(); return [r.left - st.left + Math.min(r.width * .5, 60), r.top - st.top + r.height * .5]; }
 
   window.render = function (t) {
     // intro
@@ -261,35 +273,32 @@
     $('#ddHot').style.background = t > 10.55 ? '#d6e6fd' : '';
 
     // cursor: into the search box, then onto the first result
-    const cur = $('#cur'), kc = env(t, 8.0, 10.9, .3, .3);
+    const cur = $('#cur'), kc = Math.max(env(t, 8.0, 10.9, .3, .3), env(t, 15.0, 29.8, .3, .3));
     cur.style.opacity = kc; cur.style.visibility = kc ? 'visible' : 'hidden';
-    const cx = track([[8, 520], [8.8, 420], [10.1, 420], [10.5, 360]], t), cy = track([[8, 330], [8.8, 118], [10.1, 118], [10.5, 150]], t);
-    const press = t > 8.75 && t < 8.9 || t > 10.5 && t < 10.65 ? .85 : 1;
+    let cx, cy;
+    if (t < 12) { cx = track([[8, 520], [8.8, 420], [10.1, 420], [10.5, 360]], t); cy = track([[8, 330], [8.8, 118], [10.1, 118], [10.5, 150]], t); }
+    else { cx = track(CUR_KEYS.map((k) => [k[0], k[1]]), t); cy = track(CUR_KEYS.map((k) => [k[0], k[2]]), t); }
+    const press = (t > 8.75 && t < 8.9) || (t > 10.5 && t < 10.65) || CLICKS.some(([ct]) => t > ct && t < ct + .15) ? .85 : 1;
     cur.style.transform = `translate(${cx}px, ${cy}px) scale(${press})`;
 
-    // flow
+    // guided run: the current question slides in, the last one slides out
     const kf = clamp((t - 11) / .45);
     $('#flow').style.opacity = kf;
-    $('#track').style.transform = `translateY(${track(CAM, t).toFixed(1)}px)`;
-    let cur_i = -1; STEPS.forEach((s, i) => { if (t >= s) cur_i = i; });
-    const finished = t >= 30.2;
-    nodes.forEach((el, i) => {
-      const future = i > cur_i, isCur = i === cur_i && !finished, done = i < cur_i || (finished && i <= cur_i);
-      const reveal = clamp((t - STEPS[i]) / .45);
-      el.style.filter = future ? 'blur(3px)' : `blur(${((1 - reveal) * 3).toFixed(2)}px)`;
-      el.style.opacity = future ? .4 : lerp(.4, 1, reveal);
-      el.style.boxShadow = isCur && !el.classList.contains('dec') ? `0 0 0 ${(5 * reveal).toFixed(1)}px rgba(37,99,235,.18), 0 12px 26px rgba(37,99,235,.16)` : 'none';
-      el.style.transform = isCur ? `scale(${lerp(1, 1.04, reveal).toFixed(3)})` : 'none';
-      const d = el.querySelector('.done');
-      const dk = done ? clamp((t - (i < cur_i ? STEPS[i + 1] : 30.2)) / .3) : 0;
-      d.style.opacity = dk; d.style.transform = `scale(${lerp(.4, 1, outCubic(dk))})`;
+    CARDS.forEach(([sel, tin, tout], i) => {
+      const el = $(sel), last = i === CARDS.length - 1;
+      const kin = t < tin ? 0 : outCubic(clamp((t - tin) / .45)), kout = last ? 0 : clamp((t - tout) / .3);
+      const k = kin * (1 - kout);
+      el.style.opacity = k.toFixed(3); el.style.visibility = k > 0 ? 'visible' : 'hidden';
+      el.style.transform = `translateX(${((1 - kin) * 40 - kout * 40).toFixed(1)}px)`;
     });
-    // decision: "No" fades back, "Yes" lights up once Resham confirms
-    const yesK = clamp((t - 21.4) / .4);
-    $('#noBox').style.opacity = $('#noLine').style.opacity = lerp(cur_i >= 2 ? .9 : .35, .3, yesK);
-    const yes = $('#yes');
-    yes.style.background = yesK > .5 ? '#2563EB' : '#fff'; yes.style.color = yesK > .5 ? '#fff' : ''; yes.style.borderColor = yesK > .5 ? '#2563EB' : '';
-    yes.style.opacity = cur_i >= 2 ? 1 : .4;
+    const stepNo = t < 16.6 ? 1 : t < 21.9 ? 2 : t < 27 ? 3 : 4;
+    $('#rStep').textContent = t >= 29.9 ? 'Complete' : `Step ${stepNo} of 4`;
+    const pct = track([[11.4, 4], [16.5, 25], [21.8, 50], [26.9, 75], [29.9, 100]], t);
+    $('#rBar').style.setProperty('--p', pct.toFixed(1) + '%');
+    $('#k00').classList.toggle('is-on', t >= 15.0); $('#k01').classList.toggle('is-on', t >= 15.6);
+    $('#k30').classList.toggle('is-on', t >= 28.0); $('#k31').classList.toggle('is-on', t >= 28.8);
+    $('#o1y').classList.toggle('is-on', t >= 21.4); $('#o2y').classList.toggle('is-on', t >= 26.5);
+    CLICKS.forEach(([ct, sel]) => { const b = $(sel); if (b.classList.contains('rb')) b.classList.toggle('is-press', t > ct && t < ct + .18); });
 
     // call bubbles
     bubbles.forEach((b, i) => pop(b, env(t, CHAT[i][2], CHAT[i][3], .4, .3), 12, .92));
@@ -304,6 +313,19 @@
     });
     pop($('#lock'), env(t, 36.6, 39.4, .7, .6), 20, .97);
   };
+  // Measure where the cursor has to click, with the app and the cards at rest.
+  (function buildCursorKeys() {
+    CUR_KEYS = [[14.9, 520, 520]];
+    render(20);
+    CLICKS.forEach(([ct, sel]) => {
+      const card = $(sel).closest('.rc'), app = $('#app');
+      const keep = [card.style.transform, card.style.visibility, app.style.transform];
+      card.style.transform = 'none'; card.style.visibility = 'visible'; app.style.transform = 'none';
+      const [x, y] = centre(sel);
+      [card.style.transform, card.style.visibility, app.style.transform] = keep;
+      CUR_KEYS.push([ct - .7, x + 30, y + 40], [ct - .05, x, y], [ct + .4, x, y]);
+    });
+  })();
   window.DURATION = DURATION;
 
   // Real-time preview when opened directly (render.mjs sets ?capture)

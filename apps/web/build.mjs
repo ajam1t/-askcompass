@@ -250,7 +250,7 @@ function renderGuide(g) {
 const pages = [];
 const add = (p) => pages.push(p);
 
-// Home: hero, story video, use-case tabs, platform preview, capabilities, Studio preview, industries, founder.
+// Home: hero, story video, use-case tabs, challenge, infrastructure, industries, platform preview, capabilities, Studio preview, closing CTA, founder.
 add({
   path: '/', section: 'home', title: 'Ask Compass · Beyond Intelligence. Towards Clarity.',
   description: 'Ask Compass turns procedures and organizational knowledge into interactive, step-by-step guidance, so people know what to do next and move work forward.',
@@ -265,7 +265,7 @@ add({
   styles: '<link rel="stylesheet" href="/assets/css/home.css">',
   jsonLd: { '@context': 'https://schema.org', '@type': 'Organization', name: 'Ask Compass', url: SITE.origin + '/', logo: SITE.origin + '/assets/brand/logo-512.png', founder: { '@type': 'Person', name: 'Resham Chaudhary' } },
   scripts: ['<script src="/assets/js/home.js" defer></script>', '<script type="module" src="/assets/js/compass.js"></script>'],
-  body: ['hero', 'home-video', 'home-usecases-tabs', 'home-platform', 'home-capabilities', 'home-studio', 'home-industries', 'founder'].map(section).join('\n\n')
+  body: ['hero', 'home-video', 'home-usecases-tabs', 'home-challenge', 'home-infra', 'home-industries', 'home-platform', 'home-capabilities', 'home-studio', 'home-closing', 'founder'].map(section).join('\n\n')
 });
 
 add({
