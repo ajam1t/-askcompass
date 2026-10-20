@@ -34,6 +34,9 @@ hostnames listed; `www.askcompass.in` is explicitly excluded and the marketing h
 | `demo.askcompass.in/*` | 307 → `https://studio.askcompass.in/studio` |
 | `studio.askcompass.in/` | 307 → `/studio` |
 | `studio.askcompass.in/{other page}` | 307 → the same path on `www.askcompass.in` (Studio assets excepted) |
+| `ceo.askcompass.in/` | 307 → `/ceo`, the leadership sign-in page (sign-in not live; nothing is sent or stored) |
+| `www.askcompass.in/ceo` | 307 → `https://ceo.askcompass.in/ceo` |
+| `ceo.askcompass.in/{other page}` | 307 → the same path on `www.askcompass.in` |
 | `app.askcompass.in/` | 307 → `/workspace` |
 | `{anything-else}.askcompass.in/*` | 307 → `/workspace/unavailable` (except `/workspace/unavailable` and `/assets/*`) |
 | `www.askcompass.in/*` | Served normally |
@@ -108,9 +111,10 @@ These cannot be done from the repository. DNS for `askcompass.in` is at GoDaddy.
    shows (currently `2d11c36d229eb95f.vercel-dns-017.com`). Leave the `@` A record and the `www` CNAME as they are.
 3. Click Refresh in Vercel until the domain shows Valid Configuration; HTTPS is issued automatically.
 
-Connected so far: `app`, `demo`, `studio`, `ceo` and `mithilajodi`. `ceo` (the owner's admin area) and
-`mithilajodi` (the first customer workspace) show "workspace not available" until sign-in, tenant data and
-server-side role checks exist; nothing private is served on them.
+Connected so far: `app`, `demo`, `studio`, `ceo` and `mithilajodi`. `ceo` shows the leadership sign-in page,
+whose sign-in is switched off until real authentication exists; it takes no password or email. `mithilajodi`
+(the first customer workspace) shows "workspace not available" until sign-in, tenant data and server-side
+role checks exist. Nothing private is served on either.
 
 For many customer workspaces, a wildcard `*.askcompass.in` is simpler. Vercel issues wildcard certificates only
 when the domain uses Vercel's nameservers, so either move DNS to Vercel or keep adding each subdomain individually.

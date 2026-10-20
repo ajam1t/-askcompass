@@ -1,0 +1,82 @@
+<!-- ───────────── Leadership sign-in (ceo.askcompass.in) ─────────────
+     Sign-in is not live. This page takes no password or email, sends nothing and
+     stores nothing; choosing "Sign in" explains what is coming instead. -->
+<div class="cx" id="cx">
+  <section class="cx-deck" aria-label="ASK COMPASS">
+    <div class="cx-stars" aria-hidden="true"></div>
+    <div class="cx-aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+    <a class="cx-logo" href="/"><img src="/assets/brand/logo-128.webp" width="44" height="44" alt=""><span><b>ASK COMPASS</b><small>Leadership command centre</small></span></a>
+
+    <div class="cx-emblem">
+      <div class="cx-rings" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="compass-stage cx-stage" id="compassStage" role="img" aria-label="The ASK COMPASS emblem in 3D: a gold star over a navy dial, turning slowly.">
+        <div class="compass-fallback" aria-hidden="true"><img src="/assets/brand/logo-512.webp" width="512" height="512" alt=""></div>
+        <div class="compass-canvas"></div>
+      </div>
+    </div>
+
+    <div class="cx-deck-foot">
+      <p class="cx-tag">Beyond Intelligence.<br><span>Towards Clarity.</span></p>
+      <div class="cx-time" aria-hidden="true"><span id="cxClock">--:--:--</span><small id="cxDate">India Standard Time</small></div>
+      <ul class="cx-sys" aria-label="System status">
+        <li class="ok"><i aria-hidden="true"></i>Website<span>Live</span></li>
+        <li class="ok"><i aria-hidden="true"></i>Studio demo<span>Live</span></li>
+        <li class="wait"><i aria-hidden="true"></i>Secure sign-in<span>Not live yet</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="cx-panel" aria-labelledby="cx-title">
+    <div class="cx-grid" aria-hidden="true"></div>
+    <div class="cx-card" id="cxCard">
+      <div class="cx-top"><span class="cx-chip">Leadership access</span><span class="cx-chip cx-warn"><i aria-hidden="true"></i>Sign-in not live yet</span></div>
+
+      <div class="cx-step" id="cxPick">
+        <h1 id="cx-title"><span id="cxHello">Welcome back.</span></h1>
+        <p class="cx-lead">Choose your profile to enter the ASK COMPASS command centre.</p>
+        <fieldset class="cx-people">
+          <legend class="sr-only">Choose your profile</legend>
+          <label class="cx-p cx-founder">
+            <input type="radio" name="who" value="resham" data-first="Resham">
+            <span class="cx-ava"><span class="cx-ring" aria-hidden="true"></span><img src="/assets/img/team/resham.webp" width="256" height="256" alt=""></span>
+            <span class="cx-who"><b>Resham Chaudhary</b><span class="cx-role">Founder</span><small>ASK COMPASS</small></span>
+            <span class="cx-tick" aria-hidden="true"></span>
+          </label>
+          <label class="cx-p cx-ceo">
+            <input type="radio" name="who" value="amit" data-first="Amit">
+            <span class="cx-ava"><span class="cx-ring" aria-hidden="true"></span><img src="/assets/img/team/amit.webp" width="256" height="256" alt=""></span>
+            <span class="cx-who"><b>Amit Jha</b><span class="cx-role">CEO</span><small>ASK COMPASS</small></span>
+            <span class="cx-tick" aria-hidden="true"></span>
+          </label>
+        </fieldset>
+        <div class="cx-go">
+          <button type="button" class="cx-pass" id="cxPass" disabled>
+            <svg class="cx-fp" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 11v3.5a5 5 0 0 1-1.2 3.3"/><path d="M8.5 9.4A3.8 3.8 0 0 1 15.8 11v2.6a9 9 0 0 1-.8 3.7"/><path d="M5.6 15.2c.3-1.1.4-2.2.4-3.4a6 6 0 0 1 9.4-4.9"/><path d="M18 10.2c.1.5.1 1 .1 1.5v1.8a12 12 0 0 1-.4 3"/><path d="M3.5 11.2A8.5 8.5 0 0 1 16.9 4.6"/><path d="M19.8 7.8c.3.9.5 1.9.5 2.9"/><path d="M9.2 20.3a8.6 8.6 0 0 0 1.4-2"/></svg>
+            <span class="cx-pass-t" id="cxPassT">Choose a profile to continue</span>
+          </button>
+          <button type="button" class="cx-alt" id="cxCode" disabled>Email me a one-time code instead</button>
+          <p class="cx-fine">Passkeys use Face ID, Touch ID or Windows Hello. No passwords.</p>
+        </div>
+      </div>
+
+      <div class="cx-step cx-note" id="cxNote" hidden>
+        <span class="cx-lock" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/><circle cx="12" cy="16" r="1.4"/></svg></span>
+        <h2 id="cxNoteT" tabindex="-1">Secure sign-in isn’t switched on yet</h2>
+        <p id="cxNoteP">When it launches, you will sign in here with a passkey, and every request will be checked on the server.</p>
+        <ul class="cx-coming">
+          <li><b>Passkeys first</b><span>Face ID, Touch ID or Windows Hello</span></li>
+          <li><b>Email codes</b><span>One-time codes as a backup</span></li>
+          <li><b>Checked on the server</b><span>Every request, with an audit log</span></li>
+        </ul>
+        <p class="cx-safe">Nothing you did on this page was sent or stored.</p>
+        <div class="cx-acts">
+          <button type="button" class="cx-back" id="cxBack">← Back to profiles</button>
+          <a class="cx-link" href="https://studio.askcompass.in/studio">Open Studio</a>
+          <a class="cx-link" href="/">askcompass.in</a>
+        </div>
+      </div>
+
+      <p class="cx-foot">© Ask Compass · <a href="/privacy">Privacy</a> · <a href="/security">Security</a></p>
+    </div>
+  </section>
+</div>

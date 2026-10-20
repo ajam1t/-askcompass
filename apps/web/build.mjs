@@ -127,15 +127,16 @@ function breadcrumbLd(page) {
   return { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: all.map((c, i) => ({ '@type': 'ListItem', position: i + 1, name: c.label, item: absolute(c.href) })) };
 }
 
+// A "bare" page (the leadership sign-in) is full-screen: no site header, footer or site.js.
 function layout(page) {
-  const scripts = ['<script src="/assets/js/site.js" defer></script>', ...(page.scripts || [])].join('\n');
+  const scripts = [...(page.bare ? [] : ['<script src="/assets/js/site.js" defer></script>']), ...(page.scripts || [])].join('\n');
   return `${head(page)}
 <body class="${page.bodyClass || ''}">
-${header(page)}
+${page.bare ? '' : header(page)}
 <main id="main">
 ${page.body}
 </main>
-${footer()}
+${page.bare ? '' : footer()}
 ${scripts}
 </body>
 </html>
@@ -294,6 +295,16 @@ add({
   body: renderSolutionsOverview({ esc, statusPill, crumbsHtml: breadcrumbs({ crumbs: [{ label: 'Solutions' }] }), SOLUTIONS, PLATFORM })
 });
 SOLUTIONS.pages.forEach((s) => add(renderSolution(s)));
+
+// Leadership sign-in, served at ceo.askcompass.in. Sign-in is not live: nothing is sent or stored.
+add({
+  path: '/ceo', section: 'none', bare: true, noindex: true, bodyClass: 'is-ceo',
+  title: 'Leadership sign-in',
+  description: 'Sign-in for the ASK COMPASS leadership team. Secure sign-in launches with the ASK COMPASS backend.',
+  styles: '<link rel="stylesheet" href="/assets/css/ceo.css">',
+  scripts: ['<script src="/assets/js/ceo.js" defer></script>', '<script type="module" src="/assets/js/compass.js"></script>'],
+  body: section('ceo')
+});
 
 PAGES({ esc, section, flow, statusPill, relatedLinks, linkToPlatform, linkToSolution, pageHero, GUIDES, FAQ, SITE, cta }).forEach(add);
 GUIDES.forEach((g) => add(renderGuide(g)));
