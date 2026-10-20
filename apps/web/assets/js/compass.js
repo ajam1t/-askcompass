@@ -157,7 +157,7 @@ async function mountEmblem(T, stage) {
     if (w === W0 && h === H0) return; W0 = w; H0 = h;
     renderer.setSize(w, h, false);
     // Frame the emblem slightly larger than the dial so the star tips and orbits fit.
-    camera.aspect = w / h; camera.position.set(0, 0, window.acCompassFrame(w, h).dist * 1.1); camera.updateProjectionMatrix();
+    camera.aspect = w / h; camera.position.set(0, 0, window.acCompassFrame(w, h).dist * 1.08); camera.updateProjectionMatrix();
     if (!running) render();
   }
 

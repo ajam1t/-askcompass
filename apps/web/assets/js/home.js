@@ -30,6 +30,17 @@
       var pxPerUnit = rx / 1.25;
       return { cx: w / 2, cy: h / 2, rx: rx, ry: rx * 0.9, dist: (h / 2) / pxPerUnit / tanHalf };
     };
+    // Without bearing labels the emblem simply drifts round on its own.
+    if (!labels.length) {
+      var heading = 0, drift = 0;
+      var tick = function () {
+        if (reduceMotion.matches) return;
+        heading += 45; stage.dispatchEvent(new CustomEvent('compass:target', { detail: { bearing: heading } }));
+        drift = setTimeout(tick, 4200);
+      };
+      drift = setTimeout(tick, 2500);
+      return;
+    }
 
     // What the glass panel says when the needle points at each label.
     var CONTEXT = [
