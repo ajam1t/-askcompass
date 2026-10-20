@@ -403,84 +403,102 @@
       c.addEventListener('focus', function () { if (c.matches(':focus-visible')) { c.dataset.peek = '1'; apply(); } });
       c.addEventListener('blur', function () { delete c.dataset.peek; apply(); });
       // Tap (touch) flips a single card.
-      c.addEventListener('click', function (e) { if (e.pointerType && e.pointerType !== 'mouse' && !e.target.closest('a')) { c.dataset.peek = c.dataset.peek === '1' ? '' : '1'; apply(); } });
+      c.addEventListener('pointerdown', function (e) { c.dataset.ptr = e.pointerType; });
+      c.addEventListener('click', function (e) { if (c.dataset.ptr && c.dataset.ptr !== 'mouse' && !e.target.closest('a')) { c.dataset.peek = c.dataset.peek === '1' ? '' : '1'; apply(); } delete c.dataset.ptr; });
     });
     if ('ResizeObserver' in window) new ResizeObserver(placeKnob).observe($('.hch-toggle')); else window.addEventListener('resize', placeKnob);
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(placeKnob);
     setView('problem');
   })();
-  if (document.getElementById('hinTabs')) (function () {
-    /* ───────── SI knowledge infrastructure tabs ─────────
-       Click, tap or arrow keys select a tab. While on screen and before anyone
-       interacts, the tabs advance on their own (not with reduced motion). The search
-       panel types its query each time it opens. */
-    var root = $('#hinTabs'), bar = $('.hin-bar', root), ind = $('.hin-ind', bar);
-    var tabs = $$('[role="tab"]', bar), panels = tabs.map(function (t) { return document.getElementById(t.getAttribute('aria-controls')); });
-    var CYCLE = 8000, active = 0, timer = 0, typer = 0, touched = false, inView = false;
-    root.style.setProperty('--cycle', CYCLE + 'ms');
+  if (document.getElementById('hinAcc')) (function () {
+    /* ───────── Under the hood: expanding slats ─────────
+       Click, tap or arrow keys open a slat; with a mouse, resting on a closed slat
+       opens it. While on screen and untouched, the slats advance on their own (not
+       with reduced motion). The search slat types its query each time it opens. */
+    var root = $('#hinAcc'), slats = $$('.slat', root), btns = slats.map(function (sl) { return $('.slat-btn', sl); });
+    var active = 0, timer = 0, dwell = 0, typer = 0, touched = false, inView = false, lockUntil = 0, CYCLE = 7000;
     var q = $('#hinQuery'), QUERY = q.textContent;
-    function place() {
-      var t = tabs[active];
-      ind.style.setProperty('--l', t.offsetLeft + 'px'); ind.style.setProperty('--w', t.offsetWidth + 'px');
-    }
     function typeQuery() {
       clearInterval(typer);
       if (reduceMotion.matches) { q.textContent = QUERY; return; }
       var n = 0; q.textContent = '';
       typer = setInterval(function () { n++; q.textContent = QUERY.slice(0, n); if (n >= QUERY.length) clearInterval(typer); }, 55);
     }
-    function select(i, opts) {
-      opts = opts || {};
+    function open(i, focus) {
       active = i;
-      tabs.forEach(function (t, j) { var on = j === i; t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1; panels[j].classList.toggle('is-on', on); });
-      var prog = $('.hin-prog', tabs[i]); prog.style.animation = 'none'; void prog.offsetWidth; prog.style.animation = '';
-      place();
-      var t = tabs[i]; if (t.offsetLeft < bar.scrollLeft || t.offsetLeft + t.offsetWidth > bar.scrollLeft + bar.clientWidth) bar.scrollTo({ left: t.offsetLeft - 24, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
-      if (panels[i].querySelector('#hinQuery')) typeQuery();
-      if (opts.focus) t.focus();
+      slats.forEach(function (sl, j) { var on = j === i; sl.classList.toggle('is-on', on); btns[j].setAttribute('aria-expanded', String(on)); });
+      if (slats[i].querySelector('#hinQuery')) typeQuery();
+      if (focus) btns[i].focus();
       schedule();
     }
-    function stop() { touched = true; root.classList.remove('is-auto'); clearTimeout(timer); }
+    function stop() { touched = true; clearTimeout(timer); }
     function schedule() {
       clearTimeout(timer);
-      var auto = !touched && inView && !reduceMotion.matches && !document.hidden;
-      root.classList.toggle('is-auto', auto);
-      if (auto) timer = setTimeout(function () { select((active + 1) % tabs.length); }, CYCLE);
+      if (!touched && inView && !reduceMotion.matches && !document.hidden) timer = setTimeout(function () { open((active + 1) % slats.length); }, CYCLE);
     }
-    tabs.forEach(function (t, i) {
-      t.addEventListener('click', function () { stop(); select(i); });
-      t.addEventListener('keydown', function (e) {
-        var k = e.key, n = k === 'ArrowRight' ? active + 1 : k === 'ArrowLeft' ? active - 1 : k === 'Home' ? 0 : k === 'End' ? tabs.length - 1 : null;
-        if (n === null) return; e.preventDefault(); stop(); select((n + tabs.length) % tabs.length, { focus: true });
+    btns.forEach(function (b, i) {
+      b.addEventListener('click', function () { stop(); lockUntil = Date.now() + 900; open(i); });
+      b.addEventListener('keydown', function (e) {
+        var k = e.key, n = k === 'ArrowRight' || k === 'ArrowDown' ? active + 1 : k === 'ArrowLeft' || k === 'ArrowUp' ? active - 1 : k === 'Home' ? 0 : k === 'End' ? slats.length - 1 : null;
+        if (n === null) return; e.preventDefault(); stop(); open((n + slats.length) % slats.length, true);
       });
     });
+    slats.forEach(function (sl, i) {
+      // Hover opens only on real mouse movement, so a slat widening under a still
+      // pointer (after a click) doesn't immediately open its neighbour.
+      sl.addEventListener('pointermove', function (e) {
+        if (e.pointerType !== 'mouse' || i === active || dwell || Date.now() < lockUntil || matchMedia('(max-width: 1080px)').matches) return;
+        dwell = setTimeout(function () { dwell = 0; stop(); open(i); }, 220);
+      });
+      sl.addEventListener('pointerleave', function () { clearTimeout(dwell); dwell = 0; });
+      sl.addEventListener('pointerdown', stop);
+    });
     root.addEventListener('focusin', stop);
-    $('.hin-stage', root).addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') stop(); });
     if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { inView = en[0].isIntersecting; schedule(); }, { threshold: 0.35 }).observe(root);
     document.addEventListener('visibilitychange', schedule);
-    reduceMotion.addEventListener('change', schedule);
-    if ('ResizeObserver' in window) new ResizeObserver(place).observe(bar); else window.addEventListener('resize', place);
-    if (document.fonts && document.fonts.ready) document.fonts.ready.then(place);
-    select(0);
+    open(0);
   })();
-  if (document.getElementById('hindGrid')) (function () {
-    /* ───────── Industries ─────────
-       Each preview plays once as its card scrolls into view and replays on hover.
-       The chips filter the grid, with a view transition where supported. */
-    var cards = $$('#hindGrid .icard'), chips = $$('.hind-filter button');
-    cards.forEach(function (c, i) { c.style.setProperty('--vt', 'icard-' + i); });
-    function play(c) { c.classList.remove('play'); void c.offsetWidth; c.classList.add('play'); }
-    if ('IntersectionObserver' in window && !reduceMotion.matches) {
-      var io = new IntersectionObserver(function (en) { en.forEach(function (e) { if (e.isIntersecting) { setTimeout(function () { play(e.target); }, (cards.indexOf(e.target) % 4) * 120); io.unobserve(e.target); } }); }, { threshold: 0.4 });
-      cards.forEach(function (c) { io.observe(c); });
-    } else cards.forEach(function (c) { c.classList.add('play'); });
-    cards.forEach(function (c) { c.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse' && !reduceMotion.matches) play(c); }); });
-    function filter(f) {
-      chips.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.f === f)); });
-      var apply = function () { cards.forEach(function (c) { c.hidden = f !== 'all' && c.dataset.t.split(' ').indexOf(f) === -1; }); };
-      if (document.startViewTransition && !reduceMotion.matches) document.startViewTransition(apply); else apply();
+  if (document.getElementById('ixRoot')) (function () {
+    /* ───────── Industries index ─────────
+       Moving over a name (or focusing it, or tapping it on touch) swaps the preview to
+       that industry's guided question; the preview then picks an answer. While on
+       screen and untouched, it advances on its own (not with reduced motion). */
+    var root = $('#ixRoot'), rows = $$('.ix-row', root), links = $$('.ix-link', root), data = JSON.parse($('#ixData').textContent);
+    var card = $('#ixCard'), stage = $('.ix-stage', root), active = -1, timer = 0, pickT = 0, touched = false, inView = false;
+    function show(i) {
+      if (i === active) return;
+      active = i; var d = data[i];
+      rows.forEach(function (r, j) { r.classList.toggle('is-on', j === i); });
+      stage.style.setProperty('--ixc', d.c); root.style.setProperty('--ixc', d.c);
+      $('#ixInd').textContent = d.name; $('#ixProc').textContent = d.proc;
+      var act = d.badge === 'Action';
+      var b = $('#ixBadge'); b.textContent = d.badge; b.className = 'q-badge' + (act ? ' act' : '');
+      $('#ixQ').textContent = d.q; $('#ixChip').textContent = d.chip;
+      $('#ixSel').textContent = act ? 'Complete before you continue' : 'Select one option';
+      card.classList.toggle('is-act', act);
+      $('#ixOpts').innerHTML = d.opts.map(function (o) { return '<span class="ix-opt">' + esc(o) + '</span>'; }).join('');
+      $('#ixRoles').textContent = 'For ' + d.roles.toLowerCase();
+      card.classList.remove('swap'); void card.offsetWidth; if (!reduceMotion.matches) card.classList.add('swap');
+      clearTimeout(pickT);
+      pickT = setTimeout(function () { var o = $('#ixOpts .ix-opt'); if (o) o.classList.add('pick'); }, reduceMotion.matches ? 0 : 900);
+      schedule();
     }
-    chips.forEach(function (b) { b.addEventListener('click', function () { filter(b.dataset.f); }); });
+    function stop() { touched = true; clearTimeout(timer); }
+    function schedule() {
+      clearTimeout(timer);
+      if (!touched && inView && !reduceMotion.matches && !document.hidden) timer = setTimeout(function () { show((active + 1) % data.length); }, 3200);
+    }
+    links.forEach(function (a, i) {
+      // Real mouse movement only, so scrolling a row under a still pointer doesn't switch it.
+      a.addEventListener('pointermove', function (e) { if (e.pointerType === 'mouse' && i !== active) { stop(); show(i); } });
+      a.addEventListener('focus', function () { if (a.matches(':focus-visible')) { stop(); show(i); } });
+      // On touch, the first tap previews; a second tap on the same row follows the link.
+      a.addEventListener('pointerdown', function (e) { a.dataset.ptr = e.pointerType; });
+      a.addEventListener('click', function (e) { if (a.dataset.ptr && a.dataset.ptr !== 'mouse' && active !== i) { e.preventDefault(); stop(); show(i); } delete a.dataset.ptr; });
+    });
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { inView = en[0].isIntersecting; schedule(); }, { threshold: 0.3 }).observe(root);
+    document.addEventListener('visibilitychange', schedule);
+    show(0);
   })();
   if (document.getElementById('capWheel')) (function () {
     /* ───────── Capability wheel ─────────

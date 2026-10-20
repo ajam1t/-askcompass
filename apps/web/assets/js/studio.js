@@ -298,7 +298,7 @@
       (chips ? '<div class="q-chips">' + chips + '</div>' : '') +
       (n.exception ? '<p class="exception"><b>Exception:</b> ' + esc(n.exception) + '</p>' : '') + answers +
       '<div class="q-foot">' + (run.path.length > 1 ? '<button class="q-btn" data-act="back">← Back</button>' : '') +
-      '<button class="q-btn q-flow" data-act="flow-open">' + ICON.book + 'Procedure Flow</button>' + primary + '</div>' +
+      '<button class="q-btn q-flow" data-act="flow-open">' + ICON.book + 'SOP</button>' + primary + '</div>' +
       '</article>' +
       '<details class="q-path"' + (run.path.length > 1 ? '' : ' hidden') + '><summary>Your path so far · ' + (run.path.length - 1) + ' answered</summary><ol class="crumbs" aria-label="Steps taken">' + crumbs + '</ol></details>' +
       '<div class="row run-controls"><button class="text-btn" data-act="restart"' + (run.path.length > 1 || run.stack.length ? '' : ' disabled') + '>↺ Restart</button>' +
@@ -309,7 +309,7 @@
       '</div>';
   }
 
-  /* — Procedure Flow: the full map over the run, with the path so far highlighted — */
+  /* — SOP: the full map over the run, with the path so far highlighted — */
   var flowReturn = null;
   function openFlow() {
     if (!run) return;
@@ -320,7 +320,7 @@
     var el = document.createElement('div');
     el.className = 'flow-sheet'; el.id = 'flowSheet';
     el.innerHTML = '<div class="flow-card" role="dialog" aria-modal="true" aria-labelledby="flowTitle">' +
-      '<header class="flow-head"><div><p class="eyebrow">Procedure Flow</p><h2 id="flowTitle">' + esc(rp.title) + '</h2>' +
+      '<header class="flow-head"><div><p class="eyebrow">SOP</p><h2 id="flowTitle">' + esc(rp.title) + '</h2>' +
       '<p class="muted small">Your path is highlighted. Select any step to continue from there.</p></div>' +
       '<button class="btn btn-quiet" data-act="flow-close">Close</button></header>' + mapSvg(v, { clickable: true, mark: mark }) +
       '<p class="legend"><span class="lg lg-cur">You are here</span><span class="lg lg-done">Done</span><span class="lg lg-action">Action</span><span class="lg lg-decision">Decision</span><span class="lg lg-end">End</span></p></div>';
