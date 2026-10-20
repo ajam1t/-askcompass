@@ -133,6 +133,15 @@ async function mountCompass(T, stage) {
   const hubGeo = keep(new T.CylinderGeometry(0.15, 0.16, 0.07, seg)); hubGeo.rotateX(Math.PI / 2);
   const hub = new T.Mesh(hubGeo, metal); hub.position.z = 0.12; body.add(hub);
   const markTex = keep(new T.CanvasTexture(drawMark(512))); markTex.colorSpace = T.SRGBColorSpace; markTex.anisotropy = aniso;
+  // Swap in the Ask Compass logo once it has loaded; the drawn mark shows until then.
+  const logo = new Image();
+  logo.onload = () => {
+    const c = markTex.image, g = c.getContext('2d'), k = c.width;
+    g.fillStyle = dark ? '#081430' : '#ffffff'; g.beginPath(); g.arc(k / 2, k / 2, k / 2, 0, Math.PI * 2); g.fill();
+    g.drawImage(logo, k * .02, k * .02, k * .96, k * .96);
+    markTex.needsUpdate = true; if (!running) render();
+  };
+  logo.src = '/assets/brand/logo-256.webp';
   const capGeo = keep(new T.CircleGeometry(0.128, seg));
   const cap = new T.Mesh(capGeo, keep(new T.MeshStandardMaterial({ map: markTex, roughness: 0.3, metalness: 0.1 })));
   cap.position.z = 0.1555; body.add(cap);
