@@ -3,31 +3,9 @@
 
 export const SOLUTIONS = {
   overview: {
-    title: 'Solutions', eyebrow: 'Solutions',
-    h1: 'For any work where the right next step is not obvious.',
-    lead: 'Ask Compass is not built for one industry. It is built for a kind of work: procedures with decisions, exceptions and hand-offs, where getting it right depends on knowing what applies to this case.',
-    description: 'Where Ask Compass helps: operations, employee enablement, customer support, process documentation, knowledge management, compliance and enterprise automation.',
-    render: ({ esc, section, SOLUTIONS, relatedLinks, linkToSolution }) => `
-<section class="section section-tight"><div class="wrap split">
-  <div class="split-l"><p class="eyebrow">The problem</p><h2>Documentation exists. Clarity often does not.</h2></div>
-  <div class="split-r prose-lg">
-    <p>Most organizations already write their procedures down. The difficulty starts when someone has to use one: the right document is hard to find, the steps that apply are mixed with the ones that do not, and exceptions only appear halfway through.</p>
-    <p>The result is familiar in every industry. People ask a colleague, follow an outdated copy, or skip a step they did not know applied to them.</p>
-  </div>
-</div></section>
-<section class="section section-alt"><div class="wrap">
-  <div class="section-head"><p class="eyebrow">Where it helps</p><h2>Seven kinds of work, one approach.</h2>
-  <p class="section-lead">Each page walks through a realistic scenario and an example workflow. Scenarios are illustrations, not customer case studies.</p></div>
-  ${relatedLinks(SOLUTIONS.pages.map((p) => linkToSolution(p.slug)))}
-</div></section>
-${section('sides')}
-<section class="section section-tight"><div class="wrap split">
-  <div class="split-l"><p class="eyebrow">Today and next</p><h2>What you can use now.</h2></div>
-  <div class="split-r prose-lg">
-    <p>The public Studio demo already shows guided procedures, decisions, linked procedures, process maps, drafts, approvals, version history and usage insights, using sample data stored in your browser.</p>
-    <p>Customer workspaces with sign-in, shared data, integrations and SI drafting are on the roadmap. Each platform page marks every feature as in the demo or planned.</p>
-  </div>
-</div></section>`
+    // The overview page itself is rendered by solutions-page.mjs.
+    title: 'Ask Compass Solutions | Guided SOPs for Operations, Support, Onboarding & Compliance', fullTitle: true,
+    description: 'Where Ask Compass helps: consistent SOPs for operations, onboarding, customer support, process documentation, knowledge management, compliance and planned automation.'
   },
 
   pages: [
