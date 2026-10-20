@@ -1,7 +1,9 @@
 # Ask Compass design system
 
 The website's visual language in one page. Tokens live in `apps/web/assets/css/site.css` (`:root`);
-homepage-only styles live in `assets/css/home.css`.
+homepage-only styles live in `assets/css/home.css`, and the Platform overview (`/platform`) has its own
+`assets/css/platform.css` and `assets/js/platform.js`. The gold and teal action buttons (`.hx-btn-gold`,
+`.hx-btn-teal`) are shared in `site.css`.
 
 ## Idea
 
@@ -70,6 +72,8 @@ Rules:
 | Blueprint | Use-case drawings; the Studio preview canvas |
 | Split-flap | Industries band ("Built for …") |
 | Bauhaus grid, neo-brutalist accents | Layout structure and section rhythm |
+| Isometric glass layers | Platform hero: five plates (knowledge, structure, guidance, insight, governance) under the emblem |
+| Constellation | Platform "how it works together": capabilities around the emblem light up per story step |
 
 Not used on the main site (reserved for campaigns or experiments): comic, VHS, pixel art, ASCII, clay 3D,
 halftone, Art Deco.

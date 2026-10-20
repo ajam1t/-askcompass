@@ -154,7 +154,7 @@
   })();
 
   /* ───────── Gentle reveal for section content ───────── */
-  var revealTargets = $$('.section-head, .why-head, .why-viz, .cap-list li, .diff-row, .j-step, .flowline li, .side, .anatomy, .final-copy, .feat-group, .use-cards li, .fl, .hp-head, .hp-frame, .hk-head, .hk-card, .hst-copy, .hst-canvas, .hi-copy, .hi-list, .hch-head, .hch-card, .hin-head, .hind-head, .hcap-head');
+  var revealTargets = $$('.section-head, .why-head, .why-viz, .cap-list li, .diff-row, .j-step, .flowline li, .side, .anatomy, .final-copy, .feat-group, .use-cards li, .fl, .hp-head, .hp-frame, .hk-head, .hk-card, .hst-copy, .hst-canvas, .hi-copy, .hi-list, .hch-head, .hch-card, .hin-head, .hind-head, .hcap-head, .px-head, .pr-lane, .po-list li');
   if ('IntersectionObserver' in window && !reduceMotion.matches) {
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); } });
