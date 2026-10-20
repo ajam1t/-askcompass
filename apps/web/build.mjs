@@ -20,7 +20,7 @@ export const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&a
 const absolute = (path) => SITE.origin + (path === '/' ? '/' : path);
 
 /* ───────── shared layout ───────── */
-const BRAND_MARK = `<img class="brand-mark" src="/assets/brand/logo-128.webp" width="40" height="40" alt="">`;
+const BRAND_MARK = `<img class="brand-mark" src="/assets/brand/logo-128.webp" width="46" height="46" alt="">`;
 
 function head(page) {
   const title = page.path === '/' ? page.title : `${page.title} · Ask Compass`;
@@ -76,7 +76,7 @@ function header(page) {
   <div class="wrap header-in">
     <a class="brand" href="/" aria-label="Ask Compass home">
       ${BRAND_MARK}
-      <span class="brand-word">ASK COMPASS</span>
+      <span class="brand-text"><span class="brand-word">ASK COMPASS</span><span class="brand-sub">Where knowledge becomes direction</span></span>
     </a>
     <nav class="main-nav" id="mainNav" aria-label="Main">
       <a href="/"${cur('home')}>Home</a>
