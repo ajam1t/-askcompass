@@ -18,6 +18,11 @@
       "permanent": true
     },
     {
+      "source": "/app.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
       "source": "/:file(studio|studio.html)",
       "has": [
         {

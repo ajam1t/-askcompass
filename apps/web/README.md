@@ -28,7 +28,6 @@ Preview locally with any static server pointed at `public/`, for example `npx se
 | `assets/js/home.js`, `compass.js` | Homepage compass labels, Studio preview canvas and the Three.js compass |
 | `studio.html`, `assets/js/studio*.js` | Public Studio demo (browser-only data) |
 | `video/story.html`, `video/render.mjs` | Source of the homepage story video; `node video/render.mjs` (needs Playwright and ffmpeg) writes `assets/video/` |
-| `app.html` | Legacy prototype, kept for existing links |
 | `vercel.json` | Build settings, `/studio` alias and hostname redirects |
 
 To add a capability or solution page, add an entry to the relevant content file and to `NAV` in `site.mjs`;
