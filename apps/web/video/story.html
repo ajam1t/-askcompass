@@ -18,7 +18,7 @@
 
   /* people */
   .av { width: 96px; height: 96px; border-radius: 50%; overflow: hidden; box-shadow: 0 0 0 4px #fff, 0 10px 26px rgba(16, 40, 76, .18); }
-  .av svg { display: block; width: 100%; height: 100%; }
+  .av img { display: block; width: 100%; height: 100%; object-fit: cover; }
   .tag { font: 500 13px/1 "Geist Mono", monospace; letter-spacing: .04em; color: var(--ink-2); background: #fff; border: 1px solid var(--line); border-radius: 999px; padding: 6px 10px; white-space: nowrap; }
   .bubble { max-width: 420px; padding: 16px 22px; border-radius: 16px; background: #fff; font-size: 23px; line-height: 1.32; letter-spacing: -.01em; color: #1d2b4a; box-shadow: 0 12px 30px rgba(16, 40, 76, .10); }
   .bubble b { font-weight: 700; color: var(--navy); }
@@ -96,45 +96,15 @@
   <svg width="0" height="0" style="position:absolute">
     <defs>
       <symbol id="mark" viewBox="0 0 32 32"><circle cx="16" cy="16" r="14.5" fill="#10284C"/><circle cx="16" cy="16" r="11" fill="none" stroke="rgba(243,246,251,.22)"/><path d="M16 6.5l3 9.5h-6z" fill="#EFB64A"/><path d="M16 25.5l-3-9.5h6z" fill="#FCFCFA"/><circle cx="16" cy="16" r="1.6" fill="#10284C"/></symbol>
-      <!-- Resham: support agent with a headset -->
-      <symbol id="resham" viewBox="0 0 100 100">
-        <defs><linearGradient id="rbg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fd8ff"/><stop offset="1" stop-color="#3b8cf0"/></linearGradient></defs>
-        <rect width="100" height="100" fill="url(#rbg)"/>
-        <path d="M27 58c-4-20 4-38 23-38s27 18 23 38c-2 10-4 22-6 30H33c-2-8-4-20-6-30z" fill="#2b1b16"/>
-        <path d="M18 100c2-16 14-24 32-24s30 8 32 24z" fill="#ec6f8f"/>
-        <rect x="44" y="64" width="12" height="14" rx="5" fill="#c98a68"/>
-        <ellipse cx="50" cy="48" rx="16" ry="19" fill="#d99a76"/>
-        <path d="M34 46c0-14 7-22 17-22 9 0 16 7 16 17-6-1-12-5-15-10-3 6-10 12-18 15z" fill="#2b1b16"/>
-        <circle cx="44" cy="50" r="1.8" fill="#2b1b16"/><circle cx="56" cy="50" r="1.8" fill="#2b1b16"/>
-        <path d="M45 58c3 2.5 7 2.5 10 0" fill="none" stroke="#8a4b3a" stroke-width="2" stroke-linecap="round"/>
-        <path d="M31 48c0-14 8-24 19-24s19 10 19 24" fill="none" stroke="#1f2b44" stroke-width="3.5"/>
-        <rect x="27" y="44" width="8" height="13" rx="3.5" fill="#1f2b44"/>
-        <path d="M31 57c2 8 8 10 14 9" fill="none" stroke="#1f2b44" stroke-width="2.5" stroke-linecap="round"/><circle cx="46" cy="66" r="2.6" fill="#1f2b44"/>
-      </symbol>
-      <!-- Amit: customer on the phone -->
-      <symbol id="amit" viewBox="0 0 100 100">
-        <defs><linearGradient id="abg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d7dde7"/><stop offset="1" stop-color="#8f9bb0"/></linearGradient></defs>
-        <rect width="100" height="100" fill="url(#abg)"/>
-        <path d="M16 100c2-16 15-24 34-24s32 8 34 24z" fill="#c9b08f"/>
-        <path d="M40 78l10 12 10-12" fill="#e9f2f8"/>
-        <rect x="44" y="64" width="12" height="14" rx="5" fill="#b9805d"/>
-        <ellipse cx="50" cy="47" rx="16" ry="19" fill="#c88c66"/>
-        <path d="M34 50c0 12 7 19 16 19s16-7 16-19c-3 5-8 8-16 8s-13-3-16-8z" fill="#2a211d"/>
-        <path d="M33 44c-1-14 7-21 17-21 11 0 18 6 17 20-3-5-8-8-17-8-7 0-13 3-17 9z" fill="#211915"/>
-        <circle cx="44" cy="47" r="1.8" fill="#211915"/><circle cx="56" cy="47" r="1.8" fill="#211915"/>
-        <path d="M45 56c3 2.2 7 2.2 10 0" fill="none" stroke="#f3e3d6" stroke-width="2" stroke-linecap="round"/>
-        <rect x="64" y="40" width="9" height="20" rx="3" fill="#1f2b44" transform="rotate(14 68 50)"/>
-        <path d="M70 62c6 2 10 8 10 14" fill="none" stroke="#c88c66" stroke-width="7" stroke-linecap="round"/>
-      </symbol>
       <symbol id="star" viewBox="0 0 24 24"><path d="M12 2.6l2.9 6 6.5.8-4.8 4.5 1.2 6.5L12 17.3l-5.8 3.1 1.2-6.5L2.6 9.4l6.5-.8z"/></symbol>
     </defs>
   </svg>
 
   <!-- Intro: the call starts -->
-  <div class="abs" id="iR" style="left:170px;top:150px"><div class="av"><svg><use href="#resham"/></svg></div></div>
+  <div class="abs" id="iR" style="left:170px;top:150px"><div class="av"><img src="resham.jpg" alt=""></div></div>
   <div class="abs tag" id="iRt" style="left:148px;top:260px">Resham · Support</div>
   <div class="abs bubble b-agent" id="iB1" style="left:300px;top:156px">Thanks for calling, this is Resham!<br><b>How can I help?</b></div>
-  <div class="abs" id="iA" style="left:1014px;top:316px"><div class="av"><svg><use href="#amit"/></svg></div></div>
+  <div class="abs" id="iA" style="left:1014px;top:316px"><div class="av"><img src="amit.jpg" alt=""></div></div>
   <div class="abs tag" id="iAt" style="left:1008px;top:426px">Amit · Customer</div>
   <div class="abs bubble b-cust" id="iB2" style="right:296px;top:322px;transform-origin:right top">Hi, I need to <b>increase my<br>debit card limit for today.</b></div>
   <div class="abs bubble b-agent" id="iB3" style="left:300px;top:486px"><b>I can help with that.</b><br>Please hold.</div>
@@ -185,8 +155,8 @@
   </div>
 
   <!-- Call panel inside the app -->
-  <div class="abs small" id="cR" style="left:770px;top:148px"><div class="av"><svg><use href="#resham"/></svg></div></div>
-  <div class="abs small" id="cA" style="left:1138px;top:300px"><div class="av"><svg><use href="#amit"/></svg></div></div>
+  <div class="abs small" id="cR" style="left:770px;top:148px"><div class="av"><img src="resham.jpg" alt=""></div></div>
+  <div class="abs small" id="cA" style="left:1138px;top:300px"><div class="av"><img src="amit.jpg" alt=""></div></div>
   <div class="abs small" id="chat" style="left:0;top:0;width:1280px;height:720px"></div>
 
   <svg class="abs cursor" id="cur" viewBox="0 0 24 24"><path d="M4 2l15 9-6.5 1.6L16 20l-3 1.4-3.4-7.4L4 18z" fill="#10284C" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/></svg>
@@ -196,7 +166,7 @@
     <div class="stars" id="stars"></div>
     <h3>Every step guided.<br>Answers delivered fast.</h3>
   </div>
-  <div class="abs" id="oA" style="left:592px;top:140px"><div class="av"><svg><use href="#amit"/></svg></div></div>
+  <div class="abs" id="oA" style="left:592px;top:140px"><div class="av"><img src="amit.jpg" alt=""></div></div>
   <div class="abs lock" id="lock">
     <span class="brand"><svg><use href="#mark"/></svg>Ask Compass</span>
     <p>Complex work. <b>Clear direction.</b></p>
