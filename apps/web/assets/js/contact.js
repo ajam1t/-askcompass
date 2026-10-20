@@ -52,6 +52,6 @@
       (form.company.value.trim() ? '\nCompany: ' + form.company.value.trim() : '');
     var href = 'mailto:' + TO + '?subject=' + encodeURIComponent('Ask Compass: ' + form.topic.value) + '&body=' + encodeURIComponent(body);
     window.location.href = href;
-    status.textContent = 'Your email app should now open with the message ready to send. If nothing happened, email ' + TO + ' directly.';
+    status.textContent = 'Your email app should now open with the message ready to send. If nothing happened, check that an email app is set up on this device.';
   });
 })();

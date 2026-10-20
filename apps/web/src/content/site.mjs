@@ -1,4 +1,6 @@
 /* Site-wide settings, navigation and footer. Edit copy here. */
+// Contact details are kept here but are not shown anywhere on the site for now.
+// The contact form still delivers enquiries to `email` through the visitor's email app.
 export const SITE = {
   origin: 'https://www.askcompass.in',      // askcompass.in redirects here
   email: 'amit01071994@gmail.com',
@@ -60,6 +62,6 @@ export const FOOTER = [
   { title: 'Platform', links: [{ label: 'Overview', href: '/platform' }, ...NAV.platform.items.slice(0, 6)] },
   { title: 'Solutions', links: [{ label: 'Overview', href: '/solutions' }, ...NAV.solutions.items] },
   { title: 'Resources', links: [{ label: 'Library', href: '/resources' }, { label: 'Guides & Insights', href: '/resources/guides' }, { label: 'FAQ', href: '/faq' }] },
-  { title: 'Company', links: [{ label: 'About', href: '/about' }, { label: 'Contact', href: '/contact' }, { label: 'LinkedIn', href: 'https://www.linkedin.com/in/ajam1t', external: true }] },
+  { title: 'Company', links: [{ label: 'About', href: '/about' }, { label: 'Contact', href: '/contact' }] },
   { title: 'Product', links: [{ label: 'Open Studio demo', href: '/studio' }, { label: 'Workspace sign-in', href: '/workspace' }, { label: 'Security', href: '/security' }] }
 ];
