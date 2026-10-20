@@ -24,9 +24,6 @@
 .hx::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 120px; z-index: -1; pointer-events: none; background: linear-gradient(180deg, transparent, #fff); }
 .hx-in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; align-items: center; min-height: min(860px, calc(100vh - 68px)); padding-block: 48px 64px; }
 .hx-copy { position: relative; z-index: 2; display: flex; flex-direction: column; gap: 22px; }
-.hx-kicker { display: inline-flex; align-items: center; gap: 10px; align-self: flex-start; margin: 0; padding: 7px 14px 7px 10px; border-radius: 999px;
-  background: rgba(255, 255, 255, .7); border: 1px solid rgba(37, 99, 235, .18); font: 500 12px/1.2 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--deep); }
-.hx-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 4px rgba(239, 182, 74, .2); }
 .hx h1 { color: var(--navy); font-size: clamp(40px, 4.4vw, 66px); line-height: 1.03; letter-spacing: -.045em; font-weight: 700; }
 .hx .hx-grad { background: linear-gradient(92deg, #2563EB 0%, #0B87B6 55%, #0E8A80 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .hx-lead { margin: 0; font-size: 18px; line-height: 1.65; color: var(--ink-2); max-width: 34em; }
@@ -218,7 +215,6 @@
 @media (max-width: 640px) {
   .hx h1 { font-size: clamp(40px, 12vw, 52px); }
   .hx-lead { font-size: 16px; }
-  .hx-kick-sub { display: none; }
   .hx .hero-ctas .btn { flex: 1 1 100%; }
   .hx-stage { aspect-ratio: 1 / 1.08; }
   .hx-labels button { padding: 6px 10px 6px 6px; gap: 7px; border-radius: 11px; }
