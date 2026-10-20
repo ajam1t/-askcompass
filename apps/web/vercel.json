@@ -62,6 +62,39 @@
       "permanent": false
     },
     {
+      "source": "/ceo",
+      "has": [
+        {
+          "type": "host",
+          "value": "www.askcompass.in"
+        }
+      ],
+      "destination": "https://ceo.askcompass.in/ceo",
+      "permanent": false
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
+          "value": "ceo.askcompass.in"
+        }
+      ],
+      "destination": "/ceo",
+      "permanent": false
+    },
+    {
+      "source": "/((?!assets/|favicon|ceo).+)",
+      "has": [
+        {
+          "type": "host",
+          "value": "ceo.askcompass.in"
+        }
+      ],
+      "destination": "https://www.askcompass.in/$1",
+      "permanent": false
+    },
+    {
       "source": "/",
       "has": [
         {
@@ -96,6 +129,10 @@
         {
           "type": "host",
           "value": "app.askcompass.in"
+        },
+        {
+          "type": "host",
+          "value": "ceo.askcompass.in"
         }
       ],
       "destination": "/workspace/unavailable",

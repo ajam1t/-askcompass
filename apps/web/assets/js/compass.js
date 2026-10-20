@@ -11,6 +11,12 @@
    window.AskCompass3D.destroy() releases every GPU resource. */
 const THREE_URL = 'https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.min.js';
 const stage = document.getElementById('compassStage');
+// How large the dial draws for a given stage size. home.js shares the same
+// function for its labels; other pages (the leadership sign-in) use this default.
+const dialFrame = (w, h) => (window.acCompassFrame || ((fw, fh) => {
+  const rx = Math.min(fw, fh * 1.08) * (fw < 560 ? 0.27 : 0.29);
+  return { cx: fw / 2, cy: fh / 2, rx, ry: rx * 0.9, dist: (fh / 2) / (rx / 1.25) / Math.tan(14 * Math.PI / 180) };
+}))(w, h);
 
 function webglAvailable() {
   try {
@@ -157,7 +163,7 @@ async function mountEmblem(T, stage) {
     if (w === W0 && h === H0) return; W0 = w; H0 = h;
     renderer.setSize(w, h, false);
     // Frame the emblem slightly larger than the dial so the star tips and orbits fit.
-    camera.aspect = w / h; camera.position.set(0, 0, window.acCompassFrame(w, h).dist * 1.08); camera.updateProjectionMatrix();
+    camera.aspect = w / h; camera.position.set(0, 0, dialFrame(w, h).dist * 1.08); camera.updateProjectionMatrix();
     if (!running) render();
   }
 
@@ -220,7 +226,7 @@ async function mountEmblem(T, stage) {
   function onLeave() { st.tx = 0; st.ty = 0; }
   // Click or tap the emblem to point the star there.
   function onTap(e) {
-    const r = host.getBoundingClientRect(), f = window.acCompassFrame(r.width, r.height);
+    const r = host.getBoundingClientRect(), f = dialFrame(r.width, r.height);
     const dx = (e.clientX - r.left - f.cx) / f.rx, dy = (e.clientY - r.top - f.cy) / f.ry;
     if (dx * dx + dy * dy > 1.6) return;
     aimAt(Math.atan2(dx, -dy) * 180 / Math.PI);
