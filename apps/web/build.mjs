@@ -21,13 +21,7 @@ export const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&a
 const absolute = (path) => SITE.origin + (path === '/' ? '/' : path);
 
 /* ───────── shared layout ───────── */
-const BRAND_MARK = `<svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true">
-        <circle cx="16" cy="16" r="14.5" fill="var(--navy)"/>
-        <circle cx="16" cy="16" r="11" fill="none" stroke="var(--on-navy-faint)" stroke-width="1"/>
-        <path d="M16 6.5l3 9.5h-6z" fill="var(--gold)"/>
-        <path d="M16 25.5l-3-9.5h6z" fill="var(--warm-white)"/>
-        <circle cx="16" cy="16" r="1.6" fill="var(--navy)"/>
-      </svg>`;
+const BRAND_MARK = `<img class="brand-mark" src="/assets/brand/logo-128.webp" width="40" height="40" alt="">`;
 
 function head(page) {
   const title = page.path === '/' ? page.title : `${page.title} · Ask Compass`;
@@ -46,8 +40,14 @@ ${page.noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonica
 <meta property="og:title" content="${esc(page.ogTitle || title)}">
 <meta property="og:description" content="${esc(page.description)}">
 ${page.noindex ? '' : `<meta property="og:url" content="${absolute(page.path)}">`}
-<meta name="twitter:card" content="summary">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%2310284C'/%3E%3Cpath d='M16 5l3.2 11H12.8z' fill='%23F4B544'/%3E%3Cpath d='M16 27l-3.2-11h6.4z' fill='%23FCFCFA'/%3E%3C/svg%3E">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/brand/favicon-32.png">
+<link rel="apple-touch-icon" href="/assets/brand/apple-touch-icon.png">
+<meta property="og:image" content="${SITE.origin}/assets/brand/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Ask Compass logo">
 ${page.headExtra || ''}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -264,7 +264,7 @@ add({
   })();
 </script>`,
   styles: '<link rel="stylesheet" href="/assets/css/home.css">',
-  jsonLd: { '@context': 'https://schema.org', '@type': 'Organization', name: 'Ask Compass', url: SITE.origin + '/', founder: { '@type': 'Person', name: 'Resham Chaudhary' } },
+  jsonLd: { '@context': 'https://schema.org', '@type': 'Organization', name: 'Ask Compass', url: SITE.origin + '/', logo: SITE.origin + '/assets/brand/logo-512.png', founder: { '@type': 'Person', name: 'Resham Chaudhary' } },
   scripts: ['<script src="/assets/js/home.js" defer></script>', '<script type="module" src="/assets/js/compass.js"></script>'],
   body: ['hero', 'home-strip', 'home-video', 'home-usecases-tabs', 'home-platform', 'home-capabilities', 'home-studio', 'home-industries', 'founder'].map(section).join('\n\n').replace('{{HERO_SCENE}}', heroScene())
 });
@@ -294,7 +294,7 @@ for (const p of pages) {
   mkdirSync(dirname(file), { recursive: true });
   writeFileSync(file, layout(p));
 }
-for (const f of ['studio.html', 'app.html', 'assets']) cpSync(join(ROOT, f), join(OUT, f), { recursive: true });
+for (const f of ['studio.html', 'app.html', 'favicon.ico', 'assets']) cpSync(join(ROOT, f), join(OUT, f), { recursive: true });
 
 const indexable = pages.filter((p) => !p.noindex);
 writeFileSync(join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>

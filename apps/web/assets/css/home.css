@@ -7,7 +7,6 @@
 .is-home .site-header { background: transparent; -webkit-backdrop-filter: none; backdrop-filter: none; transition: background .3s, border-color .3s; }
 .is-home .site-header.is-scrolled { background: rgba(6, 13, 32, .9); -webkit-backdrop-filter: saturate(1.4) blur(14px); backdrop-filter: saturate(1.4) blur(14px); border-bottom-color: rgba(140, 190, 255, .14); }
 .is-home .site-header .brand-word { color: #fff; }
-.is-home .site-header .brand-mark circle:first-child { fill: #13306a; }
 .is-home .menu-btn { background: rgba(255, 255, 255, .06); border-color: rgba(255, 255, 255, .22); }
 .is-home .menu-btn span { background: #fff; }
 .is-home .header-actions .btn-primary { background: linear-gradient(180deg, #3b82f6, #2563eb); box-shadow: 0 0 0 1px rgba(143, 225, 255, .25), 0 8px 24px rgba(37, 99, 235, .35); }
