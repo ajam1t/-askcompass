@@ -132,6 +132,27 @@
     });
   });
 
+  /* ───────── Sliding highlight in the desktop navigation ───────── */
+  if (nav) (function () {
+    var wide = window.matchMedia('(min-width: 921px)');
+    var ind = el('span', { 'class': 'nav-ind', 'aria-hidden': 'true' });
+    nav.insertBefore(ind, nav.firstChild);
+    var items = $$(':scope > a:not(.nav-cta-mobile), .nav-drop-btn', nav);
+    function move(item) {
+      if (!wide.matches) return;
+      var n = nav.getBoundingClientRect(), r = item.getBoundingClientRect();
+      ind.style.setProperty('--x', (r.left - n.left) + 'px');
+      ind.style.setProperty('--w', r.width + 'px');
+      nav.classList.add('ind-on');
+    }
+    items.forEach(function (it) {
+      it.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') move(it); });
+      it.addEventListener('focus', function () { if (it.matches(':focus-visible')) move(it); });
+    });
+    nav.addEventListener('pointerleave', function () { nav.classList.remove('ind-on'); });
+    nav.addEventListener('focusout', function (e) { if (!nav.contains(e.relatedTarget)) nav.classList.remove('ind-on'); });
+  })();
+
   /* ───────── Gentle reveal for section content ───────── */
   var revealTargets = $$('.section-head, .why-head, .why-viz, .cap-list li, .diff-row, .j-step, .flowline li, .side, .anatomy, .final-copy, .feat-group, .use-cards li, .fl, .hp-head, .hp-frame, .hk-head, .hk-card, .hst-copy, .hst-canvas, .hi-copy, .hi-list');
   if ('IntersectionObserver' in window && !reduceMotion.matches) {

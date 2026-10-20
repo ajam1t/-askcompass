@@ -682,3 +682,16 @@ h3 { font-size: 18px; line-height: 1.3; font-weight: 600; letter-spacing: -.01em
   .compass-stage::before, .stage-lines path.is-active, .why-svg .w-edge.live { animation: none; }
   .bearings, .ctx-panel { transform: none; }
 }
+
+/* Sliding highlight behind the hovered navigation item (desktop) */
+.nav-ind { display: none; }
+@media (min-width: 921px) {
+  .main-nav { position: relative; }
+  .main-nav > a, .nav-drop-btn { position: relative; z-index: 1; }
+  .nav-ind { display: block; position: absolute; z-index: 0; left: 0; top: 50%; height: 38px; margin-top: -19px; width: var(--w, 0); border-radius: 8px; background: var(--bg-blue); opacity: 0; pointer-events: none;
+    transform: translateX(var(--x, 0)); transition: transform .32s var(--ease-spatial), width .32s var(--ease-spatial), opacity .2s; }
+  .main-nav.ind-on .nav-ind { opacity: 1; }
+  .main-nav.ind-on > a:hover, .main-nav.ind-on .nav-drop-btn:hover { background: transparent; }
+  .is-home .nav-ind { background: rgba(255, 255, 255, .1); }
+}
+@media (prefers-reduced-motion: reduce) { .nav-ind { transition: opacity .2s; } }

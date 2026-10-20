@@ -52,7 +52,7 @@ export const GUIDES = [
     title: 'Turning a long document into a guided procedure',
     description: 'A step-by-step method for converting an existing SOP or policy document into structured, guided steps without losing what matters.',
     lead: 'You do not need to start from scratch. An existing document already contains most of a guided procedure; the work is in separating actions, decisions, exceptions and background.',
-    related: ['workflow-builder', 'ai-procedure-studio', 'process-maps'],
+    related: ['workflow-builder', 'si-procedure-studio', 'process-maps'],
     body: `
 <h2>1. Mark up the document</h2>
 <p>Go through the document once with four colours: <strong>actions</strong> (something a person does), <strong>decisions</strong> (something that changes the path), <strong>exceptions</strong> (unusual cases) and <strong>background</strong> (why, context, definitions). Most long documents are more than half background.</p>
@@ -66,7 +66,7 @@ export const GUIDES = [
 <p>Turn the useful parts of the background into short notes at the point they matter. Leave the rest in the source document, linked from the procedure.</p>
 <h2>6. Test with someone new</h2>
 <p>Ask someone unfamiliar with the process to follow the draft on a real or sample case. Every place they hesitate is a step to rewrite. Then send it for review and approval.</p>
-<p class="note">AI-assisted conversion is on the Ask Compass roadmap. When it arrives, it will produce a draft with source citations for a person to review; it will not publish anything on its own.</p>`
+<p class="note">SI-assisted conversion is on the Ask Compass roadmap. When it arrives, it will produce a draft with source citations for a person to review; it will not publish anything on its own.</p>`
   },
   {
     slug: 'measure-where-procedures-fail', category: 'Analytics', minutes: 5,
@@ -110,7 +110,7 @@ export const FAQ = [
     ['Is there a sign-in?', 'Not yet. The workspace sign-in page explains the current status. We will not ask for passwords until real, secure sign-in is in place.']
   ] },
   { group: 'Current limitations', items: [
-    ['Is AI available today?', 'No. AI drafting and question answering are planned. Nothing on this site uses an AI model, and we will mark AI features clearly when they launch.'],
+    ['Is SI available today?', 'No. SI drafting and question answering are planned. Nothing on this site uses SI yet, and we will mark SI features clearly when they launch.'],
     ['Are there integrations?', 'Not yet. Integrations are planned and will only be listed as available once they are built and tested.'],
     ['Can I share procedures with my team?', 'Not in the demo, because data stays in your browser. Shared procedures arrive with customer workspaces.']
   ] },

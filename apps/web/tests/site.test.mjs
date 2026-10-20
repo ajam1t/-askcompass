@@ -17,7 +17,7 @@ const ok = (msg) => console.log('  ✓ ' + msg);
 const ROUTES = [
   '/', '/platform', '/solutions', '/resources', '/resources/guides', '/faq', '/about', '/contact',
   '/platform/workflow-engine', '/platform/workflow-builder', '/platform/guided-procedures', '/platform/process-maps',
-  '/platform/ai-procedure-studio', '/platform/knowledge-hub', '/platform/automation-integrations', '/platform/analytics',
+  '/platform/si-procedure-studio', '/platform/knowledge-hub', '/platform/automation-integrations', '/platform/analytics',
   '/platform/training', '/platform/teams-collaboration', '/platform/security-governance',
   '/solutions/operations', '/solutions/employee-enablement', '/solutions/customer-support', '/solutions/process-documentation',
   '/solutions/knowledge-management', '/solutions/compliance-governance', '/solutions/enterprise-automation',

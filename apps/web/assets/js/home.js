@@ -418,4 +418,214 @@
       });
     }, { threshold: 0.45 }).observe(v);
   })();
+  if (document.getElementById('ucTabs')) (function () {
+    /* ───────── Use-case tabs ─────────
+       Click, tap or arrow keys select a tab; with a mouse, moving close to a tab
+       selects it after a short dwell. While the section is on screen and nobody has
+       interacted, the tabs advance on their own (not with reduced motion). */
+    var root = $('#ucTabs'), section = root.closest('.huc'), bar = $('.huc-bar', root), zone = $('.huc-zone', root);
+    var tabs = $$('[role="tab"]', bar), panels = tabs.map(function (t) { return document.getElementById(t.getAttribute('aria-controls')); });
+    var ind = $('.huc-ind', bar), near = $('.huc-near', bar), stage = $('.huc-stage', root);
+    var CYCLE = 7000, active = 0, timer = 0, dwell = 0, touched = false, inView = false, sheen = false;
+    root.style.setProperty('--cycle', CYCLE + 'ms');
+
+    // Split each headline into words so they can rise in one after another.
+    panels.forEach(function (p) {
+      var h = $('.huc-h', p), i = 0;
+      (function walk(node) {
+        Array.prototype.slice.call(node.childNodes).forEach(function (c) {
+          if (c.nodeType === 3) {
+            var frag = document.createDocumentFragment();
+            c.textContent.split(/(\s+)/).forEach(function (part) {
+              if (!part) return;
+              if (/^\s+$/.test(part)) { frag.appendChild(document.createTextNode(part)); return; }
+              var w = el('span', { 'class': 'w' }); w.textContent = part; w.style.setProperty('--i', i++); frag.appendChild(w);
+            });
+            node.replaceChild(frag, c);
+          } else if (c.nodeType === 1) walk(c);
+        });
+      })(h);
+    });
+
+    function placeIndicator() {
+      var t = tabs[active], br = bar.getBoundingClientRect(), r = t.getBoundingClientRect();
+      var l = r.left - br.left - bar.clientLeft + bar.scrollLeft, w = r.width;
+      ind.style.setProperty('--l', l + 'px');
+      ind.style.setProperty('--r', (bar.clientWidth - l - w) + 'px');
+    }
+    function select(i, opts) {
+      opts = opts || {};
+      if (i === active && !opts.force) return;
+      bar.classList.toggle('to-right', i > active); bar.classList.toggle('to-left', i < active);
+      active = i;
+      tabs.forEach(function (t, j) {
+        var on = j === i;
+        t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1;
+        panels[j].classList.toggle('is-on', on);
+      });
+      // Restart the progress bar and the panel's entrance animations.
+      var prog = $('.huc-prog', tabs[i]); prog.style.animation = 'none'; void prog.offsetWidth; prog.style.animation = '';
+      section.dataset.tone = i;
+      sheen = !sheen; stage.style.setProperty('--sheen', sheen ? '-30%' : '130%');
+      placeIndicator();
+      // Keep the active tab visible when the bar scrolls (mobile).
+      var t = tabs[i], tl = t.offsetLeft, tr = tl + t.offsetWidth;
+      if (tl < bar.scrollLeft || tr > bar.scrollLeft + bar.clientWidth) bar.scrollTo({ left: tl - 24, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+      if (opts.focus) tabs[i].focus();
+      schedule();
+    }
+    function stopAuto() { touched = true; root.classList.remove('is-auto'); clearTimeout(timer); }
+    function schedule() {
+      clearTimeout(timer);
+      var auto = !touched && inView && !reduceMotion.matches && !document.hidden;
+      root.classList.toggle('is-auto', auto);
+      if (auto) timer = setTimeout(function () { select((active + 1) % tabs.length); }, CYCLE);
+    }
+
+    tabs.forEach(function (t, i) {
+      t.addEventListener('click', function () { stopAuto(); select(i); });
+      t.addEventListener('keydown', function (e) {
+        var k = e.key, n = k === 'ArrowRight' ? active + 1 : k === 'ArrowLeft' ? active - 1 : k === 'Home' ? 0 : k === 'End' ? tabs.length - 1 : null;
+        if (n === null) return;
+        e.preventDefault(); stopAuto(); select((n + tabs.length) % tabs.length, { focus: true });
+      });
+    });
+    root.addEventListener('focusin', stopAuto);
+
+    // Proximity: the closest tab to the pointer lights up, and is selected after a short dwell.
+    zone.addEventListener('pointermove', function (e) {
+      if (e.pointerType !== 'mouse') return;
+      var br = bar.getBoundingClientRect();
+      near.style.setProperty('--nx', (e.clientX - br.left - bar.clientLeft + bar.scrollLeft) + 'px');
+      var best = -1, bestD = Infinity;
+      tabs.forEach(function (t, i) {
+        var r = t.getBoundingClientRect(), d = Math.abs(e.clientX - (r.left + r.width / 2));
+        if (d < bestD && d < r.width / 2 + 12) { best = i; bestD = d; }
+      });
+      clearTimeout(dwell);
+      if (best >= 0 && best !== active) dwell = setTimeout(function () { stopAuto(); select(best); }, 160);
+    });
+    zone.addEventListener('pointerleave', function () { clearTimeout(dwell); });
+    stage.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') stopAuto(); });
+
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { inView = en[0].isIntersecting; schedule(); }, { threshold: 0.35 }).observe(root);
+    document.addEventListener('visibilitychange', schedule);
+    reduceMotion.addEventListener('change', schedule);
+    if ('ResizeObserver' in window) new ResizeObserver(placeIndicator).observe(bar); else window.addEventListener('resize', placeIndicator);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(placeIndicator);
+    bar.addEventListener('scroll', placeIndicator, { passive: true });
+    select(0, { force: true });
+  })();
+  if (document.querySelector('.hx-scene')) (function () {
+    /* ───────── Particle constellation in the hero sky ─────────
+       A few dozen points drift slowly and join up when close; near the mouse they
+       connect to the pointer. Runs only while the hero is on screen; with reduced
+       motion it is drawn once and stays still. */
+    var hero = $('.hx'), scene = $('.hx-scene');
+    var c = el('canvas', { 'class': 'hx-particles', 'aria-hidden': 'true' });
+    scene.appendChild(c);
+    var g = c.getContext('2d'); if (!g) return;
+    var W = 0, H = 0, pts = [], mouse = { x: -1e4, y: -1e4 }, raf = 0, visible = true, LINK = 120;
+    function seed() {
+      var n = W < 640 ? 26 : W < 1100 ? 44 : 66;
+      pts = [];
+      for (var i = 0; i < n; i++) pts.push({ x: Math.random() * W, y: Math.random() * H * .72, vx: (Math.random() - .5) * .16, vy: (Math.random() - .5) * .1, r: Math.random() * 1.3 + .5 });
+    }
+    function size() {
+      var r = hero.getBoundingClientRect(), dpr = Math.min(1.5, window.devicePixelRatio || 1);
+      if (Math.abs(r.width - W) < 2 && Math.abs(r.height - H) < 2) return;
+      W = r.width; H = r.height;
+      c.width = Math.round(W * dpr); c.height = Math.round(H * dpr);
+      g.setTransform(dpr, 0, 0, dpr, 0, 0);
+      seed(); draw();
+    }
+    function draw() {
+      g.clearRect(0, 0, W, H);
+      for (var i = 0; i < pts.length; i++) {
+        var a = pts[i];
+        for (var j = i + 1; j < pts.length; j++) {
+          var b = pts[j], dx = a.x - b.x, dy = a.y - b.y, d = dx * dx + dy * dy;
+          if (d < LINK * LINK) { g.strokeStyle = 'rgba(143,200,255,' + (.2 * (1 - Math.sqrt(d) / LINK)).toFixed(3) + ')'; g.lineWidth = 1; g.beginPath(); g.moveTo(a.x, a.y); g.lineTo(b.x, b.y); g.stroke(); }
+        }
+        var mx = a.x - mouse.x, my = a.y - mouse.y, md = Math.sqrt(mx * mx + my * my);
+        if (md < 170) { g.strokeStyle = 'rgba(95,208,255,' + (.42 * (1 - md / 170)).toFixed(3) + ')'; g.beginPath(); g.moveTo(a.x, a.y); g.lineTo(mouse.x, mouse.y); g.stroke(); }
+        g.fillStyle = md < 170 ? 'rgba(200,240,255,.95)' : 'rgba(190,220,255,.6)';
+        g.beginPath(); g.arc(a.x, a.y, a.r, 0, Math.PI * 2); g.fill();
+      }
+    }
+    function step() {
+      pts.forEach(function (p) {
+        p.x += p.vx; p.y += p.vy;
+        if (p.x < -10) p.x = W + 10; else if (p.x > W + 10) p.x = -10;
+        if (p.y < -10) p.y = H * .72; else if (p.y > H * .72) p.y = -10;
+      });
+      draw();
+      raf = requestAnimationFrame(step);
+    }
+    function run() {
+      cancelAnimationFrame(raf);
+      if (visible && !document.hidden && !reduceMotion.matches) raf = requestAnimationFrame(step); else draw();
+    }
+    hero.addEventListener('pointermove', function (e) {
+      if (e.pointerType !== 'mouse') return;
+      var r = hero.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top;
+      if (reduceMotion.matches) draw();
+    }, { passive: true });
+    hero.addEventListener('pointerleave', function () { mouse.x = mouse.y = -1e4; if (reduceMotion.matches) draw(); });
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { visible = en[0].isIntersecting; run(); }).observe(hero);
+    document.addEventListener('visibilitychange', run);
+    reduceMotion.addEventListener('change', run);
+    if ('ResizeObserver' in window) new ResizeObserver(size).observe(hero); else window.addEventListener('resize', size);
+    size(); run();
+  })();
+
+  if (document.querySelector('.hk-card')) (function () {
+    /* ───────── Holographic capability cards ─────────
+       The light and the iridescent edge follow the mouse, and the card tilts a little. */
+    $$('.hk-card').forEach(function (card) {
+      card.addEventListener('pointermove', function (e) {
+        if (e.pointerType !== 'mouse') return;
+        var r = card.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+        card.style.setProperty('--mx', (x * 100).toFixed(1) + '%');
+        card.style.setProperty('--my', (y * 100).toFixed(1) + '%');
+        card.style.setProperty('--ang', (Math.atan2(y - .5, x - .5) * 180 / Math.PI + 90).toFixed(0) + 'deg');
+        if (reduceMotion.matches) return;
+        card.style.setProperty('--tx', ((.5 - y) * 5).toFixed(2) + 'deg');
+        card.style.setProperty('--ty', ((x - .5) * 6).toFixed(2) + 'deg');
+      });
+      card.addEventListener('pointerleave', function () { card.style.setProperty('--tx', '0deg'); card.style.setProperty('--ty', '0deg'); });
+    });
+  })();
+
+  if (document.getElementById('flap')) (function () {
+    /* ───────── Split-flap board ─────────
+       Cycles through who Ask Compass is for while it is on screen. Screen readers get
+       the full list once, from the visually hidden sentence next to it. */
+    var board = $('#flap'), words = board.dataset.words.split('|'), len = Math.max.apply(null, words.map(function (w) { return w.length; }));
+    var idx = 0, timer = 0, inView = false;
+    board.textContent = '';
+    var tiles = [];
+    for (var i = 0; i < len; i++) { var t = el('span', { 'class': 'ft' }); board.appendChild(t); tiles.push(t); }
+    function show(word, animate) {
+      var padded = word + new Array(len - word.length + 1).join(' ');
+      tiles.forEach(function (t, i) {
+        var ch = padded[i];
+        if (t.textContent === ch && t.dataset.set) return;
+        t.dataset.set = '1';
+        if (!animate) { t.textContent = ch; t.classList.toggle('is-blank', ch === ' '); return; }
+        setTimeout(function () {
+          t.classList.remove('flip'); void t.offsetWidth; t.classList.add('flip');
+          setTimeout(function () { t.textContent = ch; t.classList.toggle('is-blank', ch === ' '); }, 150);
+        }, i * 32);
+      });
+    }
+    function tick() {
+      clearTimeout(timer);
+      if (!inView || reduceMotion.matches || document.hidden) return;
+      timer = setTimeout(function () { idx = (idx + 1) % words.length; show(words[idx], true); tick(); }, 2800);
+    }
+    show(words[0], false);
+    if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { inView = en[0].isIntersecting; tick(); }).observe(board);
+    document.addEventListener('visibilitychange', tick);
+  })();
 })();

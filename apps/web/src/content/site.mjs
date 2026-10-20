@@ -27,7 +27,7 @@ export const NAV = {
       { label: 'Workflow Builder', href: '/platform/workflow-builder', desc: 'Design steps, decisions and branches' },
       { label: 'Guided Procedures', href: '/platform/guided-procedures', desc: 'Step-by-step execution with checklists' },
       { label: 'Process Maps', href: '/platform/process-maps', desc: 'Maps and decision trees from one definition' },
-      { label: 'AI Procedure Studio', href: '/platform/ai-procedure-studio', desc: 'Draft procedures from documents, with review' },
+      { label: 'SI Procedure Studio', href: '/platform/si-procedure-studio', desc: 'Draft procedures from documents, with review' },
       { label: 'Knowledge Hub', href: '/platform/knowledge-hub', desc: 'Search procedures, policies and sources' },
       { label: 'Automation & Integrations', href: '/platform/automation-integrations', desc: 'Triggers, webhooks and connected systems' },
       { label: 'Analytics', href: '/platform/analytics', desc: 'Find where people stop or restart' },

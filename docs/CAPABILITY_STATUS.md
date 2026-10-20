@@ -79,16 +79,16 @@ Maps and decision trees from one definition. Page: `/platform/process-maps`
 | Export as image or PDF | Planned |
 | Share a read-only map link | Planned |
 
-## AI Procedure Studio
+## SI Procedure Studio
 
-Draft procedures from documents, with review. Page: `/platform/ai-procedure-studio`
+Draft procedures from documents, with review. Page: `/platform/si-procedure-studio`
 
 | Feature | Status |
 |---|---|
 | Procedure drafts from a prompt | Planned |
 | Convert documents, notes and transcripts | Planned |
 | Decision-tree generation | Planned |
-| AI-assisted rewriting of a step | Planned |
+| SI-assisted rewriting of a step | Planned |
 | Missing-step and edge-case suggestions | Planned |
 | Contradiction and stale-content detection | Planned |
 | Test cases for each branch | Planned |

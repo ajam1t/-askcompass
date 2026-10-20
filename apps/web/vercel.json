@@ -9,6 +9,7 @@
     { "source": "/studio", "destination": "/studio.html" }
   ],
   "redirects": [
+    { "source": "/platform/ai-procedure-studio", "destination": "/platform/si-procedure-studio", "permanent": true },
     {
       "source": "/",
       "has": [{ "type": "host", "value": "demo.askcompass.in" }],
