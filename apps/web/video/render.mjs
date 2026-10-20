@@ -17,6 +17,7 @@ const browser = await chromium.launch();
 const page = await browser.newPage({ viewport: { width: 1280, height: 720 } });
 await page.goto(pathToFileURL(join(ROOT, 'video/story.html')).href + '?capture');
 await page.evaluate(() => document.fonts.ready);
+await page.evaluate(() => Promise.all([...document.images].map((i) => i.decode())));
 const duration = await page.evaluate(() => window.DURATION);
 const frames = Math.round(duration * FPS);
 
