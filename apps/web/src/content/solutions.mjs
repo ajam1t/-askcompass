@@ -25,7 +25,7 @@ ${section('sides')}
   <div class="split-l"><p class="eyebrow">Today and next</p><h2>What you can use now.</h2></div>
   <div class="split-r prose-lg">
     <p>The public Studio demo already shows guided procedures, decisions, linked procedures, process maps, drafts, approvals, version history and usage insights, using sample data stored in your browser.</p>
-    <p>Customer workspaces with sign-in, shared data, integrations and AI drafting are on the roadmap. Each platform page marks every feature as in the demo or planned.</p>
+    <p>Customer workspaces with sign-in, shared data, integrations and SI drafting are on the roadmap. Each platform page marks every feature as in the demo or planned.</p>
   </div>
 </div></section>`
   },
@@ -107,7 +107,7 @@ ${section('sides')}
       before: ['Text and diagrams maintained separately', 'Several copies, unclear which is current', 'Changes made without review', 'No history of what changed and why'],
       after: ['One definition drives steps and map', 'One published version, with an owner', 'Every change reviewed before it goes live', 'Version history with restore as a new draft'],
       outcomes: ['Documentation that matches how work is done', 'Clear ownership of each procedure', 'Safer changes, with a full history'],
-      features: ['workflow-builder', 'process-maps', 'teams-collaboration', 'ai-procedure-studio'],
+      features: ['workflow-builder', 'process-maps', 'teams-collaboration', 'si-procedure-studio'],
       demoHref: '/studio#/p/customer-refund/edit'
     },
     {
@@ -126,7 +126,7 @@ ${section('sides')}
       before: ['Search returns whole documents', 'Approval status is unclear', 'Knowledge separate from the work', 'No sign of which content is stale'],
       after: ['Search lands on the exact step', 'Owner and version shown with the guidance', 'Knowledge attached to the step that needs it', 'Planned: review dates and stale-content alerts'],
       outcomes: ['Less time searching', 'More confidence in the answer found', 'Knowledge that stays connected to real work'],
-      features: ['knowledge-hub', 'guided-procedures', 'ai-procedure-studio', 'security-governance'],
+      features: ['knowledge-hub', 'guided-procedures', 'si-procedure-studio', 'security-governance'],
       demoHref: '/studio#/search?q=delegate'
     },
     {

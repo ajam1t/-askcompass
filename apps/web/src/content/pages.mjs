@@ -44,7 +44,7 @@ export function PAGES({ esc, section, flow, statusPill, relatedLinks, linkToPlat
       body: pageHero({ eyebrow: 'Guides & Insights', h1: 'Guides & Insights', lead: 'Short, practical guides for anyone who writes, owns or improves procedures.', crumbs: [{ label: 'Resources', href: '/resources' }, { label: 'Guides' }] }) + `
 <section class="section section-tight"><div class="wrap">
   <ul class="guide-cards guide-cards-list">${GUIDES.map(guideCard).join('')}</ul>
-  <p class="muted-note">Topics coming next: AI-assisted procedure creation, knowledge management at the moment of work, and designing approval workflows.</p>
+  <p class="muted-note">Topics coming next: SI-assisted procedure creation, knowledge management at the moment of work, and designing approval workflows.</p>
 </div></section>`
     },
     {

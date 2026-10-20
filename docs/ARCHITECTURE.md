@@ -92,7 +92,7 @@ keep reading one definition. Index every table on `(tenant_id, …)`; enforce fo
 4. Move Studio's procedures, versions, approvals and audit log onto the server for signed-in workspaces;
    keep the public demo on synthetic browser data.
 5. Executions and analytics events; notifications by email.
-6. AI drafting and source-grounded answers (requires a model provider key, server-side only), always with human review.
+6. SI drafting and source-grounded answers (requires a model provider key, server-side only), always with human review.
 7. Integrations and automation, each listed as available only after it is built and tested.
 8. SSO, MFA, custom domains per enterprise tenant.
 

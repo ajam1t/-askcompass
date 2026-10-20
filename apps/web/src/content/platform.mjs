@@ -135,23 +135,23 @@ ${section('why')}
       demoHref: '/studio#/p/customer-refund/map', demoLabel: 'Open a sample process map'
     }),
     page({
-      slug: 'ai-procedure-studio', title: 'AI Procedure Studio', module: 'Module 3 · AI Procedure Studio',
+      slug: 'si-procedure-studio', title: 'SI Procedure Studio', module: 'Module 3 · SI Procedure Studio',
       navDesc: 'Draft procedures from documents, with review',
-      description: 'Planned: AI assistance to draft procedures from documents and notes, find missing steps and answer questions with citations, always with human review before publishing.',
-      lead: 'AI will help process owners get from a long document to a structured draft faster. It will not publish anything on its own: every generated procedure goes through the same review and approval as one written by hand.',
-      exampleTitle: 'How AI assistance is designed to work', exampleText: 'This is the intended flow, not a live feature. AI suggests; a person reviews, edits and approves.',
+      description: 'Planned: SI assistance to draft procedures from documents and notes, find missing steps and answer questions with citations, always with human review before publishing.',
+      lead: 'SI will help process owners get from a long document to a structured draft faster. It will not publish anything on its own: every generated procedure goes through the same review and approval as one written by hand.',
+      exampleTitle: 'How SI assistance is designed to work', exampleText: 'This is the intended flow, not a live feature. SI suggests; a person reviews, edits and approves.',
       example: [
         { type: 'source', label: 'Upload an existing SOP' },
-        { type: 'auto', label: 'AI drafts steps and decisions', note: 'Each step cites the source passage' },
-        { type: 'exception', label: 'AI flags gaps and contradictions' },
+        { type: 'auto', label: 'SI drafts steps and decisions', note: 'Each step cites the source passage' },
+        { type: 'exception', label: 'SI flags gaps and contradictions' },
         { type: 'approval', label: 'A process owner reviews and edits' },
         { type: 'end', label: 'Approved version published' }
       ],
       groups: [
-        { title: 'Drafting', items: [['Procedure drafts from a prompt', 'planned'], ['Convert documents, notes and transcripts', 'planned'], ['Decision-tree generation', 'planned'], ['AI-assisted rewriting of a step', 'planned']] },
+        { title: 'Drafting', items: [['Procedure drafts from a prompt', 'planned'], ['Convert documents, notes and transcripts', 'planned'], ['Decision-tree generation', 'planned'], ['SI-assisted rewriting of a step', 'planned']] },
         { title: 'Quality and answers', items: [['Missing-step and edge-case suggestions', 'planned'], ['Contradiction and stale-content detection', 'planned'], ['Test cases for each branch', 'planned'], ['Answers grounded in approved sources, with citations', 'planned'], ['Human review before publishing', 'demo']] }
       ],
-      ctaTitle: 'AI drafting is not live yet. Review and approval already are.',
+      ctaTitle: 'SI drafting is not live yet. Review and approval already are.',
       related: ['knowledge-hub', 'workflow-builder', 'teams-collaboration'], solutions: ['process-documentation', 'knowledge-management'],
       demoHref: '/studio#/approvals', demoLabel: 'See the review workflow'
     }),
@@ -170,7 +170,7 @@ ${section('why')}
         { title: 'Finding knowledge', items: [['Search across procedures and individual steps', 'demo'], ['Folders by team or area', 'demo'], ['Filters and tags', 'planned'], ['Full-text search of uploaded documents', 'planned'], ['Related content suggestions', 'planned']] },
         { title: 'Keeping it trustworthy', items: [['Owner and version on every procedure', 'demo'], ['Source reference per step', 'demo'], ['Review dates and expiry reminders', 'planned'], ['Duplicate and stale-content detection', 'planned'], ['Approved sources ranked first', 'planned']] }
       ],
-      related: ['guided-procedures', 'ai-procedure-studio', 'security-governance'], solutions: ['knowledge-management'],
+      related: ['guided-procedures', 'si-procedure-studio', 'security-governance'], solutions: ['knowledge-management'],
       demoHref: '/studio#/search?q=delegate', demoLabel: 'Try step-level search'
     }),
     page({
