@@ -5,9 +5,12 @@ homepage-only styles live in `assets/css/home.css`.
 
 ## Idea
 
-Navigation at night: a dark sky, one bright compass, and a lit trail to the next step. Light sections are
-where the work happens. They are calm, readable, and drawn like a blueprint. Dark sections are for
-moments of direction (hero, capabilities, industries).
+Tagline: **Beyond Intelligence. Towards Clarity.** The wordmark is set in capitals, **ASK COMPASS**, with
+0.09em tracking. The emblem is the gold star over a navy and ivory dial (`assets/brand/`).
+
+The hero is light and colourful: a soft blue, teal and gold mesh, with the emblem in 3D filling the right
+half. Light sections are where the work happens. They are calm, readable, and drawn like a blueprint. Dark
+sections (capabilities, industries) are for moments of direction.
 
 ## Colour
 
@@ -59,7 +62,7 @@ Rules:
 
 | Style | Where |
 |---|---|
-| Wireframe and 3D, particles, gradient mesh, restrained neon | Hero: 3D compass, constellation canvas, night sky, glowing trail |
+| 3D, particles, gradient mesh | Hero: the 3D emblem (gold star, dial, glowing globe, orbits), a light constellation canvas, a colourful mesh |
 | Kinetic typography | Hero headline; use-case headlines (word by word) |
 | Liquid morph | Use-case tab indicator (its edges stretch toward the next tab) |
 | Holographic | Use-case panel edge and sheen; capability card edges |

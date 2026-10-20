@@ -11,7 +11,6 @@ import { PLATFORM } from './src/content/platform.mjs';
 import { SOLUTIONS } from './src/content/solutions.mjs';
 import { GUIDES, FAQ } from './src/content/resources.mjs';
 import { PAGES } from './src/content/pages.mjs';
-import { heroScene } from './src/scene.mjs';
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 const OUT = join(ROOT, 'public');
@@ -77,7 +76,7 @@ function header(page) {
   <div class="wrap header-in">
     <a class="brand" href="/" aria-label="Ask Compass home">
       ${BRAND_MARK}
-      <span class="brand-word">Ask Compass</span>
+      <span class="brand-word">ASK COMPASS</span>
     </a>
     <nav class="main-nav" id="mainNav" aria-label="Main">
       <a href="/"${cur('home')}>Home</a>
@@ -102,8 +101,8 @@ function footer() {
   return `<footer class="site-footer">
   <div class="wrap footer-in">
     <div class="f-brand">
-      <a class="brand" href="/">${BRAND_MARK}<span class="brand-word">Ask Compass</span></a>
-      <p>Complex work. Clear direction.</p>
+      <a class="brand" href="/">${BRAND_MARK}<span class="brand-word">ASK COMPASS</span></a>
+      <p>Beyond Intelligence. Towards Clarity.</p>
     </div>
     <nav class="f-cols f-cols-wide" aria-label="Footer">${FOOTER.map(col).join('')}</nav>
   </div>
@@ -251,9 +250,9 @@ function renderGuide(g) {
 const pages = [];
 const add = (p) => pages.push(p);
 
-// Home: hero, sample strip, story video, use-case tabs, platform preview, capabilities, Studio preview, industries, founder.
+// Home: hero, story video, use-case tabs, platform preview, capabilities, Studio preview, industries, founder.
 add({
-  path: '/', section: 'home', title: 'Ask Compass · Complex work. Clear direction.',
+  path: '/', section: 'home', title: 'Ask Compass · Beyond Intelligence. Towards Clarity.',
   description: 'Ask Compass turns procedures and organizational knowledge into interactive, step-by-step guidance, so people know what to do next and move work forward.',
   bodyClass: 'is-home',
   headExtra: `<script>
@@ -266,7 +265,7 @@ add({
   styles: '<link rel="stylesheet" href="/assets/css/home.css">',
   jsonLd: { '@context': 'https://schema.org', '@type': 'Organization', name: 'Ask Compass', url: SITE.origin + '/', logo: SITE.origin + '/assets/brand/logo-512.png', founder: { '@type': 'Person', name: 'Resham Chaudhary' } },
   scripts: ['<script src="/assets/js/home.js" defer></script>', '<script type="module" src="/assets/js/compass.js"></script>'],
-  body: ['hero', 'home-strip', 'home-video', 'home-usecases-tabs', 'home-platform', 'home-capabilities', 'home-studio', 'home-industries', 'founder'].map(section).join('\n\n').replace('{{HERO_SCENE}}', heroScene())
+  body: ['hero', 'home-video', 'home-usecases-tabs', 'home-platform', 'home-capabilities', 'home-studio', 'home-industries', 'founder'].map(section).join('\n\n')
 });
 
 add({
