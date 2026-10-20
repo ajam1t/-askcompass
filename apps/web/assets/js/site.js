@@ -44,6 +44,8 @@
   drops.forEach(function (d) {
     var b = $('.nav-drop-btn', d), leaveT = null, byHover = false;
     function setOpen(open) {
+      // Any open (hover, click or keyboard) cancels a close still pending from an earlier hover.
+      clearTimeout(leaveT);
       if (open) closeDrops(d);
       d.classList.toggle('is-open', open);
       b.setAttribute('aria-expanded', String(open));
@@ -57,7 +59,7 @@
     });
     b.addEventListener('keydown', function (e) {
       if (e.key !== 'ArrowDown') return;
-      e.preventDefault(); setOpen(true);
+      e.preventDefault(); setOpen(true); byHover = false;
       var first = $('.nav-drop-menu a', d); if (first) first.focus();
     });
     d.addEventListener('pointerenter', function (e) {

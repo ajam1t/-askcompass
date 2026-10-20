@@ -117,7 +117,8 @@ h3 { font-size: 18px; line-height: 1.3; font-weight: 600; letter-spacing: -.01em
 .nav-drop-menu::before { content: ""; position: absolute; left: 0; right: 0; top: -12px; height: 12px; }
 .nav-drop { position: relative; }
 .nav-drop-menu { position: absolute; top: calc(100% + 8px); left: -8px; width: 280px; padding: 6px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow-2); opacity: 0; visibility: hidden; transform: translateY(-4px); transition: opacity .18s, transform .18s var(--ease), visibility .18s; }
-.nav-drop.is-open .nav-drop-menu { opacity: 1; visibility: visible; transform: none; }
+.nav-drop.is-open .nav-drop-menu { opacity: 1; visibility: visible; transform: none; transition: opacity .18s, transform .18s var(--ease), visibility 0s; }
+/* Visible at once on open so keyboard focus can move straight into the menu; it still fades out on close. */
 .nav-drop-menu a { display: block; padding: 10px 12px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 14.5px; color: var(--ink); }
 .nav-drop-menu a small { display: block; font-weight: 400; font-size: 13px; color: var(--ink-2); margin-top: 1px; }
 .nav-drop-menu a:hover { background: var(--bg-blue); }
