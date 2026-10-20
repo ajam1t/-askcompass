@@ -259,3 +259,18 @@
   .hk-card, .hn { transition: none; }
   .hk-card:hover { transform: none; }
 }
+
+/* ── Story video ── */
+.hv { background: #fff; padding-bottom: clamp(40px, 5vw, 64px); }
+.hv-head { display: flex; flex-direction: column; align-items: center; gap: 14px; text-align: center; max-width: 760px; margin: 0 auto 40px; }
+.hv-head h2 { font-size: clamp(32px, 4vw, 50px); line-height: 1.08; letter-spacing: -.035em; }
+.hv-head .section-lead { margin: 0; }
+.hv-frame { margin: 0 auto; max-width: 1040px; }
+.hv-video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; border-radius: 18px; background: #f3f7fc; border: 1px solid var(--line); box-shadow: 0 40px 90px rgba(16, 40, 76, .18); }
+.hv-cap { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px; margin-top: 16px; font-size: 14px; color: var(--ink-2); text-align: center; }
+.hv-script { max-width: 760px; margin: 22px auto 0; border: 1px solid var(--line); border-radius: 12px; background: #fff; }
+.hv-script summary { cursor: pointer; padding: 14px 18px; font-weight: 600; color: var(--ink); }
+.hv-script ol { margin: 0; padding: 0 22px 18px 40px; display: flex; flex-direction: column; gap: 8px; color: var(--ink-2); font-size: 15px; line-height: 1.6; }
+.hv-script b { color: var(--ink); }
+@media (max-width: 640px) { .hv-video { border-radius: 12px; } }
+.btn-ic { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linejoin: round; }

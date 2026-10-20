@@ -251,7 +251,7 @@ function renderGuide(g) {
 const pages = [];
 const add = (p) => pages.push(p);
 
-// Home: hero, sample strip, platform preview, capabilities, Studio preview, industries, founder.
+// Home: hero, sample strip, story video, platform preview, capabilities, Studio preview, industries, founder.
 add({
   path: '/', section: 'home', title: 'Ask Compass · Complex work. Clear direction.',
   description: 'Ask Compass turns procedures and organizational knowledge into interactive, step-by-step guidance, so people know what to do next and move work forward.',
@@ -266,7 +266,7 @@ add({
   styles: '<link rel="stylesheet" href="/assets/css/home.css">',
   jsonLd: { '@context': 'https://schema.org', '@type': 'Organization', name: 'Ask Compass', url: SITE.origin + '/', founder: { '@type': 'Person', name: 'Resham Chaudhary' } },
   scripts: ['<script src="/assets/js/home.js" defer></script>', '<script type="module" src="/assets/js/compass.js"></script>'],
-  body: ['hero', 'home-strip', 'home-platform', 'home-capabilities', 'home-studio', 'home-industries', 'founder'].map(section).join('\n\n').replace('{{HERO_SCENE}}', heroScene())
+  body: ['hero', 'home-strip', 'home-video', 'home-platform', 'home-capabilities', 'home-studio', 'home-industries', 'founder'].map(section).join('\n\n').replace('{{HERO_SCENE}}', heroScene())
 });
 
 add({
