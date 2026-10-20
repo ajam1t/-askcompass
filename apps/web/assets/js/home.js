@@ -403,4 +403,19 @@
     $$('[data-choose]').forEach(function (x) { x.addEventListener('click', function () { setPath(x.dataset.choose); }); });
     setPath(canvas.dataset.path || 'yes');
   })();
+  if (document.getElementById('storyVideo')) (function () {
+    /* ───────── Story video ─────────
+       Plays (muted) while it is on screen and pauses when it leaves. With reduced
+       motion it never starts by itself; the controls still work. */
+    var v = $('#storyVideo'), userPaused = false;
+    v.addEventListener('pause', function () { if (!v.dataset.auto) userPaused = true; delete v.dataset.auto; });
+    v.addEventListener('play', function () { userPaused = false; });
+    if (reduceMotion.matches || !('IntersectionObserver' in window)) return;
+    new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting && !userPaused) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+        else if (!en.isIntersecting && !v.paused) { v.dataset.auto = '1'; v.pause(); }
+      });
+    }, { threshold: 0.45 }).observe(v);
+  })();
 })();
