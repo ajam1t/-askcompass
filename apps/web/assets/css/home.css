@@ -24,7 +24,10 @@
 .hx::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 120px; z-index: -1; pointer-events: none; background: linear-gradient(180deg, transparent, #fff); }
 .hx-in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 32px; align-items: center; min-height: min(860px, calc(100vh - 68px)); padding-block: 48px 64px; }
 .hx-copy { position: relative; z-index: 2; display: flex; flex-direction: column; gap: 22px; }
-.hx h1 { color: var(--navy); font-size: clamp(40px, 4.4vw, 66px); line-height: 1.03; letter-spacing: -.045em; font-weight: 700; }
+.hx-copy { container-type: inline-size; }
+/* Always two lines: each line stays whole and the size follows the column width */
+.hx h1 { color: var(--navy); font-size: min(68px, 10.4cqi); line-height: 1.05; letter-spacing: -.045em; font-weight: 700; }
+.hx h1 .hx-line { display: block; white-space: nowrap; }
 .hx .hx-grad { background: linear-gradient(92deg, #2563EB 0%, #0B87B6 55%, #0E8A80 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .hx-lead { margin: 0; font-size: 18px; line-height: 1.65; color: var(--ink-2); max-width: 34em; }
 .hx-how { list-style: none; margin: 2px 0 4px; padding: 0; display: flex; flex-direction: column; gap: 12px; max-width: 34em; }
@@ -213,7 +216,6 @@
   .app-side { display: none; }
 }
 @media (max-width: 640px) {
-  .hx h1 { font-size: clamp(40px, 12vw, 52px); }
   .hx-lead { font-size: 16px; }
   .hx .hero-ctas .btn { flex: 1 1 100%; }
   .hx-stage { aspect-ratio: 1 / 1.08; }
@@ -249,7 +251,6 @@
 .hv-head .section-lead { margin: 0; }
 .hv-frame { margin: 0 auto; max-width: 1040px; }
 .hv-video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; border-radius: 18px; background: #f3f7fc; border: 1px solid var(--line); box-shadow: 0 40px 90px rgba(16, 40, 76, .18); }
-.hv-cap { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 10px; margin-top: 16px; font-size: 14px; color: var(--ink-2); text-align: center; }
 .hv-script { max-width: 760px; margin: 22px auto 0; border: 1px solid var(--line); border-radius: 12px; background: #fff; }
 .hv-script summary { cursor: pointer; padding: 14px 18px; font-weight: 600; color: var(--ink); }
 .hv-script ol { margin: 0; padding: 0 22px 18px 40px; display: flex; flex-direction: column; gap: 8px; color: var(--ink-2); font-size: 15px; line-height: 1.6; }
