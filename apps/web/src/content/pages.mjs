@@ -109,13 +109,8 @@ ${founderCard}
     <div class="form-status" id="formStatus" role="status" aria-live="polite"></div>
   </form>
   <aside class="contact-side">
-    <h2>Other ways to reach us</h2>
-    <ul class="contact-methods">
-      <li><span>Email</span><a href="mailto:${SITE.email}">${SITE.email}</a></li>
-      <li><span>Phone</span><a href="${SITE.phoneHref}">${SITE.phone}</a></li>
-      <li><span>WhatsApp</span><a href="${SITE.whatsapp}" target="_blank" rel="noopener">Message us on WhatsApp</a></li>
-      <li><span>LinkedIn</span><a href="${SITE.linkedin}" target="_blank" rel="noopener">linkedin.com/in/ajam1t</a></li>
-    </ul>
+    <h2>How we reply</h2>
+    <p>Send your enquiry with the form and we will reply to the email address you give us.</p>
     <p class="muted-note">For security reports, see the <a href="/security">security page</a>.</p>
   </aside>
 </div></section>`
@@ -139,7 +134,7 @@ ${reviewNote}
 <li><strong>Google Fonts</strong> serves the typefaces; your browser requests them from Google.</li>
 <li><strong>jsDelivr</strong> serves the 3D graphics library used on the homepage; the legacy prototype also loads a spreadsheet library from SheetJS.</li>
 </ul>
-<h2>Your choices</h2><p>You can ask us what information we hold from your messages, or ask us to delete it, by emailing <a href="mailto:${SITE.email}">${SITE.email}</a>.</p>
+<h2>Your choices</h2><p>You can ask us what information we hold from your messages, or ask us to delete it, through the <a href="/contact">contact form</a>.</p>
 <h2>Changes</h2><p>We will update this page when the site changes, and before any feature that collects personal data goes live.</p>`)
     },
     {
@@ -152,7 +147,7 @@ ${reviewNote}
 <h2>No warranty</h2><p>The website and demo are provided “as is”, without warranties of any kind. Sample procedures are illustrative and are not professional, legal or policy advice.</p>
 <h2>Acceptable use</h2><p>Do not attempt to disrupt the service, probe it for vulnerabilities outside responsible disclosure, or use it to distribute harmful content.</p>
 <h2>Content</h2><p>The Ask Compass name, design and site content belong to Ask Compass. Procedures you create in the demo stay in your browser and remain yours.</p>
-<h2>Contact</h2><p>Questions about these terms: <a href="mailto:${SITE.email}">${SITE.email}</a>.</p>`)
+<h2>Contact</h2><p>Questions about these terms: use the <a href="/contact">contact form</a>.</p>`)
     },
     {
       path: '/security', section: 'legal', title: 'Security', description: 'Security at Ask Compass today, what is planned for customer workspaces, and how to report a vulnerability.',
@@ -173,7 +168,7 @@ ${reviewNote}
 <li>Audit records for administrative and data-changing actions.</li>
 </ul>
 <p>We do not hold security certifications today and will not claim any until they are earned.</p>
-<h2>Report a vulnerability</h2><p>If you believe you have found a security issue, email <a href="mailto:${SITE.email}?subject=Security%20report">${SITE.email}</a> with the subject “Security report”. Please give us reasonable time to fix it before disclosing it publicly, and do not access or modify data that is not yours.</p>`)
+<h2>Report a vulnerability</h2><p>If you believe you have found a security issue, tell us through the <a href="/contact">contact form</a> and start your message with “Security report”. Please give us reasonable time to fix it before disclosing it publicly, and do not access or modify data that is not yours.</p>`)
     },
     {
       path: '/accessibility', section: 'legal', title: 'Accessibility', description: 'Our commitment to an accessible Ask Compass website and demo, and how to report a barrier.',
@@ -194,7 +189,7 @@ ${reviewNote}
 <li>Large process maps in the Studio demo scroll horizontally on small screens.</li>
 <li>The legacy prototype at /app.html has not been fully reviewed.</li>
 </ul>
-<h2>Tell us about a barrier</h2><p>If something on the site is hard to use, email <a href="mailto:${SITE.email}?subject=Accessibility">${SITE.email}</a>. Tell us the page and what happened, and we will work on a fix.</p>`)
+<h2>Tell us about a barrier</h2><p>If something on the site is hard to use, tell us through the <a href="/contact">contact form</a>. Tell us the page and what happened, and we will work on a fix.</p>`)
     },
     {
       path: '/workspace', section: 'workspace', title: 'Workspace sign-in', noindex: true,

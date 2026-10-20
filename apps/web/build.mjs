@@ -104,7 +104,6 @@ function footer() {
     <div class="f-brand">
       <a class="brand" href="/">${BRAND_MARK}<span class="brand-word">Ask Compass</span></a>
       <p>Complex work. Clear direction.</p>
-      <p class="f-contact"><a href="mailto:${SITE.email}">${SITE.email}</a></p>
     </div>
     <nav class="f-cols f-cols-wide" aria-label="Footer">${FOOTER.map(col).join('')}</nav>
   </div>
@@ -265,7 +264,7 @@ add({
   })();
 </script>`,
   styles: '<link rel="stylesheet" href="/assets/css/home.css">',
-  jsonLd: { '@context': 'https://schema.org', '@type': 'Organization', name: 'Ask Compass', url: SITE.origin + '/', email: SITE.email, founder: { '@type': 'Person', name: 'Resham Chaudhary' }, sameAs: [SITE.linkedin] },
+  jsonLd: { '@context': 'https://schema.org', '@type': 'Organization', name: 'Ask Compass', url: SITE.origin + '/', founder: { '@type': 'Person', name: 'Resham Chaudhary' } },
   scripts: ['<script src="/assets/js/home.js" defer></script>', '<script type="module" src="/assets/js/compass.js"></script>'],
   body: ['hero', 'home-strip', 'home-platform', 'home-capabilities', 'home-studio', 'home-industries', 'founder'].map(section).join('\n\n').replace('{{HERO_SCENE}}', heroScene())
 });
