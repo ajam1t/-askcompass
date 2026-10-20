@@ -1,18 +1,95 @@
-<!-- ───────────── Key capabilities ───────────── -->
-<section class="section hk" id="capabilities" aria-labelledby="hk-title">
+<!-- ───────────── Key capabilities: an interactive capability wheel ─────────────
+     Six capabilities around the emblem, grouped into knowledge, execution and impact.
+     Hover, click or use the arrow keys to light a segment and open its detail panel. -->
+<section class="section hcap" id="capabilities" aria-labelledby="hcap-title">
   <div class="wrap">
-    <header class="hk-head">
-      <p class="hx-eyebrow">Key capabilities</p>
-      <h2 id="hk-title">From knowledge to execution to impact</h2>
-      <a class="hk-all" href="/platform">View all features <span aria-hidden="true">→</span></a>
+    <header class="hcap-head">
+      <p class="hin-pill">Key capabilities</p>
+      <h2 id="hcap-title">From knowledge to execution <span class="hin-hl">to impact</span></h2>
+      <p class="section-lead">Six capabilities, one definition of how the work is done. Pick one to see what it does today.</p>
     </header>
-    <ul class="hk-grid">
-      <li class="hk-card c1"><span class="hk-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg></span><h3>Create &amp; Document</h3><p>Write procedures as steps, decisions and exceptions, each with an owner, sources and versions.</p><span class="status status-demo">In the demo</span><a href="/platform/workflow-builder">Learn more <span aria-hidden="true">→</span></a></li>
-      <li class="hk-card c2"><span class="hk-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.5 18h7M18 8.5v7M7.8 16.2 16.2 7.8"/></svg></span><h3>Visualize Processes</h3><p>See every procedure as a process map, drawn from the same definition people follow.</p><span class="status status-demo">In the demo</span><a href="/platform/process-maps">Learn more <span aria-hidden="true">→</span></a></li>
-      <li class="hk-card c3"><span class="hk-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2.2 4.8-4.8 2.2 2.2-4.8z"/></svg></span><h3>Guide Execution</h3><p>Walk people through the work one step and one decision at a time, with checklists and exceptions.</p><span class="status status-demo">In the demo</span><a href="/platform/guided-procedures">Learn more <span aria-hidden="true">→</span></a></li>
-      <li class="hk-card c4"><span class="hk-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 20V13M10 20V9M15 20v-5M20 20V5"/></svg></span><h3>Analyze &amp; Improve</h3><p>See where people stop, restart or flag a step, so you know which procedure to fix first.</p><span class="status status-demo">In the demo</span><a href="/platform/analytics">Learn more <span aria-hidden="true">→</span></a></li>
-      <li class="hk-card c5"><span class="hk-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.5 3 8.3 7 10 4-1.7 7-5.5 7-10V6z"/><path d="m9 12 2 2 4-4"/></svg></span><h3>Govern &amp; Comply</h3><p>Drafts, reviews, approvals and an audit history for every change. Sign-in and access controls are planned.</p><span class="status status-demo">In the demo</span><a href="/platform/security-governance">Learn more <span aria-hidden="true">→</span></a></li>
-      <li class="hk-card c6"><span class="hk-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0M16 11a3 3 0 1 0 0-6M17 14a6 6 0 0 1 4 6"/></svg></span><h3>Enable Your Teams</h3><p>Practise any procedure step by step today. Onboarding paths and knowledge checks are on the roadmap.</p><span class="status status-planned">Planned</span><a href="/platform/training">Learn more <span aria-hidden="true">→</span></a></li>
-    </ul>
+    <div class="hcap-in" id="capWheel">
+      <div class="cw" role="tablist" aria-label="Capabilities">
+        <svg class="cw-svg" viewBox="0 0 520 520" aria-hidden="true" focusable="false">
+          <defs>
+          <linearGradient id="cg0" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2563EB" stop-opacity=".95"/><stop offset="1" stop-color="#2563EB" stop-opacity=".65"/></linearGradient>
+          <linearGradient id="cg1" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7c5cff" stop-opacity=".95"/><stop offset="1" stop-color="#7c5cff" stop-opacity=".65"/></linearGradient>
+          <linearGradient id="cg2" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0E9F8E" stop-opacity=".95"/><stop offset="1" stop-color="#0E9F8E" stop-opacity=".65"/></linearGradient>
+          <linearGradient id="cg3" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#16a34a" stop-opacity=".95"/><stop offset="1" stop-color="#16a34a" stop-opacity=".65"/></linearGradient>
+          <linearGradient id="cg4" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e8922b" stop-opacity=".95"/><stop offset="1" stop-color="#e8922b" stop-opacity=".65"/></linearGradient>
+          <linearGradient id="cg5" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#e5487a" stop-opacity=".95"/><stop offset="1" stop-color="#e5487a" stop-opacity=".65"/></linearGradient>
+          <radialGradient id="cwGlow"><stop offset="0" stop-color="#fff"/><stop offset=".55" stop-color="#e6efff"/><stop offset="1" stop-color="#e6efff" stop-opacity="0"/></radialGradient>
+          <path id="st0" d="M156.5 47.9A236 236 0 0 1 495.4 243.5"/>
+          <path id="st1" d="M156.5 472.1A236 236 0 0 0 495.4 276.5"/>
+          <path id="st2" d="M128.0 64.3A236 236 0 0 0 128.0 455.7"/>
+          </defs>
+          <circle class="cw-glow" cx="260" cy="260" r="200" fill="url(#cwGlow)"/>
+          <circle class="cw-orbit" cx="260" cy="260" r="248"/>
+          <path class="cw-stage s0" d="M159.2 62.2A222 222 0 0 1 481.7 248.4"/>
+          <text class="cw-stage-t"><textPath href="#st0" startOffset="50%" text-anchor="middle">KNOWLEDGE</textPath></text>
+          <path class="cw-stage s1" d="M481.7 271.6A222 222 0 0 1 159.2 457.8"/>
+          <text class="cw-stage-t"><textPath href="#st1" startOffset="50%" text-anchor="middle">EXECUTION</textPath></text>
+          <path class="cw-stage s2" d="M139.1 446.2A222 222 0 0 1 139.1 73.8"/>
+          <text class="cw-stage-t"><textPath href="#st2" startOffset="50%" text-anchor="middle">IMPACT</textPath></text>
+          <path class="cw-beam" data-i="0" d="M260.0 168.0L260.0 136.0"/>
+          <path class="cw-seg" data-i="0" style="--c:#2563EB" d="M160.1 79.8A206 206 0 0 1 359.9 79.8L322.1 148.0A128 128 0 0 0 197.9 148.0Z"/>
+          <path class="cw-beam" data-i="1" d="M339.7 214.0L367.4 198.0"/>
+          <path class="cw-seg" data-i="1" style="--c:#7c5cff" d="M366.1 83.4A206 206 0 0 1 466.0 256.4L388.0 257.8A128 128 0 0 0 325.9 150.3Z"/>
+          <path class="cw-beam" data-i="2" d="M339.7 306.0L367.4 322.0"/>
+          <path class="cw-seg" data-i="2" style="--c:#0E9F8E" d="M466.0 263.6A206 206 0 0 1 366.1 436.6L325.9 369.7A128 128 0 0 0 388.0 262.2Z"/>
+          <path class="cw-beam" data-i="3" d="M260.0 352.0L260.0 384.0"/>
+          <path class="cw-seg" data-i="3" style="--c:#16a34a" d="M359.9 440.2A206 206 0 0 1 160.1 440.2L197.9 372.0A128 128 0 0 0 322.1 372.0Z"/>
+          <path class="cw-beam" data-i="4" d="M180.3 306.0L152.6 322.0"/>
+          <path class="cw-seg" data-i="4" style="--c:#e8922b" d="M153.9 436.6A206 206 0 0 1 54.0 263.6L132.0 262.2A128 128 0 0 0 194.1 369.7Z"/>
+          <path class="cw-beam" data-i="5" d="M180.3 214.0L152.6 198.0"/>
+          <path class="cw-seg" data-i="5" style="--c:#e5487a" d="M54.0 256.4A206 206 0 0 1 153.9 83.4L194.1 150.3A128 128 0 0 0 132.0 257.8Z"/>
+          <g class="cw-needle"><path d="M260 146l9 18h-18z"/></g>
+          <circle class="cw-core" cx="260" cy="260" r="88"/>
+          <circle class="cw-core-ring" cx="260" cy="260" r="100"/>
+        </svg>
+        <img class="cw-emblem" src="/assets/brand/logo-256.webp" width="256" height="256" alt="" loading="lazy">
+        <button type="button" role="tab" id="cwt-0" aria-controls="cwp-0" aria-selected="true" class="cw-btn" style="left:50.00%;top:17.88%;--c:#2563EB"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M9 13h6M9 17h4"/></svg><span>Create &amp; Document</span></button><button type="button" role="tab" id="cwt-1" aria-controls="cwp-1" aria-selected="false" tabindex="-1" class="cw-btn" style="left:77.81%;top:33.94%;--c:#7c5cff"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18m-2.5 0a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0-5 0M18 6m-2.5 0a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0-5 0M7.8 16.2 16.2 7.8"/></svg><span>Visualize Processes</span></button><button type="button" role="tab" id="cwt-2" aria-controls="cwp-2" aria-selected="false" tabindex="-1" class="cw-btn" style="left:77.81%;top:66.06%;--c:#0E9F8E"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18a9 9 0 1 0 0-18M15.5 8.5l-2.2 4.8-4.8 2.2 2.2-4.8z"/></svg><span>Guide Execution</span></button><button type="button" role="tab" id="cwt-3" aria-controls="cwp-3" aria-selected="false" tabindex="-1" class="cw-btn" style="left:50.00%;top:82.12%;--c:#16a34a"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 5 6v5c0 4.5 3 8.3 7 10 4-1.7 7-5.5 7-10V6zM9 12l2 2 4-4"/></svg><span>Govern &amp; Comply</span></button><button type="button" role="tab" id="cwt-4" aria-controls="cwp-4" aria-selected="false" tabindex="-1" class="cw-btn" style="left:22.19%;top:66.06%;--c:#e8922b"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 20V13M10 20V9M15 20v-5M20 20V5"/></svg><span>Analyze &amp; Improve</span></button><button type="button" role="tab" id="cwt-5" aria-controls="cwp-5" aria-selected="false" tabindex="-1" class="cw-btn" style="left:22.19%;top:33.94%;--c:#e5487a"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 8m-3 0a3 3 0 1 0 6 0a3 3 0 1 0-6 0M3 20a6 6 0 0 1 12 0M16 11a3 3 0 1 0 0-6M17 14a6 6 0 0 1 4 6"/></svg><span>Enable Your Teams</span></button>
+      </div>
+      <div class="cw-panels">
+        <div class="cw-panel is-on" role="tabpanel" id="cwp-0" aria-labelledby="cwt-0" style="--c:#2563EB">
+          <p class="cw-stage-l"><b>01</b> · Knowledge</p>
+          <h3>Create &amp; Document</h3>
+          <p class="cw-desc">Write procedures as steps, decisions and exceptions, each with an owner, sources and versions.</p>
+          <ul class="cw-feats"><li><span aria-hidden="true">✓</span>Steps, decisions and exceptions</li><li><span aria-hidden="true">✓</span>Owners, sources and versions</li><li><span aria-hidden="true">✓</span>Drafts reviewed before they go live</li></ul>
+          <div class="cw-meta"><span class="status status-demo">In the demo</span><a class="text-link" href="/platform/workflow-builder">Learn more →</a></div>
+        </div><div class="cw-panel" role="tabpanel" id="cwp-1" aria-labelledby="cwt-1" style="--c:#7c5cff">
+          <p class="cw-stage-l"><b>02</b> · Knowledge</p>
+          <h3>Visualize Processes</h3>
+          <p class="cw-desc">See every procedure as a process map, drawn from the same definition people follow.</p>
+          <ul class="cw-feats"><li><span aria-hidden="true">✓</span>Maps from the same definition</li><li><span aria-hidden="true">✓</span>Select a step to follow from there</li><li><span aria-hidden="true">✓</span>Draft and live side by side</li></ul>
+          <div class="cw-meta"><span class="status status-demo">In the demo</span><a class="text-link" href="/platform/process-maps">Learn more →</a></div>
+        </div><div class="cw-panel" role="tabpanel" id="cwp-2" aria-labelledby="cwt-2" style="--c:#0E9F8E">
+          <p class="cw-stage-l"><b>03</b> · Execution</p>
+          <h3>Guide Execution</h3>
+          <p class="cw-desc">Walk people through the work one question at a time, with checklists, exceptions and linked procedures.</p>
+          <ul class="cw-feats"><li><span aria-hidden="true">✓</span>One question at a time</li><li><span aria-hidden="true">✓</span>Checklists before you continue</li><li><span aria-hidden="true">✓</span>Linked procedures and exceptions</li></ul>
+          <div class="cw-meta"><span class="status status-demo">In the demo</span><a class="text-link" href="/platform/guided-procedures">Learn more →</a></div>
+        </div><div class="cw-panel" role="tabpanel" id="cwp-3" aria-labelledby="cwt-3" style="--c:#16a34a">
+          <p class="cw-stage-l"><b>04</b> · Execution</p>
+          <h3>Govern &amp; Comply</h3>
+          <p class="cw-desc">Drafts, reviews, approvals and an audit history for every change. Sign-in and access controls are planned.</p>
+          <ul class="cw-feats"><li><span aria-hidden="true">✓</span>Review and approval before publishing</li><li><span aria-hidden="true">✓</span>Audit log of every change</li><li><span aria-hidden="true">◇</span>Sign-in and access controls (planned)</li></ul>
+          <div class="cw-meta"><span class="status status-demo">In the demo</span><a class="text-link" href="/platform/security-governance">Learn more →</a></div>
+        </div><div class="cw-panel" role="tabpanel" id="cwp-4" aria-labelledby="cwt-4" style="--c:#e8922b">
+          <p class="cw-stage-l"><b>05</b> · Impact</p>
+          <h3>Analyze &amp; Improve</h3>
+          <p class="cw-desc">See where people stop, restart or flag a step, so you know which procedure to fix first.</p>
+          <ul class="cw-feats"><li><span aria-hidden="true">✓</span>Starts and completions</li><li><span aria-hidden="true">✓</span>Where people stop or restart</li><li><span aria-hidden="true">✓</span>Feedback flagged on steps</li></ul>
+          <div class="cw-meta"><span class="status status-demo">In the demo</span><a class="text-link" href="/platform/analytics">Learn more →</a></div>
+        </div><div class="cw-panel" role="tabpanel" id="cwp-5" aria-labelledby="cwt-5" style="--c:#e5487a">
+          <p class="cw-stage-l"><b>06</b> · Impact</p>
+          <h3>Enable Your Teams</h3>
+          <p class="cw-desc">Practise any procedure step by step today. Onboarding paths and knowledge checks are on the roadmap.</p>
+          <ul class="cw-feats"><li><span aria-hidden="true">✓</span>Practise any procedure today</li><li><span aria-hidden="true">◇</span>Onboarding paths (planned)</li><li><span aria-hidden="true">◇</span>Knowledge checks (planned)</li></ul>
+          <div class="cw-meta"><span class="status status-planned">Planned</span><a class="text-link" href="/platform/training">Learn more →</a></div>
+        </div>
+        <a class="hk-all" href="/platform">View all features →</a>
+      </div>
+    </div>
   </div>
 </section>
