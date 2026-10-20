@@ -3,10 +3,11 @@
    shell and the closing band. Each page adds its own stylesheet on top. */
 
 .is-overview { background: var(--bg); }
-.is-overview .g-create { --g: #2563EB; --gs: #E8F0FE; }
-.is-overview .g-guide { --g: #0E8A80; --gs: #E2F4F1; }
-.is-overview .g-connect { --g: #B26F08; --gs: #FDF1DC; }
-.is-overview .g-govern { --g: #6A4BD8; --gs: #EFEAFD; }
+/* Capability group colours, used by chips and cards on every page */
+.g-create { --g: #2563EB; --gs: #E8F0FE; }
+.g-guide { --g: #0E8A80; --gs: #E2F4F1; }
+.g-connect { --g: #B26F08; --gs: #FDF1DC; }
+.g-govern { --g: #6A4BD8; --gs: #EFEAFD; }
 
 .px-pill { margin: 0; padding: 7px 16px; border-radius: 999px; border: 1.5px solid var(--navy); background: #fff; font: 600 12px var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--navy); }
 .px-grad { background: linear-gradient(92deg, #2563EB, #0B87B6 60%, #0E8A80); -webkit-background-clip: text; background-clip: text; color: transparent; }

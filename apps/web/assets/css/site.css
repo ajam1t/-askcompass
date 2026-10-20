@@ -734,6 +734,8 @@ h3 { font-size: 18px; line-height: 1.3; font-weight: 600; letter-spacing: -.01em
 }
 @media (max-width: 1000px) and (min-width: 921px) {
   .header-in { gap: 12px; }
+  /* Logo only: the link keeps its accessible name, "Ask Compass home". */
+  .brand-text { display: none; }
   .main-nav > a, .nav-drop-link { padding-inline: 7px; font-size: 14.5px; }
   .main-nav .nav-drop-link { padding-right: 1px; }
   .nav-drop-btn { padding: 0 6px 0 3px; }

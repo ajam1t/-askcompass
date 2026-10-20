@@ -9,7 +9,7 @@ const svg = (paths, cls = '') => `<svg class="${cls}" viewBox="0 0 24 24" aria-h
 
 // Per solution: icon, colour, and the one-line problem and direction used by
 // the dial caption, the starting-point picker and the explorer.
-const META = {
+export const META = {
   operations: { c: '#2563EB', icon: '<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4h6v3H9zM8.5 12.5l2 2 4-4M8.5 17.5h7"/>',
     pain: 'The same task is done differently by different people.', to: 'One SOP everyone follows, with clean hand-offs.' },
   'employee-enablement': { c: '#0E8A80', icon: '<circle cx="10" cy="8" r="3.5"/><path d="M3.5 20a6.5 6.5 0 0 1 13 0M18.5 6.5v6M15.5 9.5h6"/>',

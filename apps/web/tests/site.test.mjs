@@ -21,7 +21,7 @@ const ROUTES = [
   '/platform/training', '/platform/teams-collaboration', '/platform/security-governance',
   '/solutions/operations', '/solutions/employee-enablement', '/solutions/customer-support', '/solutions/process-documentation',
   '/solutions/knowledge-management', '/solutions/compliance-governance', '/solutions/enterprise-automation',
-  '/privacy', '/terms', '/security', '/accessibility', '/workspace', '/workspace/unavailable'
+  '/pricing', '/privacy', '/terms', '/security', '/accessibility', '/workspace', '/workspace/unavailable'
 ];
 const fileFor = (route) => {
   if (route === '/studio') return join(OUT, 'studio.html');           // vercel.json rewrite
