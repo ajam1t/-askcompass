@@ -1,6 +1,6 @@
 /* Ask Compass site build.
    Generates every public page from shared templates and the content files in
-   src/content, then copies the existing Studio demo, legacy app and assets.
+   src/content, then copies the Studio demo and assets.
    No dependencies: run with `node build.mjs`. Output goes to ./public. */
 import { cpSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
@@ -310,11 +310,12 @@ add({
   description: 'Ask Compass turns procedures and organizational knowledge into interactive, step-by-step guidance, so people know what to do next and move work forward.',
   bodyClass: 'is-home',
   headExtra: `<script>
-  // Links to the previous single-page site (e.g. /#build) now live in the legacy app.
+  // Section links from the retired single-page prototype (e.g. /#build, or /app.html#pricing,
+  // which redirects here) open the page that replaced each section.
   (function () {
-    var h = location.hash.slice(1);
-    if (h === 'pricing') location.replace('/pricing');
-    else if (['try','features','industries','faq','contact','build','run','dashboard'].indexOf(h) !== -1) location.replace('/app.html#' + h);
+    var to = { pricing: '/pricing', features: '/platform', industries: '/solutions', faq: '/faq', contact: '/contact',
+      try: '/studio', build: '/studio', run: '/studio', dashboard: '/studio#/insights' }[location.hash.slice(1)];
+    if (to) location.replace(to);
   })();
 </script>`,
   styles: '<link rel="stylesheet" href="/assets/css/home.css">',
@@ -375,7 +376,7 @@ for (const p of pages) {
   mkdirSync(dirname(file), { recursive: true });
   writeFileSync(file, layout(p));
 }
-for (const f of ['studio.html', 'app.html', 'favicon.ico', 'assets']) cpSync(join(ROOT, f), join(OUT, f), { recursive: true });
+for (const f of ['studio.html', 'favicon.ico', 'assets']) cpSync(join(ROOT, f), join(OUT, f), { recursive: true });
 
 const indexable = pages.filter((p) => !p.noindex);
 writeFileSync(join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
@@ -385,7 +386,6 @@ ${indexable.map((p) => `  <url><loc>${absolute(p.path)}</loc></url>`).join('\n')
 `);
 writeFileSync(join(OUT, 'robots.txt'), `User-agent: *
 Allow: /
-Disallow: /app.html
 Disallow: /studio.html
 Disallow: /workspace
 

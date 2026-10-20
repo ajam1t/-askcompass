@@ -19,7 +19,8 @@ customer workspaces. Anything marked **Target** is a design, not running code.
 - **Content:** `apps/web/src/content/*.mjs` (copy and capability status), `apps/web/src/sections/*.html` (homepage sections).
 - **Studio demo:** `apps/web/studio.html` with `assets/js/studio.js`. All data lives in the visitor's browser (localStorage).
   Roles are a demonstration switch. There is no backend, database, authentication or shared state.
-- **Legacy prototype:** `apps/web/app.html` (Build Compass, Workflow Engine, Dashboard, FAQ, Contact), kept unchanged.
+- **Retired prototype:** the old single-page `app.html` has been removed. `/app.html` redirects (308) to the homepage,
+  and its old section links (for example `#pricing` or `#build`) open the page that replaced each section.
   Old links such as `/#build` are redirected there by a small script on the homepage.
 - **No secrets:** the repository contains no API keys, and no environment variables are required.
 
@@ -91,7 +92,7 @@ keep reading one definition. Index every table on `(tenant_id, …)`; enforce fo
 
 ## 6. Rollout phases
 
-1. **Done:** marketing site, platform and solution pages, Studio demo, legacy prototype, host routing placeholders.
+1. **Done:** marketing site, platform and solution pages, Studio demo, pricing, host routing placeholders.
 2. **Next:** provision a database project and server runtime; add `.env.example` with required variables
    (database URL, anon key for the browser, service key for the server only).
 3. Tenants, users, memberships and invitations with RLS and the isolation tests above.

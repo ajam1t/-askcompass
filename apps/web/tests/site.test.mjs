@@ -31,7 +31,7 @@ const fileFor = (route) => {
 };
 
 console.log('Routes');
-for (const r of [...ROUTES, '/studio', '/studio.html', '/app.html', '/404.html']) existsSync(fileFor(r)) ? null : fail(`missing route ${r}`);
+for (const r of [...ROUTES, '/studio', '/studio.html', '/404.html']) existsSync(fileFor(r)) ? null : fail(`missing route ${r}`);
 ok(`${ROUTES.length + 4} routes checked`);
 
 const htmlFiles = [];
@@ -88,6 +88,7 @@ ok('no fabricated proof, certifications or password fields');
 
 const vercel = JSON.parse(readFileSync(join(ROOT, 'vercel.json'), 'utf8'));
 if (vercel.redirects.some((r) => r.source === '/' && !r.has)) fail('the marketing homepage must not redirect');
+if (existsSync(join(OUT, 'app.html')) || !vercel.redirects.some((r) => r.source === '/app.html' && r.destination === '/')) fail('the retired /app.html prototype must be gone and redirect home');
 ok('vercel.json keeps the homepage on the marketing site');
 
 console.log(failures ? `\n${failures} check(s) failed` : '\nAll checks passed');

@@ -132,19 +132,19 @@ ${founderCard}
       crumbs: [{ label: 'Privacy Policy', href: '/privacy' }],
       body: pageHero({ eyebrow: 'Legal', h1: 'Privacy Policy', lead: updated, crumbs: [{ label: 'Privacy Policy' }] }) + prose(`
 ${reviewNote}
-<h2>What this covers</h2><p>This policy covers the Ask Compass website at askcompass.in, the public Studio demo and the legacy prototype at /app.html. Customer workspaces do not exist yet; this policy will be updated before they launch.</p>
+<h2>What this covers</h2><p>This policy covers the Ask Compass website at askcompass.in, and the public Studio demo. Customer workspaces do not exist yet; this policy will be updated before they launch.</p>
 <h2>Information we collect</h2>
 <ul>
 <li><strong>No accounts.</strong> The site has no sign-in and does not ask for passwords.</li>
 <li><strong>No analytics or advertising.</strong> We do not use analytics tools, tracking pixels or advertising cookies, and we do not set cookies.</li>
 <li><strong>Messages you send us.</strong> The contact form opens your own email app. If you email, call or message us on WhatsApp, we receive what you send and use it only to reply and follow up on your enquiry.</li>
 </ul>
-<h2>Data stored in your browser</h2><p>The Studio demo and the legacy prototype save what you do (sample procedures, drafts, usage counts) in your browser’s local storage. It stays on your device, is never sent to us and can be removed by clearing your browser’s site data or using “Reset sample data” in Studio.</p>
+<h2>Data stored in your browser</h2><p>The Studio demo saves what you do (sample procedures, drafts, usage counts) in your browser’s local storage. It stays on your device, is never sent to us and can be removed by clearing your browser’s site data or using “Reset sample data” in Studio.</p>
 <h2>Services that see your connection</h2>
 <ul>
 <li><strong>Vercel</strong> hosts the site and processes standard request information, such as IP address and browser type, to deliver pages and protect the service.</li>
 <li><strong>Google Fonts</strong> serves the typefaces; your browser requests them from Google.</li>
-<li><strong>jsDelivr</strong> serves the 3D graphics library used on the homepage; the legacy prototype also loads a spreadsheet library from SheetJS.</li>
+<li><strong>jsDelivr</strong> serves the 3D graphics library used on the homepage and the leadership sign-in page.</li>
 </ul>
 <h2>Your choices</h2><p>You can ask us what information we hold from your messages, or ask us to delete it, through the <a href="/contact">contact form</a>.</p>
 <h2>Changes</h2><p>We will update this page when the site changes, and before any feature that collects personal data goes live.</p>`)
@@ -199,7 +199,6 @@ ${reviewNote}
 <ul>
 <li>The 3D compass is decorative; its labels are available as buttons, but the visual itself has only a short description.</li>
 <li>Large process maps in the Studio demo scroll horizontally on small screens.</li>
-<li>The legacy prototype at /app.html has not been fully reviewed.</li>
 </ul>
 <h2>Tell us about a barrier</h2><p>If something on the site is hard to use, tell us through the <a href="/contact">contact form</a>. Tell us the page and what happened, and we will work on a fix.</p>`)
     },
