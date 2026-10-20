@@ -702,3 +702,14 @@ h3 { font-size: 18px; line-height: 1.3; font-weight: 600; letter-spacing: -.01em
 @media (max-width: 1180px) and (min-width: 921px) { .brand-sub { display: none; } }
 @media (max-width: 359px) { .brand-sub { display: none; } }
 @media (max-width: 640px) { .brand-word { font-size: 18px; } .brand-mark { width: 40px; height: 40px; } .brand-sub { font-size: 11px; } }
+@media (max-width: 1180px) and (min-width: 921px) {
+  .header-in { gap: 18px; }
+  .brand-word { font-size: 18px; }
+  .brand-mark { width: 40px; height: 40px; }
+  .main-nav { margin-left: 4px; }
+  .main-nav > a, .nav-drop-btn { padding-inline: 9px; }
+}
+@media (max-width: 1000px) and (min-width: 921px) {
+  .header-in { gap: 12px; }
+  .main-nav > a, .nav-drop-btn { padding-inline: 7px; font-size: 14.5px; }
+}
