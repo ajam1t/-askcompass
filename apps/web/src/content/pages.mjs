@@ -62,7 +62,7 @@ export function PAGES({ esc, section, flow, statusPill, relatedLinks, linkToPlat
       crumbs: [{ label: 'About', href: '/about' }],
       body: pageHero({ eyebrow: 'About', h1: 'We help people find their way through complex work.', lead: 'Ask Compass exists because knowing where a procedure is written down is not the same as knowing what to do next.', crumbs: [{ label: 'About' }] }) + `
 <section class="section section-tight"><div class="wrap split">
-  <div class="split-l"><p class="eyebrow">Mission</p><h2>Complex work. Clear direction.</h2></div>
+  <div class="split-l"><p class="eyebrow">Mission</p><h2>Beyond Intelligence. Towards Clarity.</h2></div>
   <div class="split-r prose-lg">
     <p>Organizations write down how work should be done, then ask people to find, read and interpret it in the middle of their day. Ask Compass turns that knowledge into guidance people can follow: the questions that decide the path, the steps that apply, and the source behind each one.</p>
     <p>We are an early-stage company. The public Studio demo shows the product as it stands today; customer workspaces are being built.</p>
@@ -231,7 +231,7 @@ ${reviewNote}
       body: `<section class="ws"><div class="wrap ws-in"><div class="ws-card">
   <p class="eyebrow">404</p><h1>This page is off the map.</h1>
   <p class="page-lead">The link may be old or mistyped. These are good places to continue:</p>
-  ${relatedLinks([{ href: '/', label: 'Home', desc: 'Complex work. Clear direction.' }, { href: '/platform', label: 'Platform', desc: 'What Ask Compass does' }, { href: '/studio', label: 'Studio demo', desc: 'Try it with sample procedures' }, { href: '/contact', label: 'Contact', desc: 'Ask us directly' }])}
+  ${relatedLinks([{ href: '/', label: 'Home', desc: 'Beyond Intelligence. Towards Clarity.' }, { href: '/platform', label: 'Platform', desc: 'What Ask Compass does' }, { href: '/studio', label: 'Studio demo', desc: 'Try it with sample procedures' }, { href: '/contact', label: 'Contact', desc: 'Ask us directly' }])}
 </div></div></section>`
     }
   ];

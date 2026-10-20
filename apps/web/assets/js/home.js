@@ -516,20 +516,20 @@
     bar.addEventListener('scroll', placeIndicator, { passive: true });
     select(0, { force: true });
   })();
-  if (document.querySelector('.hx-scene')) (function () {
-    /* ───────── Particle constellation in the hero sky ─────────
+  if (document.querySelector('.hx-mesh')) (function () {
+    /* ───────── Particle constellation behind the hero ─────────
        A few dozen points drift slowly and join up when close; near the mouse they
        connect to the pointer. Runs only while the hero is on screen; with reduced
        motion it is drawn once and stays still. */
-    var hero = $('.hx'), scene = $('.hx-scene');
+    var hero = $('.hx');
     var c = el('canvas', { 'class': 'hx-particles', 'aria-hidden': 'true' });
-    scene.appendChild(c);
+    hero.insertBefore(c, hero.firstChild);
     var g = c.getContext('2d'); if (!g) return;
     var W = 0, H = 0, pts = [], mouse = { x: -1e4, y: -1e4 }, raf = 0, visible = true, LINK = 120;
     function seed() {
       var n = W < 640 ? 26 : W < 1100 ? 44 : 66;
       pts = [];
-      for (var i = 0; i < n; i++) pts.push({ x: Math.random() * W, y: Math.random() * H * .72, vx: (Math.random() - .5) * .16, vy: (Math.random() - .5) * .1, r: Math.random() * 1.3 + .5 });
+      for (var i = 0; i < n; i++) pts.push({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - .5) * .16, vy: (Math.random() - .5) * .1, r: Math.random() * 1.3 + .5 });
     }
     function size() {
       var r = hero.getBoundingClientRect(), dpr = Math.min(1.5, window.devicePixelRatio || 1);
@@ -545,11 +545,11 @@
         var a = pts[i];
         for (var j = i + 1; j < pts.length; j++) {
           var b = pts[j], dx = a.x - b.x, dy = a.y - b.y, d = dx * dx + dy * dy;
-          if (d < LINK * LINK) { g.strokeStyle = 'rgba(143,200,255,' + (.2 * (1 - Math.sqrt(d) / LINK)).toFixed(3) + ')'; g.lineWidth = 1; g.beginPath(); g.moveTo(a.x, a.y); g.lineTo(b.x, b.y); g.stroke(); }
+          if (d < LINK * LINK) { g.strokeStyle = 'rgba(23,63,115,' + (.13 * (1 - Math.sqrt(d) / LINK)).toFixed(3) + ')'; g.lineWidth = 1; g.beginPath(); g.moveTo(a.x, a.y); g.lineTo(b.x, b.y); g.stroke(); }
         }
         var mx = a.x - mouse.x, my = a.y - mouse.y, md = Math.sqrt(mx * mx + my * my);
-        if (md < 170) { g.strokeStyle = 'rgba(95,208,255,' + (.42 * (1 - md / 170)).toFixed(3) + ')'; g.beginPath(); g.moveTo(a.x, a.y); g.lineTo(mouse.x, mouse.y); g.stroke(); }
-        g.fillStyle = md < 170 ? 'rgba(200,240,255,.95)' : 'rgba(190,220,255,.6)';
+        if (md < 170) { g.strokeStyle = 'rgba(37,99,235,' + (.32 * (1 - md / 170)).toFixed(3) + ')'; g.beginPath(); g.moveTo(a.x, a.y); g.lineTo(mouse.x, mouse.y); g.stroke(); }
+        g.fillStyle = md < 170 ? 'rgba(37,99,235,.75)' : 'rgba(23,63,115,.32)';
         g.beginPath(); g.arc(a.x, a.y, a.r, 0, Math.PI * 2); g.fill();
       }
     }
@@ -557,7 +557,7 @@
       pts.forEach(function (p) {
         p.x += p.vx; p.y += p.vy;
         if (p.x < -10) p.x = W + 10; else if (p.x > W + 10) p.x = -10;
-        if (p.y < -10) p.y = H * .72; else if (p.y > H * .72) p.y = -10;
+        if (p.y < -10) p.y = H + 10; else if (p.y > H + 10) p.y = -10;
       });
       draw();
       raf = requestAnimationFrame(step);

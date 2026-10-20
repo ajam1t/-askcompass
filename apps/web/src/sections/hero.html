@@ -1,60 +1,33 @@
 <!-- ───────────── Hero ───────────── -->
 <section class="hx" aria-labelledby="hero-title">
-  <div class="hx-scene">{{HERO_SCENE}}</div>
+  <div class="hx-mesh" aria-hidden="true"></div>
   <div class="wrap hx-in">
     <div class="hx-copy">
-      <p class="hx-eyebrow">Intelligent workflow navigation</p>
-      <h1 id="hero-title"><span class="kw" style="--i:0">Complex</span> <span class="kw" style="--i:1">work.</span><br><span class="kw hx-grad g1" style="--i:2">Clear</span> <span class="kw hx-grad g2" style="--i:3">direction.</span></h1>
-      <p class="hx-sub">Capture knowledge. Guide execution. Improve how work gets done.</p>
-      <p class="hx-lead">Ask Compass helps organizations turn their knowledge, policies and procedures into guided workflows that show people the right next step, keep work consistent and make improvement visible.</p>
+      <p class="hx-kicker"><span class="hx-dot" aria-hidden="true"></span>ASK COMPASS<span class="hx-kick-sub"> · Intelligent workflow navigation</span></p>
+      <h1 id="hero-title"><span class="kw" style="--i:0">Beyond</span> <span class="kw" style="--i:1">Intelligence.</span><br><span class="kw hx-grad g1" style="--i:2">Towards</span> <span class="kw hx-grad g2" style="--i:3">Clarity.</span></h1>
+      <p class="hx-lead">ASK COMPASS turns your organization’s knowledge, policies and procedures into guided workflows. People find the right procedure, follow it one step at a time, and every decision stays consistent and traceable.</p>
+      <ol class="hx-how">
+        <li><span class="hx-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg></span><span><b>Capture knowledge</b>Turn documents and expert know-how into structured procedures with owners and versions.</span></li>
+        <li><span class="hx-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m15.5 8.5-2.2 4.8-4.8 2.2 2.2-4.8z"/></svg></span><span><b>Guide execution</b>Show the next step, decision and exception while the work is happening.</span></li>
+        <li><span class="hx-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 20V13M10 20V9M15 20v-5M20 20V5"/></svg></span><span><b>Improve outcomes</b>See where people stop or restart, and fix the process, not the symptom.</span></li>
+      </ol>
       <div class="hero-ctas">
-        <a class="btn hx-btn-primary btn-sheen" href="/studio">Open Studio <span aria-hidden="true">→</span></a>
-        <a class="btn hx-btn-outline" href="/platform">Explore Platform</a>
+        <a class="btn btn-primary btn-sheen" href="/studio">Open Studio <span aria-hidden="true">→</span></a>
+        <a class="btn btn-ghost" href="/platform">Explore Platform</a>
       </div>
-      <ul class="hx-proof">
-        <li><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="3" y="5" width="14" height="10" rx="2"/><path d="m3.5 6 6.5 5 6.5-5"/></svg>No sign-up needed</li>
-        <li><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7"/><path d="M8.5 7.2v5.6l4.4-2.8z"/></svg>Interactive demo</li>
-        <li><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="7"/><path d="M10 6.5v4l2.5 1.5"/></svg>Sample workflows</li>
-      </ul>
     </div>
 
-    <div class="compass-stage hx-stage" id="compassStage" data-theme="dark" data-label-k="1.62" role="img" aria-label="A 3D compass on a mountain peak. A glowing path leads up to it, and its needle points in turn to knowledge, processes, execution and outcomes.">
-      <svg class="hx-peak" viewBox="0 0 600 700" preserveAspectRatio="xMidYMin meet" aria-hidden="true" focusable="false">
-        <defs>
-          <linearGradient id="hxRock" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b2a4f"/><stop offset=".35" stop-color="#0d1730"/><stop offset="1" stop-color="#060c1a"/></linearGradient>
-          <linearGradient id="hxRockRim" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#4c9aff" stop-opacity=".1"/><stop offset=".5" stop-color="#8fc2ff" stop-opacity=".7"/><stop offset="1" stop-color="#ffc59a" stop-opacity=".4"/></linearGradient>
-          <linearGradient id="hxPath" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#bfe4ff"/><stop offset=".5" stop-color="#4cc3ff"/><stop offset="1" stop-color="#2563eb" stop-opacity=".9"/></linearGradient>
-          <filter id="hxPathGlow" x="-50%" y="-10%" width="200%" height="120%"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-        </defs>
-        <path class="hx-rock" d="M150 120 C200 96 236 70 300 62 C368 70 404 100 452 124 L520 210 L566 330 L600 470 L600 700 L0 700 L0 470 L40 330 L86 214 Z" fill="url(#hxRock)"/>
-        <path d="M86 214 L150 120 C200 96 236 70 300 62 C368 70 404 100 452 124 L520 210" fill="none" stroke="url(#hxRockRim)" stroke-width="2"/>
-        <path class="hx-trail-glow" d="M300 96 C268 150 360 176 330 232 C300 290 196 300 214 372 C232 440 372 446 352 520 C334 590 216 610 236 700" fill="none" stroke="url(#hxPath)" stroke-width="16" stroke-linecap="round" filter="url(#hxPathGlow)" opacity=".55"/>
-        <path class="hx-trail" d="M300 96 C268 150 360 176 330 232 C300 290 196 300 214 372 C232 440 372 446 352 520 C334 590 216 610 236 700" fill="none" stroke="url(#hxPath)" stroke-width="5" stroke-linecap="round"/>
-        <path class="hx-trail-pulse" d="M300 96 C268 150 360 176 330 232 C300 290 196 300 214 372 C232 440 372 446 352 520 C334 590 216 610 236 700" fill="none" stroke="#ffffff" stroke-width="3" stroke-linecap="round" stroke-dasharray="24 260"/>
-      </svg>
+    <div class="compass-stage hx-stage" id="compassStage" data-label-k="1.62" role="img" aria-label="The ASK COMPASS emblem in 3D: a gold star over a navy and ivory dial, with a glowing globe and orbiting spheres. The star turns in turn to knowledge, processes, execution and outcomes.">
       <div class="hx-halo" aria-hidden="true"></div>
+      <div class="hx-floor" aria-hidden="true"></div>
       <svg class="stage-lines" aria-hidden="true"></svg>
-      <div class="compass-fallback" aria-hidden="true">
-        <svg viewBox="0 0 240 240">
-          <defs>
-            <radialGradient id="cfFace" cx=".5" cy=".42" r=".6"><stop offset="0" stop-color="#1b3570"/><stop offset=".85" stop-color="#0d1c40"/><stop offset="1" stop-color="#081430"/></radialGradient>
-            <linearGradient id="cfRim" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset=".5" stop-color="#9fb0cc"/><stop offset="1" stop-color="#3b4d6e"/></linearGradient>
-          </defs>
-          <circle cx="120" cy="120" r="112" fill="url(#cfRim)"/>
-          <circle cx="120" cy="120" r="96" fill="url(#cfFace)"/>
-          <circle cx="120" cy="120" r="88" fill="none" stroke="#6fb2ff" stroke-width="6" stroke-dasharray=".8 3.8" opacity=".8"/>
-          <g font-family="Geist, system-ui, sans-serif" font-weight="600" font-size="13" text-anchor="middle" fill="#cfe2ff"><text x="120" y="54" fill="#8fd0ff">N</text><text x="190" y="125">E</text><text x="120" y="196">S</text><text x="50" y="125">W</text></g>
-          <path d="M120 40l10 80h-20z" fill="#6aa8ff"/><path d="M120 40l10 80h-10z" fill="#2563eb"/>
-          <path d="M120 200l-10-80h20z" fill="#e8eefc"/><path d="M120 200l10-80h-10z" fill="#9fb0cc"/>
-          <circle cx="120" cy="120" r="12" fill="#081430" stroke="#6fb2ff" stroke-width="2"/><circle cx="120" cy="120" r="4" fill="#EFB64A"/>
-        </svg>
-      </div>
+      <div class="compass-fallback" aria-hidden="true"><img src="/assets/brand/logo-512.webp" width="512" height="512" alt=""></div>
       <div class="compass-canvas"></div>
       <ul class="bearings hx-labels" id="bearings">
         <li data-bearing="-42"><button type="button"><span class="hx-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5M9 13h6M9 17h4"/></svg></span><span class="hx-lt"><b>Knowledge</b><span>Centralized</span></span></button></li>
         <li data-bearing="48"><button type="button"><span class="hx-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="6" cy="18" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.5 18h7M18 8.5v7M7.8 16.2 16.2 7.8"/></svg></span><span class="hx-lt"><b>Processes</b><span>Visualized</span></span></button></li>
-        <li data-bearing="-108"><button type="button"><span class="hx-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l10-6.5z"/></svg></span><span class="hx-lt"><b>Execution</b><span>Guided</span></span></button></li>
-        <li data-bearing="112"><button type="button"><span class="hx-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 20V13M10 20V9M15 20v-5M20 20V5"/></svg></span><span class="hx-lt"><b>Outcomes</b><span>Improved</span></span></button></li>
+        <li data-bearing="-120"><button type="button"><span class="hx-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 5.5v13l10-6.5z"/></svg></span><span class="hx-lt"><b>Execution</b><span>Guided</span></span></button></li>
+        <li data-bearing="125"><button type="button"><span class="hx-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 20V13M10 20V9M15 20v-5M20 20V5"/></svg></span><span class="hx-lt"><b>Outcomes</b><span>Improved</span></span></button></li>
       </ul>
     </div>
   </div>
