@@ -11,7 +11,7 @@ export const GUIDES = [
 <h2>1. Find the real decisions</h2>
 <p>Read the procedure and underline every word that changes what happens next: <em>if</em>, <em>unless</em>, <em>only when</em>, <em>except</em>, <em>depending on</em>. Each one is a candidate decision. Many documents hide three or four decisions in a single paragraph.</p>
 <h2>2. Ask one thing per question</h2>
-<p>A good decision asks a single question the person can answer from what is in front of them. “Is the item over $1,000 or outside the standard catalog?” is acceptable because both conditions lead to the same branch. “Is the item expensive and does your manager agree?” is two decisions and should be split.</p>
+<p>A good decision asks a single question the person can answer from what is in front of them. “Is the item over ₹1,00,000 or outside the standard catalog?” is acceptable because both conditions lead to the same branch. “Is the item expensive and does your manager agree?” is two decisions and should be split.</p>
 <h2>3. Label every answer</h2>
 <p>Answers should read as statements, not just Yes or No, whenever the question is not obvious: “More than 30 days since delivery” is clearer than “No”. People scanning a breadcrumb of the path they took should understand it without re-reading the question.</p>
 <h2>4. Give every branch an ending</h2>

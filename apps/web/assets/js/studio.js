@@ -8,7 +8,7 @@
   'use strict';
 
   /* ───────── storage ───────── */
-  var KEY = 'askcompass.studio.v1';
+  var KEY = 'askcompass.studio.v2';   // v2: rupee sample data and the question-card run
   var mem = null;
   function load() {
     try { var raw = localStorage.getItem(KEY); if (raw) return JSON.parse(raw); } catch (e) { /* storage unavailable */ }
@@ -249,41 +249,92 @@
         (last ? '<b aria-current="step">' + esc(sn.title) + '</b>' : '<button type="button" data-act="jump" data-i="' + i + '">' + esc(sn.title) + '</button>') + '</li>';
     }).join('');
     var stackNote = run.stack.length ? '<p class="sub-flow">Inside <b>' + esc(rp.title) + '</b>, linked from <b>' + esc(proc(run.stack[run.stack.length - 1].procId).title) + '</b></p>' : '';
-    var checks = n.inputs && n.inputs.length ? '<div class="checks"><p class="mini-label">Before you continue</p>' + n.inputs.map(function (t, i) {
-      var k = n.id + ':' + i;
-      return '<label><input type="checkbox" data-check="' + esc(k) + '"' + (run.checks[k] ? ' checked' : '') + '> ' + esc(t) + '</label>';
-    }).join('') + '</div>' : '';
     var ready = !n.inputs || n.inputs.every(function (_, i) { return run.checks[n.id + ':' + i]; });
-    var next = '';
+    var ICON = {
+      book: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5zM4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5"/></svg>',
+      link: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>'
+    };
+    // One card per step: badge, the question or action, what it links to, then the answers.
+    var chips = '';
+    if (n.source) chips += '<span class="q-chip">' + ICON.link + esc(n.source) + '</span>';
+    if (n.type === 'link' && proc(n.linkTo)) chips += '<span class="q-chip">' + ICON.link + esc(proc(n.linkTo).title) + '</span>';
+    var answers = '', primary = '';
     if (n.type === 'end') {
-      next = run.stack.length
-        ? '<div class="done-box"><p>This linked procedure is complete.</p><button class="btn btn-primary" data-act="return">Return to ' + esc(proc(run.stack[run.stack.length - 1].procId).title) + ' →</button></div>'
-        : '<div class="done-box"><p>You’ve reached the end of this procedure.</p><button class="btn btn-primary" data-act="restart">Start again</button></div>';
+      answers = run.stack.length
+        ? '<div class="q-done"><span aria-hidden="true">✓</span><p>This linked procedure is complete.</p></div>'
+        : '<div class="q-done"><span aria-hidden="true">✓</span><p>You’ve reached the end of this procedure.</p></div>';
+      primary = run.stack.length
+        ? '<button class="q-next" data-act="return">Return to ' + esc(proc(run.stack[run.stack.length - 1].procId).title) + ' →</button>'
+        : '<button class="q-next" data-act="restart">Start again</button>';
     } else if (!options.length) {
-      next = '<p class="warn">This step isn’t connected to a next step. Flag it below so the owner can fix it.</p>';
+      answers = '<p class="warn">This step isn’t connected to a next step. Flag it below so the owner can fix it.</p>';
     } else if (n.type === 'decision') {
-      next = '<div class="choices">' + options.map(function (o, i) {
-        return '<button class="choice" data-act="choose" data-i="' + i + '">' + esc(o.e.label || o.n.title) + '</button>';
+      answers = '<p class="q-sel">Select one option</p><div class="q-opts">' + options.map(function (o, i) {
+        return '<button class="q-opt choice" data-act="choose" data-i="' + i + '">' + esc(o.e.label || o.n.title) + '</button>';
       }).join('') + '</div>';
-    } else if (n.type === 'link') {
-      var target = proc(n.linkTo);
-      next = '<div class="row">' + (target ? '<button class="btn btn-primary" data-act="enter-link"' + (ready ? '' : ' disabled') + '>Open “' + esc(target.title) + '” →</button>' : '') +
-        '<button class="btn btn-quiet" data-act="choose" data-i="0">Skip, already done</button></div>';
     } else {
-      next = '<div class="row"><button class="btn btn-primary" data-act="choose" data-i="0"' + (ready ? '' : ' disabled') + '>' + (n.type === 'note' ? 'Continue' : 'Done, next step') + ' →</button>' +
-        '<span class="muted small">Next: ' + esc(options[0].n.title) + '</span></div>';
+      if (n.inputs && n.inputs.length) {
+        answers = '<p class="q-sel">Complete before you continue</p><div class="q-opts">' + n.inputs.map(function (t, i) {
+          var k = n.id + ':' + i;
+          return '<label class="q-check' + (run.checks[k] ? ' is-on' : '') + '"><input type="checkbox" data-check="' + esc(k) + '"' + (run.checks[k] ? ' checked' : '') + '><span>' + esc(t) + '</span></label>';
+        }).join('') + '</div>';
+      }
+      if (n.type === 'link') {
+        var target = proc(n.linkTo);
+        primary = (target ? '<button class="q-next" data-act="enter-link"' + (ready ? '' : ' disabled') + '>Open “' + esc(target.title) + '” →</button>' : '') +
+          '<button class="q-btn" data-act="choose" data-i="0">Skip, already done</button>';
+      } else {
+        primary = '<button class="q-next" data-act="choose" data-i="0"' + (ready ? '' : ' disabled') + ' title="Next: ' + esc(options[0].n.title) + '">' + (n.type === 'note' ? 'Continue' : 'Next') + ' →</button>';
+      }
     }
+    var total = live(rp).nodes.length;
     return stackNote + (run.fromStep && run.path.length === 1 ? '<p class="sub-flow">Opened at this step from search. <button class="text-btn" data-act="restart">Start from the beginning</button></p>' : '') +
-      '<ol class="crumbs" aria-label="Steps taken">' + crumbs + '</ol>' +
-      '<article class="step step-' + n.type + '"><p class="step-type">' + TYPE[n.type].label + ' · Step ' + run.path.length + '</p>' +
-      '<h2 tabindex="-1" id="stepTitle">' + esc(n.title) + '</h2>' + (n.body ? '<p class="step-body">' + esc(n.body) + '</p>' : '') +
-      (n.exception ? '<p class="exception"><b>Exception:</b> ' + esc(n.exception) + '</p>' : '') + checks + next +
-      (n.source ? '<p class="source">Source: ' + esc(n.source) + ' · ' + esc(rp.title) + ' v' + v.v + '</p>' : '') + '</article>' +
-      '<div class="row run-controls"><button class="btn btn-quiet" data-act="back"' + (run.path.length > 1 ? '' : ' disabled') + '>← Back</button>' +
-      '<button class="btn btn-quiet" data-act="restart"' + (run.path.length > 1 || run.stack.length ? '' : ' disabled') + '>↺ Restart</button>' +
-      '<button class="btn btn-quiet flag-btn" data-act="flag-open">Flag this step</button></div>' +
+      '<div class="q-wrap">' +
+      '<div class="q-progress"><span>Step ' + run.path.length + (n.type === 'end' ? ' · complete' : '') + '</span><i><b style="width:' + Math.min(100, Math.round((n.type === 'end' ? 1 : run.path.length / Math.max(total - 1, 1)) * 100)) + '%"></b></i></div>' +
+      '<article class="qcard qcard-' + n.type + '" data-step="' + esc(n.id) + '">' +
+      '<span class="q-badge q-' + n.type + '">' + TYPE[n.type].label + '</span>' +
+      '<h2 class="q-title" tabindex="-1" id="stepTitle">' + esc(n.title) + '</h2>' +
+      (n.body ? '<p class="q-body">' + esc(n.body) + '</p>' : '') +
+      (chips ? '<div class="q-chips">' + chips + '</div>' : '') +
+      (n.exception ? '<p class="exception"><b>Exception:</b> ' + esc(n.exception) + '</p>' : '') + answers +
+      '<div class="q-foot">' + (run.path.length > 1 ? '<button class="q-btn" data-act="back">← Back</button>' : '') +
+      '<button class="q-btn q-flow" data-act="flow-open">' + ICON.book + 'Procedure Flow</button>' + primary + '</div>' +
+      '</article>' +
+      '<details class="q-path"' + (run.path.length > 1 ? '' : ' hidden') + '><summary>Your path so far · ' + (run.path.length - 1) + ' answered</summary><ol class="crumbs" aria-label="Steps taken">' + crumbs + '</ol></details>' +
+      '<div class="row run-controls"><button class="text-btn" data-act="restart"' + (run.path.length > 1 || run.stack.length ? '' : ' disabled') + '>↺ Restart</button>' +
+      '<button class="text-btn flag-btn" data-act="flag-open">Flag this step</button>' +
+      (n.source ? '<span class="muted small">' + esc(rp.title) + ' · v' + v.v + '</span>' : '') + '</div>' +
       '<form class="flag-form" id="flagForm" hidden><label for="flagText">What’s wrong with this step?</label><textarea id="flagText" rows="3" required placeholder="For example: the approval limit has changed"></textarea>' +
-      '<div class="row"><button class="btn btn-primary" type="submit">Send to the owner</button><button class="btn btn-quiet" type="button" data-act="flag-cancel">Cancel</button></div></form>';
+      '<div class="row"><button class="btn btn-primary" type="submit">Send to the owner</button><button class="btn btn-quiet" type="button" data-act="flag-cancel">Cancel</button></div></form>' +
+      '</div>';
+  }
+
+  /* — Procedure Flow: the full map over the run, with the path so far highlighted — */
+  var flowReturn = null;
+  function openFlow() {
+    if (!run) return;
+    var rp = proc(run.procId), v = live(rp), mark = {};
+    run.path.forEach(function (s) { mark[s.id] = 'done'; }); mark[cur().id] = 'current';
+    closeFlow(true);
+    flowReturn = document.activeElement;
+    var el = document.createElement('div');
+    el.className = 'flow-sheet'; el.id = 'flowSheet';
+    el.innerHTML = '<div class="flow-card" role="dialog" aria-modal="true" aria-labelledby="flowTitle">' +
+      '<header class="flow-head"><div><p class="eyebrow">Procedure Flow</p><h2 id="flowTitle">' + esc(rp.title) + '</h2>' +
+      '<p class="muted small">Your path is highlighted. Select any step to continue from there.</p></div>' +
+      '<button class="btn btn-quiet" data-act="flow-close">Close</button></header>' + mapSvg(v, { clickable: true, mark: mark }) +
+      '<p class="legend"><span class="lg lg-cur">You are here</span><span class="lg lg-done">Done</span><span class="lg lg-action">Action</span><span class="lg lg-decision">Decision</span><span class="lg lg-end">End</span></p></div>';
+    el.addEventListener('click', function (e) { if (e.target === el) closeFlow(); });
+    document.body.appendChild(el);
+    requestAnimationFrame(function () { el.classList.add('is-open'); });
+    var c = el.querySelector('.is-current'); if (c && c.scrollIntoView) c.scrollIntoView({ block: 'center', inline: 'center' });
+    el.querySelector('[data-act="flow-close"]').focus();
+  }
+  function closeFlow(silent) {
+    var el = $('#flowSheet'); if (!el) return;
+    el.remove();
+    if (!silent && flowReturn && flowReturn.focus) flowReturn.focus();
+    flowReturn = null;
   }
 
   /* — process map — */
@@ -514,9 +565,9 @@
   document.addEventListener('keydown', function (e) {
     var g = e.target.closest && e.target.closest('.map [data-node][tabindex]');
     if (g && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); openAt(g.dataset.node); }
-    if (e.key === 'Escape') closeDrawer();
+    if (e.key === 'Escape') { if ($('#flowSheet')) closeFlow(); else closeDrawer(); }
   });
-  function openAt(nodeId) { var r = route(); leaveRun(); go('#/p/' + r.id + '/run/' + nodeId); }
+  function openAt(nodeId) { var r = route(); closeFlow(true); leaveRun(); go('#/p/' + r.id + '/run/' + nodeId); }
 
   function handle(act, b, e) {
     var r = route(), p = r.id && proc(r.id);
@@ -551,6 +602,8 @@
         if (o0) { run.path.push({ id: o0.to, choice: null }); countStep(); }
         runMoved = true; location.hash = '#/p/' + back.procId + '/run'; break;
       }
+      case 'flow-open': openFlow(); break;
+      case 'flow-close': closeFlow(); break;
       case 'flag-open': $('#flagForm').hidden = false; $('#flagText').focus(); break;
       case 'flag-cancel': $('#flagForm').hidden = true; break;
 
@@ -634,7 +687,8 @@
     var t = e.target, r = route(), p = r.id && proc(r.id);
     if (t.dataset.check !== undefined && run) {
       run.checks[t.dataset.check] = t.checked;
-      var btn = document.querySelector('.step [data-act="choose"].btn-primary, .step [data-act="enter-link"]');
+      var row = t.closest('.q-check'); if (row) row.classList.toggle('is-on', t.checked);
+      var btn = document.querySelector('.qcard [data-act="choose"].q-next, .qcard [data-act="enter-link"]');
       var n = nodeOf(live(proc(run.procId)), cur().id);
       if (btn) btn.disabled = !(n.inputs || []).every(function (_, i) { return run.checks[n.id + ':' + i]; });
       return;

@@ -19,14 +19,14 @@ window.STUDIO_SAMPLES = [
     nodes: [
       { id: 'start', type: 'action', title: 'Start a request', body: 'Open a new equipment request in the service portal and choose the item category.', inputs: ['The item you need', 'Your business reason'], source: '§1.1 Starting a request' },
       { id: 'eligible', type: 'action', title: 'Check eligibility', body: 'Confirm you have passed your first 30 days and have not received the same item in the last 24 months.', inputs: ['Start date checked', 'No same item in 24 months'], source: '§1.2 Eligibility' },
-      { id: 'approval-q', type: 'decision', title: 'Is manager approval required?', body: 'Approval is required when the item costs more than $1,000 or is not in the standard catalog.', source: '§2.1 Approval thresholds' },
+      { id: 'approval-q', type: 'decision', title: 'Is manager approval required?', body: 'Approval is required when the item costs more than ₹1,00,000 or is not in the standard catalog.', source: '§2.1 Approval thresholds' },
       { id: 'approval', type: 'action', title: 'Get manager approval', body: 'Send the request to your manager for approval before you submit it.', exception: 'If your manager is away for more than two business days, route the approval to their delegate.', inputs: ['Approval received'], source: '§3.1 Manager approval' },
       { id: 'submit', type: 'action', title: 'Submit the request', body: 'Submit the request in the portal. IT Operations confirms the order and delivery date.', inputs: ['Request submitted'], source: '§4.1 Submission' },
       { id: 'done', type: 'end', title: 'Confirm delivery', body: 'When the item arrives, confirm receipt in the portal within five days.' }
     ],
     edges: [
       { from: 'start', to: 'eligible' }, { from: 'eligible', to: 'approval-q' },
-      { from: 'approval-q', to: 'approval', label: 'Yes, over $1,000 or non-catalog' },
+      { from: 'approval-q', to: 'approval', label: 'Yes, over ₹1,00,000 or non-catalog' },
       { from: 'approval-q', to: 'submit', label: 'No, standard catalog item' },
       { from: 'approval', to: 'submit' }, { from: 'submit', to: 'done' }
     ]
