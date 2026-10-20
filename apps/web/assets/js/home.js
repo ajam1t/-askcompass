@@ -458,47 +458,84 @@
     document.addEventListener('visibilitychange', schedule);
     open(0);
   })();
-  if (document.getElementById('ixRoot')) (function () {
-    /* ───────── Industries index ─────────
-       Moving over a name (or focusing it, or tapping it on touch) swaps the preview to
-       that industry's guided question; the preview then picks an answer. While on
-       screen and untouched, it advances on its own (not with reduced motion). */
-    var root = $('#ixRoot'), rows = $$('.ix-row', root), links = $$('.ix-link', root), data = JSON.parse($('#ixData').textContent);
-    var card = $('#ixCard'), stage = $('.ix-stage', root), active = -1, timer = 0, pickT = 0, touched = false, inView = false;
-    function show(i) {
-      if (i === active) return;
-      active = i; var d = data[i];
-      rows.forEach(function (r, j) { r.classList.toggle('is-on', j === i); });
-      stage.style.setProperty('--ixc', d.c); root.style.setProperty('--ixc', d.c);
+  if (document.getElementById('r3Root')) (function () {
+    /* ───────── Industries: 3D ring ─────────
+       The front card is the selected industry and fills the example below. Drag the
+       ring, use the arrows, arrow keys or select a card. It turns on its own while on
+       screen until someone interacts (not with reduced motion). */
+    var root = $('#r3Root'), ring = $('#r3Ring'), stage = $('.r3-stage', root), cards = $$('.r3-card', ring);
+    var data = JSON.parse($('#ixData').textContent), N = cards.length, STEP = 360 / N;
+    var rot = 0, active = -1, timer = 0, pickT = 0, touched = false, inView = false;
+    function shade() {
+      cards.forEach(function (c, i) {
+        var a = ((i * STEP + rot) % 360 + 540) % 360 - 180, k = Math.cos(a * Math.PI / 180);   // 1 at the front, -1 behind
+        c.style.setProperty('--vis', (0.28 + 0.72 * Math.max(0, k)).toFixed(2));
+        c.style.setProperty('--bri', (0.82 + 0.18 * Math.max(0, k)).toFixed(2));
+        c.style.setProperty('--sat', (0.6 + 0.4 * Math.max(0, k)).toFixed(2));
+        c.tabIndex = Math.abs(a) < STEP / 2 ? 0 : -1;
+      });
+    }
+    function fill(i) {
+      var d = data[i];
+      root.style.setProperty('--ixc', d.c);
+      $('#r3Name').textContent = d.name; $('#r3Pos').textContent = (i < 9 ? '0' : '') + (i + 1) + ' / ' + N;
+      $('#r3Title').textContent = d.name; $('#r3Sub').textContent = d.sub; $('#r3Roles').textContent = 'For ' + d.roles.toLowerCase();
+      $('#r3Link').href = d.href;
       $('#ixInd').textContent = d.name; $('#ixProc').textContent = d.proc;
-      var act = d.badge === 'Action';
-      var b = $('#ixBadge'); b.textContent = d.badge; b.className = 'q-badge' + (act ? ' act' : '');
+      var act = d.badge === 'Action', b = $('#ixBadge'), card = $('#ixCard');
+      b.textContent = d.badge; b.className = 'q-badge' + (act ? ' act' : '');
       $('#ixQ').textContent = d.q; $('#ixChip').textContent = d.chip;
       $('#ixSel').textContent = act ? 'Complete before you continue' : 'Select one option';
       card.classList.toggle('is-act', act);
       $('#ixOpts').innerHTML = d.opts.map(function (o) { return '<span class="ix-opt">' + esc(o) + '</span>'; }).join('');
-      $('#ixRoles').textContent = 'For ' + d.roles.toLowerCase();
       card.classList.remove('swap'); void card.offsetWidth; if (!reduceMotion.matches) card.classList.add('swap');
-      clearTimeout(pickT);
-      pickT = setTimeout(function () { var o = $('#ixOpts .ix-opt'); if (o) o.classList.add('pick'); }, reduceMotion.matches ? 0 : 900);
+      clearTimeout(pickT); pickT = setTimeout(function () { var o = $('#ixOpts .ix-opt'); if (o) o.classList.add('pick'); }, reduceMotion.matches ? 0 : 900);
+    }
+    function frontIndex() { return ((Math.round(-rot / STEP) % N) + N) % N; }
+    function apply(animate) {
+      ring.classList.toggle('is-anim', !!animate);
+      ring.style.setProperty('--rot', rot + 'deg');
+      shade();
+      var f = frontIndex();
+      cards.forEach(function (c, i) { c.classList.toggle('is-front', i === f); c.setAttribute('aria-pressed', String(i === f)); });
+      if (f !== active) { active = f; fill(f); }
+    }
+    function goTo(i, focus) {
+      // Turn the short way round to card i.
+      var target = -i * STEP, d = ((target - rot) % 360 + 540) % 360 - 180;
+      rot += d; apply(true);
+      if (focus) cards[i].focus({ preventScroll: true });
       schedule();
     }
+    function step(dir, focus) { goTo((active + dir + N) % N, focus); }
     function stop() { touched = true; clearTimeout(timer); }
     function schedule() {
       clearTimeout(timer);
-      if (!touched && inView && !reduceMotion.matches && !document.hidden) timer = setTimeout(function () { show((active + 1) % data.length); }, 3200);
+      if (!touched && inView && !reduceMotion.matches && !document.hidden) timer = setTimeout(function () { step(1); }, 3400);
     }
-    links.forEach(function (a, i) {
-      // Real mouse movement only, so scrolling a row under a still pointer doesn't switch it.
-      a.addEventListener('pointermove', function (e) { if (e.pointerType === 'mouse' && i !== active) { stop(); show(i); } });
-      a.addEventListener('focus', function () { if (a.matches(':focus-visible')) { stop(); show(i); } });
-      // On touch, the first tap previews; a second tap on the same row follows the link.
-      a.addEventListener('pointerdown', function (e) { a.dataset.ptr = e.pointerType; });
-      a.addEventListener('click', function (e) { if (a.dataset.ptr && a.dataset.ptr !== 'mouse' && active !== i) { e.preventDefault(); stop(); show(i); } delete a.dataset.ptr; });
+    cards.forEach(function (c, i) {
+      c.addEventListener('click', function () { if (moved) return; stop(); goTo(i, true); });
+      c.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowRight') { e.preventDefault(); stop(); step(1, true); }
+        else if (e.key === 'ArrowLeft') { e.preventDefault(); stop(); step(-1, true); }
+      });
+    });
+    $$('.r3-arrow', root).forEach(function (b) { b.addEventListener('click', function () { stop(); step(+b.dataset.dir); }); });
+    // Drag to turn; release snaps to the nearest card.
+    var dragX = null, startRot = 0, moved = false;
+    stage.addEventListener('pointerdown', function (e) { if (e.button !== 0) return; dragX = e.clientX; startRot = rot; moved = false; stop(); });
+    window.addEventListener('pointermove', function (e) {
+      if (dragX === null) return;
+      var dx = e.clientX - dragX; if (Math.abs(dx) > 6) { moved = true; stage.classList.add('is-drag'); }
+      if (moved) { rot = startRot + dx * 0.25; apply(false); }
+    });
+    window.addEventListener('pointerup', function () {
+      if (dragX === null) return; dragX = null; stage.classList.remove('is-drag');
+      if (moved) { goTo(frontIndex()); setTimeout(function () { moved = false; }, 0); }
     });
     if ('IntersectionObserver' in window) new IntersectionObserver(function (en) { inView = en[0].isIntersecting; schedule(); }, { threshold: 0.3 }).observe(root);
     document.addEventListener('visibilitychange', schedule);
-    show(0);
+    apply(false);
   })();
   if (document.getElementById('capWheel')) (function () {
     /* ───────── Capability wheel ─────────

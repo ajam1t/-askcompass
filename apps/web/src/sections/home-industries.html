@@ -1,6 +1,7 @@
-<!-- ───────────── Industries: an editorial index with one live preview ─────────────
-     Big industry names on the left; the preview on the right becomes that industry's
-     guided question as you move over the list (or tap a name, or tab to it). -->
+<!-- ───────────── Industries: a 3D ring of twelve cards ─────────────
+     The card at the front is the selected industry; its guided example appears below.
+     Drag, use the arrows or arrow keys, or select a card. The ring turns slowly on its
+     own while on screen until someone interacts (never with reduced motion). -->
 <section class="section hind" id="industries" aria-labelledby="hind-title">
   <div class="wrap">
     <header class="hind-head">
@@ -8,62 +9,140 @@
       <h2 id="hind-title">Built for the teams who <span class="hin-hl">can’t afford to get it wrong</span></h2>
       <p class="section-lead">Twelve industries, one way of working: the right question, the right answer, the first time.</p>
     </header>
-    <div class="ix" id="ixRoot">
-      <ol class="ix-list">
-        <li class="ix-row is-on" style="--c:#2563EB" data-i="0">
-          <a class="ix-link" href="/solutions/compliance-governance" data-i="0"><span class="ix-n">01</span><span class="ix-name">Banking &amp; finance</span><span class="ix-sub">Card limits · KYC · disputes</span><span class="ix-go" aria-hidden="true">→</span></a>
-        </li>
-        <li class="ix-row" style="--c:#7c5cff" data-i="1">
-          <a class="ix-link" href="/solutions/compliance-governance" data-i="1"><span class="ix-n">02</span><span class="ix-name">Insurance</span><span class="ix-sub">Claims · renewals · endorsements</span><span class="ix-go" aria-hidden="true">→</span></a>
-        </li>
-        <li class="ix-row" style="--c:#0E9F8E" data-i="2">
-          <a class="ix-link" href="/solutions/compliance-governance" data-i="2"><span class="ix-n">03</span><span class="ix-name">Healthcare</span><span class="ix-sub">Admissions · consent · handovers</span><span class="ix-go" aria-hidden="true">→</span></a>
-        </li>
-        <li class="ix-row" style="--c:#0891b2" data-i="3">
-          <a class="ix-link" href="/solutions/customer-support" data-i="3"><span class="ix-n">04</span><span class="ix-name">Telecom</span><span class="ix-sub">Activation · outages · plan changes</span><span class="ix-go" aria-hidden="true">→</span></a>
-        </li>
-        <li class="ix-row" style="--c:#d97706" data-i="4">
-          <a class="ix-link" href="/solutions/customer-support" data-i="4"><span class="ix-n">05</span><span class="ix-name">Utilities</span><span class="ix-sub">Outages · meters · new connections</span><span class="ix-go" aria-hidden="true">→</span></a>
-        </li>
-        <li class="ix-row" style="--c:#e5487a" data-i="5">
-          <a class="ix-link" href="/solutions/process-documentation" data-i="5"><span class="ix-n">06</span><span class="ix-name">Government &amp; public sector</span><span class="ix-sub">Applications · permits · grievances</span><span class="ix-go" aria-hidden="true">→</span></a>
-        </li>
-        <li class="ix-row" style="--c:#ea580c" data-i="6">
-          <a class="ix-link" href="/solutions/operations" data-i="6"><span class="ix-n">07</span><span class="ix-name">Manufacturing</span><span class="ix-sub">Maintenance · quality · changeovers</span><span class="ix-go" aria-hidden="true">→</span></a>
-        </li>
-        <li class="ix-row" style="--c:#db2777" data-i="7">
-          <a class="ix-link" href="/solutions/customer-support" data-i="7"><span class="ix-n">08</span><span class="ix-name">Retail &amp; e-commerce</span><span class="ix-sub">Returns · refunds · order issues</span><span class="ix-go" aria-hidden="true">→</span></a>
-        </li>
-        <li class="ix-row" style="--c:#16a34a" data-i="8">
-          <a class="ix-link" href="/solutions/operations" data-i="8"><span class="ix-n">09</span><span class="ix-name">Logistics &amp; supply chain</span><span class="ix-sub">Dispatch · exceptions · proof of delivery</span><span class="ix-go" aria-hidden="true">→</span></a>
-        </li>
-        <li class="ix-row" style="--c:#4f46e5" data-i="9">
-          <a class="ix-link" href="/solutions/enterprise-automation" data-i="9"><span class="ix-n">10</span><span class="ix-name">IT &amp; technology</span><span class="ix-sub">Access · incidents · onboarding</span><span class="ix-go" aria-hidden="true">→</span></a>
-        </li>
-        <li class="ix-row" style="--c:#059669" data-i="10">
-          <a class="ix-link" href="/solutions/compliance-governance" data-i="10"><span class="ix-n">11</span><span class="ix-name">Pharma &amp; life sciences</span><span class="ix-sub">SOPs · deviations · batch records</span><span class="ix-go" aria-hidden="true">→</span></a>
-        </li>
-        <li class="ix-row" style="--c:#ca8a04" data-i="11">
-          <a class="ix-link" href="/solutions/employee-enablement" data-i="11"><span class="ix-n">12</span><span class="ix-name">BPO &amp; shared services</span><span class="ix-sub">Multi-client queues · onboarding</span><span class="ix-go" aria-hidden="true">→</span></a>
-        </li>
-      </ol>
-      <div class="ix-stage" aria-live="polite">
-        <div class="ix-glow" aria-hidden="true"></div>
-        <div class="ix-device">
-          <div class="ix-bar"><img src="/assets/brand/logo-64.webp" width="22" height="22" alt=""><b>ASK COMPASS</b><span class="ix-ind" id="ixInd">Banking &amp; finance</span></div>
-          <p class="ix-proc" id="ixProc">Temporary card limit increase</p>
-          <div class="ix-card" id="ixCard">
-            <span class="q-badge" id="ixBadge">Decision</span>
-            <p class="ix-q" id="ixQ">Has the customer passed the two-factor identity check?</p>
-            <span class="q-chip" id="ixChip">KYC policy §3.2</span>
-            <p class="q-sel" id="ixSel">Select one option</p>
-            <div class="ix-opts" id="ixOpts"><span class="ix-opt">Yes, verified</span><span class="ix-opt">No, start the call-back check</span></div>
-            <div class="q-btns"><span>← Back</span><span class="q-pf">SOP</span></div>
+
+    <div class="r3" id="r3Root">
+      <div class="r3-stage">
+        <div class="r3-floor" aria-hidden="true"></div>
+        <div class="r3-ring-el" id="r3Ring" role="group" aria-label="Industries">
+          <button type="button" class="r3-card" data-i="0" style="--i:0;--c:#2563EB" aria-pressed="true" aria-label="Banking &amp; finance">
+            <span class="r3-face">
+              <span class="r3-n">01</span>
+              <span class="r3-art" aria-hidden="true"><i class="r3-ring"></i><svg viewBox="0 0 24 24"><path d="M3 10 12 4l9 6M5 10v8M10 10v8M14 10v8M19 10v8M3 20h18"/></svg></span>
+              <b class="r3-name">Banking &amp; finance</b>
+              <small class="r3-sub">Card limits · KYC · disputes</small>
+            </span>
+          </button>
+          <button type="button" class="r3-card" data-i="1" style="--i:1;--c:#7c5cff" aria-pressed="false" aria-label="Insurance">
+            <span class="r3-face">
+              <span class="r3-n">02</span>
+              <span class="r3-art" aria-hidden="true"><i class="r3-ring"></i><svg viewBox="0 0 24 24"><path d="M12 3 4 6.5V11c0 4.6 3.4 8.6 8 9.9 4.6-1.3 8-5.3 8-9.9V6.5zM8.5 12l2.4 2.4L15.5 10"/></svg></span>
+              <b class="r3-name">Insurance</b>
+              <small class="r3-sub">Claims · renewals · endorsements</small>
+            </span>
+          </button>
+          <button type="button" class="r3-card" data-i="2" style="--i:2;--c:#0E9F8E" aria-pressed="false" aria-label="Healthcare">
+            <span class="r3-face">
+              <span class="r3-n">03</span>
+              <span class="r3-art" aria-hidden="true"><i class="r3-ring"></i><svg viewBox="0 0 24 24"><path d="M3 12h4l2-4 4 8 2-4h6"/></svg></span>
+              <b class="r3-name">Healthcare</b>
+              <small class="r3-sub">Admissions · consent · handovers</small>
+            </span>
+          </button>
+          <button type="button" class="r3-card" data-i="3" style="--i:3;--c:#0891b2" aria-pressed="false" aria-label="Telecom">
+            <span class="r3-face">
+              <span class="r3-n">04</span>
+              <span class="r3-art" aria-hidden="true"><i class="r3-ring"></i><svg viewBox="0 0 24 24"><path d="M12 21V11M8.5 7.5a5 5 0 0 1 7 0M6 5a8.5 8.5 0 0 1 12 0M12 11a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM8 21h8"/></svg></span>
+              <b class="r3-name">Telecom</b>
+              <small class="r3-sub">Activation · outages · plan changes</small>
+            </span>
+          </button>
+          <button type="button" class="r3-card" data-i="4" style="--i:4;--c:#d97706" aria-pressed="false" aria-label="Utilities">
+            <span class="r3-face">
+              <span class="r3-n">05</span>
+              <span class="r3-art" aria-hidden="true"><i class="r3-ring"></i><svg viewBox="0 0 24 24"><path d="M13 2 5 13h6l-1 9 8-11h-6z"/></svg></span>
+              <b class="r3-name">Utilities</b>
+              <small class="r3-sub">Outages · meters · new connections</small>
+            </span>
+          </button>
+          <button type="button" class="r3-card" data-i="5" style="--i:5;--c:#e5487a" aria-pressed="false" aria-label="Government &amp; public sector">
+            <span class="r3-face">
+              <span class="r3-n">06</span>
+              <span class="r3-art" aria-hidden="true"><i class="r3-ring"></i><svg viewBox="0 0 24 24"><path d="M4 20h16M6 20V11M10 20V11M14 20V11M18 20V11M3 11l9-6 9 6zM12 2v3"/></svg></span>
+              <b class="r3-name">Government &amp; public sector</b>
+              <small class="r3-sub">Applications · permits · grievances</small>
+            </span>
+          </button>
+          <button type="button" class="r3-card" data-i="6" style="--i:6;--c:#ea580c" aria-pressed="false" aria-label="Manufacturing">
+            <span class="r3-face">
+              <span class="r3-n">07</span>
+              <span class="r3-art" aria-hidden="true"><i class="r3-ring"></i><svg viewBox="0 0 24 24"><path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></span>
+              <b class="r3-name">Manufacturing</b>
+              <small class="r3-sub">Maintenance · quality · changeovers</small>
+            </span>
+          </button>
+          <button type="button" class="r3-card" data-i="7" style="--i:7;--c:#db2777" aria-pressed="false" aria-label="Retail &amp; e-commerce">
+            <span class="r3-face">
+              <span class="r3-n">08</span>
+              <span class="r3-art" aria-hidden="true"><i class="r3-ring"></i><svg viewBox="0 0 24 24"><path d="M6 7h12l1.5 13H4.5zM9 7a3 3 0 0 1 6 0"/></svg></span>
+              <b class="r3-name">Retail &amp; e-commerce</b>
+              <small class="r3-sub">Returns · refunds · order issues</small>
+            </span>
+          </button>
+          <button type="button" class="r3-card" data-i="8" style="--i:8;--c:#16a34a" aria-pressed="false" aria-label="Logistics &amp; supply chain">
+            <span class="r3-face">
+              <span class="r3-n">09</span>
+              <span class="r3-art" aria-hidden="true"><i class="r3-ring"></i><svg viewBox="0 0 24 24"><path d="M2 6h11v10H2zM13 10h4l3 3v3h-7zM6 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM17 19a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg></span>
+              <b class="r3-name">Logistics &amp; supply chain</b>
+              <small class="r3-sub">Dispatch · exceptions · proof of delivery</small>
+            </span>
+          </button>
+          <button type="button" class="r3-card" data-i="9" style="--i:9;--c:#4f46e5" aria-pressed="false" aria-label="IT &amp; technology">
+            <span class="r3-face">
+              <span class="r3-n">10</span>
+              <span class="r3-art" aria-hidden="true"><i class="r3-ring"></i><svg viewBox="0 0 24 24"><path d="M4 5h16v11H4zM2 19h20M9 9l-2 2 2 2M15 9l2 2-2 2"/></svg></span>
+              <b class="r3-name">IT &amp; technology</b>
+              <small class="r3-sub">Access · incidents · onboarding</small>
+            </span>
+          </button>
+          <button type="button" class="r3-card" data-i="10" style="--i:10;--c:#059669" aria-pressed="false" aria-label="Pharma &amp; life sciences">
+            <span class="r3-face">
+              <span class="r3-n">11</span>
+              <span class="r3-art" aria-hidden="true"><i class="r3-ring"></i><svg viewBox="0 0 24 24"><path d="M9 3h6M10 3v6L4.5 18.5A1.7 1.7 0 0 0 6 21h12a1.7 1.7 0 0 0 1.5-2.5L14 9V3M7.5 15h9"/></svg></span>
+              <b class="r3-name">Pharma &amp; life sciences</b>
+              <small class="r3-sub">SOPs · deviations · batch records</small>
+            </span>
+          </button>
+          <button type="button" class="r3-card" data-i="11" style="--i:11;--c:#ca8a04" aria-pressed="false" aria-label="BPO &amp; shared services">
+            <span class="r3-face">
+              <span class="r3-n">12</span>
+              <span class="r3-art" aria-hidden="true"><i class="r3-ring"></i><svg viewBox="0 0 24 24"><path d="M4 14v-2a8 8 0 0 1 16 0v2M4 14a2 2 0 0 0 2 2h1v-5H6a2 2 0 0 0-2 2zM20 14a2 2 0 0 1-2 2h-1v-5h1a2 2 0 0 1 2 2zM17 16v1a3 3 0 0 1-3 3h-2"/></svg></span>
+              <b class="r3-name">BPO &amp; shared services</b>
+              <small class="r3-sub">Multi-client queues · onboarding</small>
+            </span>
+          </button>
+        </div>
+      </div>
+      <div class="r3-ctrl">
+        <button type="button" class="r3-arrow" data-dir="-1" aria-label="Previous industry">←</button>
+        <p class="r3-count" aria-live="polite"><b id="r3Name">Banking &amp; finance</b><span id="r3Pos">01 / 12</span></p>
+        <button type="button" class="r3-arrow" data-dir="1" aria-label="Next industry">→</button>
+      </div>
+
+      <div class="r3-example">
+        <div class="r3-info">
+          <p class="r3-k">Example from</p>
+          <h3 id="r3Title">Banking &amp; finance</h3>
+          <p class="r3-tags" id="r3Sub">Card limits · KYC · disputes</p>
+          <p class="r3-for" id="r3Roles">For support agents · branch staff</p>
+          <a class="text-link" id="r3Link" href="/solutions/compliance-governance">Explore this solution →</a>
+        </div>
+        <div class="ix-stage">
+          <div class="ix-glow" aria-hidden="true"></div>
+          <div class="ix-device">
+            <div class="ix-bar"><img src="/assets/brand/logo-64.webp" width="22" height="22" alt=""><b>ASK COMPASS</b><span class="ix-ind" id="ixInd">Banking &amp; finance</span></div>
+            <p class="ix-proc" id="ixProc">Temporary card limit increase</p>
+            <div class="ix-card" id="ixCard">
+              <span class="q-badge" id="ixBadge">Decision</span>
+              <p class="ix-q" id="ixQ">Has the customer passed the two-factor identity check?</p>
+              <span class="q-chip" id="ixChip">KYC policy §3.2</span>
+              <p class="q-sel" id="ixSel">Select one option</p>
+              <div class="ix-opts" id="ixOpts"><span class="ix-opt">Yes, verified</span><span class="ix-opt">No, start the call-back check</span></div>
+              <div class="q-btns"><span>← Back</span><span class="q-pf">SOP</span></div>
+            </div>
           </div>
-          <p class="ix-roles" id="ixRoles">For support agents · branch staff</p>
         </div>
       </div>
     </div>
   </div>
-  <script type="application/json" id="ixData">[{"name": "Banking & finance", "c": "#2563EB", "badge": "Decision", "q": "Has the customer passed the two-factor identity check?", "chip": "KYC policy §3.2", "opts": ["Yes, verified", "No, start the call-back check"], "proc": "Temporary card limit increase", "roles": "Support agents · Branch staff"}, {"name": "Insurance", "c": "#7c5cff", "badge": "Decision", "q": "Is the claim date inside the active policy period?", "chip": "Claims manual §4.1", "opts": ["Yes, continue the claim", "No, explain the policy dates"], "proc": "First notice of loss", "roles": "Claims handlers · Underwriters"}, {"name": "Healthcare", "c": "#0E9F8E", "badge": "Action", "q": "Confirm the patient’s identity before treatment", "chip": "Patient safety SOP-07", "opts": ["Name and date of birth confirmed", "Wristband checked against the chart"], "proc": "Pre-procedure checklist", "roles": "Nurses · Front desk"}, {"name": "Telecom", "c": "#0891b2", "badge": "Decision", "q": "Has the recharge posted to the account?", "chip": "Mobile data troubleshooting", "opts": ["Yes, restart the device", "No, check the payment"], "proc": "No network after recharge", "roles": "Contact centre · Field engineers"}, {"name": "Utilities", "c": "#d97706", "badge": "Decision", "q": "Is an outage already reported for this area?", "chip": "Outage map", "opts": ["Yes, share the restoration time", "No, log a new outage"], "proc": "Power outage call", "roles": "Call centre · Line crews"}, {"name": "Government & public sector", "c": "#e5487a", "badge": "Decision", "q": "Are all the mandatory documents attached?", "chip": "Citizen charter §2", "opts": ["Yes, accept the application", "No, list what is missing"], "proc": "Application intake", "roles": "Counter staff · Case officers"}, {"name": "Manufacturing", "c": "#ea580c", "badge": "Action", "q": "Lock out the machine before maintenance", "chip": "Safety SOP-21 · LOTO", "opts": ["Power isolated and tagged", "Zero-energy test done"], "proc": "Planned maintenance", "roles": "Technicians · Shift supervisors"}, {"name": "Retail & e-commerce", "c": "#db2777", "badge": "Decision", "q": "Was the order delivered within the last 30 days?", "chip": "Returns policy", "opts": ["Yes, check the item condition", "No, offer repair or exchange"], "proc": "Handle a refund request", "roles": "Store staff · Support agents"}, {"name": "Logistics & supply chain", "c": "#16a34a", "badge": "Decision", "q": "Is the consignee available at the address?", "chip": "Delivery exceptions", "opts": ["Yes, capture proof of delivery", "No, reschedule the delivery"], "proc": "Last-mile delivery", "roles": "Drivers · Hub operators"}, {"name": "IT & technology", "c": "#4f46e5", "badge": "Decision", "q": "Does the system hold sensitive data?", "chip": "Access control policy", "opts": ["Yes, get data-owner approval", "No, grant the lowest access"], "proc": "Grant access to a system", "roles": "Service desk · IT admins"}, {"name": "Pharma & life sciences", "c": "#059669", "badge": "Action", "q": "Complete line clearance before the next batch", "chip": "SOP-114 · Line clearance", "opts": ["Previous batch materials removed", "QA sign-off recorded"], "proc": "Batch changeover", "roles": "Operators · QA reviewers"}, {"name": "BPO & shared services", "c": "#ca8a04", "badge": "Decision", "q": "Which client is this caller from?", "chip": "Client routing guide", "opts": ["Client A, banking flow", "Client B, retail flow"], "proc": "Inbound call routing", "roles": "Agents · Team leads"}]</script>
+  <script type="application/json" id="ixData">[{"name": "Banking & finance", "c": "#2563EB", "badge": "Decision", "q": "Has the customer passed the two-factor identity check?", "chip": "KYC policy §3.2", "opts": ["Yes, verified", "No, start the call-back check"], "proc": "Temporary card limit increase", "roles": "Support agents · Branch staff", "href": "/solutions/compliance-governance", "sub": "Card limits · KYC · disputes"}, {"name": "Insurance", "c": "#7c5cff", "badge": "Decision", "q": "Is the claim date inside the active policy period?", "chip": "Claims manual §4.1", "opts": ["Yes, continue the claim", "No, explain the policy dates"], "proc": "First notice of loss", "roles": "Claims handlers · Underwriters", "href": "/solutions/compliance-governance", "sub": "Claims · renewals · endorsements"}, {"name": "Healthcare", "c": "#0E9F8E", "badge": "Action", "q": "Confirm the patient’s identity before treatment", "chip": "Patient safety SOP-07", "opts": ["Name and date of birth confirmed", "Wristband checked against the chart"], "proc": "Pre-procedure checklist", "roles": "Nurses · Front desk", "href": "/solutions/compliance-governance", "sub": "Admissions · consent · handovers"}, {"name": "Telecom", "c": "#0891b2", "badge": "Decision", "q": "Has the recharge posted to the account?", "chip": "Mobile data troubleshooting", "opts": ["Yes, restart the device", "No, check the payment"], "proc": "No network after recharge", "roles": "Contact centre · Field engineers", "href": "/solutions/customer-support", "sub": "Activation · outages · plan changes"}, {"name": "Utilities", "c": "#d97706", "badge": "Decision", "q": "Is an outage already reported for this area?", "chip": "Outage map", "opts": ["Yes, share the restoration time", "No, log a new outage"], "proc": "Power outage call", "roles": "Call centre · Line crews", "href": "/solutions/customer-support", "sub": "Outages · meters · new connections"}, {"name": "Government & public sector", "c": "#e5487a", "badge": "Decision", "q": "Are all the mandatory documents attached?", "chip": "Citizen charter §2", "opts": ["Yes, accept the application", "No, list what is missing"], "proc": "Application intake", "roles": "Counter staff · Case officers", "href": "/solutions/process-documentation", "sub": "Applications · permits · grievances"}, {"name": "Manufacturing", "c": "#ea580c", "badge": "Action", "q": "Lock out the machine before maintenance", "chip": "Safety SOP-21 · LOTO", "opts": ["Power isolated and tagged", "Zero-energy test done"], "proc": "Planned maintenance", "roles": "Technicians · Shift supervisors", "href": "/solutions/operations", "sub": "Maintenance · quality · changeovers"}, {"name": "Retail & e-commerce", "c": "#db2777", "badge": "Decision", "q": "Was the order delivered within the last 30 days?", "chip": "Returns policy", "opts": ["Yes, check the item condition", "No, offer repair or exchange"], "proc": "Handle a refund request", "roles": "Store staff · Support agents", "href": "/solutions/customer-support", "sub": "Returns · refunds · order issues"}, {"name": "Logistics & supply chain", "c": "#16a34a", "badge": "Decision", "q": "Is the consignee available at the address?", "chip": "Delivery exceptions", "opts": ["Yes, capture proof of delivery", "No, reschedule the delivery"], "proc": "Last-mile delivery", "roles": "Drivers · Hub operators", "href": "/solutions/operations", "sub": "Dispatch · exceptions · proof of delivery"}, {"name": "IT & technology", "c": "#4f46e5", "badge": "Decision", "q": "Does the system hold sensitive data?", "chip": "Access control policy", "opts": ["Yes, get data-owner approval", "No, grant the lowest access"], "proc": "Grant access to a system", "roles": "Service desk · IT admins", "href": "/solutions/enterprise-automation", "sub": "Access · incidents · onboarding"}, {"name": "Pharma & life sciences", "c": "#059669", "badge": "Action", "q": "Complete line clearance before the next batch", "chip": "SOP-114 · Line clearance", "opts": ["Previous batch materials removed", "QA sign-off recorded"], "proc": "Batch changeover", "roles": "Operators · QA reviewers", "href": "/solutions/compliance-governance", "sub": "SOPs · deviations · batch records"}, {"name": "BPO & shared services", "c": "#ca8a04", "badge": "Decision", "q": "Which client is this caller from?", "chip": "Client routing guide", "opts": ["Client A, banking flow", "Client B, retail flow"], "proc": "Inbound call routing", "roles": "Agents · Team leads", "href": "/solutions/employee-enablement", "sub": "Multi-client queues · onboarding"}]</script>
 </section>

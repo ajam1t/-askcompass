@@ -85,11 +85,12 @@ function header(page) {
       ${megaMenu('mm-resources', 'Resources', NAV.resources, page.path)}
       <a href="/about"${cur('about')}>About</a>
       <a href="/contact"${cur('contact')}>Contact</a>
+      <a class="btn nav-cta-mobile nav-login-mobile" href="https://app.askcompass.in">Login</a>
       <a class="btn btn-primary nav-cta-mobile" href="/studio">Open Studio</a>
     </nav>
     <div class="header-actions">
-      <a class="btn btn-ghost btn-sm hdr-get" href="/contact">Get started</a>
-      <a class="btn btn-primary btn-sm" href="/studio">Open Studio</a>
+      <a class="btn btn-sm hdr-login" href="https://app.askcompass.in"><svg class="lk" viewBox="0 0 24 24" aria-hidden="true"><path class="lk-shackle" d="M8 11V8a4 4 0 0 1 8 0v3"/><rect x="5" y="11" width="14" height="10" rx="2.5"/><circle cx="12" cy="16" r="1.4"/></svg><span>Login</span></a>
+      <a class="btn btn-sm hdr-studio" href="/studio">Open Studio</a>
       <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mainNav" aria-label="Open menu"><span></span><span></span></button>
     </div>
   </div>
