@@ -9,7 +9,7 @@ customer workspaces. Anything marked **Target** is a design, not running code.
 |---|---|---|---|
 | Marketing site | `askcompass.in` → `www.askcompass.in` | Explain the product, platform, solutions, resources, contact | **Live** |
 | Public demo | `demo.askcompass.in` (also `/studio`, `/studio.html`) | No-login Studio with synthetic sample procedures | **Live at `/studio`**; subdomain needs DNS |
-| Central app entry | `app.askcompass.in` | Workspace discovery, then sign-in | **Placeholder** page at `/workspace`; no sign-in yet |
+| Central app entry | `app.askcompass.in` | Workspace discovery, then sign-in. The header **Login** button on every page links here | **Placeholder** page at `/workspace`; no sign-in yet; the subdomain needs DNS (section 7) |
 | Customer workspaces | `{company}.askcompass.in` | One organization's procedures, users and data | **Target**; unknown subdomains show “workspace not available” |
 
 ## 2. What is deployed today

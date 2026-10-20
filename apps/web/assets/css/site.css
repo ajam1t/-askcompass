@@ -713,3 +713,25 @@ h3 { font-size: 18px; line-height: 1.3; font-weight: 600; letter-spacing: -.01em
   .header-in { gap: 12px; }
   .main-nav > a, .nav-drop-btn { padding-inline: 7px; font-size: 14.5px; }
 }
+
+/* Header actions: animated Login and a gold Open Studio (every page) */
+.hdr-studio { background: linear-gradient(180deg, #F5C35E, #EBAA3C); color: var(--navy); border: 1px solid rgba(185, 122, 14, .35); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .5), 0 8px 20px rgba(212, 150, 40, .3); font-weight: 700; }
+.hdr-studio:hover { background: linear-gradient(180deg, #F8CD72, #EFB24A); }
+@property --la { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
+.hdr-login { position: relative; gap: 8px; padding: 0 18px 0 14px; border: 1.5px solid transparent; border-radius: var(--radius); color: var(--navy); font-weight: 650; isolation: isolate;
+  background: linear-gradient(#fff, #fff) padding-box, conic-gradient(from var(--la), #2563EB, #0E8A80, #EFB64A, #7c5cff, #2563EB) border-box;
+  animation: loginSpin 6s linear infinite; transition: box-shadow .3s, transform .2s; }
+@keyframes loginSpin { to { --la: 360deg; } }
+.hdr-login::after { content: ""; position: absolute; inset: -1.5px; z-index: -1; border-radius: inherit; background: conic-gradient(from var(--la), #2563EB, #0E8A80, #EFB64A, #7c5cff, #2563EB); filter: blur(10px); opacity: 0; transition: opacity .3s; }
+.hdr-login:hover { box-shadow: 0 8px 22px rgba(37, 99, 235, .18); }
+.hdr-login:hover::after { opacity: .45; }
+.hdr-login .lk { width: 17px; height: 17px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; overflow: visible; }
+.hdr-login .lk-shackle { transition: transform .35s var(--ease-spatial); transform-origin: 16px 11px; }
+.hdr-login:hover .lk-shackle, .hdr-login:focus-visible .lk-shackle { transform: translateY(-2.5px) rotate(18deg); }
+.main-nav > a.nav-login-mobile { display: none; }
+@media (max-width: 920px) {
+  .main-nav > a.nav-login-mobile { display: inline-flex; justify-content: center; margin-top: 12px; border: 1.5px solid var(--line-strong); background: #fff; color: var(--navy); }
+  .main-nav > a.nav-login-mobile + .nav-cta-mobile { margin-top: 8px; }
+}
+.main-nav > a.nav-cta-mobile:not(.nav-login-mobile) { background: linear-gradient(180deg, #F5C35E, #EBAA3C); color: var(--navy); }
+@media (prefers-reduced-motion: reduce) { .hdr-login { animation: none; } .hdr-login .lk-shackle { transition: none; } }
