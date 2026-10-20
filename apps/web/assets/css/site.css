@@ -101,10 +101,20 @@ h3 { font-size: 18px; line-height: 1.3; font-weight: 600; letter-spacing: -.01em
 .brand-mark { width: 46px; height: 46px; object-fit: contain; flex: none; }
 .brand-word { font-weight: 750; font-size: 21px; letter-spacing: .08em; color: var(--navy); }
 .main-nav { display: flex; align-items: center; gap: 4px; margin-left: 12px; }
-.main-nav > a, .nav-drop-btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 12px; border-radius: 8px; border: 0; background: none; text-decoration: none; font-size: 15px; font-weight: 500; color: var(--ink-2); cursor: pointer; transition: color .2s, background .2s; }
-.main-nav > a:hover, .nav-drop-btn:hover, .nav-drop-btn[aria-expanded="true"] { color: var(--ink); background: var(--bg-blue); }
+.main-nav > a, .nav-drop-link { display: inline-flex; align-items: center; gap: 6px; padding: 8px 12px; border-radius: 8px; border: 0; background: none; text-decoration: none; font-size: 15px; font-weight: 500; color: var(--ink-2); cursor: pointer; transition: color .2s, background .2s; }
+.main-nav > a:hover { color: var(--ink); background: var(--bg-blue); }
+.main-nav > a[aria-current="page"], .nav-drop-link.is-current { color: var(--ink); }
+/* Platform, Solutions, Resources: the label opens the overview page, the arrow (or a mouse hover) the menu */
+.nav-drop-top { display: inline-flex; align-items: center; border-radius: 8px; transition: background .2s; }
+.nav-drop-top:hover, .nav-drop.is-open .nav-drop-top { background: var(--bg-blue); }
+.nav-drop-top:hover .nav-drop-link, .nav-drop.is-open .nav-drop-link { color: var(--ink); }
+.main-nav .nav-drop-link { padding-right: 3px; border-radius: 8px 0 0 8px; }
+.nav-drop-btn { display: inline-grid; place-items: center; align-self: stretch; padding: 0 11px 0 5px; border: 0; border-radius: 0 8px 8px 0; background: none; color: var(--ink-2); cursor: pointer; }
+.nav-drop-btn:hover, .nav-drop-btn[aria-expanded="true"] { color: var(--ink); }
+.nav-drop-btn:focus-visible, .nav-drop-link:focus-visible { outline: 2px solid var(--blue); outline-offset: -2px; }
 .chev { width: 6px; height: 6px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: translateY(-2px) rotate(45deg); transition: transform .2s; }
-.nav-drop-btn[aria-expanded="true"] .chev { transform: translateY(1px) rotate(225deg); }
+.nav-drop-btn[aria-expanded="true"] .chev { transform: translateY(2px) rotate(225deg); }
+.nav-drop-menu::before { content: ""; position: absolute; left: 0; right: 0; top: -12px; height: 12px; }
 .nav-drop { position: relative; }
 .nav-drop-menu { position: absolute; top: calc(100% + 8px); left: -8px; width: 280px; padding: 6px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow-2); opacity: 0; visibility: hidden; transform: translateY(-4px); transition: opacity .18s, transform .18s var(--ease), visibility .18s; }
 .nav-drop.is-open .nav-drop-menu { opacity: 1; visibility: visible; transform: none; }
@@ -421,7 +431,11 @@ h3 { font-size: 18px; line-height: 1.3; font-weight: 600; letter-spacing: -.01em
   .compass-stage { margin: 0 auto; max-width: 680px; aspect-ratio: 1 / .78; }
   .main-nav { display: none; position: absolute; left: 0; right: 0; top: 100%; flex-direction: column; align-items: stretch; gap: 2px; margin: 0; padding: 12px var(--gutter) 20px; background: var(--bg); border-bottom: 1px solid var(--line); box-shadow: 0 20px 40px rgba(16, 40, 76, .08); }
   .main-nav.is-open { display: flex; }
-  .main-nav > a, .nav-drop-btn { padding: 14px 8px; font-size: 16px; width: 100%; justify-content: space-between; }
+  .main-nav > a, .nav-drop-link { padding: 14px 8px; font-size: 16px; width: 100%; justify-content: space-between; }
+  .nav-drop-top { display: flex; width: 100%; }
+  .main-nav .nav-drop-link { flex: 1; border-radius: 8px; }
+  .nav-drop-btn { width: 48px; padding: 0; border-radius: 8px; border-left: 1px solid var(--line); }
+  .nav-drop-top:hover { background: none; }
   .nav-drop-menu { position: static; width: auto; box-shadow: none; border: 0; padding: 0 0 0 8px; display: none; opacity: 1; visibility: visible; transform: none; }
   .nav-drop.is-open .nav-drop-menu { display: block; }
   .main-nav .nav-cta-mobile { display: inline-flex; margin-top: 10px; justify-content: center; color: var(--on-navy); }
@@ -694,11 +708,11 @@ h3 { font-size: 18px; line-height: 1.3; font-weight: 600; letter-spacing: -.01em
 .nav-ind { display: none; }
 @media (min-width: 921px) {
   .main-nav { position: relative; }
-  .main-nav > a, .nav-drop-btn { position: relative; z-index: 1; }
+  .main-nav > a, .nav-drop-top { position: relative; z-index: 1; }
   .nav-ind { display: block; position: absolute; z-index: 0; left: 0; top: 50%; height: 38px; margin-top: -19px; width: var(--w, 0); border-radius: 8px; background: var(--bg-blue); opacity: 0; pointer-events: none;
     transform: translateX(var(--x, 0)); transition: transform .32s var(--ease-spatial), width .32s var(--ease-spatial), opacity .2s; }
   .main-nav.ind-on .nav-ind { opacity: 1; }
-  .main-nav.ind-on > a:hover, .main-nav.ind-on .nav-drop-btn:hover { background: transparent; }
+  .main-nav.ind-on > a:hover, .main-nav.ind-on .nav-drop-top:hover, .main-nav.ind-on .nav-drop.is-open .nav-drop-top { background: transparent; }
   .is-home .nav-ind { background: rgba(255, 255, 255, .1); }
 }
 @media (prefers-reduced-motion: reduce) { .nav-ind { transition: opacity .2s; } }
@@ -714,11 +728,15 @@ h3 { font-size: 18px; line-height: 1.3; font-weight: 600; letter-spacing: -.01em
   .brand-word { font-size: 18px; }
   .brand-mark { width: 40px; height: 40px; }
   .main-nav { margin-left: 4px; }
-  .main-nav > a, .nav-drop-btn { padding-inline: 9px; }
+  .main-nav > a, .nav-drop-link { padding-inline: 9px; }
+  .main-nav .nav-drop-link { padding-right: 2px; }
+  .nav-drop-btn { padding: 0 8px 0 4px; }
 }
 @media (max-width: 1000px) and (min-width: 921px) {
   .header-in { gap: 12px; }
-  .main-nav > a, .nav-drop-btn { padding-inline: 7px; font-size: 14.5px; }
+  .main-nav > a, .nav-drop-link { padding-inline: 7px; font-size: 14.5px; }
+  .main-nav .nav-drop-link { padding-right: 1px; }
+  .nav-drop-btn { padding: 0 6px 0 3px; }
 }
 
 /* Header actions: animated Login and a gold Open Studio (every page) */

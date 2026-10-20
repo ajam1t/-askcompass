@@ -38,14 +38,36 @@
     menuBtn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
   }
   if (menuBtn) menuBtn.addEventListener('click', function () { setMenu(!nav.classList.contains('is-open')); });
+  // The section label is a link to its overview page. The arrow beside it opens the menu
+  // (click, Enter, Space or ArrowDown), and on desktop a mouse hover opens it too.
+  var hoverable = window.matchMedia('(min-width: 921px) and (hover: hover)');
   drops.forEach(function (d) {
-    var b = $('.nav-drop-btn', d);
-    b.addEventListener('click', function (e) {
-      e.stopPropagation();
-      var open = !d.classList.contains('is-open');
-      closeDrops(d);
+    var b = $('.nav-drop-btn', d), leaveT = null, byHover = false;
+    function setOpen(open) {
+      if (open) closeDrops(d);
       d.classList.toggle('is-open', open);
       b.setAttribute('aria-expanded', String(open));
+      if (!open) byHover = false;
+    }
+    b.addEventListener('click', function (e) {
+      e.stopPropagation();
+      // A click on the arrow keeps a hover-opened menu open instead of closing it.
+      if (byHover && d.classList.contains('is-open')) { byHover = false; return; }
+      setOpen(!d.classList.contains('is-open'));
+    });
+    b.addEventListener('keydown', function (e) {
+      if (e.key !== 'ArrowDown') return;
+      e.preventDefault(); setOpen(true);
+      var first = $('.nav-drop-menu a', d); if (first) first.focus();
+    });
+    d.addEventListener('pointerenter', function (e) {
+      if (e.pointerType !== 'mouse' || !hoverable.matches) return;
+      clearTimeout(leaveT);
+      if (!d.classList.contains('is-open')) { setOpen(true); byHover = true; }
+    });
+    d.addEventListener('pointerleave', function (e) {
+      if (e.pointerType !== 'mouse' || !byHover) return;
+      leaveT = setTimeout(function () { setOpen(false); }, 220);
     });
   });
   if (nav) $$('a', nav).forEach(function (a) { a.addEventListener('click', function () { setMenu(false); closeDrops(); }); });
@@ -137,7 +159,7 @@
     var wide = window.matchMedia('(min-width: 921px)');
     var ind = el('span', { 'class': 'nav-ind', 'aria-hidden': 'true' });
     nav.insertBefore(ind, nav.firstChild);
-    var items = $$(':scope > a:not(.nav-cta-mobile), .nav-drop-btn', nav);
+    var items = $$(':scope > a:not(.nav-cta-mobile), .nav-drop-top', nav);
     function move(item) {
       if (!wide.matches) return;
       var n = nav.getBoundingClientRect(), r = item.getBoundingClientRect();
@@ -147,7 +169,7 @@
     }
     items.forEach(function (it) {
       it.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') move(it); });
-      it.addEventListener('focus', function () { if (it.matches(':focus-visible')) move(it); });
+      it.addEventListener('focusin', function () { if (it.matches(':focus-visible, :has(:focus-visible)')) move(it); });
     });
     nav.addEventListener('pointerleave', function () { nav.classList.remove('ind-on'); });
     nav.addEventListener('focusout', function (e) { if (!nav.contains(e.relatedTarget)) nav.classList.remove('ind-on'); });
