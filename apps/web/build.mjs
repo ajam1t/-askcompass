@@ -60,10 +60,12 @@ ${ld.map((o) => `<script type="application/ld+json">${JSON.stringify(o)}</script
 </head>`;
 }
 
-function megaMenu(id, label, group, active) {
+// The label opens the section's overview page; the arrow (or hovering with a mouse) opens the menu.
+function megaMenu(id, label, group, active, inSection) {
   const items = group.items.map((i) => `<a href="${i.href}"${i.href === active ? ' aria-current="page"' : ''}><b>${esc(i.label)}</b><small>${esc(i.desc)}</small></a>`).join('');
+  const here = group.overview.href === active ? ' aria-current="page"' : '';
   return `<div class="nav-drop${group.mega ? ' nav-mega' : ''}">
-        <button class="nav-drop-btn" type="button" aria-expanded="false" aria-controls="${id}">${esc(label)} <span class="chev" aria-hidden="true"></span></button>
+        <span class="nav-drop-top"><a class="nav-drop-link${inSection ? ' is-current' : ''}" href="${group.overview.href}"${here}>${esc(label)}</a><button class="nav-drop-btn" type="button" aria-expanded="false" aria-controls="${id}" aria-label="${esc(label)} menu"><span class="chev" aria-hidden="true"></span></button></span>
         <div class="nav-drop-menu${group.mega ? ' mega' : ''}" id="${id}">
           <div class="mega-grid">${items}</div>
           ${group.overview ? `<a class="mega-foot" href="${group.overview.href}">${esc(group.overview.label)} <span aria-hidden="true">→</span></a>` : ''}
@@ -82,9 +84,9 @@ function header(page) {
     </a>
     <nav class="main-nav" id="mainNav" aria-label="Main">
       <a href="/"${cur('home')}>Home</a>
-      ${megaMenu('mm-platform', 'Platform', NAV.platform, page.path)}
-      ${megaMenu('mm-solutions', 'Solutions', NAV.solutions, page.path)}
-      ${megaMenu('mm-resources', 'Resources', NAV.resources, page.path)}
+      ${megaMenu('mm-platform', 'Platform', NAV.platform, page.path, page.section === 'platform')}
+      ${megaMenu('mm-solutions', 'Solutions', NAV.solutions, page.path, page.section === 'solutions')}
+      ${megaMenu('mm-resources', 'Resources', NAV.resources, page.path, page.section === 'resources')}
       <a href="/about"${cur('about')}>About</a>
       <a href="/contact"${cur('contact')}>Contact</a>
       <a class="btn nav-cta-mobile nav-login-mobile" href="https://app.askcompass.in">Login</a>
