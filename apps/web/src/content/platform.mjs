@@ -6,47 +6,9 @@ const page = (o) => o;
 
 export const PLATFORM = {
   overview: {
-    title: 'Platform', eyebrow: 'Platform',
-    h1: 'One navigation system for complex work.',
-    lead: 'Ask Compass connects what people need to know, the decisions they face and the steps they take, so a procedure becomes something you can follow rather than something you have to interpret.',
-    description: 'How the Ask Compass platform connects knowledge, decisions, guided work and automation, with governance and analytics across every procedure.',
-    render: ({ flow, statusPill, legend, esc, section, PLATFORM }) => `
-<section class="section section-tight"><div class="wrap">
-  <div class="section-head"><p class="eyebrow">Architecture</p><h2>Four layers, held together by governance and analytics.</h2>
-  <p class="section-lead">Every procedure is stored once, as a structured definition. The same definition drives the guided steps, the process map, the approval history and the usage reports.</p></div>
-  <div class="arch" role="img" aria-label="Knowledge feeds decisions, decisions shape guided work, and guided work can trigger automation. Governance and analytics span all four layers.">
-    <div class="arch-row">
-      ${[['Knowledge', 'Procedures, policies and source documents people can trust.'], ['Decisions', 'Questions and rules that choose the right path.'], ['Guided work', 'Steps, checklists and exceptions, one at a time.'], ['Automation', 'Actions software can take, with human checks.']].map((l, i) => `<div class="arch-node"><span class="arch-n">${String(i + 1).padStart(2, '0')}</span><h3>${l[0]}</h3><p>${l[1]}</p></div>`).join('<span class="arch-link" aria-hidden="true"></span>')}
-    </div>
-    <div class="arch-span"><b>Governance</b><span>Drafts, review, approval, versions, ownership and audit history</span></div>
-    <div class="arch-span arch-span-2"><b>Analytics</b><span>Starts, completions, drop-offs, restarts and feedback by step</span></div>
-  </div>
-</div></section>
-
-<section class="section section-alt"><div class="wrap split">
-  <div class="split-l"><p class="eyebrow">How it works</p><h2>Ask, navigate, act.</h2><p class="section-lead">A person describes the task. Ask Compass finds the approved procedure, asks only the questions that decide the path, and walks through the steps that apply.</p></div>
-  <div class="split-r">${flow([
-    { type: 'action', label: 'Ask: “How do I request new equipment?”' },
-    { type: 'source', label: 'Find the approved procedure', note: 'Equipment request · v3.2 · owner: IT Operations' },
-    { type: 'decision', label: 'Is manager approval required?', alt: 'No → submit directly' },
-    { type: 'approval', label: 'Get manager approval', note: 'Exception: manager away → route to delegate' },
-    { type: 'end', label: 'Request submitted and recorded' }
-  ], 'Ask, navigate, act')}</div>
-</div></section>
-
-<section class="section"><div class="wrap">
-  <div class="section-head"><p class="eyebrow">Capabilities</p><h2>Eleven capabilities, one model.</h2>
-  <p class="section-lead">Each page explains what the capability does and marks every feature with its real status.</p></div>
-  <ul class="cap-index">${PLATFORM.pages.map((p) => {
-    const counts = p.groups.flatMap((g) => g.items).reduce((a, i) => (a[i[1]] = (a[i[1]] || 0) + 1, a), {});
-    return `<li><a href="/platform/${p.slug}"><span class="cap-mod">${esc(p.module)}</span><b>${esc(p.title)}</b><span>${esc(p.navDesc)}</span>
-      <span class="cap-status">${Object.keys(counts).map((k) => `${statusPill(k)}<i>${counts[k]}</i>`).join('')}</span></a></li>`;
-  }).join('')}</ul>
-  ${legend()}
-</div></section>
-
-${section('why')}
-`
+    // The overview page itself is rendered by platform-page.mjs.
+    title: 'Ask Compass Platform | Guided Workflows, Procedures & Process Intelligence', fullTitle: true,
+    description: 'The Ask Compass platform: guided procedures, a workflow builder, SOP maps, knowledge search, analytics and governance, built on one approved definition of every procedure.'
   },
 
   pages: [

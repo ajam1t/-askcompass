@@ -8,6 +8,7 @@ import { fileURLToPath } from 'node:url';
 
 import { SITE, NAV, FOOTER, STATUS } from './src/content/site.mjs';
 import { PLATFORM } from './src/content/platform.mjs';
+import { renderPlatformOverview } from './src/content/platform-page.mjs';
 import { SOLUTIONS } from './src/content/solutions.mjs';
 import { GUIDES, FAQ } from './src/content/resources.mjs';
 import { PAGES } from './src/content/pages.mjs';
@@ -23,7 +24,7 @@ const absolute = (path) => SITE.origin + (path === '/' ? '/' : path);
 const BRAND_MARK = `<img class="brand-mark" src="/assets/brand/logo-128.webp" width="46" height="46" alt="">`;
 
 function head(page) {
-  const title = page.path === '/' ? page.title : `${page.title} · Ask Compass`;
+  const title = page.path === '/' || page.fullTitle ? page.title : `${page.title} · Ask Compass`;
   const ld = [page.jsonLd, page.crumbs && breadcrumbLd(page)].filter(Boolean);
   return `<!doctype html>
 <html lang="en">
@@ -270,9 +271,13 @@ add({
 });
 
 add({
-  ...PLATFORM.overview, path: '/platform', section: 'platform', crumbs: [{ label: 'Platform', href: '/platform' }],
-  body: pageHero({ ...PLATFORM.overview, crumbs: [{ label: 'Platform' }] }) + PLATFORM.overview.render({ flow, statusPill, legend, esc, section, PLATFORM }) +
-    cta({ title: 'Try the platform on a sample procedure.', text: 'Studio is the public demo. It runs in your browser with sample data.', primary: { label: 'Open Studio', href: '/studio' }, secondary: { label: 'Send a business enquiry', href: '/contact' } })
+  ...PLATFORM.overview, path: '/platform', section: 'platform', bodyClass: 'is-platform', crumbs: [{ label: 'Platform', href: '/platform' }],
+  styles: '<link rel="stylesheet" href="/assets/css/platform.css">',
+  jsonLd: { '@context': 'https://schema.org', '@type': 'WebPage', name: PLATFORM.overview.title, description: PLATFORM.overview.description, url: absolute('/platform'),
+    publisher: { '@type': 'Organization', name: 'Ask Compass', url: SITE.origin + '/' },
+    mainEntity: { '@type': 'ItemList', name: 'Ask Compass platform capabilities', itemListElement: PLATFORM.pages.map((p, i) => ({ '@type': 'ListItem', position: i + 1, name: p.title, url: absolute(`/platform/${p.slug}`) })) } },
+  scripts: ['<script src="/assets/js/platform.js" defer></script>'],
+  body: renderPlatformOverview({ esc, statusPill, crumbsHtml: breadcrumbs({ crumbs: [{ label: 'Platform' }] }), PLATFORM, SOLUTIONS })
 });
 PLATFORM.pages.forEach((p) => add(renderCapability(p)));
 
