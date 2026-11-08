@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DigiKhelo · One World. Infinite Games.</title>
+<meta name="description" content="DigiKhelo is a browser gaming universe: explore worlds and play original racing, action, sports, puzzle and strategy games instantly. No login, no installs.">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#05090F">
+<meta property="og:title" content="DigiKhelo · One World. Infinite Games.">
+<meta property="og:description" content="Explore extraordinary worlds and play original browser games instantly. No login. Just play.">
+<meta property="og:type" content="website">
+<link rel="icon" href="/digikhelo/art/icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="/digikhelo/css/dk.css">
+<script type="module" src="/digikhelo/js/app.js"></script>
+</head>
+<body>
+<a class="dk-skip" href="#main">Skip to content</a>
+<header class="dk-head" id="dkHead">
+  <a class="dk-logo" href="#/" aria-label="DigiKhelo home">
+    <img src="/digikhelo/art/icon.svg" width="40" height="40" alt="">
+    <span><b>Digi<i>Khelo</i></b><small>Play · Explore · Compete</small></span>
+  </a>
+  <nav class="dk-nav" aria-label="Main">
+    <a href="#/worlds" data-nav="worlds">Worlds</a>
+    <a href="#/games" data-nav="games">Games</a>
+    <a href="#/ai" data-nav="ai">AI Worlds</a>
+    <a href="#/multiplayer" data-nav="multiplayer">Multiplayer</a>
+    <a href="#/tournaments" data-nav="tournaments">Tournaments</a>
+    <a href="#/create" data-nav="create">Create</a>
+  </nav>
+  <form class="dk-search" role="search" id="dkSearch">
+    <label class="sr-only" for="dkQ">Search games and worlds</label>
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg>
+    <input id="dkQ" type="search" placeholder="Search games, worlds…" autocomplete="off">
+  </form>
+  <button class="dk-icon-btn dk-search-btn" type="button" id="dkSearchBtn" aria-label="Search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/></svg></button>
+  <button class="dk-icon-btn" type="button" id="dkSettingsBtn" aria-label="Settings" aria-haspopup="dialog"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg></button>
+</header>
+
+<main id="main" tabindex="-1"><noscript><div class="dk-noscript"><h1>DigiKhelo</h1><p>DigiKhelo's games run in your browser and need JavaScript. Turn it on to start playing.</p></div></noscript></main>
+
+<nav class="dk-tabs" aria-label="Sections">
+  <a href="#/" data-tab="home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11 12 4l9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>Home</a>
+  <a href="#/worlds" data-tab="worlds"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9S14.5 18.4 12 21c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg>Worlds</a>
+  <a href="#/games" data-tab="games"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12a4 4 0 0 1 3.9 4.8l-.9 4.3a2.4 2.4 0 0 1-4.2 1L15 16H9l-1.8 2.1a2.4 2.4 0 0 1-4.2-1l-.9-4.3A4 4 0 0 1 6 8z"/><path d="M8 11v3M6.5 12.5h3M15.5 12h.01M17.5 13.5h.01"/></svg>Games</a>
+  <a href="#/ai" data-tab="ai"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.8 4.7 4.7 1.8-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"/><path d="M18 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/></svg>AI</a>
+  <a href="#/more" data-tab="more"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>More</a>
+</nav>
+
+<div class="dk-play" id="dkPlay" hidden></div>
+<div class="dk-sheet" id="dkSheet" hidden></div>
+</body>
+</html>
