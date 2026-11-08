@@ -104,6 +104,28 @@
       "has": [
         {
           "type": "host",
+          "value": "nyotaa.askcompass.in"
+        }
+      ],
+      "destination": "/nyotaa",
+      "permanent": false
+    },
+    {
+      "source": "/((?!nyotaa).+)",
+      "has": [
+        {
+          "type": "host",
+          "value": "nyotaa.askcompass.in"
+        }
+      ],
+      "destination": "/nyotaa/$1",
+      "permanent": false
+    },
+    {
+      "source": "/",
+      "has": [
+        {
+          "type": "host",
           "value": "app.askcompass.in"
         }
       ],
@@ -138,6 +160,10 @@
         {
           "type": "host",
           "value": "ceo.askcompass.in"
+        },
+        {
+          "type": "host",
+          "value": "nyotaa.askcompass.in"
         }
       ],
       "destination": "/workspace/unavailable",

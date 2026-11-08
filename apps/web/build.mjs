@@ -12,6 +12,8 @@ import { renderPlatformOverview } from './src/content/platform-page.mjs';
 import { renderSolutionsOverview, META as SOL_META } from './src/content/solutions-page.mjs';
 import { ICONS, CAPS, GROUPS } from './src/content/platform-page.mjs';
 import { renderPricing, PRICING_FAQ } from './src/content/pricing-page.mjs';
+import { renderHome as nyotaaHome, renderLegal as nyotaaLegal } from './nyotaa/render.mjs';
+import { SITE as NYOTAA_SITE } from './nyotaa/brand.config.mjs';
 import { SOLUTIONS } from './src/content/solutions.mjs';
 import { GUIDES, FAQ } from './src/content/resources.mjs';
 import { PAGES } from './src/content/pages.mjs';
@@ -377,6 +379,14 @@ for (const p of pages) {
   writeFileSync(file, layout(p));
 }
 for (const f of ['studio.html', 'favicon.ico', 'assets']) cpSync(join(ROOT, f), join(OUT, f), { recursive: true });
+
+// NYOTAA: a separate brand with its own pages, styles and scripts (see nyotaa/README.md).
+// It shares nothing visible with Ask Compass; its path and domain come from nyotaa/brand.config.mjs.
+const NY = join(OUT, NYOTAA_SITE.basePath.replace(/^\//, '') || 'nyotaa');
+mkdirSync(NY, { recursive: true });
+writeFileSync(join(NY, 'index.html'), nyotaaHome());
+for (const kind of ['privacy', 'terms']) { mkdirSync(join(NY, kind), { recursive: true }); writeFileSync(join(NY, kind, 'index.html'), nyotaaLegal(kind)); }
+cpSync(join(ROOT, 'nyotaa/assets'), join(NY, 'assets'), { recursive: true });
 
 const indexable = pages.filter((p) => !p.noindex);
 writeFileSync(join(OUT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>
